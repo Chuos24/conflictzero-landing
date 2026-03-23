@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Zero - Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; }
+        .header { padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #f5f5f5; }
+        .logo-icon { width: 40px; height: 40px; border: 2px solid #c9a961; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #c9a961; font-weight: 700; }
+        .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 2px; }
+        .logo-text span { color: #c9a961; font-weight: 400; }
+        .main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 48px; }
+        .login-card { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 48px; width: 100%; max-width: 420px; }
+        .login-header { text-align: center; margin-bottom: 32px; }
+        .login-header h1 { font-size: 32px; font-weight: 500; margin-bottom: 8px; }
+        .login-header p { color: #888; font-size: 14px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 8px; }
+        .form-group input { width: 100%; padding: 14px 16px; background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 8px; color: #f5f5f5; font-size: 15px; }
+        .form-group input:focus { outline: none; border-color: #c9a961; }
+        .error-message { display: none; background: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; color: #ff6b6b; font-size: 13px; }
+        .error-message.visible { display: block; }
+        .btn-submit { width: 100%; padding: 16px; background: #c9a961; border: none; border-radius: 8px; color: #0a0a0a; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; }
+        .btn-submit:hover:not(:disabled) { background: #e8d5a3; }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-footer { text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a2a; }
+        .login-footer p { color: #888; font-size: 13px; }
+        .login-footer a { color: #c9a961; text-decoration: none; }
+        .footer { padding: 24px 48px; text-align: center; border-top: 1px solid #2a2a2a; }
+        .footer p { color: #888; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">CZ</div>
+            <span class="logo-text">CONFLICT<span>ZERO</span></span>
+        </a>
+        <a href="index.html" style="color: #888; text-decoration: none; font-size: 14px;">← Volver al sitio</a>
+    </header>
+    
+    <main class="main">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Acceso de Miembros</h1>
+                <p>Ingrese sus credenciales para continuar</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="usuario@empresa.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submitBtn">Acceder</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>¿No tiene cuenta? <a href="index.html#contact">Solicitar acceso</a></p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>© 2026 Conflict Zero. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script>
+        const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
+        
+        const token = localStorage.getItem('cz_token');
+        if (token) {
+            fetch(\`\${API_BASE}/auth/me\`, {
+                headers: { 'Authorization': \`Bearer \${token}\` }
+            }).then(r => {
+                if (r.ok) window.location.href = 'panel.html';
+            }).catch(() => {});
+        }
+        
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('submitBtn');
+            const error = document.getElementById('errorMessage');
+            
+            btn.disabled = true;
+            btn.textContent = 'Verificando...';
+            error.classList.remove('visible');
+            
+            try {
+                const response = await fetch(\`\${API_BASE}/auth/login\`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Credenciales incorrectas');
+                }
+                
+                localStorage.setItem('cz_token', data.access_token);
+                localStorage.setItem('cz_user', JSON.stringify({
+                    email: email,
+                    loginTime: new Date().toISOString()
+                }));
+                
+                window.location.href = 'panel.html';
+                
+            } catch (err) {
+                error.textContent = err.message;
+                error.classList.add('visible');
+                btn.disabled = false;
+                btn.textContent = 'Acceder';
+            }
+        }
+    </script>
+</body>
+</html>
