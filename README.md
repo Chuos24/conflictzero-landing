@@ -13,3 +13,4 @@ Landing page con login funcional y dashboard para verificación de RUCs.
 Conectado a Vercel para deploy automático en cada push a main.
 
 # Trigger deploy Tue Mar 24 06:17:48 AM CST 2026
+Redeploy: 1774304816
