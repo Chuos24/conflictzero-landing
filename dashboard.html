@@ -614,8 +614,10 @@
         </div>
     </main>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         const API_BASE = 'https://conflictzero-backend1.onrender.com';
+        const { jsPDF } = window.jspdf;
         
         let history = [];
         let consultasUsadas = 0;
@@ -756,55 +758,136 @@
                 return;
             }
             
-            const certData = {
-                ruc: lastResult.ruc,
-                razon_social: lastResult.razon_social,
-                score: lastResult.score,
-                estado: lastResult.estado,
-                fecha: new Date().toLocaleDateString('es-PE', { 
-                    year: 'numeric', month: 'long', day: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                }),
-                cert_id: 'CZ-' + Date.now()
-            };
+            const certId = 'CZ-' + Date.now();
+            const fecha = new Date().toLocaleDateString('es-PE', { 
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+            const hora = new Date().toLocaleTimeString('es-PE', { 
+                hour: '2-digit', minute: '2-digit'
+            });
             
-            // Crear contenido del certificado
-            const certContent = `
-CERTIFICADO DE VERIFICACIÓN - CONFLICT ZERO
-===========================================
-
-N° Certificado: ${certData.cert_id}
-Fecha de emisión: ${certData.fecha}
-
-DATOS DE LA CONSULTA
---------------------
-RUC: ${certData.ruc}
-Razón Social: ${certData.razon_social}
-Estado: ${certData.estado}
-Score de Riesgo: ${certData.score}/100
-
-Fuentes consultadas:
-- SUNAT (Registro Único de Contribuyentes)
-- OSCE (Organismo Supervisor de Contrataciones del Estado)
-- TCE (Tribunal de Contrataciones del Estado)
-
-Este certificado tiene validez legal para procesos de due diligence
-y verificación de contrapartes contractuales.
-
-Conflict Zero - Inteligencia de Riesgo para Profesionales
-www.czperu.com
-            `.trim();
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
             
-            // Descargar como archivo
-            const blob = new Blob([certContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Certificado_${certData.ruc}_${certData.cert_id}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            // Fondo
+            doc.setFillColor(10, 10, 10);
+            doc.rect(0, 0, 210, 297, 'F');
+            
+            // Borde dorado
+            doc.setDrawColor(201, 169, 97);
+            doc.setLineWidth(1.5);
+            doc.rect(10, 10, 190, 277);
+            doc.setLineWidth(0.5);
+            doc.rect(13, 13, 184, 271);
+            
+            // Logo
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(28);
+            doc.setTextColor(201, 169, 97);
+            doc.text('CZ', 105, 40, { align: 'center' });
+            
+            // Título
+            doc.setFontSize(24);
+            doc.text('CERTIFICADO DE VERIFICACIÓN', 105, 60, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setTextColor(136, 136, 136);
+            doc.text('Conflict Zero - Inteligencia de Riesgo', 105, 68, { align: 'center' });
+            
+            // Línea separadora
+            doc.setDrawColor(201, 169, 97);
+            doc.setLineWidth(0.3);
+            doc.line(40, 78, 170, 78);
+            
+            // N° Certificado
+            doc.setFontSize(10);
+            doc.text(`N° ${certId}`, 105, 88, { align: 'center' });
+            doc.text(`${fecha} - ${hora}`, 105, 94, { align: 'center' });
+            
+            // Datos principales
+            doc.setFontSize(14);
+            doc.setTextColor(201, 169, 97);
+            doc.text('DATOS DE LA CONSULTA', 30, 110);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(245, 245, 245);
+            
+            let y = 122;
+            doc.text(`RUC:`, 30, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text(lastResult.ruc || '-', 70, y);
+            
+            y += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Razón Social:`, 30, y);
+            doc.setFont('helvetica', 'normal');
+            const razon = lastResult.razon_social || 'No disponible';
+            if (razon.length > 40) {
+                doc.text(razon.substring(0, 40), 70, y);
+                doc.text(razon.substring(40), 70, y + 5);
+            } else {
+                doc.text(razon, 70, y);
+            }
+            
+            y += 15;
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Estado:`, 30, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text(lastResult.estado || 'ACTIVO', 70, y);
+            
+            // Score
+            y += 20;
+            doc.setFontSize(14);
+            doc.setTextColor(201, 169, 97);
+            doc.text('SCORE DE RIESGO', 30, y);
+            
+            y += 12;
+            doc.setFontSize(48);
+            doc.setTextColor(201, 169, 97);
+            doc.text(`${lastResult.score || 0}/100`, 105, y, { align: 'center' });
+            
+            // Nivel de riesgo
+            y += 12;
+            doc.setFontSize(11);
+            const score = lastResult.score || 0;
+            let nivel = 'BAJO';
+            let color = [40, 167, 69];
+            if (score < 50) {
+                nivel = 'ALTO';
+                color = [220, 53, 69];
+            } else if (score < 80) {
+                nivel = 'MEDIO';
+                color = [255, 193, 7];
+            }
+            doc.setTextColor(color[0], color[1], color[2]);
+            doc.text(`Nivel: ${nivel}`, 105, y, { align: 'center' });
+            
+            // Fuentes
+            y += 20;
+            doc.setTextColor(136, 136, 136);
+            doc.setFontSize(9);
+            doc.text('Fuentes consultadas:', 105, y, { align: 'center' });
+            y += 6;
+            doc.text('SUNAT | OSCE | TCE', 105, y, { align: 'center' });
+            
+            // Disclaimer
+            y += 20;
+            doc.setFontSize(8);
+            doc.setTextColor(136, 136, 136);
+            doc.text('Este certificado es generado automáticamente por Conflict Zero', 105, y, { align: 'center' });
+            y += 5;
+            doc.text('y tiene validez para procesos de due diligence.', 105, y, { align: 'center' });
+            
+            // Footer
+            doc.setFontSize(9);
+            doc.setTextColor(201, 169, 97);
+            doc.text('www.czperu.com', 105, 280, { align: 'center' });
+            
+            // Guardar
+            doc.save(`Certificado_${lastResult.ruc}_${certId}.pdf`);
         }
         
         document.getElementById('rucInput').addEventListener('input', function(e) {
