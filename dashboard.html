@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Zero - Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --gold: #c9a961;
+            --gold-light: #e8d5a3;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --border: #2a2a2a;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 12px;
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 2px;
+        }
+        
+        .logo-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-details {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .btn-logout {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-logout:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        /* Stats */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .stat-box {
+            padding: 24px 32px;
+            border-right: 1px solid var(--border);
+        }
+        
+        .stat-box:last-child {
+            border-right: none;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .stat-sublabel {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        
+        /* Main */
+        .main {
+            padding: 40px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Section */
+        .section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .section-header {
+            margin-bottom: 24px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        /* Form */
+        .verify-form {
+            display: flex;
+            gap: 16px;
+            max-width: 600px;
+        }
+        
+        .verify-input {
+            flex: 1;
+            padding: 14px 18px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .verify-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .btn-primary {
+            padding: 14px 28px;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-dark);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--gold-light);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Error */
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error-message.visible {
+            display: block;
+        }
+        
+        /* Results */
+        .results {
+            display: none;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .results.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .result-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .result-card h3 {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        
+        .score-big {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .score-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        
+        .score-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .risk-badge.low {
+            background: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+        
+        .risk-badge.medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+        }
+        
+        .risk-badge.high {
+            background: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+        }
+        
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .data-row:last-child {
+            border-bottom: none;
+        }
+        
+        .data-label {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .data-value {
+            font-size: 13px;
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .data-value.success {
+            color: var(--success);
+        }
+        
+        /* History */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .history-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .history-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge.low { background: rgba(40, 167, 69, 0.2); color: var(--success); }
+        .badge.medium { background: rgba(255, 193, 7, 0.2); color: var(--warning); }
+        .badge.high { background: rgba(220, 53, 69, 0.2); color: var(--danger); }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .loading-overlay.visible {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 1024px) {
+            .results-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .stat-box { border-bottom: 1px solid var(--border); }
+            .stat-box:nth-child(2) { border-right: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .header { padding: 16px 24px; }
+            .main { padding: 24px; }
+            .verify-form { flex-direction: column; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .stat-box { border-right: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <p style="color: var(--text-muted);">Cargando...</p>
+    </div>
+
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">CZ</div>
+            <span class="logo-text">CONFLICT<span>ZERO</span></span>
+        </a>
+        
+        <div class="header-right">
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">--</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Cargando...</div>
+                    <div class="user-role" id="userPlan">--</div>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="logout()">Salir</button>
+        </div>
+    </header>
+    
+    <div class="stats-bar">
+        <div class="stat-box">
+            <div class="stat-label">Consultas Usadas</div>
+            <div class="stat-value" id="statUsed">0</div>
+            <div class="stat-sublabel">este mes</div>
+        </div>
+        
+        <div class="stat-box">
+            <div class="stat-label">Consultas Restantes</div>
+            <div class="stat-value" id="statRemaining">0</div>
+            <div class="stat-sublabel">disponibles</div>
+        </div>
+        
+        <div class="stat-box">
+            <div class="stat-label">Total Consultas</div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-sublabel">en su plan</div>
+        </div>
+        
+        <div class="stat-box">
+            <div class="stat-label">Plan</div>
+            <div class="stat-value" id="statPlan">--</div>
+            <div class="stat-sublabel">Activo</div>
+        </div>
+    </div>
+    
+    <main class="main">
+        <!-- Verify Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Nueva Consulta</h2>
+                <p>Ingrese un número de RUC peruano (11 dígitos) para verificar</p>
+            </div>
+            
+            <div class="error-message" id="errorMsg"></div>
+            
+            <form class="verify-form" id="verifyForm" onsubmit="verifyRUC(event)">
+                <input 
+                    type="text" 
+                    class="verify-input" 
+                    id="rucInput" 
+                    placeholder="Ingrese RUC (11 dígitos)"
+                    maxlength="11"
+                    required
+                >
+                <button type="submit" class="btn-primary" id="verifyBtn">Verificar</button>
+            </form>
+            
+            <div class="results" id="results">
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Score de Riesgo</h3>
+                        <div class="score-big" id="scoreValue">0</div>
+                        <div class="score-bar">
+                            <div class="score-bar-fill" id="scoreBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Nivel de Riesgo</h3>
+                        <div class="risk-badge" id="riskBadge">Bajo</div>
+                        <p style="color: var(--text-muted); font-size: 14px;" id="riskDesc">Sin inhabilitaciones registradas</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Datos de la Empresa</h3>
+                        <div class="data-row">
+                            <span class="data-label">RUC</span>
+                            <span class="data-value" id="dataRuc">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Razón Social</span>
+                            <span class="data-value" id="dataName">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Estado</span>
+                            <span class="data-value success" id="dataStatus">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- History Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Historial de Consultas</h2>
+            </div>
+            
+            <div id="historyContent">
+                <div class="empty-state">
+                    <p>Aún no ha realizado consultas</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
+        const token = localStorage.getItem('cz_token');
+        
+        if (!token) {
+            window.location.href = 'app.html';
+        }
+        
+        let currentUser = null;
+        let history = [];
+        
+        async function loadUser() {
+            showLoading(true);
+            
+            try {
+                const res = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!res.ok) throw new Error('Auth failed');
+                
+                currentUser = await res.json();
+                updateUI();
+                
+            } catch (err) {
+                localStorage.removeItem('cz_token');
+                window.location.href = 'app.html';
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        function updateUI() {
+            const name = currentUser.full_name || currentUser.email.split('@')[0];
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            
+            document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userPlan').textContent = currentUser.plan_type || 'Professional';
+            
+            const used = currentUser.monthly_requests || 0;
+            const limit = currentUser.monthly_limit || 2000;
+            
+            document.getElementById('statUsed').textContent = used;
+            document.getElementById('statRemaining').textContent = limit - used;
+            document.getElementById('statTotal').textContent = limit;
+            document.getElementById('statPlan').textContent = currentUser.plan_type || 'Professional';
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('visible', show);
+        }
+        
+        function showError(msg) {
+            const el = document.getElementById('errorMsg');
+            el.textContent = msg;
+            el.classList.add('visible');
+            setTimeout(() => el.classList.remove('visible'), 5000);
+        }
+        
+        async function verifyRUC(e) {
+            e.preventDefault();
+            
+            const ruc = document.getElementById('rucInput').value.trim();
+            const btn = document.getElementById('verifyBtn');
+            
+            if (ruc.length !== 11 || !/^\d+$/.test(ruc)) {
+                showError('El RUC debe tener 11 dígitos numéricos');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'Verificando...';
+            
+            try {
+                const res = await fetch(`${API_BASE}/verify/${ruc}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (res.status === 401) {
+                    localStorage.removeItem('cz_token');
+                    window.location.href = 'app.html';
+                    return;
+                }
+                
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || 'Error en la consulta');
+                }
+                
+                const data = await res.json();
+                displayResults(data, ruc);
+                addToHistory(ruc, data);
+                
+                currentUser.monthly_requests = (currentUser.monthly_requests || 0) + 1;
+                updateUI();
+                
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Verificar';
+            }
+        }
+        
+        function displayResults(data, ruc) {
+            document.getElementById('results').classList.add('visible');
+            
+            const score = data.score || 0;
+            document.getElementById('scoreValue').textContent = score;
+            document.getElementById('scoreBar').style.width = score + '%';
+            
+            const badge = document.getElementById('riskBadge');
+            const desc = document.getElementById('riskDesc');
+            
+            badge.className = 'risk-badge';
+            if (score <= 30) {
+                badge.classList.add('low');
+                badge.textContent = 'Bajo';
+                desc.textContent = 'Sin inhabilitaciones registradas';
+            } else if (score <= 70) {
+                badge.classList.add('medium');
+                badge.textContent = 'Medio';
+                desc.textContent = 'Algunas inhabilitaciones históricas';
+            } else {
+                badge.classList.add('high');
+                badge.textContent = 'Alto';
+                desc.textContent = 'Inhabilitaciones activas detectadas';
+            }
+            
+            const emp = data.empresa || data.sunat || {};
+            document.getElementById('dataRuc').textContent = ruc;
+            document.getElementById('dataName').textContent = emp.razon_social || emp.razonSocial || 'No disponible';
+            document.getElementById('dataStatus').textContent = emp.estado || 'ACTIVO';
+        }
+        
+        function addToHistory(ruc, data) {
+            const emp = data.empresa || data.sunat || {};
+            history.unshift({
+                date: new Date().toLocaleDateString('es-PE'),
+                ruc: ruc,
+                name: emp.razon_social || emp.razonSocial || 'Empresa',
+                score: data.score || 0
+            });
+            renderHistory();
+        }
+        
+        function renderHistory() {
+            const container = document.getElementById('historyContent');
+            
+            if (history.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Aún no ha realizado consultas</p></div>';
+                return;
+            }
+            
+            const rows = history.map(h => {
+                const cls = h.score <= 30 ? 'low' : h.score <= 70 ? 'medium' : 'high';
+                return `
+                    <tr>
+                        <td>${h.date}</td>
+                        <td>${h.ruc}</td>
+                        <td>${h.name}</td>
+                        <td><span class="badge ${cls}">${h.score}/100</span></td>
+                    </tr>
+                `;
+            }).join('');
+            
+            container.innerHTML = `
+                <table class="history-table">
+                    <thead><tr><th>Fecha</th><th>RUC</th><th>Empresa</th><th>Score</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            `;
+        }
+        
+        function logout() {
+            localStorage.removeItem('cz_token');
+            window.location.href = 'app.html';
+        }
+        
+        document.getElementById('rucInput').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+        
+        loadUser();
+    </script>
+</body>
+</html>

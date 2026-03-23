@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Zero - Acceso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --gold: #c9a961;
+            --gold-light: #e8d5a3;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --border: #2a2a2a;
+            --error: #dc3545;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 2px;
+        }
+        
+        .logo-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--gold);
+        }
+        
+        /* Main */
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 48px;
+        }
+        
+        /* Login Card */
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .login-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .form-group input::placeholder {
+            color: #555;
+        }
+        
+        /* Error */
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid var(--error);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .error-message.visible {
+            display: block;
+        }
+        
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-dark);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-submit .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--bg-dark);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .login-footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .login-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 24px 48px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">CZ</div>
+            <span class="logo-text">CONFLICT<span>ZERO</span></span>
+        </a>
+        
+        <a href="index.html" class="back-link">
+            ← Volver al sitio
+        </a>
+    </header>
+    
+    <main class="main">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Acceso de Miembros</h1>
+                <p>Ingrese sus credenciales para continuar</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="usuario@empresa.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="••••••••"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    Acceder
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>¿No tiene cuenta? <a href="index.html#contact">Solicitar acceso</a></p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>© 2026 Conflict Zero. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script>
+        const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
+        
+        // Check if already logged in
+        const token = localStorage.getItem('cz_token');
+        if (token) {
+            fetch(`${API_BASE}/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            }).then(r => {
+                if (r.ok) window.location.href = 'panel.html';
+            }).catch(() => {});
+        }
+        
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('submitBtn');
+            const error = document.getElementById('errorMessage');
+            
+            btn.disabled = true;
+            btn.innerHTML = 'Verificando... <span class="spinner"></span>';
+            error.classList.remove('visible');
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Credenciales incorrectas');
+                }
+                
+                // Save token
+                localStorage.setItem('cz_token', data.access_token);
+                localStorage.setItem('cz_user', JSON.stringify({
+                    email: email,
+                    loginTime: new Date().toISOString()
+                }));
+                
+                // Redirect to dashboard
+                window.location.href = 'panel.html';
+                
+            } catch (err) {
+                error.textContent = err.message;
+                error.classList.add('visible');
+                btn.disabled = false;
+                btn.textContent = 'Acceder';
+            }
+        }
+    </script>
+</body>
+</html>
