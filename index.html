@@ -3,129 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conflict Zero - Login</title>
+    <title>Conflict Zero - Inteligencia de Riesgo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; }
-        .header { padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a; }
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #f5f5f5; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0a; color: #e8e6e3; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header */
+        header { border-bottom: 1px solid #1a1a1a; position: sticky; top: 0; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #e8e6e3; }
         .logo-icon { width: 40px; height: 40px; border: 2px solid #c9a961; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #c9a961; font-weight: 700; }
-        .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 2px; }
-        .logo-text span { color: #c9a961; font-weight: 400; }
-        .main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 48px; }
-        .login-card { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 48px; width: 100%; max-width: 420px; }
-        .login-header { text-align: center; margin-bottom: 32px; }
-        .login-header h1 { font-size: 32px; font-weight: 500; margin-bottom: 8px; }
-        .login-header p { color: #888; font-size: 14px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 8px; }
-        .form-group input { width: 100%; padding: 14px 16px; background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 8px; color: #f5f5f5; font-size: 15px; }
-        .form-group input:focus { outline: none; border-color: #c9a961; }
-        .error-message { display: none; background: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; color: #ff6b6b; font-size: 13px; }
-        .error-message.visible { display: block; }
-        .btn-submit { width: 100%; padding: 16px; background: #c9a961; border: none; border-radius: 8px; color: #0a0a0a; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; }
-        .btn-submit:hover:not(:disabled) { background: #e8d5a3; }
-        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .login-footer { text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a2a; }
-        .login-footer p { color: #888; font-size: 13px; }
-        .login-footer a { color: #c9a961; text-decoration: none; }
-        .footer { padding: 24px 48px; text-align: center; border-top: 1px solid #2a2a2a; }
-        .footer p { color: #888; font-size: 13px; }
+        .logo-text { font-size: 18px; letter-spacing: 3px; text-transform: uppercase; }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav a { color: #8a8a8a; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        nav a:hover { color: #e8e6e3; }
+        .btn-primary { background: #c9a961; color: #0a0a0a; padding: 12px 24px; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; }
+        .btn-primary:hover { background: #d4aa5a; }
+        .btn-secondary { border: 1px solid #c9a961; color: #c9a961; padding: 12px 24px; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; }
+        .btn-secondary:hover { background: #c9a961; color: #0a0a0a; }
+        
+        /* Hero */
+        .hero { padding: 120px 0 80px; }
+        .hero-tag { color: #c9a961; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px; }
+        .hero h1 { font-size: 56px; font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 span { color: #c9a961; }
+        .hero p { font-size: 18px; color: #8a8a8a; max-width: 600px; margin-bottom: 40px; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        
+        /* Features */
+        .features { border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; background: #0d0d0d; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1a1a1a; }
+        .feature { background: #0d0d0d; padding: 48px; }
+        .feature-icon { width: 48px; height: 48px; border: 1px solid #c9a961; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #c9a961; margin-bottom: 24px; font-size: 20px; }
+        .feature-tag { color: #c9a961; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+        .feature h3 { font-size: 18px; font-weight: 500; margin-bottom: 12px; }
+        .feature p { font-size: 14px; color: #8a8a8a; line-height: 1.7; }
+        
+        /* Stats */
+        .stats { padding: 80px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; text-align: center; }
+        .stat-number { font-size: 48px; font-weight: 300; color: #c9a961; margin-bottom: 8px; }
+        .stat-label { font-size: 12px; color: #8a8a8a; letter-spacing: 2px; text-transform: uppercase; }
+        
+        /* Test RUC */
+        .test-ruc { border-top: 1px solid #1a1a1a; padding: 80px 0; background: #0d0d0d; }
+        .test-ruc-content { max-width: 600px; margin: 0 auto; text-align: center; }
+        .test-ruc h2 { font-size: 32px; font-weight: 300; margin-bottom: 16px; }
+        .test-ruc p { color: #8a8a8a; margin-bottom: 32px; }
+        .ruc-form { display: flex; gap: 12px; justify-content: center; }
+        .ruc-form input { flex: 1; max-width: 300px; padding: 16px; background: #0a0a0a; border: 1px solid #2a2a2a; color: #e8e6e3; font-size: 15px; }
+        .ruc-form input:focus { outline: none; border-color: #c9a961; }
+        .ruc-form button { padding: 16px 32px; background: #c9a961; color: #0a0a0a; border: none; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .ruc-form button:hover { background: #d4aa5a; }
+        
+        /* Pricing */
+        .pricing { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-header h2 { font-size: 36px; font-weight: 300; margin-bottom: 16px; }
+        .section-header p { color: #8a8a8a; max-width: 500px; margin: 0 auto; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .pricing-card { border: 1px solid #1a1a1a; padding: 48px; text-align: center; }
+        .pricing-card.featured { border-color: #c9a961; position: relative; }
+        .featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #c9a961; color: #0a0a0a; padding: 6px 16px; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .pricing-name { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #8a8a8a; margin-bottom: 16px; }
+        .pricing-price { font-size: 48px; font-weight: 300; margin-bottom: 8px; }
+        .pricing-price span { font-size: 16px; color: #8a8a8a; }
+        .pricing-desc { font-size: 14px; color: #8a8a8a; margin-bottom: 32px; }
+        .pricing-features { list-style: none; margin-bottom: 32px; text-align: left; }
+        .pricing-features li { padding: 12px 0; border-bottom: 1px solid #1a1a1a; font-size: 14px; }
+        .pricing-features li:last-child { border-bottom: none; }
+        
+        /* CTA */
+        .cta { border-top: 1px solid #1a1a1a; padding: 120px 0; text-align: center; }
+        .cta h2 { font-size: 36px; font-weight: 300; margin-bottom: 24px; }
+        .cta p { color: #8a8a8a; max-width: 500px; margin: 0 auto 32px; }
+        
+        /* Footer */
+        footer { border-top: 1px solid #1a1a1a; padding: 48px 0; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; }
+        .footer-logo { display: flex; align-items: center; gap: 12px; }
+        .footer-links { display: flex; gap: 32px; }
+        .footer-links a { color: #8a8a8a; text-decoration: none; font-size: 13px; }
+        .footer-links a:hover { color: #e8e6e3; }
+        .copyright { color: #5a5a5a; font-size: 13px; }
+        
+        /* Result Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 48px; max-width: 500px; width: 90%; position: relative; }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #8a8a8a; font-size: 24px; cursor: pointer; }
+        .modal-close:hover { color: #e8e6e3; }
+        .modal h3 { margin-bottom: 24px; }
+        .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+        .result-item:last-child { border-bottom: none; }
+        .result-label { color: #8a8a8a; }
+        .result-value { color: #c9a961; font-weight: 500; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; gap: 24px; text-align: center; }
+            nav { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <a href="index.html" class="logo">
-            <div class="logo-icon">CZ</div>
-            <span class="logo-text">CONFLICT<span>ZERO</span></span>
-        </a>
-        <a href="index.html" style="color: #888; text-decoration: none; font-size: 14px;">← Volver al sitio</a>
-    </header>
-    
-    <main class="main">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Acceso de Miembros</h1>
-                <p>Ingrese sus credenciales para continuar</p>
-            </div>
-            
-            <div class="error-message" id="errorMessage"></div>
-            
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="email" placeholder="usuario@empresa.com" required autocomplete="email">
-                </div>
-                
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
-                </div>
-                
-                <button type="submit" class="btn-submit" id="submitBtn">Acceder</button>
-            </form>
-            
-            <div class="login-footer">
-                <p>¿No tiene cuenta? <a href="index.html#contact">Solicitar acceso</a></p>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">CZ</div>
+                    <span class="logo-text">Conflict Zero</span>
+                </a>
+                <nav>
+                    <a href="#test">Test RUC</a>
+                    <a href="#pricing">Membership</a>
+                    <a href="login.html">Acceso</a>
+                    <a href="#contact" class="btn-primary">Solicitar Acceso</a>
+                </nav>
             </div>
         </div>
-    </main>
-    
-    <footer class="footer">
-        <p>© 2026 Conflict Zero. Todos los derechos reservados.</p>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <p class="hero-tag">Inteligencia de Riesgo para Profesionales</p>
+            <h1>Verificación de<br><span>Contrapartes</span></h1>
+            <p>Datos oficiales de SUNAT, OSCE y TCE para due diligence. Servicio exclusivo para abogados, consultoras y fondos de inversión.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Solicitar Membresía →</a>
+                <a href="#pricing" class="btn-secondary">Ver Planes</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <p class="feature-tag">Consulta</p>
+                <h3>Datos SUNAT</h3>
+                <p>Razón social, estado, condición y dirección fiscal en tiempo real.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <p class="feature-tag">Verificación</p>
+                <h3>Sanciones OSCE/TCE</h3>
+                <p>Inhabilitaciones, multas y sanciones de entidades públicas.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📄</div>
+                <p class="feature-tag">Certificación</p>
+                <h3>Certificados PDF</h3>
+                <p>Documentos oficiales con validez legal para procesos formales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <p class="stat-number">500+</p>
+                    <p class="stat-label">Miembros Activos</p>
+                </div>
+                <div>
+                    <p class="stat-number">50K+</p>
+                    <p class="stat-label">Consultas Mensuales</p>
+                </div>
+                <div>
+                    <p class="stat-number">99.9%</p>
+                    <p class="stat-label">Uptime Garantizado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="test-ruc" id="test">
+        <div class="test-ruc-content">
+            <h2>Consulta tu RUC</h2>
+            <p>Ingresa un número de RUC para verificar su estado ante SUNAT</p>
+            <form class="ruc-form" onsubmit="testRUC(event)">
+                <input type="text" id="rucInput" placeholder="20100047218" maxlength="11" pattern="[0-9]{11}" required>
+                <button type="submit">Consultar</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Planes de Membresía</h2>
+                <p>Acceso completo a nuestra plataforma de verificación de riesgos</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <p class="pricing-name">Starter</p>
+                    <p class="pricing-price">$400<span>/mes</span></p>
+                    <p class="pricing-desc">Para profesionales individuales</p>
+                    <ul class="pricing-features">
+                        <li>✓ 100 consultas/mes</li>
+                        <li>✓ Datos SUNAT</li>
+                        <li>✓ Sanciones OSCE</li>
+                        <li>✓ Reportes PDF</li>
+                        <li>✓ Soporte email</li>
+                    </ul>
+                    <a href="#contact" class="btn-secondary" style="display: block;">Solicitar</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <span class="featured-badge">Popular</span>
+                    <p class="pricing-name">Professional</p>
+                    <p class="pricing-price">$800<span>/mes</span></p>
+                    <p class="pricing-desc">Para equipos legales</p>
+                    <ul class="pricing-features">
+                        <li>✓ 500 consultas/mes</li>
+                        <li>✓ Todo lo de Starter</li>
+                        <li>✓ API Access</li>
+                        <li>✓ Múltiples usuarios</li>
+                        <li>✓ Soporte prioritario</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary" style="display: block;">Solicitar</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <p class="pricing-name">Enterprise</p>
+                    <p class="pricing-price">Custom<span></span></p>
+                    <p class="pricing-desc">Para grandes organizaciones</p>
+                    <ul class="pricing-features">
+                        <li>✓ Consultas ilimitadas</li>
+                        <li>✓ Todo lo de Professional</li>
+                        <li>✓ SLA garantizado</li>
+                        <li>✓ Onboarding dedicado</li>
+                        <li>✓ Account manager</li>
+                    </ul>
+                    <a href="#contact" class="btn-secondary" style="display: block;">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Acceso Exclusivo</h2>
+            <p>Servicio diseñado para profesionales que requieren información confiable y verificada. Sin planes gratuitos.</p>
+            <a href="mailto:contacto@czperu.com" class="btn-primary">Solicitar Membresía</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">CZ</div>
+                    <span>Conflict Zero</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Términos</a>
+                    <a href="#">Privacidad</a>
+                    <a href="#pricing">Membership</a>
+                </div>
+                <p class="copyright">© 2026. Todos los derechos reservados.</p>
+            </div>
+        </div>
     </footer>
-    
+
+    <!-- Modal Result -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h3>Resultado de Consulta</h3>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
     <script>
         const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
         
-        const token = localStorage.getItem('cz_token');
-        if (token) {
-            fetch(\`\${API_BASE}/auth/me\`, {
-                headers: { 'Authorization': \`Bearer \${token}\` }
-            }).then(r => {
-                if (r.ok) window.location.href = 'panel.html';
-            }).catch(() => {});
-        }
-        
-        async function handleLogin(e) {
+        async function testRUC(e) {
             e.preventDefault();
+            const ruc = document.getElementById('rucInput').value;
+            const modal = document.getElementById('resultModal');
+            const modalBody = document.getElementById('modalBody');
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const btn = document.getElementById('submitBtn');
-            const error = document.getElementById('errorMessage');
-            
-            btn.disabled = true;
-            btn.textContent = 'Verificando...';
-            error.classList.remove('visible');
+            modalBody.innerHTML = '<p style="text-align: center; color: #8a8a8a;">Consultando...</p>';
+            modal.style.display = 'flex';
             
             try {
-                const response = await fetch(\`\${API_BASE}/auth/login\`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                
+                const response = await fetch(\`\${API_BASE}/verify/ruc/\${ruc}\`);
                 const data = await response.json();
                 
-                if (!response.ok) {
-                    throw new Error(data.detail || 'Credenciales incorrectas');
-                }
+                if (!response.ok) throw new Error(data.detail || 'Error en consulta');
                 
-                localStorage.setItem('cz_token', data.access_token);
-                localStorage.setItem('cz_user', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString()
-                }));
-                
-                window.location.href = 'panel.html';
-                
+                modalBody.innerHTML = \`
+                    <div class="result-item">
+                        <span class="result-label">RUC</span>
+                        <span class="result-value">\${data.ruc || ruc}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Razón Social</span>
+                        <span class="result-value">\${data.razon_social || 'N/A'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Estado</span>
+                        <span class="result-value">\${data.estado || 'N/A'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Condición</span>
+                        <span class="result-value">\${data.condicion || 'N/A'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Dirección</span>
+                        <span class="result-value">\${data.direccion || 'N/A'}</span>
+                    </div>
+                \`;
             } catch (err) {
-                error.textContent = err.message;
-                error.classList.add('visible');
-                btn.disabled = false;
-                btn.textContent = 'Acceder';
+                modalBody.innerHTML = \`
+                    <p style="color: #ff6b6b; text-align: center;">Error: \${err.message}</p>
+                    <p style="color: #8a8a8a; text-align: center; font-size: 14px; margin-top: 12px;">Nota: Esta es una demostración. Para consultas reales, solicite una membresía.</p>
+                \`;
             }
+        }
+        
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+        
+        window.onclick = function(e) {
+            const modal = document.getElementById('resultModal');
+            if (e.target === modal) closeModal();
         }
     </script>
 </body>
