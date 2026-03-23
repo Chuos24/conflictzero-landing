@@ -4,146 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conflict Zero - Acceso</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --gold: #c9a961;
+            --gold-light: #e8d5a3;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --border: #2a2a2a;
+            --error: #dc3545;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0a0a;
-            color: #e8e6e3;
+            background: var(--bg-dark);
+            color: var(--text);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 32px;
+            border-bottom: 1px solid var(--border);
         }
         
-        .container {
-            width: 100%;
-            max-width: 420px;
-        }
-        
-        /* Logo */
         .logo {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        
-        .logo a {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            color: #e8e6e3;
         }
         
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            color: #c9a050;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 14px;
         }
         
         .logo-text {
-            font-size: 20px;
-            letter-spacing: 0.15em;
-            font-weight: 300;
-            text-transform: uppercase;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 2px;
         }
         
-        /* Card */
-        .card {
-            border: 1px solid #1a1a1a;
+        .logo-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--gold);
+        }
+        
+        /* Main */
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 48px;
         }
         
-        .card-header {
+        /* Login Card */
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+        
+        .login-header {
+            text-align: center;
             margin-bottom: 32px;
         }
         
-        .card-tag {
-            color: #c9a050;
-            font-size: 11px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 12px;
+        .login-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
         
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: 300;
+        .login-header p {
+            color: var(--text-muted);
+            font-size: 14px;
         }
         
         /* Form */
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
-        .form-label {
+        .form-group label {
             display: block;
-            font-size: 11px;
-            letter-spacing: 0.2em;
+            font-size: 12px;
             text-transform: uppercase;
-            color: #8a8a8a;
-            margin-bottom: 12px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
         }
         
-        .form-input {
+        .form-group input {
             width: 100%;
-            background: transparent;
-            border: 1px solid #2a2a2a;
             padding: 14px 16px;
-            color: #e8e6e3;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
             font-size: 15px;
             font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
         
-        .form-input:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: #c9a050;
+            border-color: var(--gold);
         }
         
-        .form-input::placeholder {
-            color: #5a5a5a;
+        .form-group input::placeholder {
+            color: #555;
         }
         
-        /* Password field with toggle */
-        .password-wrapper {
-            position: relative;
-        }
-        
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #5a5a5a;
-            cursor: pointer;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .password-toggle:hover {
-            color: #8a8a8a;
-        }
-        
-        /* Error message */
+        /* Error Message */
         .error-message {
-            display: none;
             background: rgba(220, 53, 69, 0.1);
             border: 1px solid rgba(220, 53, 69, 0.3);
-            padding: 14px 16px;
-            margin-bottom: 24px;
             color: #ff6b6b;
-            font-size: 13px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
         }
         
         .error-message.visible {
@@ -153,21 +176,23 @@
         /* Button */
         .btn-submit {
             width: 100%;
-            background: #c9a050;
-            color: #0a0a0a;
-            border: none;
             padding: 16px;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-dark);
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
-            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-submit:hover:not(:disabled) {
-            background: #d4aa5a;
+            background: var(--gold-light);
         }
         
         .btn-submit:disabled {
@@ -175,100 +200,121 @@
             cursor: not-allowed;
         }
         
-        /* Footer */
-        .card-footer {
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid #1a1a1a;
-            text-align: center;
-        }
-        
-        .card-footer p {
-            font-size: 13px;
-            color: #5a5a5a;
-        }
-        
-        .card-footer a {
-            color: #c9a050;
-            text-decoration: none;
-        }
-        
-        .card-footer a:hover {
-            color: #d4aa5a;
-        }
-        
-        /* Spinner */
         .spinner {
-            display: inline-block;
             width: 16px;
             height: 16px;
-            border: 2px solid #0a0a0a;
+            border: 2px solid var(--bg-dark);
             border-top-color: transparent;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-left: 8px;
-            vertical-align: middle;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        @media (max-width: 480px) {
-            .card {
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .login-footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        .login-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Page Footer */
+        .footer {
+            padding: 24px 48px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        @media (max-width: 640px) {
+            .header {
+                padding: 16px 24px;
+            }
+            
+            .main {
+                padding: 24px;
+            }
+            
+            .login-card {
                 padding: 32px 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo">
-            <a href="/">
-                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                <span class="logo-text">Conflict Zero</span>
-            </a>
-        </div>
+    <header class="header">
+        <a href="/" class="logo">
+            <div class="logo-icon">CZ</div>
+            <div class="logo-text">Conflict <span>Zero</span></div>
+        </a>
         
-        <!-- Card -->
-        <div class="card">
-            <div class="card-header">
-                <p class="card-tag">Acceso</p>
-                <h1 class="card-title">Iniciar Sesión</h1>
+        <a href="/" class="back-link">← Volver</a>
+    </header>
+    
+    <main class="main">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Bienvenido</h1>
+                <p>Ingrese sus credenciales para acceder</p>
             </div>
             
             <div class="error-message" id="errorMessage"></div>
             
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-input" placeholder="usuario@empresa.com" required autocomplete="email">
+                    <label>Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="usuario@empresa.com"
+                        required
+                        autocomplete="email"
+                    >
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Contraseña</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-                        <button type="button" class="password-toggle" onclick="togglePassword()">
-                            <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                        </button>
-                    </div>
+                    <label>Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="••••••••"
+                        required
+                        autocomplete="current-password"
+                    >
                 </div>
                 
-                <button type="submit" class="btn-submit" id="submitBtn">Acceder</button>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    Acceder
+                </button>
             </form>
             
-            <div class="card-footer">
+            <div class="login-footer">
                 <p>¿No tiene cuenta? <a href="/register">Solicitar acceso</a></p>
             </div>
         </div>
-    </div>
+    </main>
+    
+    <footer class="footer">
+        <p>© 2026 Conflict Zero. Todos los derechos reservados.</p>
+    </footer>
     
     <script>
         const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
@@ -283,19 +329,6 @@
             }).catch(() => {});
         }
         
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eyeIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle>';
-            }
-        }
-        
         async function handleLogin(e) {
             e.preventDefault();
             
@@ -305,7 +338,7 @@
             const error = document.getElementById('errorMessage');
             
             btn.disabled = true;
-            btn.innerHTML = 'Verificando <span class="spinner"></span>';
+            btn.innerHTML = 'Verificando... <span class="spinner"></span>';
             error.classList.remove('visible');
             
             try {
@@ -321,12 +354,14 @@
                     throw new Error(data.detail || 'Credenciales incorrectas');
                 }
                 
+                // Save token
                 localStorage.setItem('cz_token', data.access_token);
                 localStorage.setItem('cz_user', JSON.stringify({
                     email: email,
                     loginTime: new Date().toISOString()
                 }));
                 
+                // Redirect to dashboard
                 window.location.href = '/dashboard.html';
                 
             } catch (err) {
