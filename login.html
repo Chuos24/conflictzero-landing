@@ -341,14 +341,33 @@
             btn.innerHTML = 'Verificando... <span class="spinner"></span>';
             error.classList.remove('visible');
             
-            // Simulación de login (el backend Node.js no tiene auth)
+            // Validar credenciales
+            const VALID_USERS = [
+                { email: 'founder@conflictzero.com', password: 'CZ2025!' },
+                { email: 'admin@czperu.com', password: 'Admin2025!' },
+                { email: 'demo@czperu.com', password: 'Demo2025!' }
+            ];
+            
+            const user = VALID_USERS.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                error.textContent = 'Credenciales incorrectas. Acceso exclusivo para miembros.';
+                error.classList.add('visible');
+                btn.disabled = false;
+                btn.textContent = 'Acceder';
+                return;
+            }
+            
+            // Login exitoso
+            localStorage.setItem('cz_user', JSON.stringify({
+                email: email,
+                loginTime: new Date().toISOString(),
+                plan: email === 'founder@conflictzero.com' ? 'ENTERPRISE' : 'STARTER'
+            }));
+            
             setTimeout(() => {
-                localStorage.setItem('cz_user', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString()
-                }));
                 window.location.href = '/dashboard.html';
-            }, 800);
+            }, 600);
         }
     </script>
 </body>
