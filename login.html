@@ -3,88 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conflict Zero - Login</title>
+    <title>Conflict Zero - Acceso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; }
-        .header { padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a; }
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #f5f5f5; }
-        .logo-icon { width: 40px; height: 40px; border: 2px solid #c9a961; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #c9a961; font-weight: 700; }
-        .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 2px; }
-        .logo-text span { color: #c9a961; font-weight: 400; }
-        .main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 48px; }
-        .login-card { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 48px; width: 100%; max-width: 420px; }
-        .login-header { text-align: center; margin-bottom: 32px; }
-        .login-header h1 { font-size: 32px; font-weight: 500; margin-bottom: 8px; }
-        .login-header p { color: #888; font-size: 14px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 8px; }
-        .form-group input { width: 100%; padding: 14px 16px; background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 8px; color: #f5f5f5; font-size: 15px; }
-        .form-group input:focus { outline: none; border-color: #c9a961; }
-        .error-message { display: none; background: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; color: #ff6b6b; font-size: 13px; }
-        .error-message.visible { display: block; }
-        .btn-submit { width: 100%; padding: 16px; background: #c9a961; border: none; border-radius: 8px; color: #0a0a0a; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; }
-        .btn-submit:hover:not(:disabled) { background: #e8d5a3; }
-        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .login-footer { text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a2a; }
-        .login-footer p { color: #888; font-size: 13px; }
-        .login-footer a { color: #c9a961; text-decoration: none; }
-        .footer { padding: 24px 48px; text-align: center; border-top: 1px solid #2a2a2a; }
-        .footer p { color: #888; font-size: 13px; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e8e6e3;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        /* Logo */
+        .logo {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .logo a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #e8e6e3;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            color: #c9a050;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            letter-spacing: 0.15em;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        /* Card */
+        .card {
+            border: 1px solid #1a1a1a;
+            padding: 48px;
+        }
+        
+        .card-header {
+            margin-bottom: 32px;
+        }
+        
+        .card-tag {
+            color: #c9a050;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        
+        /* Form */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            margin-bottom: 12px;
+        }
+        
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #2a2a2a;
+            padding: 14px 16px;
+            color: #e8e6e3;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #c9a050;
+        }
+        
+        .form-input::placeholder {
+            color: #5a5a5a;
+        }
+        
+        /* Password field with toggle */
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #5a5a5a;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .password-toggle:hover {
+            color: #8a8a8a;
+        }
+        
+        /* Error message */
+        .error-message {
+            display: none;
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            color: #ff6b6b;
+            font-size: 13px;
+        }
+        
+        .error-message.visible {
+            display: block;
+        }
+        
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            background: #c9a050;
+            color: #0a0a0a;
+            border: none;
+            padding: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background: #d4aa5a;
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Footer */
+        .card-footer {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+        }
+        
+        .card-footer p {
+            font-size: 13px;
+            color: #5a5a5a;
+        }
+        
+        .card-footer a {
+            color: #c9a050;
+            text-decoration: none;
+        }
+        
+        .card-footer a:hover {
+            color: #d4aa5a;
+        }
+        
+        /* Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #0a0a0a;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 32px 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <a href="index.html" class="logo">
-            <div class="logo-icon">CZ</div>
-            <span class="logo-text">CONFLICT<span>ZERO</span></span>
-        </a>
-        <a href="index.html" style="color: #888; text-decoration: none; font-size: 14px;">← Volver al sitio</a>
-    </header>
-    
-    <main class="main">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Acceso de Miembros</h1>
-                <p>Ingrese sus credenciales para continuar</p>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="/">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span class="logo-text">Conflict Zero</span>
+            </a>
+        </div>
+        
+        <!-- Card -->
+        <div class="card">
+            <div class="card-header">
+                <p class="card-tag">Acceso</p>
+                <h1 class="card-title">Iniciar Sesión</h1>
             </div>
             
             <div class="error-message" id="errorMessage"></div>
             
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="email" placeholder="usuario@empresa.com" required autocomplete="email">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="usuario@empresa.com" required autocomplete="email">
                 </div>
                 
                 <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                    <label class="form-label">Contraseña</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn-submit" id="submitBtn">Acceder</button>
             </form>
             
-            <div class="login-footer">
-                <p>¿No tiene cuenta? <a href="index.html#contact">Solicitar acceso</a></p>
+            <div class="card-footer">
+                <p>¿No tiene cuenta? <a href="/register">Solicitar acceso</a></p>
             </div>
         </div>
-    </main>
-    
-    <footer class="footer">
-        <p>© 2026 Conflict Zero. Todos los derechos reservados.</p>
-    </footer>
+    </div>
     
     <script>
         const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
         
+        // Check if already logged in
         const token = localStorage.getItem('cz_token');
         if (token) {
-            fetch(\`\${API_BASE}/auth/me\`, {
-                headers: { 'Authorization': \`Bearer \${token}\` }
+            fetch(`${API_BASE}/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
             }).then(r => {
-                if (r.ok) window.location.href = 'dashboard.html';
+                if (r.ok) window.location.href = '/dashboard.html';
             }).catch(() => {});
+        }
+        
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle>';
+            }
         }
         
         async function handleLogin(e) {
@@ -96,11 +305,11 @@
             const error = document.getElementById('errorMessage');
             
             btn.disabled = true;
-            btn.textContent = 'Verificando...';
+            btn.innerHTML = 'Verificando <span class="spinner"></span>';
             error.classList.remove('visible');
             
             try {
-                const response = await fetch(\`\${API_BASE}/auth/login\`, {
+                const response = await fetch(`${API_BASE}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -118,7 +327,7 @@
                     loginTime: new Date().toISOString()
                 }));
                 
-                window.location.href = 'dashboard.html';
+                window.location.href = '/dashboard.html';
                 
             } catch (err) {
                 error.textContent = err.message;
