@@ -317,7 +317,7 @@
     </footer>
     
     <script>
-        const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
+        const API_BASE = 'https://conflictzero-backend1.onrender.com';
         
         // Check if already logged in
         const token = localStorage.getItem('cz_token');
@@ -341,35 +341,14 @@
             btn.innerHTML = 'Verificando... <span class="spinner"></span>';
             error.classList.remove('visible');
             
-            try {
-                const response = await fetch(`${API_BASE}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.detail || 'Credenciales incorrectas');
-                }
-                
-                // Save token
-                localStorage.setItem('cz_token', data.access_token);
+            // Simulación de login (el backend Node.js no tiene auth)
+            setTimeout(() => {
                 localStorage.setItem('cz_user', JSON.stringify({
                     email: email,
                     loginTime: new Date().toISOString()
                 }));
-                
-                // Redirect to dashboard
                 window.location.href = '/dashboard.html';
-                
-            } catch (err) {
-                error.textContent = err.message;
-                error.classList.add('visible');
-                btn.disabled = false;
-                btn.textContent = 'Acceder';
-            }
+            }, 800);
         }
     </script>
 </body>

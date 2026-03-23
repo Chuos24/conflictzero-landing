@@ -113,40 +113,6 @@
             gap: 24px;
         }
         
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-dark);
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .user-details {
-            text-align: right;
-        }
-        
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        .user-role {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        
         .btn-logout {
             padding: 8px 16px;
             background: transparent;
@@ -486,10 +452,6 @@
             .verify-form {
                 flex-direction: column;
             }
-            
-            .user-details {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -505,13 +467,6 @@
         </a>
         
         <div class="header-right">
-            <div class="user-info">
-                <div class="user-avatar" id="userAvatar">--</div>
-                <div class="user-details">
-                    <div class="user-name" id="userName">Cargando...</div>
-                    <div class="user-role" id="userPlan">--</div>
-                </div>
-            </div>
             <button class="btn-logout" onclick="logout()">Salir</button>
         </div>
     </header>
@@ -525,19 +480,19 @@
         
         <div class="stat-box">
             <div class="stat-label">Consultas Restantes</div>
-            <div class="stat-value" id="statRemaining">0</div>
+            <div class="stat-value" id="statRemaining">100</div>
             <div class="stat-sublabel">disponibles</div>
         </div>
         
         <div class="stat-box">
             <div class="stat-label">Total Consultas</div>
-            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-value" id="statTotal">100</div>
             <div class="stat-sublabel">en su plan</div>
         </div>
         
         <div class="stat-box">
             <div class="stat-label">Plan</div>
-            <div class="stat-value" id="statPlan">--</div>
+            <div class="stat-value" id="statPlan">STARTER</div>
             <div class="stat-sublabel">Activo</div>
         </div>
     </div>
@@ -614,53 +569,10 @@
     </main>
     
     <script>
-        const API_BASE = 'https://conflictzero-api.onrender.com/api/v1';
-        const token = localStorage.getItem('cz_token');
+        const API_BASE = 'https://conflictzero-backend1.onrender.com';
         
-        if (!token) {
-            window.location.href = '/login.html';
-        }
-        
-        let currentUser = null;
         let history = [];
-        
-        async function loadUser() {
-            showLoading(true);
-            
-            try {
-                const res = await fetch(`${API_BASE}/auth/me`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (!res.ok) throw new Error('Auth failed');
-                
-                currentUser = await res.json();
-                updateUI();
-                
-            } catch (err) {
-                localStorage.removeItem('cz_token');
-                window.location.href = '/login.html';
-            } finally {
-                showLoading(false);
-            }
-        }
-        
-        function updateUI() {
-            const name = currentUser.full_name || currentUser.email.split('@')[0];
-            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            
-            document.getElementById('userAvatar').textContent = initials;
-            document.getElementById('userName').textContent = name;
-            document.getElementById('userPlan').textContent = currentUser.plan || 'Professional';
-            
-            const used = currentUser.queries_used || 0;
-            const limit = currentUser.query_limit || 100;
-            
-            document.getElementById('statUsed').textContent = used;
-            document.getElementById('statRemaining').textContent = limit - used;
-            document.getElementById('statTotal').textContent = limit;
-            document.getElementById('statPlan').textContent = (currentUser.plan || 'Starter').toUpperCase();
-        }
+        let consultasUsadas = 0;
         
         function showLoading(show) {
             document.getElementById('loading').classList.toggle('visible', show);
@@ -671,6 +583,11 @@
             el.textContent = msg;
             el.classList.add('visible');
             setTimeout(() => el.classList.remove('visible'), 5000);
+        }
+        
+        function updateStats() {
+            document.getElementById('statUsed').textContent = consultasUsadas;
+            document.getElementById('statRemaining').textContent = 100 - consultasUsadas;
         }
         
         async function verifyRUC(e) {
@@ -686,24 +603,13 @@
             
             btn.disabled = true;
             btn.textContent = 'Verificando...';
+            showLoading(true);
             
             try {
-                const res = await fetch(`${API_BASE}/verify/ruc/${ruc}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (res.status === 401) {
-                    localStorage.removeItem('cz_token');
-                    window.location.href = '/login.html';
-                    return;
-                }
+                const res = await fetch(`${API_BASE}/consulta-completa/${ruc}`);
                 
                 if (!res.ok) {
-                    const err = await res.json();
-                    throw new Error(err.detail || 'Error en la consulta');
+                    throw new Error('Error en la consulta');
                 }
                 
                 const data = await res.json();
@@ -711,14 +617,15 @@
                 addToHistory(ruc, data);
                 
                 // Update stats
-                currentUser.queries_used = (currentUser.queries_used || 0) + 1;
-                updateUI();
+                consultasUsadas++;
+                updateStats();
                 
             } catch (err) {
                 showError(err.message);
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Verificar';
+                showLoading(false);
             }
         }
         
@@ -733,14 +640,14 @@
             const desc = document.getElementById('riskDesc');
             
             badge.className = 'risk-badge';
-            if (score <= 30) {
+            if (score >= 80) {
                 badge.classList.add('low');
                 badge.textContent = 'Bajo';
                 desc.textContent = 'Sin inhabilitaciones registradas';
-            } else if (score <= 70) {
+            } else if (score >= 50) {
                 badge.classList.add('medium');
                 badge.textContent = 'Medio';
-                desc.textContent = 'Algunas inhabilitaciones históricas';
+                desc.textContent = 'Algunas observaciones';
             } else {
                 badge.classList.add('high');
                 badge.textContent = 'Alto';
@@ -771,7 +678,7 @@
             }
             
             const rows = history.map(h => {
-                const cls = h.score <= 30 ? 'low' : h.score <= 70 ? 'medium' : 'high';
+                const cls = h.score >= 80 ? 'low' : h.score >= 50 ? 'medium' : 'high';
                 return `
                     <tr>
                         <td>${h.date}</td>
@@ -791,15 +698,12 @@
         }
         
         function logout() {
-            localStorage.removeItem('cz_token');
             window.location.href = '/login.html';
         }
         
         document.getElementById('rucInput').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/\D/g, '');
         });
-        
-        loadUser();
     </script>
 </body>
 </html>
