@@ -676,14 +676,23 @@
         }
         
         function generateCertificate() {
+            console.log('lastResult completo:', lastResult); // DEBUG
+            
             if (!lastResult) {
                 alert('Primero debe realizar una consulta');
                 return;
             }
             
             // Validar que tenemos datos completos
-            if (!lastResult.ruc || !lastResult.score === undefined) {
-                alert('Error: Datos de consulta incompletos. Por favor realice la consulta nuevamente.');
+            console.log('Validando datos:', {
+                tieneRuc: !!lastResult.ruc,
+                rucValor: lastResult.ruc,
+                tieneScore: lastResult.score !== undefined,
+                scoreValor: lastResult.score
+            });
+            
+            if (!lastResult.ruc || lastResult.score === undefined) {
+                alert('Error: Datos de consulta incompletos. RUC: ' + lastResult.ruc + ', Score: ' + lastResult.score + '. Por favor realice la consulta nuevamente.');
                 return;
             }
             
@@ -694,17 +703,14 @@
             fechaVenc.setMonth(fechaVenc.getMonth() + 3);
             const fechaVencStr = fechaVenc.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
             
-            // DEBUG: Verificar datos antes de generar QR
-            console.log('Generando certificado:', {
-                ruc: lastResult.ruc,
-                score: lastResult.score,
-                razon_social: lastResult.razon_social
-            });
-            
             // URL de verificacion (QR code) - con RUC y Score incluidos
-            const verifyUrl = 'https://www.czperu.com/verificar.html?cert=' + certId + '&ruc=' + encodeURIComponent(lastResult.ruc) + '&score=' + encodeURIComponent(lastResult.score);
+            const rucEncoded = encodeURIComponent(lastResult.ruc);
+            const scoreEncoded = encodeURIComponent(lastResult.score);
+            const verifyUrl = 'https://www.czperu.com/verificar.html?cert=' + certId + '&ruc=' + rucEncoded + '&score=' + scoreEncoded;
             
-            console.log('QR URL:', verifyUrl); // DEBUG
+            // DEBUG: Mostrar URL en alert para verificar
+            console.log('QR URL generada:', verifyUrl);
+            alert('DEBUG - URL del QR:\n' + verifyUrl); // Quitar esto después de probar
             
             const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(verifyUrl);
             
