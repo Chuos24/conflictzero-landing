@@ -674,9 +674,12 @@
         
         async function verifyRUC(e) {
             e.preventDefault();
+            console.log('verifyRUC called');
             
             const ruc = document.getElementById('rucInput').value.trim();
             const btn = document.getElementById('verifyBtn');
+            
+            console.log('RUC:', ruc, 'Length:', ruc.length);
             
             if (ruc.length !== 11 || !/^\d+$/.test(ruc)) {
                 showError('El RUC debe tener 11 dígitos numéricos');
@@ -692,18 +695,18 @@
             btn.textContent = 'Conectando...';
             showLoading(true);
             
-            // Mostrar mensaje de espera por si el backend está dormido
             const errorEl = document.getElementById('errorMsg');
-            errorEl.textContent = 'Conectando con el servidor... Esto puede tomar hasta 30 segundos en la primera consulta.';
+            errorEl.textContent = 'Conectando con el servidor...';
             errorEl.style.background = 'rgba(201, 169, 97, 0.1)';
             errorEl.style.borderColor = 'rgba(201, 169, 97, 0.3)';
             errorEl.style.color = '#c9a961';
             errorEl.classList.add('visible');
             
             try {
-                // Timeout de 45 segundos para el backend
+                console.log('Fetching:', `${API_BASE}/consulta-completa/${ruc}`);
+                
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 45000);
+                const timeoutId = setTimeout(() => controller.abort(), 30000);
                 
                 const res = await fetch(`${API_BASE}/consulta-completa/${ruc}`, {
                     signal: controller.signal
@@ -712,29 +715,29 @@
                 clearTimeout(timeoutId);
                 errorEl.classList.remove('visible');
                 
+                console.log('Response status:', res.status);
+                
                 if (!res.ok) {
                     throw new Error('Error en la consulta. Intente nuevamente.');
                 }
                 
                 const data = await res.json();
+                console.log('Data received:', data);
+                
                 lastResult = data;
                 displayResults(data, ruc);
                 addToHistory(ruc, data);
                 
-                // Update stats and save
                 consultasUsadas++;
                 updateStats();
                 saveToStorage();
                 
             } catch (err) {
+                console.error('Error:', err);
                 errorEl.style.background = '';
                 errorEl.style.borderColor = '';
                 errorEl.style.color = '';
-                if (err.name === 'AbortError') {
-                    showError('La consulta tardó demasiado. El servidor puede estar ocupado. Intente nuevamente.');
-                } else {
-                    showError(err.message || 'Error de conexión. Verifique su internet e intente nuevamente.');
-                }
+                showError('Error: ' + (err.message || 'No se pudo conectar con el servidor'));
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Verificar';
