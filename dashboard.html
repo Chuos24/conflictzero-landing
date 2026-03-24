@@ -689,14 +689,31 @@
             }
             
             btn.disabled = true;
-            btn.textContent = 'Verificando...';
+            btn.textContent = 'Conectando...';
             showLoading(true);
             
+            // Mostrar mensaje de espera por si el backend está dormido
+            const errorEl = document.getElementById('errorMsg');
+            errorEl.textContent = 'Conectando con el servidor... Esto puede tomar hasta 30 segundos en la primera consulta.';
+            errorEl.style.background = 'rgba(201, 169, 97, 0.1)';
+            errorEl.style.borderColor = 'rgba(201, 169, 97, 0.3)';
+            errorEl.style.color = '#c9a961';
+            errorEl.classList.add('visible');
+            
             try {
-                const res = await fetch(`${API_BASE}/consulta-completa/${ruc}`);
+                // Timeout de 45 segundos para el backend
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 45000);
+                
+                const res = await fetch(`${API_BASE}/consulta-completa/${ruc}`, {
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                errorEl.classList.remove('visible');
                 
                 if (!res.ok) {
-                    throw new Error('Error en la consulta');
+                    throw new Error('Error en la consulta. Intente nuevamente.');
                 }
                 
                 const data = await res.json();
@@ -710,7 +727,14 @@
                 saveToStorage();
                 
             } catch (err) {
-                showError(err.message);
+                errorEl.style.background = '';
+                errorEl.style.borderColor = '';
+                errorEl.style.color = '';
+                if (err.name === 'AbortError') {
+                    showError('La consulta tardó demasiado. El servidor puede estar ocupado. Intente nuevamente.');
+                } else {
+                    showError(err.message || 'Error de conexión. Verifique su internet e intente nuevamente.');
+                }
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Verificar';
@@ -1148,6 +1172,9 @@
         
         // Load data on page load
         loadFromStorage();
+        
+        // Wake up backend (Render free tier sleeps after inactivity)
+        fetch(`${API_BASE}/health`).catch(() => {});
         
         document.getElementById('rucInput').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/\D/g, '');
