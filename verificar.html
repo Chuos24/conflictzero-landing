@@ -690,70 +690,37 @@
         const urlParams = new URLSearchParams(window.location.search);
         const certId = urlParams.get('cert') || 'CZ-XXXXXXXX';
         const ruc = urlParams.get('ruc') || '';
-        const scoreFromUrl = urlParams.get('score');
+        const scoreFromUrl = parseInt(urlParams.get('score')) || 0;
         
-        // Mostrar loading state
+        // Mostrar datos iniciales del QR (URL) inmediatamente
         document.getElementById('certId').textContent = certId;
         document.getElementById('certRuc').textContent = ruc || 'No especificado';
-        document.getElementById('certEmpresa').textContent = 'Cargando...';
-        document.getElementById('scoreValue').textContent = scoreFromUrl || '-';
+        document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
+        document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
         
-        // Función para consultar RUC real
-        async function consultarRUC(ruc) {
-            if (!ruc || ruc.length !== 11) {
-                mostrarError('RUC inválido');
-                return;
-            }
-            
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 30000);
-                
-                const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error('Error en la consulta');
-                }
-                
-                const data = await response.json();
-                mostrarResultados(data);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                // Si hay error, mostrar datos básicos del URL
-                mostrarDatosBasicos();
-            }
-        }
+        // Mostrar score del QR mientras carga
+        const scoreValue = document.getElementById('scoreValue');
+        const scoreBar = document.getElementById('scoreBar');
+        scoreValue.textContent = scoreFromUrl;
+        scoreBar.style.width = scoreFromUrl + '%';
+        aplicarColoresScore(scoreFromUrl);
         
-        function mostrarResultados(data) {
-            const hoy = new Date();
-            const venc = new Date(hoy.getTime() + 90*24*60*60*1000);
-            
-            document.getElementById('certEmpresa').textContent = data.razon_social || 'NO ENCONTRADO';
-            document.getElementById('certFecha').textContent = hoy.toLocaleDateString('es-PE');
-            document.getElementById('certVenc').textContent = venc.toLocaleDateString('es-PE');
-            
-            const scoreValue = document.getElementById('scoreValue');
-            const scoreBar = document.getElementById('scoreBar');
+        // Mensaje de carga
+        document.getElementById('certEmpresa').innerHTML = '<span style="color: var(--gold);">Consultando datos...</span>';
+        
+        // Función para aplicar colores según score
+        function aplicarColoresScore(score) {
             const certStatus = document.getElementById('certStatus');
             
-            scoreValue.textContent = data.score;
-            scoreBar.style.width = data.score + '%';
-            
-            // Colores según nueva fórmula B
-            if (data.score >= 90) {
+            if (score >= 90) {
                 scoreValue.style.color = 'var(--success)';
                 certStatus.className = 'status-badge valid';
                 certStatus.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO - LIMPIO';
-            } else if (data.score >= 70) {
+            } else if (score >= 70) {
                 scoreValue.style.color = 'var(--warning)';
                 certStatus.className = 'status-badge warning';
                 certStatus.innerHTML = '<span>!</span> OBSERVADO LEVE';
-            } else if (data.score >= 40) {
+            } else if (score >= 40) {
                 scoreValue.style.color = 'orange';
                 certStatus.className = 'status-badge warning';
                 certStatus.innerHTML = '<span>⚠</span> OBSERVADO GRAVE';
@@ -762,13 +729,60 @@
                 certStatus.className = 'status-badge invalid';
                 certStatus.innerHTML = '<span>✕</span> RECHAZADO';
             }
+        }
+        
+        // Función para consultar RUC real
+        async function consultarRUC(ruc) {
+            if (!ruc || ruc.length !== 11) {
+                document.getElementById('certEmpresa').textContent = 'RUC inválido';
+                return;
+            }
+            
+            try {
+                // Intentar consultar API con timeout de 25 segundos
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 25000);
+                
+                const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
+                    signal: controller.signal,
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error('API error: ' + response.status);
+                }
+                
+                const data = await response.json();
+                
+                // Actualizar con datos reales de la API
+                mostrarResultados(data);
+                
+            } catch (error) {
+                console.log('API no disponible, usando datos del QR:', error.message);
+                // API falló - mantener datos del QR y mostrar mensaje
+                mostrarDatosQR();
+            }
+        }
+        
+        function mostrarResultados(data) {
+            // Actualizar razón social
+            document.getElementById('certEmpresa').textContent = data.razon_social || 'NO ENCONTRADO';
+            
+            // Actualizar score si es diferente al del QR
+            if (data.score !== scoreFromUrl) {
+                scoreValue.textContent = data.score;
+                scoreBar.style.width = data.score + '%';
+                aplicarColoresScore(data.score);
+            }
             
             // Mostrar sanciones reales
             const sancionesList = document.getElementById('sancionesList');
             const sanciones = data.sanciones || [];
             
             if (sanciones.length === 0) {
-                sancionesList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">✓ No se detectaron sanciones para esta empresa.</p>';
+                sancionesList.innerHTML = '<p style="color: var(--success); text-align: center; padding: 20px;">✓ No se detectaron sanciones para esta empresa.</p>';
             } else {
                 sancionesList.innerHTML = sanciones.map(s => {
                     let nivel = 'low';
@@ -788,44 +802,32 @@
                 }).join('');
             }
             
-            // Actualizar fórmula mostrada si existe
+            // Actualizar fórmula mostrada
             if (data.formula_utilizada) {
-                const formulaSection = document.querySelector('.formula-box h3');
-                if (formulaSection) {
-                    formulaSection.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
+                const formulaTitle = document.querySelector('.formula-title');
+                if (formulaTitle) {
+                    formulaTitle.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
                 }
             }
         }
         
-        function mostrarDatosBasicos() {
-            // Fallback si la API falla
-            document.getElementById('certEmpresa').textContent = 'Datos no disponibles';
-            document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
-            document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
-            
-            const scoreValue = document.getElementById('scoreValue');
-            const score = parseInt(scoreFromUrl) || 0;
-            scoreValue.textContent = score;
-            document.getElementById('scoreBar').style.width = score + '%';
-            
-            if (score >= 90) {
-                scoreValue.style.color = 'var(--success)';
-            } else if (score >= 70) {
-                scoreValue.style.color = 'var(--warning)';
-            } else {
-                scoreValue.style.color = 'var(--danger)';
-            }
+        function mostrarDatosQR() {
+            // Mostrar datos del QR (URL) cuando la API no está disponible
+            document.getElementById('certEmpresa').innerHTML = `
+                <span style="color: var(--text-muted);">Datos del certificado</span><br>
+                <small style="color: var(--gold);">RUC: ${ruc}</small>
+            `;
             
             document.getElementById('sancionesList').innerHTML = 
-                '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No se pudieron cargar los datos detallados. Score mostrado: ' + score + '</p>';
+                '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
+                'El servidor de verificación está iniciando. ' +
+                'Los datos mostrados corresponden al momento de la emisión del certificado.<br><br>' +
+                '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
+                '</p>';
         }
         
-        function mostrarError(msg) {
-            document.getElementById('certEmpresa').textContent = 'Error: ' + msg;
-        }
-        
-        // Iniciar consulta
-        consultarRUC(ruc);
+        // Iniciar consulta después de mostrar datos iniciales
+        setTimeout(() => consultarRUC(ruc), 100);
     </script>
 </body>
 </html>
