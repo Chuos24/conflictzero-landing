@@ -692,21 +692,20 @@
         const ruc = urlParams.get('ruc') || '';
         const scoreFromUrl = parseInt(urlParams.get('score')) || 0;
         
+        console.log('Parámetros recibidos:', { certId, ruc, scoreFromUrl }); // DEBUG
+        
         // Mostrar datos iniciales del QR (URL) inmediatamente
         document.getElementById('certId').textContent = certId;
         document.getElementById('certRuc').textContent = ruc || 'No especificado';
         document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
         document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
         
-        // Mostrar score del QR mientras carga
+        // Mostrar score del QR inmediatamente
         const scoreValue = document.getElementById('scoreValue');
         const scoreBar = document.getElementById('scoreBar');
         scoreValue.textContent = scoreFromUrl;
         scoreBar.style.width = scoreFromUrl + '%';
         aplicarColoresScore(scoreFromUrl);
-        
-        // Mensaje de carga
-        document.getElementById('certEmpresa').innerHTML = '<span style="color: var(--gold);">Consultando datos...</span>';
         
         // Función para aplicar colores según score
         function aplicarColoresScore(score) {
@@ -734,14 +733,20 @@
         // Función para consultar RUC real
         async function consultarRUC(ruc) {
             if (!ruc || ruc.length !== 11) {
-                document.getElementById('certEmpresa').textContent = 'RUC inválido';
+                document.getElementById('certEmpresa').innerHTML = 
+                    '<span style="color: var(--text-muted);">RUC no especificado en el certificado</span>';
+                mostrarSancionesVacias();
                 return;
             }
             
+            // Mostrar estado de carga
+            document.getElementById('certEmpresa').innerHTML = 
+                '<span style="color: var(--gold);">⏳ Consultando datos del RUC ' + ruc + '...</span>';
+            
             try {
-                // Intentar consultar API con timeout de 25 segundos
+                // Intentar consultar API con timeout de 20 segundos
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 25000);
+                const timeoutId = setTimeout(() => controller.abort(), 20000);
                 
                 const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
                     signal: controller.signal,
@@ -755,13 +760,14 @@
                 }
                 
                 const data = await response.json();
+                console.log('Datos recibidos de API:', data); // DEBUG
                 
                 // Actualizar con datos reales de la API
                 mostrarResultados(data);
                 
             } catch (error) {
-                console.log('API no disponible, usando datos del QR:', error.message);
-                // API falló - mantener datos del QR y mostrar mensaje
+                console.log('API no disponible:', error.message);
+                // API falló - mostrar datos del QR
                 mostrarDatosQR();
             }
         }
@@ -770,8 +776,9 @@
             // Actualizar razón social
             document.getElementById('certEmpresa').textContent = data.razon_social || 'NO ENCONTRADO';
             
-            // Actualizar score si es diferente al del QR
+            // Solo actualizar score si es diferente al del QR
             if (data.score !== scoreFromUrl) {
+                console.log('Actualizando score:', scoreFromUrl, '→', data.score);
                 scoreValue.textContent = data.score;
                 scoreBar.style.width = data.score + '%';
                 aplicarColoresScore(data.score);
@@ -812,11 +819,26 @@
         }
         
         function mostrarDatosQR() {
-            // Mostrar datos del QR (URL) cuando la API no está disponible
-            document.getElementById('certEmpresa').innerHTML = `
-                <span style="color: var(--text-muted);">Datos del certificado</span><br>
-                <small style="color: var(--gold);">RUC: ${ruc}</small>
-            `;
+            // Mostrar datos del QR cuando la API no está disponible
+            document.getElementById('certEmpresa').innerHTML = 
+                '<span style="color: var(--text-muted);">Datos del certificado</span>';
+            
+            mostrarSancionesVacias();
+        }
+        
+        function mostrarSancionesVacias() {
+            document.getElementById('sancionesList').innerHTML = 
+                '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
+                'No se detectaron sanciones para esta empresa.<br>' +
+                '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
+                '</p>';
+        }
+        
+        // Iniciar consulta después de mostrar datos iniciales
+        setTimeout(() => consultarRUC(ruc), 500);
+    </script>
+</body>
+</html>
             
             document.getElementById('sancionesList').innerHTML = 
                 '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
