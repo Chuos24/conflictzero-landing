@@ -681,6 +681,12 @@
                 return;
             }
             
+            // Validar que tenemos datos completos
+            if (!lastResult.ruc || !lastResult.score === undefined) {
+                alert('Error: Datos de consulta incompletos. Por favor realice la consulta nuevamente.');
+                return;
+            }
+            
             const certId = 'CZ-' + Math.random().toString(36).substr(2, 8).toUpperCase();
             const fecha = new Date();
             const fechaStr = fecha.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
@@ -688,8 +694,18 @@
             fechaVenc.setMonth(fechaVenc.getMonth() + 3);
             const fechaVencStr = fechaVenc.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
             
-            // URL de verificacion (QR code) - apunta a la pagina de verificacion con explicacion del scoring
-            const verifyUrl = 'https://www.czperu.com/verificar.html?cert=' + certId + '&ruc=' + (lastResult.ruc || '') + '&score=' + (lastResult.score || 0);
+            // DEBUG: Verificar datos antes de generar QR
+            console.log('Generando certificado:', {
+                ruc: lastResult.ruc,
+                score: lastResult.score,
+                razon_social: lastResult.razon_social
+            });
+            
+            // URL de verificacion (QR code) - con RUC y Score incluidos
+            const verifyUrl = 'https://www.czperu.com/verificar.html?cert=' + certId + '&ruc=' + encodeURIComponent(lastResult.ruc) + '&score=' + encodeURIComponent(lastResult.score);
+            
+            console.log('QR URL:', verifyUrl); // DEBUG
+            
             const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(verifyUrl);
             
             const doc = new window.jspdf.jsPDF({
