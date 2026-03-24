@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Conflict Zero - Panel</title>
+    <!-- v2.1 Fixed character encoding issues -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -603,7 +607,7 @@
                         <h3>Certificación</h3>
                         <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Descargue el certificado PDF de esta consulta</p>
                         <button class="btn-cert" onclick="generateCertificate()">
-                            <span style="font-size: 18px;">📜</span> Descargar Certificado
+                            Descargar Certificado
                         </button>
                     </div>
                 </div>
@@ -956,7 +960,7 @@
                 doc.setTextColor(40, 120, 60);
             }
             doc.setFont('helvetica', 'bold');
-            const estadoText = tieneProblemas ? '⚠ PROBLEMAS DETECTADOS' : '✓ SIN PROBLEMAS DETECTADOS';
+            const estadoText = tieneProblemas ? '[!] PROBLEMAS DETECTADOS' : '[OK] SIN PROBLEMAS DETECTADOS';
             doc.text(estadoText, 105, boxY + 12, { align: 'center' });
             
             doc.setFontSize(10);
@@ -1095,7 +1099,7 @@
             doc.setFontSize(14);
             doc.setTextColor(tieneProblemas ? 180 : 40, tieneProblemas ? 80 : 120, tieneProblemas ? 80 : 60);
             doc.setFont('helvetica', 'bold');
-            const estadoText = tieneProblemas ? '⚠ PROBLEMAS DETECTADOS' : '✓ SIN PROBLEMAS DETECTADOS';
+            const estadoText = tieneProblemas ? '[!] PROBLEMAS DETECTADOS' : '[OK] SIN PROBLEMAS DETECTADOS';
             doc.text(estadoText, 105, 172, { align: 'center' });
             
             doc.setFontSize(9);
