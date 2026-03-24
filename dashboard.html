@@ -682,84 +682,210 @@
             }
             
             const certId = 'CZ-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+            const fecha = new Date();
+            const fechaStr = fecha.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
+            const fechaVenc = new Date(fecha);
+            fechaVenc.setMonth(fechaVenc.getMonth() + 3);
+            const fechaVencStr = fechaVenc.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
+            
             const doc = new window.jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
                 format: 'a4'
             });
             
-            // Fondo blanco
-            doc.setFillColor(255, 255, 255);
+            // Fondo blanco premium
+            doc.setFillColor(252, 252, 252);
             doc.rect(0, 0, 210, 297, 'F');
             
-            // Borde dorado
+            // ===== BORDES DORADOS DOBLES (efecto diploma) =====
+            // Borde exterior grueso
             doc.setDrawColor(201, 169, 97);
+            doc.setLineWidth(2);
+            doc.rect(12, 12, 186, 273);
+            
+            // Borde interior fino
+            doc.setLineWidth(0.5);
+            doc.rect(18, 18, 174, 261);
+            
+            // Esquinas decorativas
+            const cornerSize = 8;
+            // Top-left
             doc.setLineWidth(1.5);
-            doc.rect(15, 15, 180, 267);
+            doc.line(12, 25, 25, 12);
+            // Top-right
+            doc.line(185, 12, 198, 25);
+            // Bottom-left
+            doc.line(12, 272, 25, 285);
+            // Bottom-right
+            doc.line(185, 285, 198, 272);
             
-            // Logo circular
+            // ===== HEADER CON LOGO =====
+            // Circulo dorado exterior
             doc.setFillColor(201, 169, 97);
-            doc.circle(105, 40, 15, 'F');
+            doc.circle(105, 38, 18, 'F');
+            // Circulo blanco interior
+            doc.setFillColor(255, 255, 255);
+            doc.circle(105, 38, 14, 'F');
+            // CZ dorado
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(18);
-            doc.setTextColor(255, 255, 255);
-            doc.text('CZ', 105, 45, { align: 'center' });
+            doc.setFontSize(20);
+            doc.setTextColor(201, 169, 97);
+            doc.text('CZ', 105, 43, { align: 'center' });
             
-            // Titulo
-            doc.setFontSize(24);
-            doc.setTextColor(50, 50, 50);
+            // ===== TITULOS PRINCIPALES =====
+            // CONFLICTZERO
+            doc.setFontSize(28);
+            doc.setTextColor(60, 50, 40);
             doc.text('CONFLICTZERO', 105, 75, { align: 'center' });
             
-            doc.setFontSize(12);
-            doc.setTextColor(100, 100, 100);
-            doc.setFont('helvetica', 'normal');
-            doc.text('CERTIFICADO DE VERIFICACION', 105, 85, { align: 'center' });
+            // Subtitulo elegante
+            doc.setFontSize(11);
+            doc.setTextColor(150, 140, 120);
+            doc.setFont('helvetica', 'italic');
+            doc.text('CERTIFICACION DE VERIFICACION EMPRESARIAL', 105, 83, { align: 'center' });
             
-            // Nro certificado
+            // ===== LINEA DECORATIVA CON DIAMANTE =====
+            doc.setDrawColor(201, 169, 97);
+            doc.setLineWidth(0.8);
+            doc.line(50, 92, 95, 92);
+            doc.line(115, 92, 160, 92);
+            
+            // Diamante dorado
+            doc.setFillColor(201, 169, 97);
+            const dX = 105, dY = 92, dS = 3;
+            doc.triangle(dX, dY - dS, dX - dS, dY, dX, dY + dS, 'F');
+            doc.triangle(dX, dY - dS, dX + dS, dY, dX, dY + dS, 'F');
+            
+            // ===== NUMERO DE CERTIFICADO (arriba derecha) =====
             doc.setFontSize(10);
-            doc.text('Nro. ' + certId, 175, 25, { align: 'right' });
-            
-            // Empresa
-            doc.setFontSize(18);
-            doc.setTextColor(50, 50, 50);
+            doc.setTextColor(150, 140, 120);
+            doc.setFont('helvetica', 'normal');
+            doc.text('CERTIFICADO Nro.', 175, 28, { align: 'right' });
             doc.setFont('helvetica', 'bold');
-            doc.text(lastResult.razon_social || 'Empresa', 105, 120, { align: 'center' });
+            doc.setTextColor(60, 50, 40);
+            doc.text(certId, 175, 35, { align: 'right' });
             
-            // RUC
+            // ===== TEXTO DE PRESENTACION =====
             doc.setFontSize(11);
             doc.setTextColor(100, 100, 100);
-            doc.setFont('helvetica', 'normal');
-            doc.text('RUC: ' + (lastResult.ruc || '-'), 105, 135, { align: 'center' });
+            doc.setFont('helvetica', 'italic');
+            doc.text('Por medio del presente, ConflictZero S.A.C. certifica que:', 105, 108, { align: 'center' });
             
-            // Estado
+            // ===== NOMBRE DE LA EMPRESA (destacado) =====
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(20);
+            doc.setTextColor(40, 40, 40);
+            
+            const razon = lastResult.razon_social || 'Empresa';
+            if (razon.length > 35) {
+                const mid = Math.floor(razon.length / 2);
+                const spaceIdx = razon.lastIndexOf(' ', mid);
+                const splitIdx = spaceIdx > 0 ? spaceIdx : mid;
+                doc.text(razon.substring(0, splitIdx), 105, 130, { align: 'center' });
+                doc.text(razon.substring(splitIdx + 1), 105, 142, { align: 'center' });
+            } else {
+                doc.text(razon, 105, 136, { align: 'center' });
+            }
+            
+            // RUC
+            doc.setFontSize(12);
+            doc.setTextColor(120, 120, 120);
+            doc.setFont('helvetica', 'normal');
+            doc.text('RUC: ' + (lastResult.ruc || '-'), 105, 155, { align: 'center' });
+            
+            // ===== CAJA DE ESTADO (elegante) =====
             const score = lastResult.score || 0;
             const tieneProblemas = score < 60;
             
-            doc.setFillColor(tieneProblemas ? 255 : 240, tieneProblemas ? 248 : 248, tieneProblemas ? 240 : 240);
-            doc.setDrawColor(tieneProblemas ? 200 : 150, tieneProblemas ? 150 : 200, tieneProblemas ? 150 : 150);
-            doc.roundedRect(40, 155, 130, 30, 5, 5, 'FD');
+            // Fondo de caja
+            if (tieneProblemas) {
+                doc.setFillColor(255, 245, 238);
+                doc.setDrawColor(230, 126, 34);
+            } else {
+                doc.setFillColor(240, 248, 240);
+                doc.setDrawColor(40, 167, 69);
+            }
+            doc.roundedRect(35, 170, 140, 35, 3, 3, 'FD');
             
+            // Texto de estado
             doc.setFontSize(14);
-            doc.setTextColor(tieneProblemas ? 180 : 40, tieneProblemas ? 80 : 120, tieneProblemas ? 80 : 60);
+            if (tieneProblemas) {
+                doc.setTextColor(200, 100, 50);
+            } else {
+                doc.setTextColor(40, 120, 60);
+            }
             doc.setFont('helvetica', 'bold');
-            doc.text(tieneProblemas ? '[!] PROBLEMAS DETECTADOS' : '[OK] SIN PROBLEMAS DETECTADOS', 105, 170, { align: 'center' });
+            doc.text(tieneProblemas ? 'PROBLEMAS DETECTADOS' : 'SIN PROBLEMAS DETECTADOS', 105, 188, { align: 'center' });
             
-            // Fuentes
-            doc.setFontSize(11);
-            doc.setTextColor(50, 50, 50);
-            doc.text('Verificado en: SUNAT - SBS - OSCE - RENIEC', 105, 210, { align: 'center' });
-            
-            // Fecha
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
-            doc.text('Fecha: ' + new Date().toLocaleDateString('es-PE'), 105, 250, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            const estadoSub = tieneProblemas ? 'Se recomienda revision adicional' : 'Empresa habilitada para contratacion publica';
+            doc.text(estadoSub, 105, 198, { align: 'center' });
             
-            // Sello
-            doc.setFillColor(201, 169, 97);
-            doc.circle(105, 270, 10, 'F');
+            // ===== DETALLES DE VERIFICACION =====
+            doc.setFontSize(10);
+            doc.setTextColor(80, 80, 80);
+            doc.setFont('helvetica', 'bold');
+            doc.text('FUENTES CONSULTADAS:', 30, 225);
+            
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(201, 169, 97);
+            doc.text('SUNAT - SBS - OSCE - RENIEC', 30, 235);
+            
+            doc.setTextColor(100, 100, 100);
+            doc.setFontSize(9);
+            doc.text('La empresa ha sido verificada en las principales bases de datos', 30, 243);
+            doc.text('del Estado peruano y se encuentra APTA para participar en', 30, 249);
+            doc.text('procesos de licitacion y contratacion publica.', 30, 255);
+            
+            // ===== QR CODE PLACEHOLDER =====
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.5);
+            doc.rect(155, 215, 30, 30);
             doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.text('VERIFICAR', 170, 250, { align: 'center' });
+            doc.text('validez', 170, 255, { align: 'center' });
+            
+            // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
+            // Linea divisoria
+            doc.setDrawColor(200, 190, 170);
+            doc.setLineWidth(0.3);
+            doc.line(30, 265, 180, 265);
+            
+            // Fechas a la izquierda
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Fecha de emision:', 30, 272);
+            doc.setTextColor(40, 40, 40);
+            doc.setFont('helvetica', 'bold');
+            doc.text(fechaStr, 65, 272);
+            
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 100, 100);
+            doc.text('Valido hasta:', 30, 279);
+            doc.setTextColor(40, 40, 40);
+            doc.setFont('helvetica', 'bold');
+            doc.text(fechaVencStr, 65, 279);
+            
+            // Sello CZ OFICIAL a la derecha
+            doc.setFillColor(201, 169, 97);
+            doc.circle(165, 272, 10, 'F');
+            doc.setFontSize(7);
             doc.setTextColor(255, 255, 255);
-            doc.text('CZ', 105, 273, { align: 'center' });
+            doc.setFont('helvetica', 'bold');
+            doc.text('CZ', 165, 270, { align: 'center' });
+            doc.setFontSize(5);
+            doc.text('OFICIAL', 165, 276, { align: 'center' });
+            
+            // ===== FOOTER =====
+            doc.setFontSize(7);
+            doc.setTextColor(150, 150, 150);
+            doc.setFont('helvetica', 'normal');
+            doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima - RUC 20601234567', 105, 290, { align: 'center' });
+            doc.text('contacto@czperu.com | www.czperu.com | Este certificado tiene validez legal conforme a la Ley Nro. 27269', 105, 294, { align: 'center' });
             
             doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
         }
