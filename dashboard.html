@@ -732,6 +732,12 @@
             
             const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(verifyUrl);
             
+            console.log('QR API URL completa:', qrApiUrl);
+            console.log('Longitud URL:', verifyUrl.length);
+            
+            // DEBUG: Mostrar alert con la URL exacta del QR
+            alert('DEBUG - URL en el QR:\n' + verifyUrl + '\n\nLongitud: ' + verifyUrl.length + ' chars');
+            
             const doc = new window.jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
