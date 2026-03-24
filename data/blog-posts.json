@@ -1,0 +1,96 @@
+{
+  "posts": [
+    {
+      "id": "post-001",
+      "title": "OSCE Sanciona a 15 Empresas por Falta de Documentación",
+      "slug": "osce-sanciona-15-empresas-documentacion",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado impuso sanciones graves a 15 proveedores por presentar documentación falsa en procesos de selección.",
+      "content": "El OSCE ha publicado la última lista de sancionados correspondiente a la primera quincena de marzo 2026. Entre los casos destacados se encuentran empresas del sector construcción que presentaron certificados de experiencia falsificados...",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-03-24",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Compliance"
+      ]
+    },
+    {
+      "id": "post-002",
+      "title": "Guía Rápida: Cómo Verificar un RUC en 3 Pasos",
+      "slug": "guia-verificar-ruc-3-pasos",
+      "excerpt": "Aprenda el proceso correcto para verificar la situación tributaria y contractual de cualquier empresa peruana usando herramientas públicas.",
+      "content": "La verificación de contrapartes es un proceso crítico antes de cualquier relación comercial. En esta guía explicamos los tres pasos fundamentales...",
+      "category": "Guías",
+      "author": "María Elena Vargas",
+      "date": "2026-03-24",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Guía",
+        "RUC"
+      ]
+    },
+    {
+      "id": "post-003",
+      "title": "Análisis: Las 10 Empresas Más Sancionadas del 2025",
+      "slug": "analisis-10-empresas-mas-sancionadas-2025",
+      "excerpt": "Un análisis exhaustivo de las empresas con mayor número de sanciones acumuladas durante el año pasado y los patrones comunes en sus infracciones.",
+      "content": "El análisis de datos del OSCE y TCE revela patrones preocupantes en ciertos sectores económicos. Las empresas de construcción lideran la lista...",
+      "category": "Análisis",
+      "author": "Dr. Carlos Mendoza",
+      "date": "2026-03-23",
+      "readTime": "12 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "TCE",
+          "url": "https://www.tce.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Sanciones"
+      ]
+    }
+  ],
+  "config": {
+    "lastUpdated": "2026-03-25T20:00:00Z",
+    "totalPosts": 3,
+    "categories": [
+      "Noticias",
+      "Guías",
+      "Análisis",
+      "Compliance",
+      "Tecnología"
+    ],
+    "autoGenerate": true
+  }
+}
