@@ -51,8 +51,14 @@
             align-items: center;
             justify-content: center;
             color: var(--gold);
-            font-weight: 700;
-            font-size: 14px;
+        }
+        
+        .logo-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
         }
         
         .logo-text {
@@ -325,7 +331,11 @@
 <body>
     <header class="header">
         <a href="/" class="logo">
-            <div class="logo-icon">CZ</div>
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
             <div class="logo-text">Conflict <span>Zero</span></div>
         </a>
         

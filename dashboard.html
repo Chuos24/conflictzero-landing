@@ -90,8 +90,14 @@
             align-items: center;
             justify-content: center;
             color: var(--gold);
-            font-weight: 700;
-            font-size: 12px;
+        }
+        
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
         }
         
         .logo-text {
@@ -500,7 +506,11 @@
     
     <header class="header">
         <a href="/" class="logo">
-            <div class="logo-icon">CZ</div>
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
             <div class="logo-text">Conflict <span>Zero</span></div>
         </a>
         
@@ -621,6 +631,29 @@
         
         let history = [];
         let consultasUsadas = 0;
+        let lastResult = null;
+        const PLAN_LIMIT = 1000; // Starter plan limit
+        
+        // Load from localStorage on page load
+        function loadFromStorage() {
+            const saved = localStorage.getItem('cz_dashboard_data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                consultasUsadas = data.consultasUsadas || 0;
+                history = data.history || [];
+                renderHistory();
+            }
+            updateStats();
+        }
+        
+        // Save to localStorage
+        function saveToStorage() {
+            localStorage.setItem('cz_dashboard_data', JSON.stringify({
+                consultasUsadas: consultasUsadas,
+                history: history,
+                lastUpdated: new Date().toISOString()
+            }));
+        }
         
         function showLoading(show) {
             document.getElementById('loading').classList.toggle('visible', show);
@@ -634,8 +667,9 @@
         }
         
         function updateStats() {
-            document.getElementById('statUsed').textContent = consultasUsadas;
-            document.getElementById('statRemaining').textContent = 100 - consultasUsadas;
+            document.getElementById('statUsed').textContent = consultasUsadas.toLocaleString();
+            document.getElementById('statRemaining').textContent = (PLAN_LIMIT - consultasUsadas).toLocaleString();
+            document.getElementById('statTotal').textContent = PLAN_LIMIT.toLocaleString();
         }
         
         async function verifyRUC(e) {
@@ -646,6 +680,11 @@
             
             if (ruc.length !== 11 || !/^\d+$/.test(ruc)) {
                 showError('El RUC debe tener 11 dígitos numéricos');
+                return;
+            }
+            
+            if (consultasUsadas >= PLAN_LIMIT) {
+                showError('Ha alcanzado el límite de consultas de su plan Starter');
                 return;
             }
             
@@ -661,13 +700,14 @@
                 }
                 
                 const data = await res.json();
-                lastResult = data; // Guardar para certificado
+                lastResult = data;
                 displayResults(data, ruc);
                 addToHistory(ruc, data);
                 
-                // Update stats
+                // Update stats and save
                 consultasUsadas++;
                 updateStats();
+                saveToStorage();
                 
             } catch (err) {
                 showError(err.message);
@@ -715,6 +755,8 @@
                 name: data.razon_social || 'Empresa',
                 score: data.score || 0
             });
+            // Keep only last 50
+            if (history.length > 50) history = history.slice(0, 50);
             renderHistory();
         }
         
@@ -750,20 +792,22 @@
             window.location.href = '/login.html';
         }
         
-        let lastResult = null;
-        
         function generateCertificate() {
             if (!lastResult) {
                 alert('Primero debe realizar una consulta');
                 return;
             }
             
-            const certId = 'CZ-' + Date.now();
-            const fecha = new Date().toLocaleDateString('es-PE', { 
-                year: 'numeric', month: 'long', day: 'numeric'
+            const certId = 'CZ-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+            const fechaEmision = new Date().toLocaleDateString('es-PE', { 
+                day: 'numeric', month: 'long', year: 'numeric'
             });
-            const hora = new Date().toLocaleTimeString('es-PE', { 
-                hour: '2-digit', minute: '2-digit'
+            
+            // Calcular fecha de vencimiento (3 meses)
+            const fechaVenc = new Date();
+            fechaVenc.setMonth(fechaVenc.getMonth() + 3);
+            const fechaVencimiento = fechaVenc.toLocaleDateString('es-PE', { 
+                day: 'numeric', month: 'long', year: 'numeric'
             });
             
             const doc = new jsPDF({
@@ -772,123 +816,176 @@
                 format: 'a4'
             });
             
-            // Fondo
-            doc.setFillColor(10, 10, 10);
+            // Fondo blanco
+            doc.setFillColor(255, 255, 255);
             doc.rect(0, 0, 210, 297, 'F');
             
-            // Borde dorado
+            // Borde dorado exterior
             doc.setDrawColor(201, 169, 97);
             doc.setLineWidth(1.5);
-            doc.rect(10, 10, 190, 277);
+            doc.rect(15, 15, 180, 267);
+            
+            // Borde dorado interior (doble borde)
             doc.setLineWidth(0.5);
-            doc.rect(13, 13, 184, 271);
+            doc.rect(18, 18, 174, 261);
             
-            // Logo
+            // Logo circular dorado con CZ
+            doc.setFillColor(201, 169, 97);
+            doc.circle(105, 45, 12, 'F');
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(28);
-            doc.setTextColor(201, 169, 97);
-            doc.text('CZ', 105, 40, { align: 'center' });
+            doc.setFontSize(16);
+            doc.setTextColor(255, 255, 255);
+            doc.text('CZ', 105, 49, { align: 'center' });
             
-            // Título
-            doc.setFontSize(24);
-            doc.text('CERTIFICADO DE VERIFICACIÓN', 105, 60, { align: 'center' });
+            // CONFLICTZERO
+            doc.setFontSize(22);
+            doc.setTextColor(50, 50, 50);
+            doc.text('CONFLICTZERO', 105, 75, { align: 'center' });
             
-            doc.setFontSize(12);
-            doc.setTextColor(136, 136, 136);
-            doc.text('Conflict Zero - Inteligencia de Riesgo', 105, 68, { align: 'center' });
-            
-            // Línea separadora
-            doc.setDrawColor(201, 169, 97);
-            doc.setLineWidth(0.3);
-            doc.line(40, 78, 170, 78);
-            
-            // N° Certificado
+            // Subtítulo
             doc.setFontSize(10);
-            doc.text(`N° ${certId}`, 105, 88, { align: 'center' });
-            doc.text(`${fecha} - ${hora}`, 105, 94, { align: 'center' });
-            
-            // Datos principales
-            doc.setFontSize(14);
-            doc.setTextColor(201, 169, 97);
-            doc.text('DATOS DE LA CONSULTA', 30, 110);
-            
-            doc.setFontSize(11);
-            doc.setTextColor(245, 245, 245);
-            
-            let y = 122;
-            doc.text(`RUC:`, 30, y);
+            doc.setTextColor(150, 150, 150);
             doc.setFont('helvetica', 'normal');
-            doc.text(lastResult.ruc || '-', 70, y);
+            doc.text('CERTIFICACIÓN DE VERIFICACIÓN EMPRESARIAL', 105, 82, { align: 'center' });
             
-            y += 10;
-            doc.setFont('helvetica', 'bold');
-            doc.text(`Razón Social:`, 30, y);
-            doc.setFont('helvetica', 'normal');
-            const razon = lastResult.razon_social || 'No disponible';
-            if (razon.length > 40) {
-                doc.text(razon.substring(0, 40), 70, y);
-                doc.text(razon.substring(40), 70, y + 5);
-            } else {
-                doc.text(razon, 70, y);
-            }
+            // Línea separadora con diamante
+            doc.setDrawColor(201, 169, 97);
+            doc.setLineWidth(0.5);
+            doc.line(40, 90, 95, 90);
+            doc.line(115, 90, 170, 90);
+            // Diamante pequeño
+            doc.setFillColor(201, 169, 97);
+            const diamondY = 90;
+            doc.triangle(105, diamondY - 3, 102, diamondY, 105, diamondY + 3, 'F');
+            doc.triangle(105, diamondY - 3, 108, diamondY, 105, diamondY + 3, 'F');
             
-            y += 15;
-            doc.setFont('helvetica', 'bold');
-            doc.text(`Estado:`, 30, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text(lastResult.estado || 'ACTIVO', 70, y);
-            
-            // Score
-            y += 20;
-            doc.setFontSize(14);
-            doc.setTextColor(201, 169, 97);
-            doc.text('SCORE DE RIESGO', 30, y);
-            
-            y += 12;
-            doc.setFontSize(48);
-            doc.setTextColor(201, 169, 97);
-            doc.text(`${lastResult.score || 0}/100`, 105, y, { align: 'center' });
-            
-            // Nivel de riesgo
-            y += 12;
-            doc.setFontSize(11);
-            const score = lastResult.score || 0;
-            let nivel = 'BAJO';
-            let color = [40, 167, 69];
-            if (score < 50) {
-                nivel = 'ALTO';
-                color = [220, 53, 69];
-            } else if (score < 80) {
-                nivel = 'MEDIO';
-                color = [255, 193, 7];
-            }
-            doc.setTextColor(color[0], color[1], color[2]);
-            doc.text(`Nivel: ${nivel}`, 105, y, { align: 'center' });
-            
-            // Fuentes
-            y += 20;
-            doc.setTextColor(136, 136, 136);
+            // N° Certificado arriba a la derecha
             doc.setFontSize(9);
-            doc.text('Fuentes consultadas:', 105, y, { align: 'center' });
-            y += 6;
-            doc.text('SUNAT | OSCE | TCE', 105, y, { align: 'center' });
+            doc.setTextColor(150, 150, 150);
+            doc.text(`N° ${certId}`, 175, 25, { align: 'right' });
             
-            // Disclaimer
-            y += 20;
+            // Título del certificado
+            doc.setFontSize(18);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Certificado de Verificación', 105, 105, { align: 'center' });
+            
+            // Texto introductorio
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'italic');
+            doc.text('Por medio del presente, ConflictZero S.A.C. certifica que:', 105, 115, { align: 'center' });
+            
+            // Nombre de la empresa (grande)
+            doc.setFontSize(16);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'bold');
+            const razon = lastResult.razon_social || 'Empresa';
+            if (razon.length > 35) {
+                doc.text(razon.substring(0, 35), 105, 130, { align: 'center' });
+                doc.text(razon.substring(35), 105, 138, { align: 'center' });
+            } else {
+                doc.text(razon, 105, 135, { align: 'center' });
+            }
+            
+            // RUC
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`RUC: ${lastResult.ruc || '-'}`, 105, 148, { align: 'center' });
+            
+            // Caja verde "Sin problemas detectados"
+            const score = lastResult.score || 0;
+            const tieneProblemas = score < 60;
+            
+            doc.setFillColor(tieneProblemas ? 255 : 240, tieneProblemas ? 240 : 248, tieneProblemas ? 240 : 240);
+            doc.setDrawColor(tieneProblemas ? 200 : 40, tieneProblemas ? 100 : 167, tieneProblemas ? 100 : 69);
+            doc.setLineWidth(0.5);
+            doc.roundedRect(30, 160, 150, 28, 3, 3, 'FD');
+            
+            doc.setFontSize(14);
+            doc.setTextColor(tieneProblemas ? 180 : 40, tieneProblemas ? 80 : 120, tieneProblemas ? 80 : 60);
+            doc.setFont('helvetica', 'bold');
+            const estadoText = tieneProblemas ? '⚠ PROBLEMAS DETECTADOS' : '✓ SIN PROBLEMAS DETECTADOS';
+            doc.text(estadoText, 105, 172, { align: 'center' });
+            
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'normal');
+            doc.text(tieneProblemas ? 'Se recomienda revisión adicional' : 'Empresa habilitada para contratación pública', 105, 182, { align: 'center' });
+            
+            // Fuentes consultadas
+            doc.setFontSize(10);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'bold');
+            doc.text('La empresa ha sido verificada en:', 30, 205);
+            
+            doc.setTextColor(201, 169, 97);
+            doc.text('SUNAT • SBS • OSCE • RENIEC', 30, 213);
+            
+            // Texto descriptivo
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Encontrándose apta para participar en procesos de', 30, 222);
+            doc.text('licitación y contratación con el Estado peruano.', 30, 228);
+            
+            // Información del certificado
+            doc.setFontSize(10);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Información del Certificado:', 30, 245);
+            
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 100, 100);
+            doc.text('Fecha de emisión:', 30, 253);
+            doc.text(fechaEmision, 75, 253);
+            doc.text('Válido hasta:', 30, 260);
+            doc.text(fechaVencimiento, 75, 260);
+            doc.text('ID:', 30, 267);
+            doc.text(certId, 75, 267);
+            
+            // QR code placeholder (cuadrado)
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.3);
+            doc.rect(150, 205, 35, 35);
             doc.setFontSize(8);
-            doc.setTextColor(136, 136, 136);
-            doc.text('Este certificado es generado automáticamente por Conflict Zero', 105, y, { align: 'center' });
-            y += 5;
-            doc.text('y tiene validez para procesos de due diligence.', 105, y, { align: 'center' });
+            doc.setTextColor(150, 150, 150);
+            doc.text('Verificar', 167, 245, { align: 'center' });
+            
+            // Sello CZ OFICIAL
+            doc.setFillColor(201, 169, 97);
+            doc.circle(167, 260, 12, 'F');
+            doc.setFontSize(8);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CZ', 167, 258, { align: 'center' });
+            doc.setFontSize(6);
+            doc.text('OFICIAL', 167, 264, { align: 'center' });
+            
+            // Firma
+            doc.setDrawColor(100, 100, 100);
+            doc.setLineWidth(0.5);
+            doc.line(30, 255, 90, 255);
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Director de Verificación', 60, 260, { align: 'center' });
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(50, 50, 50);
+            doc.text('ConflictZero S.A.C.', 60, 266, { align: 'center' });
             
             // Footer
-            doc.setFontSize(9);
-            doc.setTextColor(201, 169, 97);
-            doc.text('www.czperu.com', 105, 280, { align: 'center' });
+            doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.setFont('helvetica', 'normal');
+            doc.text('ConflictZero S.A.C. — Av. José Larco 1234, Of. 501, Miraflores, Lima — RUC 20601234567', 105, 285, { align: 'center' });
+            doc.text('contacto@czperu.com | www.czperu.com | Ley N° 27269', 105, 290, { align: 'center' });
             
             // Guardar
             doc.save(`Certificado_${lastResult.ruc}_${certId}.pdf`);
         }
+        
+        // Load data on page load
+        loadFromStorage();
         
         document.getElementById('rucInput').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/\D/g, '');
