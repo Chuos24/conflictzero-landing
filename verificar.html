@@ -683,6 +683,11 @@
     </footer>
 
     <script>
+        // DEBUG INICIAL
+        console.log('=== VERIFICAR.HTML CARGADO ===');
+        console.log('URL:', window.location.href);
+        console.log('Query:', window.location.search);
+        
         // Backend API URL
         const API_BASE_URL = 'https://conflictzero-backend1.onrender.com';
         
@@ -692,7 +697,7 @@
         const ruc = urlParams.get('ruc') || '';
         const scoreFromUrl = parseInt(urlParams.get('score')) || 0;
         
-        console.log('Parámetros recibidos:', { certId, ruc, scoreFromUrl }); // DEBUG
+        console.log('PARÁMETROS:', { certId, ruc, scoreFromUrl });
         
         // Mostrar datos iniciales del QR (URL) inmediatamente
         document.getElementById('certId').textContent = certId;
@@ -703,8 +708,15 @@
         // Mostrar score del QR inmediatamente
         const scoreValue = document.getElementById('scoreValue');
         const scoreBar = document.getElementById('scoreBar');
-        scoreValue.textContent = scoreFromUrl;
-        scoreBar.style.width = scoreFromUrl + '%';
+        
+        if (scoreValue && scoreBar) {
+            scoreValue.textContent = scoreFromUrl;
+            scoreBar.style.width = scoreFromUrl + '%';
+            console.log('Score mostrado:', scoreFromUrl);
+        } else {
+            console.error('ERROR: Elementos no encontrados');
+        }
+        
         aplicarColoresScore(scoreFromUrl);
         
         // Función para aplicar colores según score
