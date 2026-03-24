@@ -502,7 +502,7 @@
                 </div>
 
                 <div class="formula-section">
-                    <h2 class="formula-title">📊 Fórmula de Cálculo del Score</h2>
+                    <h2 class="formula-title">📊 Fórmula B - Ponderada por Tiempo</h2>
                     <div class="formula-box">
                         <div class="formula-line">
                             <span>SCORE BASE</span>
@@ -510,11 +510,34 @@
                         </div>
                         <div class="formula-line penalty">
                             <span>Sin SUNAT</span>
-                            <span>- 30 puntos</span>
+                            <span>- 40 puntos (CRÍTICO)</span>
                         </div>
                         <div class="formula-line penalty">
-                            <span>RNP Inhabilitación Vigente</span>
-                            <span>- 80 puntos (CRÍTICO)</span>
+                            <span>Inhabilitación Vigente</span>
+                            <span>RECHAZO AUTOMÁTICO</span>
+                        </div>
+                        
+                        <div style="margin: 16px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                            <p style="color: var(--gold); font-size: 13px; margin-bottom: 8px;">
+                                <strong>Decaimiento temporal:</strong>
+                            </p>
+                            <div class="formula-line" style="font-size: 13px;">
+                                <span>&lt; 2 años</span>
+                                <span>100% peso</span>
+                            </div>
+                            <div class="formula-line" style="font-size: 13px;">
+                                <span>2-5 años</span>
+                                <span>50% peso</span>
+                            </div>
+                            <div class="formula-line" style="font-size: 13px;">
+                                <span>&gt; 5 años</span>
+                                <span>25% peso</span>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-line penalty">
+                            <span>RNP Inhabilitación</span>
+                            <span>- 80 puntos</span>
                         </div>
                         <div class="formula-line penalty">
                             <span>OSCE / TCE</span>
@@ -525,20 +548,42 @@
                             <span>- 5 puntos c/u</span>
                         </div>
                         <div class="formula-line penalty">
-                            <span>SUNAFIL (SST, jornada, etc.)</span>
+                            <span>SUNAFIL (SST, etc.)</span>
                             <span>- 30 puntos</span>
                         </div>
                         <div class="formula-line penalty">
-                            <span>INDECOPI (competencia desleal)</span>
+                            <span>INDECOPI</span>
                             <span>- 15 puntos</span>
                         </div>
-                        <div class="formula-line penalty">
-                            <span>2+ Sanciones Graves</span>
-                            <span>- 20 puntos</span>
+                        <div class="formula-line bonus">
+                            <span>Bonus por Propiedades</span>
+                            <span>+2 c/u (máx +10)</span>
                         </div>
                         <div class="formula-line penalty">
-                            <span>4+ Sanciones Graves</span>
-                            <span>- 30 puntos</span>
+                            <span>Patrón 3+ sanciones graves</span>
+                            <span>- 15 puntos</span>
+                        </div>
+                        
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(201, 169, 97, 0.2);">
+                            <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">
+                                <strong>Clasificación:</strong>
+                            </p>
+                            <div class="formula-line" style="font-size: 12px;">
+                                <span style="color: var(--success);">90-100: LIMPIO</span>
+                                <span>Bajo riesgo</span>
+                            </div>
+                            <div class="formula-line" style="font-size: 12px;">
+                                <span style="color: var(--warning);">70-89: OBSERVADO LEVE</span>
+                                <span>Medio riesgo</span>
+                            </div>
+                            <div class="formula-line" style="font-size: 12px;">
+                                <span style="color: orange;">40-69: OBSERVADO GRAVE</span>
+                                <span>Alto riesgo</span>
+                            </div>
+                            <div class="formula-line" style="font-size: 12px;">
+                                <span style="color: var(--danger);">0-39: RECHAZADO</span>
+                                <span>Crítico</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -554,7 +599,7 @@
                             <div class="source-desc">Superintendencia Nacional de Aduanas y de Administración Tributaria. Verifica estado tributario del RUC.</div>
                             <div class="source-penalty">
                                 <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-30 puntos</span>
+                                <span class="penalty-value">-40 puntos</span>
                             </div>
                         </div>
 
@@ -638,72 +683,149 @@
     </footer>
 
     <script>
+        // Backend API URL
+        const API_BASE_URL = 'https://conflictzero-backend1.onrender.com';
+        
         // Obtener parámetros de URL
         const urlParams = new URLSearchParams(window.location.search);
         const certId = urlParams.get('cert') || 'CZ-XXXXXXXX';
         const ruc = urlParams.get('ruc') || '';
+        const scoreFromUrl = urlParams.get('score');
         
-        // Simular datos del certificado (en producción vendrían de la API)
-        const certData = {
-            id: certId,
-            ruc: ruc,
-            empresa: 'Empresa Consultada S.A.C.',
-            fechaEmision: new Date().toLocaleDateString('es-PE'),
-            fechaVenc: new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE'),
-            score: ruc === '20600929438' ? 0 : 85,
-            estado: ruc === '20600929438' ? 'CRITICO' : 'LIMPIO',
-            sanciones: ruc === '20600929438' ? [
-                { tipo: 'RNP Inhabilitación', detalle: 'Resolución 1232-2026-TCP-S2', penalty: -80, nivel: 'critical' },
-                { tipo: 'RNP Inhabilitación', detalle: 'Resolución 1150-2026-TCP-S1', penalty: -80, nivel: 'critical' }
-            ] : []
-        };
+        // Mostrar loading state
+        document.getElementById('certId').textContent = certId;
+        document.getElementById('certRuc').textContent = ruc || 'No especificado';
+        document.getElementById('certEmpresa').textContent = 'Cargando...';
+        document.getElementById('scoreValue').textContent = scoreFromUrl || '-';
         
-        // Actualizar UI
-        document.getElementById('certId').textContent = certData.id;
-        document.getElementById('certRuc').textContent = certData.ruc || 'No especificado';
-        document.getElementById('certEmpresa').textContent = certData.empresa;
-        document.getElementById('certFecha').textContent = certData.fechaEmision;
-        document.getElementById('certVenc').textContent = certData.fechaVenc;
-        
-        // Score
-        const scoreValue = document.getElementById('scoreValue');
-        const scoreBar = document.getElementById('scoreBar');
-        const certStatus = document.getElementById('certStatus');
-        
-        scoreValue.textContent = certData.score;
-        scoreBar.style.width = certData.score + '%';
-        
-        // Color del score según valor
-        if (certData.score >= 85) {
-            scoreValue.style.color = 'var(--success)';
-            certStatus.className = 'status-badge valid';
-            certStatus.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO';
-        } else if (certData.score >= 50) {
-            scoreValue.style.color = 'var(--warning)';
-            certStatus.className = 'status-badge warning';
-            certStatus.innerHTML = '<span>!</span> OBSERVADO';
-        } else {
-            scoreValue.style.color = 'var(--danger)';
-            certStatus.className = 'status-badge invalid';
-            certStatus.innerHTML = '<span>✕</span> CRÍTICO';
+        // Función para consultar RUC real
+        async function consultarRUC(ruc) {
+            if (!ruc || ruc.length !== 11) {
+                mostrarError('RUC inválido');
+                return;
+            }
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000);
+                
+                const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error('Error en la consulta');
+                }
+                
+                const data = await response.json();
+                mostrarResultados(data);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                // Si hay error, mostrar datos básicos del URL
+                mostrarDatosBasicos();
+            }
         }
         
-        // Sanciones
-        const sancionesList = document.getElementById('sancionesList');
-        if (certData.sanciones.length === 0) {
-            sancionesList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No se detectaron sanciones para esta empresa.</p>';
-        } else {
-            sancionesList.innerHTML = certData.sanciones.map(s => `
-                <div class="sancion-item ${s.nivel}">
-                    <div class="sancion-icon ${s.nivel}">⚠</div>
-                    <div class="sancion-info">
-                        <div class="sancion-type">${s.tipo}</div>
-                        <div class="sancion-detail">${s.detalle}</div>
-                    </div>
-                    <div class="sancion-penalty">${s.penalty} pts</div>
-                </div>
-            `).join('');
+        function mostrarResultados(data) {
+            const hoy = new Date();
+            const venc = new Date(hoy.getTime() + 90*24*60*60*1000);
+            
+            document.getElementById('certEmpresa').textContent = data.razon_social || 'NO ENCONTRADO';
+            document.getElementById('certFecha').textContent = hoy.toLocaleDateString('es-PE');
+            document.getElementById('certVenc').textContent = venc.toLocaleDateString('es-PE');
+            
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreBar = document.getElementById('scoreBar');
+            const certStatus = document.getElementById('certStatus');
+            
+            scoreValue.textContent = data.score;
+            scoreBar.style.width = data.score + '%';
+            
+            // Colores según nueva fórmula B
+            if (data.score >= 90) {
+                scoreValue.style.color = 'var(--success)';
+                certStatus.className = 'status-badge valid';
+                certStatus.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO - LIMPIO';
+            } else if (data.score >= 70) {
+                scoreValue.style.color = 'var(--warning)';
+                certStatus.className = 'status-badge warning';
+                certStatus.innerHTML = '<span>!</span> OBSERVADO LEVE';
+            } else if (data.score >= 40) {
+                scoreValue.style.color = 'orange';
+                certStatus.className = 'status-badge warning';
+                certStatus.innerHTML = '<span>⚠</span> OBSERVADO GRAVE';
+            } else {
+                scoreValue.style.color = 'var(--danger)';
+                certStatus.className = 'status-badge invalid';
+                certStatus.innerHTML = '<span>✕</span> RECHAZADO';
+            }
+            
+            // Mostrar sanciones reales
+            const sancionesList = document.getElementById('sancionesList');
+            const sanciones = data.sanciones || [];
+            
+            if (sanciones.length === 0) {
+                sancionesList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">✓ No se detectaron sanciones para esta empresa.</p>';
+            } else {
+                sancionesList.innerHTML = sanciones.map(s => {
+                    let nivel = 'low';
+                    if (s.severidad >= 4) nivel = 'critical';
+                    else if (s.severidad >= 3) nivel = 'medium';
+                    
+                    return `
+                        <div class="sancion-item ${nivel}">
+                            <div class="sancion-icon ${nivel}">⚠</div>
+                            <div class="sancion-info">
+                                <div class="sancion-type">${s.tipo} - ${s.entidad || 'S/E'}</div>
+                                <div class="sancion-detail">${s.resolucion || 'Resolución no disponible'} | ${s.fecha || 'Fecha no disponible'} | Estado: ${s.estado}</div>
+                            </div>
+                            <div class="sancion-penalty">-${s.peso || 0} pts</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Actualizar fórmula mostrada si existe
+            if (data.formula_utilizada) {
+                const formulaSection = document.querySelector('.formula-box h3');
+                if (formulaSection) {
+                    formulaSection.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
+                }
+            }
         }
+        
+        function mostrarDatosBasicos() {
+            // Fallback si la API falla
+            document.getElementById('certEmpresa').textContent = 'Datos no disponibles';
+            document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
+            document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
+            
+            const scoreValue = document.getElementById('scoreValue');
+            const score = parseInt(scoreFromUrl) || 0;
+            scoreValue.textContent = score;
+            document.getElementById('scoreBar').style.width = score + '%';
+            
+            if (score >= 90) {
+                scoreValue.style.color = 'var(--success)';
+            } else if (score >= 70) {
+                scoreValue.style.color = 'var(--warning)';
+            } else {
+                scoreValue.style.color = 'var(--danger)';
+            }
+            
+            document.getElementById('sancionesList').innerHTML = 
+                '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No se pudieron cargar los datos detallados. Score mostrado: ' + score + '</p>';
+        }
+        
+        function mostrarError(msg) {
+            document.getElementById('certEmpresa').textContent = 'Error: ' + msg;
+        }
+        
+        // Iniciar consulta
+        consultarRUC(ruc);
     </script>
 </body>
 </html>
