@@ -895,10 +895,10 @@
             doc.triangle(diamondX, diamondY - diamondSize, diamondX - diamondSize, diamondY, diamondX, diamondY + diamondSize, 'F');
             doc.triangle(diamondX, diamondY - diamondSize, diamondX + diamondSize, diamondY, diamondX, diamondY + diamondSize, 'F');
             
-            // ===== N° CERTIFICADO =====
+            // ===== Nro. CERTIFICADO =====
             doc.setFontSize(10);
             doc.setTextColor(136, 136, 136);
-            doc.text(`N° ${certId}`, 175, 25, { align: 'right' });
+            doc.text(`Nro. ${certId}`, 175, 25, { align: 'right' });
             
             // ===== TÍTULO CERTIFICADO =====
             doc.setFontSize(20);
@@ -1032,7 +1032,7 @@
             doc.setTextColor(150, 150, 150);
             doc.setFont('helvetica', 'normal');
             doc.text('ConflictZero S.A.C. — Av. José Larco 1234, Of. 501, Miraflores, Lima — RUC 20601234567', 105, 285, { align: 'center' });
-            doc.text('contacto@czperu.com | www.czperu.com | Ley N° 27269', 105, 290, { align: 'center' });
+            doc.text('contacto@czperu.com | www.czperu.com | Ley Nro. 27269', 105, 290, { align: 'center' });
             
             // Guardar
             doc.save(`Certificado_${lastResult.ruc}_${certId}.pdf`);
@@ -1048,10 +1048,10 @@
             doc.triangle(105, diamondY - 3, 102, diamondY, 105, diamondY + 3, 'F');
             doc.triangle(105, diamondY - 3, 108, diamondY, 105, diamondY + 3, 'F');
             
-            // N° Certificado arriba a la derecha
+            // Nro. Certificado arriba a la derecha
             doc.setFontSize(9);
             doc.setTextColor(150, 150, 150);
-            doc.text(`N° ${certId}`, 175, 25, { align: 'right' });
+            doc.text(`Nro. ${certId}`, 175, 25, { align: 'right' });
             
             // Título del certificado
             doc.setFontSize(18);
@@ -1167,7 +1167,7 @@
             doc.setTextColor(150, 150, 150);
             doc.setFont('helvetica', 'normal');
             doc.text('ConflictZero S.A.C. — Av. José Larco 1234, Of. 501, Miraflores, Lima — RUC 20601234567', 105, 285, { align: 'center' });
-            doc.text('contacto@czperu.com | www.czperu.com | Ley N° 27269', 105, 290, { align: 'center' });
+            doc.text('contacto@czperu.com | www.czperu.com | Ley Nro. 27269', 105, 290, { align: 'center' });
             
             // Guardar
             doc.save(`Certificado_${lastResult.ruc}_${certId}.pdf`);
