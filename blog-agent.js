@@ -29,27 +29,65 @@ const POST_TEMPLATES = {
     'Noticias': [
         {
             title: "OSCE Publica Nueva Lista de Inhabilitados: {count} Empresas Sancionadas",
-            excerpt: "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran...",
-            content: `El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye {count} empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252.
+            excerpt: "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+            content: `El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye {count} empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.
 
-Entre las principales causales de sanción se encuentran:
-• Presentación de documentación falsa o adulterada
-• Incumplimiento de obligaciones laborales
-• Inhabilitaciones vigentes por sanciones previas
-• Omisión de información requerida
+LAS SANCIONES MÁS COMUNES DETECTADAS:
 
-Las empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución, que varía entre 6 meses y 5 años dependiendo de la gravedad de la infracción.
+• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)
+• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)
+• Inhabilitaciones vigentes por sanciones previas no declaradas
+• Omisión de información requerida en el proceso de selección
+• Conflictos de interés no declarados entre funcionarios y contratistas
+
+IMPACTO DE LAS SANCIONES:
+
+Las empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.
+
+Durante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.
+
+RECOMENDACIONES PARA EMPRESAS CONTRATISTAS:
+
+1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos
+2. Mantenga documentación actualizada y verificable en todos los procesos de selección
+3. Capacite a su personal en normativas de contrataciones públicas
+4. Establezca un sistema de control interno para prevenir infracciones
 
 Esta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.`
         },
         {
             title: "SUNAT Detecta {count} Empresas con Deuda Tributaria Superior a S/ 1 Millón",
-            excerpt: "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos.",
-            content: `SUNAT ha actualizado su lista de deudores de grandes montos, incorporando {count} nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes.
+            excerpt: "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos. El monto total supera los 500 millones de soles.",
+            content: `SUNAT ha actualizado su lista de deudores de grandes montos, incorporando {count} nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes que pueden representar riesgo para sus contrapartes comerciales.
 
-La deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan la recaudación fiscal del país. La SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos.
+ANÁLISIS DE LA DEUDA TRIBUTARIA:
 
-Para las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de problemas financieros más amplios.`
+La deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan directamente la recaudación fiscal del país. Los principales tributos pendientes incluyen:
+
+• Impuesto a la Renta (IR) de períodos anteriores
+• IGV no declarado o retenido
+• Remuneraciones y contribuciones de trabajadores
+• Multas y recargos por infracciones tributarias
+
+MECANISMOS DE COBRANZA DE SUNAT:
+
+La SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos, incluyendo:
+
+1. Embargos sobre cuentas bancarias y bienes muebles
+2. Retenciones de terceros (suspensión de pagos de contratistas del Estado)
+3. Inscripción de deudas en registros públicos
+4. Denuncias penales por delitos tributarios en casos graves
+
+RIESGOS PARA CONTRAPARTES COMERCIALES:
+
+Para las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de:
+
+• Problemas de liquidez severos
+• Mala gestión administrativa
+• Posible disolución o quiebra inminente
+• Riesgo de embargos que afecten activos transaccionales
+
+Se recomienda exigir certificados de no adeudo tributario antes de transacciones comerciales significativas.`
         },
         {
             title: "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
@@ -63,61 +101,229 @@ Las sanciones impuestas incluyen:
 • Suspensión de participación
 
 El TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.`
+        },
+        {
+            title: "Alerta: Detectan {count} Empresas Fantasma Operando en Licitaciones Públicas",
+            excerpt: "La SUNAT y OSCE advierten sobre empresas inexistentes que han intentado participar en procesos de contratación estatal con documentación fraudulenta.",
+            content: `Las entidades de control han identificado {count} empresas que operan como "empresas fantasma" intentando participar en licitaciones públicas con documentación fraudulenta y domicilios falsos.
+
+¿QUÉ ES UNA EMPRESA FANTASMA?
+
+Es una empresa que existe legalmente en registros SUNAT pero que en la práctica:
+• No tiene operaciones reales
+• Usa domicilio fiscal falso o inexistente
+• No tiene trabajadores ni infraestructura
+• Se crea únicamente para participar en licitaciones y desaparecer
+
+MODUS OPERANDI DETECTADO:
+
+1. REGISTRO SUNAT LEGAL PERO FRAUDULENTO
+Utilizan información de personas reales (a veces sin su conocimiento) como representantes legales. El RUC es válido pero la empresa no existe físicamente.
+
+2. DOCUMENTACIÓN DE EXPERIENCIA FALSA
+Presentan certificados de obras que nunca ejecutaron, firmados por funcionarios públicos corruptos o completamente falsificados.
+
+3. OFERTAS POR DEBAJO DEL COSTO
+Para ganar licitaciones, ofrecen precios irreales (50-70% bajo mercado) sabiendo que nunca cumplirán el contrato.
+
+4. DESAPARICIÓN POST-CONTRATO
+Una vez recibido el primer pago, desaparecen dejando obras inconclusas o bienes no entregados.
+
+SEÑALES DE ALERTA PARA DETECTARLAS:
+
+⚠️ Domicilio fiscal es un departamento residencial o centro comercial
+⚠️ No tienen página web ni presencia digital profesional
+⚠️ El representante legal aparece en múltiples empresas similares
+⚠️ No tienen referencias comerciales verificables
+⚠️ Ofrecen precios sospechosamente bajos
+⚠️ Presionan para firmar rápidamente sin dar garantías
+
+CÓMO PROTEGERSE:
+
+✓ Visite físicamente las oficinas de la empresa antes de contratar
+✓ Verifique que tengan personal e infraestructura real
+✓ Busque referencias de al menos 3 clientes anteriores
+✓ Confirme la identidad del representante legal con DNI vigente
+✓ Verifique que las obras de su portafolio existen realmente
+
+Si detecta una empresa sospechosa, denuncie inmediatamente al OSCE y SUNAT para proteger a otros contratistas.`
         }
     ],
     'Guías': [
         {
             title: "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
             excerpt: "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
-            content: `El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía explicamos cada sección del documento y qué revela sobre la salud de una contraparte.
+            content: `El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.
 
-## 1. Sección de Identificación
-Verifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia debe ser investigada.
+¿QUÉ ES EL CERTIFICADO?
 
-## 2. Indicadores Financieros Clave
-• Liquidez: Capacidad de pago a corto plazo
-• Solvencia: Relación entre activos y pasivos
-• Rentabilidad: Capacidad de generar utilidades
-• Endeudamiento: Nivel de obligaciones financieras
+Este documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.
 
-## 3. Señales de Alerta
-Busque consistentemente:
+SECCIÓN 1: DATOS DE IDENTIFICACIÓN
+
+Verifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.
+
+SECCIÓN 2: INDICADORES FINANCIEROS CLAVE
+
+LIQUIDEZ (Capacidad de pago a corto plazo)
+• Razón corriente: Debe ser mayor a 1.0
+• Prueba ácida: Idealmente mayor a 0.8
+• Valores menores indican riesgo de impago
+
+SOLVENCIA (Relación entre activos y pasivos)
+• Endeudamiento total: Menor a 60% es saludable
+• Mayor endeudamiento = mayor riesgo de insolvencia
+
+RENTABILIDAD (Capacidad de generar utilidades)
+• ROE mayor a 10% es considerado bueno
+• ROA mayor a 5% indica eficiencia
+
+SECCIÓN 3: SEÑALES DE ALERTA
+
+🔴 ROJO (Alto riesgo):
 • Déficits operativos prolongados
-• Aumento significativo del endeudamiento
-• Deterioro de la liquidez
-• Inconsistencias en estados financieros
+• Razón corriente menor a 0.5
+• Endeudamiento superior al 80%
+• Patrimonio negativo
 
-## 4. Verificación Cruzada
-Compare la información del certificado con:
-• Estados financieros presentados a SUNAT
-• Información en el RNP
+🟡 AMARILLO (Precaución):
+• Liquidez decreciente año tras año
+• Aumento significativo del endeudamiento
+
+SECCIÓN 4: VERIFICACIÓN CRUZADA
+
+Compare la información con:
+• Estados financieros en SUNAT
+• Registro Nacional de Proveedores
 • Datos de registros públicos
+
+RED FLAGS DE FRAUDE:
+• Fechas inconsistentes
+• Montos que no coinciden
+• Falta de sello digital
+• Representante legal diferente
 
 Un análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.`
         },
         {
             title: "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
             excerpt: "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
-            content: `Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones:
+            content: `Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:
 
-## Verificación Legal
-1. ✓ RUC activo y vigente en SUNAT
-2. ✓ Representante legal con poder vigente
-3. ✓ No encontrarse en lista de inhabilitados OSCE
-4. ✓ Licencias y permisos al día según rubro
+## VERIFICACIÓN LEGAL
+1. ✓ RUC activo y vigente en SUNAT - Verifique condición "ACTIVO" en portal SUNAT
+2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)
+3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados
+4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal
 
-## Verificación Financiera
-5. ✓ Estados financieros de los últimos 2 años
-6. ✓ Ausencia de deudas significativas con SUNAT
-7. ✓ No reportes negativos en SBS (si aplica)
+## VERIFICACIÓN FINANCIERA  
+5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados
+6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo
+7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes
 
-## Verificación Contractual
-8. ✓ Historial de contratos públicos sin sanciones
-9. ✓ Referencias comerciales verificables
-10. ✓ Patrimonio acorde al volumen de operaciones
+## VERIFICACIÓN CONTRACTUAL
+8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE
+9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono
+10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación
 
-## Documentación de Respaldo
-Mantenga registro de todas las verificaciones realizadas, incluyendo capturas de pantalla con fecha y fuente consultada. Esta documentación puede ser vital en caso de contingencias legales.`
+## DOCUMENTACIÓN DE RESPALDO
+Mantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.
+
+⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.`
+        },
+        {
+            title: "Cómo Verificar si una Empresa Está Inhabilitada por el OSCE",
+            excerpt: "Guía paso a paso para consultar el Registro de Inhabilitados del OSCE y evitar contratar empresas sancionadas por el Estado.",
+            content: `Contratar una empresa inhabilitada por el OSCE puede resultar en sanciones severas para su empresa, incluyendo multas e inhabilitación para futuras contrataciones. Esta guía le muestra cómo verificar el estado de cualquier empresa en minutos.
+
+MÉTODO 1: CONSULTA DIRECTA EN PORTAL OSCE
+
+Paso 1: Acceda al portal
+• Vaya a www.osce.gob.pe
+• Seleccione "Consultas Públicas"
+• Elija "Registro de Inhabilitados"
+
+Paso 2: Ingrese los datos de búsqueda
+• Puede buscar por RUC (11 dígitos) o nombre de empresa
+• El sistema acepta búsquedas parciales
+• Use comillas para búsquedas exactas
+
+Paso 3: Interprete los resultados
+• Si NO aparece: La empresa no está inhabilitada actualmente
+• Si APARECE: Verifique los detalles de la sanción
+  - Fecha de inicio y fin de inhabilitación
+  - Causal de sanción
+  - Entidad que impuso la sanción
+  - Alcance (nacional o por entidad)
+
+MÉTODO 2: CONSULTA MEDIANTE RNP (REGISTRO NACIONAL DE PROVEEDORES)
+
+Paso 1: Acceda al RNP
+• Vaya al portal de consulta del RNP
+• Seleccione "Consulta de Proveedores"
+
+Paso 2: Ingrese RUC
+• El sistema mostrará estado de habilitación
+• Si está inhabilitada, aparecerá alerta roja
+• Puede descargar constancia de estado
+
+¿QUÉ SIGNIFICAN LOS TIPOS DE SANCIÓN?
+
+🔴 INHABILITACIÓN DEFINITIVA
+• No puede participar en contrataciones públicas
+• Plazo: Generalmente 2-5 años
+• Aplica a nivel nacional
+
+🟡 AMONESTACIÓN ESCRITA
+• Advertencia formal
+• Queda registrada en su historial
+• Puede afectar puntuación en futuras licitaciones
+
+🟠 MULTA
+• Sanción económica
+• Debe pagarse antes de participar nuevamente
+• Monto variable según gravedad
+
+CASOS ESPECIALES A CONSIDERAR:
+
+✓ SUBCONTRATISTAS INHABILITADOS
+Aunque usted contrate a una empresa habilitada, si sus subcontratistas están inhabilitados, también puede ser sancionado. Exija declaración jurada de subcontratistas.
+
+✓ INHABILITACIÓN POR ENTIDAD
+Algunas sanciones solo aplican para contratar con ciertas entidades públicas específicas. Verifique el alcance de la sanción.
+
+✓ SUSPENSIÓN TEMPORAL
+En proceso de investigación, una empresa puede estar suspendida provisionalmente. Esto no aparece en inhabilitados pero sí en consultas de RNP.
+
+DOCUMENTACIÓN DE RESPALDO:
+
+Guarde SIEMPRE:
+• Captura de pantalla de la consulta (con fecha visible)
+• Constancia de no inhabilitación (PDF si está disponible)
+• Fecha y hora de la verificación
+• Quién realizó la consulta
+
+FRECUENCIA RECOMENDADA DE VERIFICACIÓN:
+
+• Antes de firmar cualquier contrato: OBLIGATORIO
+• Durante vigencia de contrato: Mensual
+• Para socios estratégicos: Trimestral
+• Para subcontratistas: Semanal (pueden inhabilitarse rápido)
+
+CONSECUENCIAS DE CONTRATAR INHABILITADOS:
+
+Para su empresa:
+• Sanción económica (hasta 150 UIT)
+• Inhabilitación temporal como contratista
+• Pérdida de contratos vigentes
+• Daño reputacional
+
+Para el funcionario responsable:
+• Sanciones administrativas
+• Responsabilidad penal en casos graves
+• Destitución del cargo
+
+SIGA ESTA REGLA DE ORO: Si tiene dudas, NO CONTRATE. Una verificación de 5 minutos puede ahorrarle años de problemas legales.`
         }
     ],
     'Análisis': [
@@ -164,6 +370,157 @@ El análisis sugiere que un programa robusto de gestión de calidad y documentac
 Se espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.
 
 Las empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.`
+        },
+        {
+            title: "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
+            excerpt: "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
+            content: `Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.
+
+COSTOS DIRECTOS DE OMITIR VERIFICACIÓN:
+
+• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa
+• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M
+• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas
+• Litigios comerciales: S/ 85K promedio por caso
+• Pérdida de clientes por mala reputación: Incalculable
+
+COSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):
+
+• Tiempo del equipo legal en problemas evitables: 420 horas/año
+• Oportunidad de negocio perdida por estar en litigios
+• Daño reputacional en el mercado
+• Pérdida de licitaciones públicas por sanciones
+• Desgaste organizacional y rotación de personal clave
+
+INVERSIÓN EN DUE DILIGENCE VS RETORNO:
+
+Costo promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte
+Ahorro promedio evitando un solo fraude: S/ 500,000+
+ROI de due diligence sistemático: 10,000%+
+
+CASOS REALES ANALIZADOS:
+
+Caso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.
+
+Caso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.
+
+CONCLUSIÓN: La pregunta no es "¿Podemos permitirnos hacer due diligence?" sino "¿Podemos permitirnos NO hacerlo?"`
+        }
+    ],
+    'Compliance': [
+        {
+            title: "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
+            excerpt: "El OSCE actualizó sus reglamentos de contrataciones públicas. Conozca los cambios clave que afectan a proveedores y contratistas del Estado.",
+            content: `El Organismo Supervisor de las Contrataciones del Estado ha implementado modificaciones significativas a su normativa durante 2026. Estos cambios impactan directamente a empresas que participan o desean participar en procesos de selección del Estado.
+
+PRINCIPALES CAMBIOS NORMATIVOS:
+
+1. PLAZOS DE INHABILITACIÓN EXTENDIDOS
+Anterior: 6 meses a 3 años
+Nuevo: 8 meses a 5 años para infracciones graves
+Impacto: Sanciones más severas por documentación falsa
+
+2. OBLIGATORIEDAD DE DECLARACIÓN DE SUBCONTRATISTAS
+Ahora debe declarar TODOS los subcontratistas antes del inicio de obra
+Verificación de inhabilitaciones aplica también a subcontratistas
+Responsabilidad solidaria del contratista principal
+
+3. NUEVOS REQUISITOS DE EXPERIENCIA
+Experiencia mínima aumentada para contratos mayores a 500 UIT
+Mayor rigor en verificación de certificados de experiencia
+Obligatoriedad de referencias verificables
+
+4. SISTEMA DE ALERTAS TEMPRANAS
+Nuevo módulo de alertas por incumplimiento de plazos
+Notificaciones automáticas a entidades supervisores
+Mayor transparencia en el seguimiento de contratos
+
+OBLIGACIONES ADICIONALES PARA EMPRESAS:
+
+✓ Capacitación anual obligatoria en contrataciones públicas
+✓ Designación de un responsable de compliance contractual
+✓ Implementación de sistema de gestión documental
+✓ Auditorías internas semestrales obligatorias
+
+SANCIONES AUMENTADAS:
+
+Multas por omisión de información: Hasta 100 UIT
+Inhabilitación por falsa declaración: Mínimo 2 años
+Sanciones a administradores solidarios: Posible responsabilidad penal
+
+RECOMENDACIONES DE IMPLEMENTACIÓN:
+
+1. Capacite a todo el equipo involucrado en contrataciones
+2. Actualice sus sistemas de gestión documental
+3. Implemente verificación sistemática de contrapartes
+4. Establezca proceso de revisión legal antes de presentar ofertas
+5. Considere contratar asesoría especializada en compliance
+
+El incumplimiento de estas nuevas normativas puede resultar en sanciones severas que afecten la viabilidad de su empresa como proveedor del Estado.`
+        },
+        {
+            title: "Programa de Compliance Contractual: Guía de Implementación",
+            excerpt: "Cómo establecer un sistema de compliance efectivo que prevenga sanciones y proteja la reputación de su empresa ante el Estado.",
+            content: `Un programa de compliance contractual bien implementado no solo previene sanciones, sino que se convierte en una ventaja competitiva al demostrar seriedad y profesionalismo ante entidades públicas.
+
+FASE 1: DIAGNÓSTICO INICIAL (Semanas 1-2)
+
+Evalúe su situación actual:
+□ Historial de sanciones o amonestaciones previas
+□ Procesos documentales existentes
+□ Capacitación actual del personal
+□ Sistemas de control y verificación en uso
+□ Brechas identificadas vs. normativa vigente
+
+FASE 2: DISEÑO DEL PROGRAMA (Semanas 3-4)
+
+Estructura básica requerida:
+
+1. POLÍTICA DE COMPLIANCE DOCUMENTADA
+• Compromiso de la alta dirección
+• Objetivos claros y medibles
+• Alcance y aplicabilidad
+• Consecuencias de incumplimiento
+
+2. MANUAL DE PROCEDIMIENTOS
+• Flujo de aprobación de contratos
+• Verificación de contrapartes (checklist)
+• Gestión documental requerida
+• Manejo de conflictos de interés
+• Procedimiento de denuncias
+
+3. MAPA DE RIESGOS
+Identifique riesgos específicos por tipo de contrato:
+- Riesgo de contraparte inhabilitada
+- Riesgo de documentación falsa
+- Riesgo de incumplimiento técnico
+- Riesgo de sanciones colaterales
+
+FASE 3: IMPLEMENTACIÓN (Meses 2-3)
+
+Acciones concretas:
+• Capacitación obligatoria para todo el equipo
+• Designación de Oficial de Compliance
+• Implementación de sistema de control
+• Contratación de herramientas de verificación
+• Establecimiento de auditorías internas
+
+FASE 4: MONITOREO Y MEJORA CONTINUA (Permanente)
+
+Indicadores clave de desempeño (KPIs):
+• % de contrapartes verificadas antes de contrato
+• Tiempo promedio de verificación
+• Incidentes de compliance detectados
+• Capacitación realizada (horas/persona)
+• Resultados de auditorías internas
+
+COSTO ESTIMADO DE IMPLEMENTACIÓN:
+
+Empresa pequeña (hasta 50 empleados): S/ 15,000 - S/ 30,000
+Empresa mediana (50-200 empleados): S/ 30,000 - S/ 80,000  
+Empresa grande (200+ empleados): S/ 80,000 - S/ 200,000
+
+Este costo se amortiza rápidamente al evitar una sola sanción o fraude.`
         }
     ]
 };
