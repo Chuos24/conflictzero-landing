@@ -395,6 +395,22 @@
         .badge.medium { background: rgba(201, 169, 97, 0.2); color: var(--gold); }
         .badge.high { background: rgba(220, 53, 69, 0.2); color: #ff6b6b; }
         
+        .btn-export {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-export:hover {
+            background: rgba(201, 169, 97, 0.1);
+        }
+        
         .empty-state {
             text-align: center;
             padding: 40px;
@@ -495,10 +511,18 @@
                 
                 <div class="result-card" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
                     <h3>Certificacion</h3>
-                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Descargue el certificado PDF de esta consulta</p>
-                    <button class="btn-verify" onclick="generateCertificate()" style="width: 100%;">
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">Descargue el certificado PDF de esta consulta</p>
+                    <button class="btn-verify" onclick="generateCertificate()" style="width: 100%; margin-bottom: 8px;">
                         Descargar Certificado
                     </button>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <button class="btn-export" onclick="exportCurrentToCSV()" style="flex: 1; font-size: 11px; padding: 6px;">
+                            📄 CSV
+                        </button>
+                        <button class="btn-export" onclick="exportCurrentToExcel()" style="flex: 1; font-size: 11px; padding: 6px;">
+                            📊 Excel
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -507,6 +531,14 @@
         <div class="section">
             <div class="section-header">
                 <h2>Historial de Consultas</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-export" onclick="exportToCSV()" id="btnExportCSV" style="display: none;">
+                        📄 Exportar CSV
+                    </button>
+                    <button class="btn-export" onclick="exportToExcel()" id="btnExportExcel" style="display: none;">
+                        📊 Exportar Excel
+                    </button>
+                </div>
             </div>
             
             <div id="historyContent">
@@ -519,6 +551,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         const API_BASE = 'https://conflictzero-backend1.onrender.com';
         
@@ -670,6 +703,147 @@
             }).join('');
             
             container.innerHTML = '<table class="history-table"><thead><tr><th>Fecha</th><th>RUC</th><th>Empresa</th><th>Score</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            
+            // Mostrar botones de exportar si hay historial
+            document.getElementById('btnExportCSV').style.display = 'inline-block';
+            document.getElementById('btnExportExcel').style.display = 'inline-block';
+        }
+        
+        // ===== FUNCIONES DE EXPORTACIÓN =====
+        
+        function exportToCSV() {
+            if (history.length === 0) {
+                alert('No hay consultas para exportar');
+                return;
+            }
+            
+            // Encabezados CSV
+            let csv = 'Fecha,RUC,Razon Social,Score,Nivel de Riesgo\n';
+            
+            // Datos
+            history.forEach(h => {
+                const riskLevel = h.score >= 80 ? 'Bajo' : h.score >= 50 ? 'Medio' : 'Alto';
+                // Escapar comillas y comas en el nombre de la empresa
+                const name = '"' + (h.name || '').replace(/"/g, '""') + '"';
+                csv += `${h.date},${h.ruc},${name},${h.score},${riskLevel}\n`;
+            });
+            
+            // Crear blob y descargar
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `conflictzero_historial_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log('CSV exportado:', history.length, 'registros');
+        }
+        
+        function exportToExcel() {
+            if (history.length === 0) {
+                alert('No hay consultas para exportar');
+                return;
+            }
+            
+            // Preparar datos para Excel
+            const data = history.map(h => ({
+                'Fecha': h.date,
+                'RUC': h.ruc,
+                'Razon Social': h.name || 'No disponible',
+                'Score': h.score,
+                'Nivel de Riesgo': h.score >= 80 ? 'Bajo' : h.score >= 50 ? 'Medio' : 'Alto',
+                'Estado': h.score >= 80 ? 'Limpio' : h.score >= 50 ? 'Observado' : 'Rechazado'
+            }));
+            
+            // Crear worksheet
+            const ws = XLSX.utils.json_to_sheet(data);
+            
+            // Ajustar anchos de columna
+            ws['!cols'] = [
+                { wch: 12 },  // Fecha
+                { wch: 15 },  // RUC
+                { wch: 40 },  // Razon Social
+                { wch: 8 },   // Score
+                { wch: 15 },  // Nivel de Riesgo
+                { wch: 12 }   // Estado
+            ];
+            
+            // Crear workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Historial de Consultas');
+            
+            // Descargar
+            const fileName = `conflictzero_historial_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+            
+            console.log('Excel exportado:', history.length, 'registros');
+        }
+        
+        // Exportar consulta actual individual
+        function exportCurrentToCSV() {
+            if (!lastResult) {
+                alert('Primero debe realizar una consulta');
+                return;
+            }
+            
+            const ruc = lastResult.ruc || document.getElementById('dataRuc').textContent;
+            const name = lastResult.razon_social || document.getElementById('dataName').textContent;
+            const score = lastResult.score || 0;
+            const date = new Date().toLocaleDateString('es-PE');
+            
+            let csv = 'Fecha,RUC,Razon Social,Score,Nivel de Riesgo\n';
+            const riskLevel = score >= 80 ? 'Bajo' : score >= 50 ? 'Medio' : 'Alto';
+            const escapedName = '"' + name.replace(/"/g, '""') + '"';
+            csv += `${date},${ruc},${escapedName},${score},${riskLevel}\n`;
+            
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `consulta_${ruc}_${date.replace(/\//g, '-')}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function exportCurrentToExcel() {
+            if (!lastResult) {
+                alert('Primero debe realizar una consulta');
+                return;
+            }
+            
+            const ruc = lastResult.ruc || document.getElementById('dataRuc').textContent;
+            const name = lastResult.razon_social || document.getElementById('dataName').textContent;
+            const score = lastResult.score || 0;
+            const date = new Date().toLocaleDateString('es-PE');
+            
+            const data = [{
+                'Fecha': date,
+                'RUC': ruc,
+                'Razon Social': name,
+                'Score': score,
+                'Nivel de Riesgo': score >= 80 ? 'Bajo' : score >= 50 ? 'Medio' : 'Alto',
+                'Estado': score >= 80 ? 'Limpio' : score >= 50 ? 'Observado' : 'Rechazado'
+            }];
+            
+            const ws = XLSX.utils.json_to_sheet(data);
+            ws['!cols'] = [
+                { wch: 12 }, { wch: 15 }, { wch: 40 }, { wch: 8 }, { wch: 15 }, { wch: 12 }
+            ];
+            
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Consulta RUC');
+            
+            const fileName = `consulta_${ruc}_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
         }
         
         function logout() {
