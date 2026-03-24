@@ -689,7 +689,7 @@
             const fechaVencStr = fechaVenc.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
             
             // URL de verificacion (QR code) - apunta a la pagina de verificacion con explicacion del scoring
-            const verifyUrl = 'https://czperu.com/verificar.html?cert=' + certId + '&ruc=' + (lastResult.ruc || '') + '&score=' + (lastResult.score || 0);
+            const verifyUrl = 'https://www.czperu.com/verificar.html?cert=' + certId + '&ruc=' + (lastResult.ruc || '') + '&score=' + (lastResult.score || 0);
             const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(verifyUrl);
             
             const doc = new window.jspdf.jsPDF({
