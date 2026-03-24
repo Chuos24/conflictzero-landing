@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Comparar RUCs - Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --gold: #c9a961;
+            --gold-light: #e8d5a3;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --border: #2a2a2a;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .logo-text span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+        
+        .comparison-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ruc-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .ruc-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .ruc-input {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .ruc-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .btn-remove {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 0 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        
+        .btn-remove:hover {
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
+        .btn-add {
+            background: transparent;
+            border: 1px dashed var(--gold);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        
+        .btn-add:hover {
+            background: rgba(201, 169, 97, 0.1);
+        }
+        
+        .btn-compare {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        
+        .btn-compare:hover {
+            background: var(--gold-light);
+        }
+        
+        .btn-compare:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .loading-overlay.visible {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .results-section {
+            display: none;
+        }
+        
+        .results-section.visible {
+            display: block;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--bg-hover);
+        }
+        
+        .comparison-table td {
+            font-size: 14px;
+        }
+        
+        .comparison-table tr:hover {
+            background: var(--bg-hover);
+        }
+        
+        .score-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .score-bar-mini {
+            width: 60px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .score-bar-mini-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        
+        .score-bar-mini-fill.low { background: var(--success); }
+        .score-bar-mini-fill.medium { background: var(--gold); }
+        .score-bar-mini-fill.high { background: var(--danger); }
+        
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge.low { 
+            background: rgba(40, 167, 69, 0.2); 
+            color: #4ade80; 
+        }
+        .badge.medium { 
+            background: rgba(201, 169, 97, 0.2); 
+            color: var(--gold); 
+        }
+        .badge.high { 
+            background: rgba(220, 53, 69, 0.2); 
+            color: #ff6b6b; 
+        }
+        
+        .winner {
+            background: rgba(201, 169, 97, 0.1) !important;
+        }
+        
+        .winner td:first-child::before {
+            content: '👑 ';
+        }
+        
+        .export-section {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+        
+        .btn-export {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-export:hover {
+            background: rgba(201, 169, 97, 0.1);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .header { padding: 16px 24px; }
+            .main { padding: 24px; }
+            .page-header h1 { font-size: 32px; }
+            .ruc-inputs { grid-template-columns: 1fr; }
+            .comparison-table { font-size: 12px; }
+            .comparison-table th,
+            .comparison-table td { padding: 12px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header">
+        <a href="/" class="logo">
+            <div class="logo-icon">CZ</div>
+            <div class="logo-text">Conflict <span>Zero</span></div>
+        </a>
+        
+        <nav class="nav-links">
+            <a href="/dashboard.html">Dashboard</a>
+            <a href="/comparar.html" style="color: var(--gold);">Comparar</a>
+            <a href="/pricing.html">Planes</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="page-header">
+            <h1>Comparación de RUCs</h1>
+            <p>Compare múltiples empresas lado a lado para evaluar riesgos y tomar mejores decisiones</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="comparison-section">
+            <h2 class="section-title">📋 Ingresar RUCs a comparar</h2>
+            
+            <div class="ruc-inputs" id="rucInputs">
+                <div class="ruc-input-group">
+                    <input type="text" class="ruc-input" placeholder="RUC 1 (11 dígitos)" maxlength="11">
+                </div>
+                <div class="ruc-input-group">
+                    <input type="text" class="ruc-input" placeholder="RUC 2 (11 dígitos)" maxlength="11">
+                </div>
+            </div>
+            
+            <button class="btn-add" onclick="addRUCInput()">+ Agregar otro RUC (máx. 5)</button>
+            
+            <button class="btn-compare" onclick="compareRUCs()" id="btnCompare">
+                Comparar empresas
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="comparison-section">
+                <h2 class="section-title">📊 Resultados de la comparación</h2>
+                
+                <div style="overflow-x: auto;">
+                    <table class="comparison-table" id="comparisonTable">
+                        <thead>
+                            <tr>
+                                <th>Empresa</th>
+                                <th>RUC</th>
+                                <th>Score</th>
+                                <th>Nivel de Riesgo</th>
+                                <th>Estado SUNAT</th>
+                                <th>Puede Contratar</th>
+                                <th>Sanciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Se llena dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="export-section">
+                    <button class="btn-export" onclick="exportComparisonToCSV()">📄 Exportar CSV</button>
+                    <button class="btn-export" onclick="exportComparisonToExcel()">📊 Exportar Excel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        const API_BASE = 'https://conflictzero-backend1.onrender.com';
+        let comparisonResults = [];
+        let rucCount = 2;
+
+        // Solo permitir números en inputs
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('ruc-input')) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            }
+        });
+
+        function addRUCInput() {
+            if (rucCount >= 5) {
+                alert('Máximo 5 RUCs para comparar');
+                return;
+            }
+            
+            rucCount++;
+            const container = document.getElementById('rucInputs');
+            const div = document.createElement('div');
+            div.className = 'ruc-input-group';
+            div.innerHTML = `
+                <input type="text" class="ruc-input" placeholder="RUC ${rucCount} (11 dígitos)" maxlength="11">
+                <button class="btn-remove" onclick="removeRUCInput(this)">×</button>
+            `;
+            container.appendChild(div);
+            
+            if (rucCount >= 5) {
+                document.querySelector('.btn-add').style.display = 'none';
+            }
+        }
+
+        function removeRUCInput(btn) {
+            btn.parentElement.remove();
+            rucCount--;
+            document.querySelector('.btn-add').style.display = 'block';
+            
+            // Renumerar placeholders
+            const inputs = document.querySelectorAll('.ruc-input');
+            inputs.forEach((input, index) => {
+                input.placeholder = `RUC ${index + 1} (11 dígitos)`;
+            });
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('visible', show);
+        }
+
+        async function compareRUCs() {
+            const inputs = document.querySelectorAll('.ruc-input');
+            const rucs = [];
+            
+            inputs.forEach(input => {
+                const ruc = input.value.trim();
+                if (ruc.length === 11 && /^\d+$/.test(ruc)) {
+                    rucs.push(ruc);
+                }
+            });
+            
+            if (rucs.length < 2) {
+                alert('Ingrese al menos 2 RUCs válidos para comparar');
+                return;
+            }
+            
+            showLoading(true);
+            comparisonResults = [];
+            
+            try {
+                // Consultar todos los RUCs en paralelo
+                const promises = rucs.map(ruc => 
+                    fetch(`${API_BASE}/consulta-completa/${ruc}`)
+                        .then(res => res.ok ? res.json() : null)
+                        .catch(() => null)
+                );
+                
+                const results = await Promise.all(promises);
+                
+                results.forEach((data, index) => {
+                    if (data) {
+                        comparisonResults.push({
+                            ruc: rucs[index],
+                            name: data.razon_social || 'No encontrado',
+                            score: data.score || 0,
+                            estado: data.estado_sunat || 'DESCONOCIDO',
+                            puedeContratar: data.puede_contratar ? '✅ Sí' : '❌ No',
+                            sanciones: (data.sanciones || []).length,
+                            nivelRiesgo: data.nivel_riesgo || 'ALTO'
+                        });
+                    } else {
+                        comparisonResults.push({
+                            ruc: rucs[index],
+                            name: 'Error al consultar',
+                            score: 0,
+                            estado: 'ERROR',
+                            puedeContratar: 'N/A',
+                            sanciones: 0,
+                            nivelRiesgo: 'ALTO'
+                        });
+                    }
+                });
+                
+                // Ordenar por score (mayor a menor)
+                comparisonResults.sort((a, b) => b.score - a.score);
+                
+                renderComparisonTable();
+                document.getElementById('resultsSection').classList.add('visible');
+                
+            } catch (error) {
+                alert('Error al comparar RUCs: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function renderComparisonTable() {
+            const tbody = document.getElementById('tableBody');
+            
+            const rows = comparisonResults.map((item, index) => {
+                const isWinner = index === 0 && item.score > 0;
+                const scoreClass = item.score >= 80 ? 'low' : item.score >= 50 ? 'medium' : 'high';
+                const badgeClass = item.score >= 80 ? 'low' : item.score >= 50 ? 'medium' : 'high';
+                const riskText = item.score >= 80 ? 'Bajo' : item.score >= 50 ? 'Medio' : 'Alto';
+                
+                return `
+                    <tr class="${isWinner ? 'winner' : ''}">
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.ruc}</td>
+                        <td>
+                            <div class="score-cell">
+                                <span>${item.score}/100</span>
+                                <div class="score-bar-mini">
+                                    <div class="score-bar-mini-fill ${scoreClass}" style="width: ${item.score}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge ${badgeClass}">${riskText}</span></td>
+                        <td>${item.estado}</td>
+                        <td>${item.puedeContratar}</td>
+                        <td>${item.sanciones}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            tbody.innerHTML = rows;
+        }
+
+        function exportComparisonToCSV() {
+            if (comparisonResults.length === 0) {
+                alert('No hay resultados para exportar');
+                return;
+            }
+            
+            let csv = 'Posicion,Empresa,RUC,Score,Nivel de Riesgo,Estado SUNAT,Puede Contratar,Sanciones\n';
+            
+            comparisonResults.forEach((item, index) => {
+                const riskText = item.score >= 80 ? 'Bajo' : item.score >= 50 ? 'Medio' : 'Alto';
+                const name = '"' + item.name.replace(/"/g, '""') + '"';
+                csv += `${index + 1},${name},${item.ruc},${item.score},${riskText},${item.estado},${item.puedeContratar},${item.sanciones}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `comparacion_rucs_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportComparisonToExcel() {
+            if (comparisonResults.length === 0) {
+                alert('No hay resultados para exportar');
+                return;
+            }
+            
+            const data = comparisonResults.map((item, index) => ({
+                'Posición': index + 1,
+                'Empresa': item.name,
+                'RUC': item.ruc,
+                'Score': item.score,
+                'Nivel de Riesgo': item.score >= 80 ? 'Bajo' : item.score >= 50 ? 'Medio' : 'Alto',
+                'Estado SUNAT': item.estado,
+                'Puede Contratar': item.puedeContratar,
+                'Sanciones': item.sanciones
+            }));
+            
+            const ws = XLSX.utils.json_to_sheet(data);
+            ws['!cols'] = [
+                { wch: 10 }, { wch: 40 }, { wch: 15 }, { wch: 8 }, 
+                { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 10 }
+            ];
+            
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Comparación de RUCs');
+            
+            const fileName = `comparacion_rucs_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+        }
+    </script>
+</body>
+</html>
