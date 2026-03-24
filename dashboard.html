@@ -518,6 +518,7 @@
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         const API_BASE = 'https://conflictzero-backend1.onrender.com';
         
@@ -735,9 +736,6 @@
             console.log('QR API URL completa:', qrApiUrl);
             console.log('Longitud URL:', verifyUrl.length);
             
-            // DEBUG: Mostrar alert con la URL exacta del QR
-            alert('DEBUG - URL en el QR:\n' + verifyUrl + '\n\nLongitud: ' + verifyUrl.length + ' chars');
-            
             const doc = new window.jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
@@ -887,66 +885,136 @@
                 doc.text(line, 30, bottomY + 18 + (index * 5));
             });
             
-            // ===== QR CODE REAL (derecha) =====
+            // ===== QR CODE (generado localmente) =====
             try {
-                // Agregar QR code desde API
-                doc.addImage(qrApiUrl, 'PNG', 155, bottomY - 5, 30, 30);
+                // Crear div temporal para el QR
+                const qrDiv = document.createElement('div');
+                qrDiv.style.position = 'absolute';
+                qrDiv.style.left = '-9999px';
+                document.body.appendChild(qrDiv);
                 
-                // Texto debajo del QR
-                doc.setFontSize(7);
-                doc.setTextColor(150, 150, 150);
-                doc.text('ESCANEAR PARA', 170, bottomY + 30, { align: 'center' });
-                doc.text('VERIFICAR', 170, bottomY + 35, { align: 'center' });
+                // Generar QR localmente
+                const qr = new QRCode(qrDiv, {
+                    text: verifyUrl,
+                    width: 150,
+                    height: 150,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+                
+                // Esperar a que se genere y extraer la imagen
+                setTimeout(() => {
+                    const qrCanvas = qrDiv.querySelector('canvas');
+                    if (qrCanvas) {
+                        const qrDataUrl = qrCanvas.toDataURL('image/png');
+                        doc.addImage(qrDataUrl, 'PNG', 155, bottomY - 5, 30, 30);
+                        
+                        // Texto debajo del QR
+                        doc.setFontSize(7);
+                        doc.setTextColor(150, 150, 150);
+                        doc.text('ESCANEAR PARA', 170, bottomY + 30, { align: 'center' });
+                        doc.text('VERIFICAR', 170, bottomY + 35, { align: 'center' });
+                    }
+                    
+                    // Limpiar
+                    document.body.removeChild(qrDiv);
+                    
+                    // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
+                    const footerY = bottomY + 50;
+                    
+                    doc.setDrawColor(200, 190, 170);
+                    doc.setLineWidth(0.3);
+                    doc.line(30, footerY, 180, footerY);
+                    
+                    // Fechas (izquierda)
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('Fecha de emision:', 30, footerY + 8);
+                    doc.setTextColor(40, 40, 40);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(fechaStr, 65, footerY + 8);
+                    
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('Valido hasta:', 30, footerY + 15);
+                    doc.setTextColor(40, 40, 40);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(fechaVencStr, 65, footerY + 15);
+                    
+                    // Sello CZ OFICIAL (derecha)
+                    doc.setFillColor(201, 169, 97);
+                    doc.circle(165, footerY + 8, 10, 'F');
+                    doc.setFontSize(7);
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('CZ', 165, footerY + 6, { align: 'center' });
+                    doc.setFontSize(5);
+                    doc.text('OFICIAL', 165, footerY + 12, { align: 'center' });
+                    
+                    // ===== FOOTER =====
+                    doc.setFontSize(7);
+                    doc.setTextColor(150, 150, 150);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima', 105, 290, { align: 'center' });
+                    doc.text('contacto@czperu.com | www.czperu.com | Certificado valido por 3 meses', 105, 294, { align: 'center' });
+                    
+                    // Guardar PDF
+                    doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
+                }, 100);
+                
             } catch (e) {
-                // Fallback si no carga la imagen
+                console.error('Error generando QR:', e);
+                // Fallback: dibujar un rectángulo
                 doc.setDrawColor(200, 200, 200);
                 doc.setLineWidth(0.5);
                 doc.rect(155, bottomY - 5, 30, 30);
                 doc.setFontSize(8);
                 doc.setTextColor(150, 150, 150);
                 doc.text('QR', 170, bottomY + 15, { align: 'center' });
+                
+                // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
+                const footerY = bottomY + 50;
+                
+                doc.setDrawColor(200, 190, 170);
+                doc.setLineWidth(0.3);
+                doc.line(30, footerY, 180, footerY);
+                
+                // Fechas (izquierda)
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.text('Fecha de emision:', 30, footerY + 8);
+                doc.setTextColor(40, 40, 40);
+                doc.setFont('helvetica', 'bold');
+                doc.text(fechaStr, 65, footerY + 8);
+                
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 100, 100);
+                doc.text('Valido hasta:', 30, footerY + 15);
+                doc.setTextColor(40, 40, 40);
+                doc.setFont('helvetica', 'bold');
+                doc.text(fechaVencStr, 65, footerY + 15);
+                
+                // Sello CZ OFICIAL (derecha)
+                doc.setFillColor(201, 169, 97);
+                doc.circle(165, footerY + 8, 10, 'F');
+                doc.setFontSize(7);
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('helvetica', 'bold');
+                doc.text('CZ', 165, footerY + 6, { align: 'center' });
+                doc.setFontSize(5);
+                doc.text('OFICIAL', 165, footerY + 12, { align: 'center' });
+                
+                // ===== FOOTER =====
+                doc.setFontSize(7);
+                doc.setTextColor(150, 150, 150);
+                doc.setFont('helvetica', 'normal');
+                doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima', 105, 290, { align: 'center' });
+                doc.text('contacto@czperu.com | www.czperu.com | Certificado valido por 3 meses', 105, 294, { align: 'center' });
+                
+                // Guardar PDF
+                doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
             }
-            
-            // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
-            const footerY = bottomY + 50;
-            
-            doc.setDrawColor(200, 190, 170);
-            doc.setLineWidth(0.3);
-            doc.line(30, footerY, 180, footerY);
-            
-            // Fechas (izquierda)
-            doc.setFontSize(9);
-            doc.setTextColor(100, 100, 100);
-            doc.text('Fecha de emision:', 30, footerY + 8);
-            doc.setTextColor(40, 40, 40);
-            doc.setFont('helvetica', 'bold');
-            doc.text(fechaStr, 65, footerY + 8);
-            
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(100, 100, 100);
-            doc.text('Valido hasta:', 30, footerY + 15);
-            doc.setTextColor(40, 40, 40);
-            doc.setFont('helvetica', 'bold');
-            doc.text(fechaVencStr, 65, footerY + 15);
-            
-            // Sello CZ OFICIAL (derecha)
-            doc.setFillColor(201, 169, 97);
-            doc.circle(165, footerY + 8, 10, 'F');
-            doc.setFontSize(7);
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('helvetica', 'bold');
-            doc.text('CZ', 165, footerY + 6, { align: 'center' });
-            doc.setFontSize(5);
-            doc.text('OFICIAL', 165, footerY + 12, { align: 'center' });
-            
-            // ===== FOOTER =====
-            doc.setFontSize(7);
-            doc.setTextColor(150, 150, 150);
-            doc.setFont('helvetica', 'normal');
-            doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima', 105, 290, { align: 'center' });
-            doc.text('contacto@czperu.com | www.czperu.com | Certificado valido por 3 meses', 105, 294, { align: 'center' });
-            
-            doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
         }
         
         loadFromStorage();
