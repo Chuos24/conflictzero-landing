@@ -699,25 +699,33 @@
         
         console.log('PARÁMETROS:', { certId, ruc, scoreFromUrl });
         
-        // Mostrar datos iniciales del QR (URL) inmediatamente
-        document.getElementById('certId').textContent = certId;
-        document.getElementById('certRuc').textContent = ruc || 'No especificado';
-        document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
-        document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
-        
-        // Mostrar score del QR inmediatamente
-        const scoreValue = document.getElementById('scoreValue');
-        const scoreBar = document.getElementById('scoreBar');
-        
-        if (scoreValue && scoreBar) {
-            scoreValue.textContent = scoreFromUrl;
-            scoreBar.style.width = scoreFromUrl + '%';
-            console.log('Score mostrado:', scoreFromUrl);
-        } else {
-            console.error('ERROR: Elementos no encontrados');
-        }
-        
-        aplicarColoresScore(scoreFromUrl);
+        // Esperar a que el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM listo, iniciando...');
+            
+            // Mostrar datos iniciales del QR (URL) inmediatamente
+            document.getElementById('certId').textContent = certId;
+            document.getElementById('certRuc').textContent = ruc || 'No especificado';
+            document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
+            document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
+            
+            // Mostrar score del QR inmediatamente
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreBar = document.getElementById('scoreBar');
+            
+            if (scoreValue && scoreBar) {
+                scoreValue.textContent = scoreFromUrl;
+                scoreBar.style.width = scoreFromUrl + '%';
+                console.log('Score mostrado:', scoreFromUrl);
+            } else {
+                console.error('ERROR: Elementos no encontrados');
+            }
+            
+            aplicarColoresScore(scoreFromUrl);
+            
+            // Iniciar consulta después de mostrar datos iniciales
+            setTimeout(() => consultarRUC(ruc), 100);
+        });
         
         // Función para aplicar colores según score
         function aplicarColoresScore(score) {
@@ -877,8 +885,6 @@
                 '</p>';
         }
         
-        // Iniciar consulta después de mostrar datos iniciales
-        setTimeout(() => consultarRUC(ruc), 500);
     </script>
 </body>
 </html>
