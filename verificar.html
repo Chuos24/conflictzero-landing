@@ -798,12 +798,46 @@
             
             // Mostrar sanciones reales
             const sancionesList = document.getElementById('sancionesList');
-            const sanciones = data.sanciones || [];
+            // Mostrar sanciones reales - COMBINAR TODAS LAS FUENTES
+            const sancionesList = document.getElementById('sancionesList');
             
-            if (sanciones.length === 0) {
+            // Combinar sanciones de todas las fuentes
+            let todasSanciones = [];
+            
+            // Sanciones OSCE (array general)
+            if (data.sanciones && data.sanciones.length > 0) {
+                data.sanciones.forEach(s => {
+                    todasSanciones.push({
+                        tipo: s.tipo || s.description || 'Sanción OSCE',
+                        entidad: s.entidad || s.entity || 'OSCE',
+                        resolucion: s.resolucion || s.sanction_id || 'N/A',
+                        fecha: s.fecha || s.date || 'N/A',
+                        estado: s.estado || s.status || 'ACTIVA',
+                        severidad: s.severidad || s.severity || 3,
+                        peso: s.peso || 20
+                    });
+                });
+            }
+            
+            // Sanciones RNP/TCE
+            if (data.sanciones_rnp_tce && data.sanciones_rnp_tce.length > 0) {
+                data.sanciones_rnp_tce.forEach(s => {
+                    todasSanciones.push({
+                        tipo: s.tipo_sancion || 'Sanción RNP-TCE',
+                        entidad: s.fuente || 'RNP-TCE',
+                        resolucion: s.resolucion || 'N/A',
+                        fecha: s.fecha_desde || 'N/A',
+                        estado: s.estado || 'VIGENTE',
+                        severidad: s.tipo_sancion === 'Definitivo' ? 5 : 3,
+                        peso: s.tipo_sancion === 'Definitivo' ? 80 : 40
+                    });
+                });
+            }
+            
+            if (todasSanciones.length === 0) {
                 sancionesList.innerHTML = '<p style="color: var(--success); text-align: center; padding: 20px;">✓ No se detectaron sanciones para esta empresa.</p>';
             } else {
-                sancionesList.innerHTML = sanciones.map(s => {
+                sancionesList.innerHTML = todasSanciones.map(s => {
                     let nivel = 'low';
                     if (s.severidad >= 4) nivel = 'critical';
                     else if (s.severidad >= 3) nivel = 'medium';
@@ -812,17 +846,14 @@
                         <div class="sancion-item ${nivel}">
                             <div class="sancion-icon ${nivel}">⚠</div>
                             <div class="sancion-info">
-                                <div class="sancion-type">${s.tipo} - ${s.entidad || 'S/E'}</div>
-                                <div class="sancion-detail">${s.resolucion || 'Resolución no disponible'} | ${s.fecha || 'Fecha no disponible'} | Estado: ${s.estado}</div>
+                                <div class="sancion-type">${s.tipo} - ${s.entidad}</div>
+                                <div class="sancion-detail">${s.resolucion} | ${s.fecha} | Estado: ${s.estado}</div>
                             </div>
-                            <div class="sancion-penalty">-${s.peso || 0} pts</div>
+                            <div class="sancion-penalty">-${s.peso} pts</div>
                         </div>
                     `;
                 }).join('');
             }
-            
-            // Actualizar fórmula mostrada
-            if (data.formula_utilizada) {
                 const formulaTitle = document.querySelector('.formula-title');
                 if (formulaTitle) {
                     formulaTitle.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
