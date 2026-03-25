@@ -402,6 +402,22 @@
             color: var(--danger);
         }
         
+        .status-vigente {
+            color: var(--danger);
+            font-weight: 600;
+            background: rgba(250, 82, 82, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .status-vencida {
+            color: var(--success);
+            font-weight: 600;
+            background: rgba(64, 192, 87, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
         .footer {
             text-align: center;
             padding: 40px 0;
@@ -833,14 +849,34 @@
             // Combinar sanciones de todas las fuentes
             let todasSanciones = [];
             
-            // Sanciones OSCE (array general)
-            if (data.sanciones && data.sanciones.length > 0) {
+            // Sanciones OSCE detalladas (nueva tabla)
+            if (data.sanciones_osce_detalle && data.sanciones_osce_detalle.length > 0) {
+                data.sanciones_osce_detalle.forEach(s => {
+                    todasSanciones.push({
+                        tipo: s.tipo_sancion || 'Sanción OSCE',
+                        entidad: s.fuente || s.entidad || 'OSCE',
+                        resolucion: s.numero_resolucion || 'N/A',
+                        fecha_inicio: s.fecha_inicio,
+                        fecha_fin: s.fecha_fin,
+                        fecha_corte: s.fecha_corte,
+                        estado: s.estado || 'DESCONOCIDO',
+                        motivo: s.motivo,
+                        severidad: s.tipo_sancion === 'inhabilitacion_judicial' ? 5 : 
+                                   s.tipo_sancion === 'sancion_inhabilitacion' ? 4 : 2,
+                        peso: s.tipo_sancion === 'inhabilitacion_judicial' ? 80 : 
+                              s.tipo_sancion === 'sancion_inhabilitacion' ? 50 : 20
+                    });
+                });
+            }
+            // Fallback: Sanciones OSCE antiguas
+            else if (data.sanciones && data.sanciones.length > 0) {
                 data.sanciones.forEach(s => {
                     todasSanciones.push({
                         tipo: s.tipo || s.description || 'Sanción OSCE',
                         entidad: s.entidad || s.entity || 'OSCE',
                         resolucion: s.resolucion || s.sanction_id || 'N/A',
-                        fecha: s.fecha || s.date || 'N/A',
+                        fecha_inicio: s.fecha_inicio || s.fecha,
+                        fecha_fin: s.fecha_fin,
                         estado: s.estado || s.status || 'ACTIVA',
                         severidad: s.severidad || s.severity || 3,
                         peso: s.peso || 20
@@ -871,12 +907,22 @@
                     if (s.severidad >= 4) nivel = 'critical';
                     else if (s.severidad >= 3) nivel = 'medium';
                     
+                    // Formatear fechas
+                    const fechaInicio = s.fecha_inicio ? formatearFecha(s.fecha_inicio) : 'N/A';
+                    const fechaFin = s.fecha_fin ? formatearFecha(s.fecha_fin) : 'Indefinida';
+                    const estadoClass = s.estado === 'VIGENTE' ? 'status-vigente' : 'status-vencida';
+                    
                     return `
                         <div class="sancion-item ${nivel}">
                             <div class="sancion-icon ${nivel}">⚠</div>
                             <div class="sancion-info">
                                 <div class="sancion-type">${s.tipo} - ${s.entidad}</div>
-                                <div class="sancion-detail">${s.resolucion} | ${s.fecha} | Estado: ${s.estado}</div>
+                                <div class="sancion-detail">
+                                    <strong>Resolución:</strong> ${s.resolucion} <br>
+                                    <strong>Inicio:</strong> ${fechaInicio} | 
+                                    <strong>Fin:</strong> ${fechaFin} <br>
+                                    <span class="${estadoClass}">Estado: ${s.estado}</span>
+                                </div>
                             </div>
                             <div class="sancion-penalty">-${s.peso} pts</div>
                         </div>
@@ -901,6 +947,22 @@
                     'No se detectaron sanciones para esta empresa.<br>' +
                     '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
                     '</p>';
+            }
+        }
+        
+        // Formatear fecha ISO a formato legible
+        function formatearFecha(fechaStr) {
+            if (!fechaStr || fechaStr === 'N/A' || fechaStr === 'null') return 'N/A';
+            try {
+                const fecha = new Date(fechaStr);
+                if (isNaN(fecha.getTime())) return fechaStr;
+                return fecha.toLocaleDateString('es-PE', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+            } catch (e) {
+                return fechaStr;
             }
         }
     </script>
