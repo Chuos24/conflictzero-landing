@@ -699,9 +699,17 @@
         
         console.log('PARÁMETROS:', { certId, ruc, scoreFromUrl });
         
+        // Referencias a elementos DOM (globales)
+        let scoreValueEl, scoreBarEl, certStatusEl;
+        
         // Esperar a que el DOM esté listo
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM listo, iniciando...');
+            
+            // Guardar referencias
+            scoreValueEl = document.getElementById('scoreValue');
+            scoreBarEl = document.getElementById('scoreBar');
+            certStatusEl = document.getElementById('certStatus');
             
             // Mostrar datos iniciales del QR (URL) inmediatamente
             document.getElementById('certId').textContent = certId;
@@ -710,15 +718,12 @@
             document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
             
             // Mostrar score del QR inmediatamente
-            const scoreValue = document.getElementById('scoreValue');
-            const scoreBar = document.getElementById('scoreBar');
-            
-            if (scoreValue && scoreBar) {
-                scoreValue.textContent = scoreFromUrl;
-                scoreBar.style.width = scoreFromUrl + '%';
+            if (scoreValueEl && scoreBarEl) {
+                scoreValueEl.textContent = scoreFromUrl;
+                scoreBarEl.style.width = scoreFromUrl + '%';
                 console.log('Score mostrado:', scoreFromUrl);
             } else {
-                console.error('ERROR: Elementos no encontrados');
+                console.error('ERROR: Elementos score no encontrados');
             }
             
             aplicarColoresScore(scoreFromUrl);
@@ -729,24 +734,27 @@
         
         // Función para aplicar colores según score
         function aplicarColoresScore(score) {
-            const certStatus = document.getElementById('certStatus');
+            if (!certStatusEl || !scoreValueEl) {
+                console.error('Elementos no disponibles para aplicar colores');
+                return;
+            }
             
             if (score >= 90) {
-                scoreValue.style.color = 'var(--success)';
-                certStatus.className = 'status-badge valid';
-                certStatus.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO - LIMPIO';
+                scoreValueEl.style.color = 'var(--success)';
+                certStatusEl.className = 'status-badge valid';
+                certStatusEl.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO - LIMPIO';
             } else if (score >= 70) {
-                scoreValue.style.color = 'var(--warning)';
-                certStatus.className = 'status-badge warning';
-                certStatus.innerHTML = '<span>!</span> OBSERVADO LEVE';
+                scoreValueEl.style.color = 'var(--warning)';
+                certStatusEl.className = 'status-badge warning';
+                certStatusEl.innerHTML = '<span>!</span> OBSERVADO LEVE';
             } else if (score >= 40) {
-                scoreValue.style.color = 'orange';
-                certStatus.className = 'status-badge warning';
-                certStatus.innerHTML = '<span>⚠</span> OBSERVADO GRAVE';
+                scoreValueEl.style.color = 'orange';
+                certStatusEl.className = 'status-badge warning';
+                certStatusEl.innerHTML = '<span>⚠</span> OBSERVADO GRAVE';
             } else {
-                scoreValue.style.color = 'var(--danger)';
-                certStatus.className = 'status-badge invalid';
-                certStatus.innerHTML = '<span>✕</span> RECHAZADO';
+                scoreValueEl.style.color = 'var(--danger)';
+                certStatusEl.className = 'status-badge invalid';
+                certStatusEl.innerHTML = '<span>✕</span> RECHAZADO';
             }
         }
         
@@ -780,34 +788,47 @@
                 }
                 
                 const data = await response.json();
-                console.log('Datos recibidos de API:', data); // DEBUG
+                console.log('Datos recibidos de API:', data);
                 
                 // Actualizar con datos reales de la API
                 mostrarResultados(data);
                 
             } catch (error) {
                 console.log('API no disponible:', error.message);
-                // API falló - mostrar datos del QR
                 mostrarDatosQR();
             }
         }
         
         function mostrarResultados(data) {
             // Actualizar razón social
-            document.getElementById('certEmpresa').textContent = data.razon_social || 'NO ENCONTRADO';
+            const certEmpresa = document.getElementById('certEmpresa');
+            if (certEmpresa) {
+                certEmpresa.textContent = data.razon_social || 'NO ENCONTRADO';
+            }
             
-            // Solo actualizar score si es diferente al del QR
-            if (data.score !== scoreFromUrl) {
+            // Actualizar score si es diferente al del QR
+            if (data.score !== scoreFromUrl && scoreValueEl && scoreBarEl) {
                 console.log('Actualizando score:', scoreFromUrl, '→', data.score);
-                scoreValue.textContent = data.score;
-                scoreBar.style.width = data.score + '%';
+                scoreValueEl.textContent = data.score;
+                scoreBarEl.style.width = data.score + '%';
                 aplicarColoresScore(data.score);
             }
             
-            // Mostrar sanciones reales
+            // Mostrar sanciones
+            mostrarSanciones(data);
+            
+            // Actualizar fórmula mostrada
+            if (data.formula_utilizada) {
+                const formulaTitle = document.querySelector('.formula-title');
+                if (formulaTitle) {
+                    formulaTitle.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
+                }
+            }
+        }
+        
+        function mostrarSanciones(data) {
             const sancionesList = document.getElementById('sancionesList');
-            // Mostrar sanciones reales - COMBINAR TODAS LAS FUENTES
-            const sancionesList = document.getElementById('sancionesList');
+            if (!sancionesList) return;
             
             // Combinar sanciones de todas las fuentes
             let todasSanciones = [];
@@ -862,29 +883,25 @@
                     `;
                 }).join('');
             }
-                const formulaTitle = document.querySelector('.formula-title');
-                if (formulaTitle) {
-                    formulaTitle.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
-                }
-            }
         }
         
         function mostrarDatosQR() {
-            // Mostrar datos del QR cuando la API no está disponible
-            document.getElementById('certEmpresa').innerHTML = 
-                '<span style="color: var(--text-muted);">Datos del certificado</span>';
-            
+            const certEmpresa = document.getElementById('certEmpresa');
+            if (certEmpresa) {
+                certEmpresa.innerHTML = '<span style="color: var(--text-muted);">Datos del certificado</span>';
+            }
             mostrarSancionesVacias();
         }
         
         function mostrarSancionesVacias() {
-            document.getElementById('sancionesList').innerHTML = 
-                '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
-                'No se detectaron sanciones para esta empresa.<br>' +
-                '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
-                '</p>';
+            const sancionesList = document.getElementById('sancionesList');
+            if (sancionesList) {
+                sancionesList.innerHTML = 
+                    '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
+                    'No se detectaron sanciones para esta empresa.<br>' +
+                    '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
+                    '</p>';
+            }
         }
-        
     </script>
-</body>
-</html>
+</body></html>
