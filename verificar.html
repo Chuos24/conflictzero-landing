@@ -858,7 +858,6 @@
                         resolucion: s.numero_resolucion || 'N/A',
                         fecha_inicio: s.fecha_inicio,
                         fecha_fin: s.fecha_fin,
-                        fecha_corte: s.fecha_corte,
                         estado: s.estado || 'DESCONOCIDO',
                         motivo: s.motivo,
                         severidad: s.tipo_sancion === 'inhabilitacion_judicial' ? 5 : 
@@ -868,18 +867,33 @@
                     });
                 });
             }
-            // Fallback: Sanciones OSCE antiguas
+            // Fallback: Sanciones OSCE desde array sanciones_osce
+            else if (data.sanciones_osce && data.sanciones_osce.length > 0) {
+                data.sanciones_osce.forEach(s => {
+                    todasSanciones.push({
+                        tipo: s.tipo || s.description || 'Sanción OSCE',
+                        entidad: s.entity || 'OSCE',
+                        resolucion: s.sanction_id || 'N/A',
+                        fecha_inicio: s.date,
+                        fecha_fin: s.fecha_fin,
+                        estado: s.status || 'ACTIVA',
+                        severidad: s.severity === 'GRAVE' ? 5 : s.severity === 'ALTA' ? 4 : 2,
+                        peso: s.severity === 'GRAVE' ? 80 : s.severity === 'ALTA' ? 50 : 20
+                    });
+                });
+            }
+            // Fallback legacy: Sanciones desde array general
             else if (data.sanciones && data.sanciones.length > 0) {
                 data.sanciones.forEach(s => {
                     todasSanciones.push({
                         tipo: s.tipo || s.description || 'Sanción OSCE',
                         entidad: s.entidad || s.entity || 'OSCE',
                         resolucion: s.resolucion || s.sanction_id || 'N/A',
-                        fecha_inicio: s.fecha_inicio || s.fecha,
+                        fecha_inicio: s.fecha_inicio || s.date,
                         fecha_fin: s.fecha_fin,
                         estado: s.estado || s.status || 'ACTIVA',
-                        severidad: s.severidad || s.severity || 3,
-                        peso: s.peso || 20
+                        severidad: s.severidad || (s.severity === 'GRAVE' ? 5 : s.severity === 'ALTA' ? 4 : 2),
+                        peso: s.peso || (s.severity === 'GRAVE' ? 80 : s.severity === 'ALTA' ? 50 : 20)
                     });
                 });
             }
