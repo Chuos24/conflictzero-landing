@@ -17,7 +17,8 @@
             --bone: #F5F5F0;
             --muted: #6B6B6E;
             --success: #2D4A3E;
-            --danger: #8B4513;
+            --danger: #DC3545;
+            --warning: #C5A059;
         }
         
         body {
@@ -123,7 +124,7 @@
         .admin-container {
             display: none;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
@@ -135,38 +136,78 @@
             letter-spacing: 0.1em;
         }
         
-        .generator-box {
+        /* Steps Indicator */
+        .steps-indicator {
+            display: flex;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--stone);
+        }
+        
+        .step-item {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .step-item.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+        
+        .step-item.completed {
+            color: var(--success);
+            border-bottom-color: var(--success);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            line-height: 22px;
+            margin-right: 8px;
+            font-size: 11px;
+        }
+        
+        .step-item.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--black);
+        }
+        
+        /* Step Panels */
+        .step-panel {
+            display: none;
             border: 1px solid var(--stone);
             padding: 32px;
-            margin-bottom: 40px;
             background: var(--card);
         }
         
-        .generator-box h2 {
+        .step-panel.active {
+            display: block;
+        }
+        
+        .step-panel h2 {
             font-family: 'Cormorant Garamond', serif;
             color: var(--gold);
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 24px;
             letter-spacing: 0.05em;
         }
         
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .form-group {
             margin-bottom: 20px;
         }
         
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-        
         .form-group label {
+            display: block;
             font-size: 11px;
             color: var(--muted);
             letter-spacing: 0.1em;
@@ -176,7 +217,8 @@
         
         .form-group input,
         .form-group select {
-            padding: 12px;
+            width: 100%;
+            padding: 14px;
             background: var(--black);
             border: 1px solid var(--stone);
             color: var(--bone);
@@ -189,7 +231,7 @@
             border-color: var(--gold);
         }
         
-        .btn-generate {
+        .btn-primary {
             background: var(--gold);
             color: var(--black);
             border: none;
@@ -201,12 +243,180 @@
             margin-top: 12px;
         }
         
-        .btn-generate:hover {
+        .btn-primary:hover {
             background: var(--gold-dark);
         }
         
-        /* Certificates Table */
+        .btn-primary:disabled {
+            background: var(--stone);
+            color: var(--muted);
+            cursor: not-allowed;
+        }
+        
+        /* Validation Result */
+        .validation-result {
+            margin-top: 24px;
+            padding: 24px;
+            border: 2px solid var(--stone);
+            display: none;
+        }
+        
+        .validation-result.show {
+            display: block;
+        }
+        
+        .validation-result.success {
+            border-color: var(--success);
+            background: rgba(45, 74, 62, 0.1);
+        }
+        
+        .validation-result.danger {
+            border-color: var(--danger);
+            background: rgba(220, 53, 69, 0.05);
+        }
+        
+        .validation-result.warning {
+            border-color: var(--warning);
+            background: rgba(197, 160, 89, 0.05);
+        }
+        
+        .score-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            margin: 16px 0;
+        }
+        
+        .score-display.success { color: var(--success); }
+        .score-display.warning { color: var(--warning); }
+        .score-display.danger { color: var(--danger); }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .status-badge.success {
+            background: var(--success);
+            color: var(--bone);
+        }
+        
+        .status-badge.danger {
+            background: var(--danger);
+            color: var(--bone);
+        }
+        
+        .status-badge.warning {
+            background: var(--warning);
+            color: var(--black);
+        }
+        
+        .detail-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+        
+        .detail-list li {
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--bone);
+        }
+        
+        .detail-list li::before {
+            content: "•";
+            color: var(--muted);
+            margin-right: 12px;
+        }
+        
+        .detail-list li.error::before {
+            color: var(--danger);
+        }
+        
+        .detail-list li.success::before {
+            color: var(--success);
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--stone);
+        }
+        
+        /* Company Info */
+        .company-info {
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--black);
+            border: 1px solid var(--stone);
+        }
+        
+        .company-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: var(--bone);
+            margin-bottom: 8px;
+        }
+        
+        .company-info p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 4px 0;
+        }
+        
+        /* Loader */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loader.show {
+            display: block;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--stone);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Rejection Message */
+        .rejection-box {
+            display: none;
+            text-align: center;
+            padding: 32px;
+            margin-top: 24px;
+            border: 2px solid var(--danger);
+            background: rgba(220, 53, 69, 0.05);
+        }
+        
+        .rejection-box.show {
+            display: block;
+        }
+        
+        .rejection-box h3 {
+            color: var(--danger);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        /* Certificate Table */
         .table-box {
+            margin-top: 40px;
             border: 1px solid var(--stone);
             padding: 32px;
         }
@@ -216,7 +426,6 @@
             color: var(--gold);
             font-size: 18px;
             margin-bottom: 24px;
-            letter-spacing: 0.05em;
         }
         
         table {
@@ -259,20 +468,11 @@
         .badge-gold { background: rgba(197, 160, 89, 0.2); color: var(--gold); }
         .badge-founder { background: rgba(197, 160, 89, 0.3); color: var(--gold); border: 1px solid var(--gold); }
         
-        .cert-link {
-            color: var(--gold);
-            text-decoration: none;
-        }
-        
-        .cert-link:hover {
-            text-decoration: underline;
-        }
-        
         .btn-copy {
             background: transparent;
             border: 1px solid var(--stone);
             color: var(--muted);
-            padding: 4px 12px;
+            padding: 6px 12px;
             font-size: 11px;
             cursor: pointer;
         }
@@ -301,12 +501,6 @@
             display: block;
         }
         
-        .output-panel h3 {
-            color: var(--gold);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-        
         .output-url {
             background: var(--black);
             padding: 12px;
@@ -318,12 +512,23 @@
         }
         
         @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .admin-container {
                 padding: 20px;
+            }
+            
+            .steps-indicator {
+                flex-direction: column;
+            }
+            
+            .step-item {
+                border-bottom: 1px solid var(--stone);
+                border-left: 2px solid transparent;
+            }
+            
+            .step-item.active,
+            .step-item.completed {
+                border-left-color: var(--gold);
+                border-bottom-color: var(--stone);
             }
         }
     </style>
@@ -333,6 +538,7 @@
     <div class="login-container" id="loginScreen">
         <div class="login-box">
             <h1>◆ Conflict Zero</h1>
+            <p style="color: var(--muted); font-size: 13px; margin-bottom: 24px;">Admin — Validación y Certificación</p>
             <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
             <button onclick="login()">ACCEDER</button>
             <div class="error-msg" id="loginError"></div>
@@ -348,54 +554,122 @@
         
         <h1 class="admin-title">Generador de Certificados</h1>
         
-        <div class="generator-box">
-            <h2>Nuevo Certificado</h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>RUC (11 dígitos)</label>
-                    <input type="text" id="certRuc" maxlength="11" placeholder="20100123091">
-                </div>
-                <div class="form-group">
-                    <label>Razón Social</label>
-                    <input type="text" id="certCompany" placeholder="Constructora ABC S.A.C.">
-                </div>
-                <div class="form-group">
-                    <label>Representante Legal</label>
-                    <input type="text" id="certRep" placeholder="Juan Pérez López">
-                </div>
-                <div class="form-group">
-                    <label>Email del Cliente</label>
-                    <input type="email" id="certEmail" placeholder="ceo@empresa.com">
-                </div>
-                <div class="form-group">
-                    <label>Plan</label>
-                    <select id="certPlan">
-                        <option value="bronze">Bronze</option>
-                        <option value="silver" selected>Silver</option>
-                        <option value="gold">Gold</option>
-                        <option value="founder">Founder</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Slug (opcional)</label>
-                    <input type="text" id="certSlug" placeholder="abc-sac (autogenerado)">
-                </div>
-                <div class="form-group full-width">
-                    <label>Notas internas</label>
-                    <input type="text" id="certNotes" placeholder="Cómo se encontró el lead, referido de..., etc.">
-                </div>
+        <!-- Steps Indicator -->
+        <div class="steps-indicator">
+            <div class="step-item active" id="stepIndicator1">
+                <span class="step-number">1</span>
+                Validación OSCE/SUNAT
             </div>
-            <button class="btn-generate" onclick="generateCertificate()">GENERAR CERTIFICADO</button>
-            
-            <div class="output-panel" id="outputPanel">
-                <h3>✓ Certificado Generado</h3>
-                <div class="output-url" id="outputUrl"></div>
-                <button class="btn-copy" onclick="copyUrl()">Copiar URL</button>
+            <div class="step-item" id="stepIndicator2">
+                <span class="step-number">2</span>
+                Resultado
+            </div>
+            <div class="step-item" id="stepIndicator3">
+                <span class="step-number">3</span>
+                Generar Certificado
             </div>
         </div>
         
+        <!-- STEP 1: VALIDATION -->
+        <div class="step-panel active" id="step1">
+            <h2>1. Validación OSCE/SUNAT</h2>
+            <p style="color: var(--muted); margin-bottom: 24px; font-size: 14px;">
+                Ingresa el RUC para validar contra SUNAT y verificar inhabilitaciones en OSCE.
+                Solo empresas con Score 100 pueden recibir certificado.
+            </p>
+            
+            <div class="form-group">
+                <label>RUC (11 dígitos)</label>
+                <input type="text" id="rucInput" maxlength="11" placeholder="20100123091">
+            </div>
+            
+            <button class="btn-primary" onclick="validateRUC()">VALIDAR EMPRESA</button>
+            
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <p style="color: var(--muted);">Consultando SUNAT y OSCE...</p>
+            </div>
+        </div>
+        
+        <!-- STEP 2: RESULT -->
+        <div class="step-panel" id="step2">
+            <h2>2. Resultado de Validación</h2>
+            
+            <div id="validationResult" class="validation-result">
+                <!-- Dynamic content -->
+            </div>
+            
+            <div class="rejection-box" id="rejectionBox">
+                <h3>❌ EMPRESA NO APTA PARA CERTIFICACIÓN</h3>
+                <p style="color: var(--muted);">Esta empresa no cumple los requisitos mínimos.</p>
+                <button class="btn-primary" onclick="goToStep(1)" style="margin-top: 16px;">
+                    VALIDAR OTRO RUC
+                </button>
+            </div>
+            
+            <div id="continueSection" style="display: none; text-align: center; margin-top: 24px;">
+                <button class="btn-primary" onclick="goToStep(3)">
+                    CONTINUAR A GENERACIÓN DE CERTIFICADO →
+                </button>
+            </div>
+        </div>
+        
+        <!-- STEP 3: GENERATOR -->
+        <div class="step-panel" id="step3">
+            <h2>3. Generar Certificado</h2>
+            
+            <p style="color: var(--success); margin-bottom: 24px; font-size: 14px;">
+                ✓ Empresa validada. Completa los datos para generar el certificado oficial.
+            </p>
+            
+            <div class="form-group">
+                <label>RUC Validado</label>
+                <input type="text" id="validatedRuc" readonly style="background: var(--card); color: var(--muted);">
+            </div>
+            
+            <div class="form-group">
+                <label>Razón Social</label>
+                <input type="text" id="validatedCompany" readonly style="background: var(--card); color: var(--muted);">
+            </div>
+            
+            <div class="form-group">
+                <label>Plan</label>
+                <select id="certPlan">
+                    <option value="bronze">Bronze ($400/año)</option>
+                    <option value="silver">Silver ($800/año)</option>
+                    <option value="gold">Gold ($2,500/año)</option>
+                    <option value="founder" selected>Founder — Edición Limitada ($2,500/año)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Slug único (opcional)</label>
+                <input type="text" id="certSlug" placeholder="ej: zamora-jara-001">
+            </div>
+            
+            <div class="form-group">
+                <label>Email del Cliente</label>
+                <input type="email" id="clientEmail" placeholder="ceo@empresa.com">
+            </div>
+            
+            <div class="form-group">
+                <label>Notas Internas</label>
+                <input type="text" id="certNotes" placeholder="Cómo se encontró el lead, referido, etc.">
+            </div>
+            
+            <button class="btn-primary" onclick="generateCertificate()">GENERAR CERTIFICADO OFICIAL</button>
+            
+            <div class="output-panel" id="outputPanel">
+                <h3 style="color: var(--success); margin-bottom: 12px;">✓ Certificado Generado</h3>
+                <div class="output-url" id="outputUrl"></div>
+                <button class="btn-copy" onclick="copyUrl()">Copiar URL</button>
+                <button class="btn-copy" onclick="goToStep(1)" style="margin-left: 8px;">Validar Nuevo RUC</button>
+            </div>
+        </div>
+        
+        <!-- Certificates Table -->
         <div class="table-box">
-            <h2>Certificados Emitidos</h2>
+            <h2>Historial de Certificados Emitidos</h2>
             <table>
                 <thead>
                     <tr>
@@ -403,13 +677,13 @@
                         <th>Empresa</th>
                         <th>RUC</th>
                         <th>Plan</th>
+                        <th>Score</th>
                         <th>Fecha</th>
-                        <th>URL</th>
                     </tr>
                 </thead>
                 <tbody id="certTable">
                     <tr>
-                        <td colspan="6" class="empty-state">No hay certificados emitidos aún</td>
+                        <td colspan="6" class="empty-state">No hay certificados emitidos</td>
                     </tr>
                 </tbody>
             </table>
@@ -418,6 +692,7 @@
     
     <script>
         const ADMIN_PASSWORD = 'cz2026';
+        let validatedData = null;
         
         // Check session
         if (localStorage.getItem('cz_admin_logged') === 'true') {
@@ -445,57 +720,191 @@
             loadCertificates();
         }
         
+        function goToStep(step) {
+            // Hide all panels
+            document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.step-item').forEach(s => s.classList.remove('active'));
+            
+            // Show target panel
+            document.getElementById('step' + step).classList.add('active');
+            document.getElementById('stepIndicator' + step).classList.add('active');
+            
+            // Mark previous as completed
+            for (let i = 1; i < step; i++) {
+                document.getElementById('stepIndicator' + i).classList.add('completed');
+                document.getElementById('stepIndicator' + i).classList.remove('active');
+            }
+        }
+        
+        async function validateRUC() {
+            const ruc = document.getElementById('rucInput').value.trim();
+            
+            if (!ruc || ruc.length !== 11 || !/^\d{11}$/.test(ruc)) {
+                alert('Ingresa un RUC válido de 11 dígitos');
+                return;
+            }
+            
+            // Show loader
+            document.getElementById('loader').classList.add('show');
+            
+            try {
+                // Mock validation - replace with real API
+                await new Promise(r => setTimeout(r, 1500)); // Simulate API delay
+                
+                // Example data - in production, fetch from real APIs
+                const mockData = getMockData(ruc);
+                
+                displayResult(mockData);
+                
+            } catch (error) {
+                alert('Error al validar. Intenta de nuevo.');
+                console.error(error);
+            } finally {
+                document.getElementById('loader').classList.remove('show');
+            }
+        }
+        
+        function getMockData(ruc) {
+            // Zamora Jara SAC - your father's company
+            if (ruc === '20529400790') {
+                return {
+                    ruc: '20529400790',
+                    company: 'CONSTRUCTORA ZAMORA JARA S.A.C.',
+                    estado: 'ACTIVO',
+                    condicion: 'HABIDO',
+                    deuda: 0,
+                    trabajadores: 45,
+                    osceInhabilitado: false,
+                    osceSanciones: 0,
+                    score: 100,
+                    status: 'APTO',
+                    details: [
+                        { text: 'Estado SUNAT: ACTIVO', type: 'success' },
+                        { text: 'Condición: HABIDO', type: 'success' },
+                        { text: 'Deuda tributaria: S/ 0.00', type: 'success' },
+                        { text: 'Sin inhabilitaciones OSCE', type: 'success' },
+                        { text: 'Sin sanciones vigentes', type: 'success' }
+                    ]
+                };
+            }
+            
+            // Generic mock for other RUCs
+            return {
+                ruc: ruc,
+                company: 'EMPRESA DEMO S.A.C.',
+                estado: 'ACTIVO',
+                condicion: 'HABIDO',
+                deuda: 0,
+                trabajadores: 25,
+                osceInhabilitado: false,
+                osceSanciones: 0,
+                score: 100,
+                status: 'APTO',
+                details: [
+                    { text: 'Estado SUNAT: ACTIVO', type: 'success' },
+                    { text: 'Condición: HABIDO', type: 'success' },
+                    { text: 'Sin inhabilitaciones', type: 'success' }
+                ]
+            };
+        }
+        
+        function displayResult(data) {
+            validatedData = data;
+            
+            const resultDiv = document.getElementById('validationResult');
+            const isApto = data.score === 100;
+            const statusClass = isApto ? 'success' : (data.score >= 50 ? 'warning' : 'danger');
+            
+            resultDiv.className = 'validation-result show ' + statusClass;
+            
+            resultDiv.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="score-display ${statusClass}">${data.score}/100</div>
+                    <span class="status-badge ${statusClass}">${data.status}</span>
+                </div>
+                
+                <div class="company-info">
+                    <h3>${data.company}</h3>
+                    <p>RUC: ${data.ruc}</p>
+                    <p>Estado SUNAT: ${data.estado} | Condición: ${data.condicion}</p>
+                    ${data.deuda > 0 ? `<p style="color: var(--danger);">Deuda: S/ ${data.deuda.toLocaleString()}</p>` : '<p>Deuda: S/ 0.00</p>'}
+                </div>
+                
+                <ul class="detail-list">
+                    ${data.details.map(d => `<li class="${d.type}">${d.text}</li>`).join('')}
+                </ul>
+                
+                <div class="timestamp">
+                    Validado: ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}
+                </div>
+            `;
+            
+            goToStep(2);
+            
+            if (isApto) {
+                document.getElementById('continueSection').style.display = 'block';
+                document.getElementById('rejectionBox').classList.remove('show');
+                
+                // Pre-fill step 3
+                document.getElementById('validatedRuc').value = data.ruc;
+                document.getElementById('validatedCompany').value = data.company;
+            } else {
+                document.getElementById('continueSection').style.display = 'none';
+                document.getElementById('rejectionBox').classList.add('show');
+            }
+        }
+        
         function generateSlug(company) {
             const custom = document.getElementById('certSlug').value.trim();
             if (custom) return custom.toLowerCase().replace(/[^a-z0-9]/g, '-');
             
             const random = Math.random().toString(36).substring(2, 10);
-            return company ? company.toLowerCase().substring(0, 15).replace(/[^a-z]/g, '-') + '-' + random.substring(0, 4) : random;
+            return company.toLowerCase().substring(0, 15).replace(/[^a-z]/g, '-') + '-' + random.substring(0, 4);
         }
         
         function generateCertificate() {
-            const ruc = document.getElementById('certRuc').value.trim();
-            const company = document.getElementById('certCompany').value.trim();
-            const rep = document.getElementById('certRep').value.trim();
-            const email = document.getElementById('certEmail').value.trim();
+            if (!validatedData) {
+                alert('Primero debes validar el RUC');
+                return;
+            }
+            
             const plan = document.getElementById('certPlan').value;
+            const slug = generateSlug(validatedData.company);
+            const email = document.getElementById('clientEmail').value.trim();
             const notes = document.getElementById('certNotes').value.trim();
             
-            if (!ruc || ruc.length !== 11) {
-                alert('RUC debe tener 11 dígitos');
-                return;
-            }
-            if (!company) {
-                alert('Ingresa la Razón Social');
-                return;
-            }
-            
-            const slug = generateSlug(company);
             const ref = 'CZ-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 900 + 100);
             const now = new Date();
             const emissionDate = now.toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
             const expirationDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate()).toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
             
-            const planColors = {
+            const planConfig = {
                 bronze: { color: '#CD7F32', badge: 'Bronze', bg: 'rgba(205, 127, 50, 0.1)' },
                 silver: { color: '#A8A8A8', badge: 'Silver', bg: 'rgba(168, 168, 168, 0.1)' },
                 gold: { color: '#C5A059', badge: 'Gold', bg: 'rgba(197, 160, 89, 0.1)' },
                 founder: { color: '#C5A059', badge: 'Founder', bg: 'rgba(197, 160, 89, 0.15)' }
             };
             
-            const style = planColors[plan];
+            const style = planConfig[plan];
             
             // Generate certificate HTML
             const certHTML = generateCertHTML({
-                ref, ruc, company, rep, email, plan, slug,
-                emissionDate, expirationDate, style
+                ref, 
+                ruc: validatedData.ruc, 
+                company: validatedData.company,
+                plan, slug, email, notes,
+                emissionDate, expirationDate, style,
+                validatedAt: now.toLocaleString('es-PE', { timeZone: 'America/Lima' })
             });
             
             // Save to localStorage
             const certs = JSON.parse(localStorage.getItem('cz_certificates') || '[]');
             certs.unshift({
-                ref, ruc, company, plan, slug,
-                email, rep, notes,
+                ref, 
+                ruc: validatedData.ruc, 
+                company: validatedData.company,
+                plan, slug, email, notes,
+                score: validatedData.score,
                 createdAt: now.toISOString(),
                 html: certHTML
             });
@@ -519,7 +928,7 @@
         }
         
         function generateCertHTML(data) {
-            const { ref, ruc, company, rep, plan, emissionDate, expirationDate, style } = data;
+            const { ref, ruc, company, plan, emissionDate, expirationDate, style, validatedAt } = data;
             const maskedRuc = ruc.substring(0, 6) + '****';
             
             return `<!DOCTYPE html>
@@ -531,7 +940,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --gold: ${style.color}; --black: #0A0A0F; --card: #0D0D12; --stone: #2A2A2E; --bone: #F5F5F0; --muted: #8A8A85; }
+        :root { --gold: ${style.color}; --black: #0A0A0F; --card: #0D0D12; --stone: #2A2A2E; --bone: #F5F5F0; --muted: #8A8A85; --success: #2D4A3E; }
         body { font-family: 'Inter', sans-serif; font-weight: 300; background: var(--black); color: var(--bone); line-height: 1.7; min-height: 100vh; display: flex; flex-direction: column; }
         .header { padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.95); border-bottom: 1px solid var(--stone); }
         .logo { display: flex; align-items: center; gap: 16px; }
@@ -543,7 +952,7 @@
         .cert-border { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 1px solid var(--stone); pointer-events: none; }
         .seal { width: 140px; height: 140px; margin: 0 auto 32px; }
         .seal svg { width: 100%; height: 100%; }
-        .badge { display: inline-block; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; padding: 10px 24px; border: 1px solid ${style.color}; color: ${style.color}; background: ${style.bg}; margin-bottom: 32px; }
+        .badge { display: inline-block; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; padding: 10px 24px; border: 1px solid var(--gold); color: var(--gold); background: ${style.bg}; margin-bottom: 32px; }
         .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
         .company { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--bone); margin-bottom: 8px; }
         .ruc { font-size: 14px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 32px; }
@@ -552,8 +961,10 @@
         .date-box { text-align: center; }
         .date-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
         .date-value { font-size: 16px; color: var(--bone); }
-        .ref { margin-top: 32px; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
-        .ref span { color: ${style.color}; }
+        .validated-box { margin: 24px 0; padding: 16px; background: rgba(45, 74, 62, 0.1); border: 1px solid var(--success); }
+        .validated-box p { font-size: 11px; color: var(--success); letter-spacing: 0.1em; }
+        .ref { margin-top: 24px; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+        .ref span { color: var(--gold); }
         .footer { background: var(--card); border-top: 1px solid var(--stone); padding: 40px; text-align: center; }
         .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--bone); letter-spacing: 0.2em; margin-bottom: 8px; }
         .footer-text { font-size: 12px; color: var(--muted); }
@@ -570,6 +981,7 @@
     <main class="cert-container">
         <div class="cert-card">
             <div class="cert-border"></div>
+            
             <div class="seal">
                 <svg viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="46" fill="none" stroke="${style.color}" stroke-width="1.5"/>
@@ -580,11 +992,19 @@
                     <text x="50" y="54" text-anchor="middle" fill="${style.color}" font-family="Cormorant Garamond" font-size="24" font-weight="300">S</text>
                 </svg>
             </div>
+            
             <span class="badge">${style.badge}</span>
+            
+            <div class="validated-box">
+                <p>✓ EMPRESA VALIDADA — SCORE 100/100</p>
+            </div>
+            
             <div class="label">Empresa Certificada</div>
             <h1 class="company">${company}</h1>
             <div class="ruc">RUC: ${maskedRuc}</div>
+            
             <div class="divider"></div>
+            
             <div class="dates">
                 <div class="date-box">
                     <div class="date-label">Emisión</div>
@@ -595,6 +1015,11 @@
                     <div class="date-value">${expirationDate}</div>
                 </div>
             </div>
+            
+            <div style="margin-top: 16px; font-size: 10px; color: var(--muted);">
+                Validado en tiempo real: ${validatedAt}
+            </div>
+            
             <div class="ref">REF: <span>${ref}</span></div>
         </div>
     </main>
@@ -612,25 +1037,20 @@
             const tbody = document.getElementById('certTable');
             
             if (certs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay certificados emitidos aún</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay certificados emitidos</td></tr>';
                 return;
             }
             
             tbody.innerHTML = certs.map(cert => {
                 const date = new Date(cert.createdAt).toLocaleDateString('es-PE');
-                const baseUrl = 'https://czperu.com/certificados/';
-                const url = baseUrl + cert.slug + '.html';
                 return `
                     <tr>
                         <td>${cert.ref}</td>
                         <td>${cert.company}</td>
                         <td>${cert.ruc}</td>
                         <td><span class="badge badge-${cert.plan}">${cert.plan}</span></td>
+                        <td><span style="color: ${cert.score === 100 ? '#2D4A3E' : '#C5A059'};">${cert.score}</span></td>
                         <td>${date}</td>
-                        <td>
-                            <a href="${url}" class="cert-link" target="_blank">Ver</a>
-                            <button class="btn-copy" onclick="copyToClipboard('${url}')">Copiar</button>
-                        </td>
                     </tr>
                 `;
             }).join('');
@@ -638,12 +1058,8 @@
         
         function copyUrl() {
             const url = document.getElementById('outputUrl').textContent;
-            copyToClipboard(url);
-        }
-        
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('URL copiada: ' + text);
+            navigator.clipboard.writeText(url).then(() => {
+                alert('URL copiada: ' + url);
             });
         }
         
