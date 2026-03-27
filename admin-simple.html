@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Conflict Zero</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A0F;
+            color: #F5F5F0;
+            min-height: 100vh;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-box {
+            background: #141418;
+            padding: 40px;
+            border: 1px solid #2A2A2E;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 { color: #C5A059; font-size: 24px; margin-bottom: 8px; font-weight: 400; }
+        .subtitle { color: #6B6B6E; font-size: 13px; margin-bottom: 30px; }
+        input {
+            width: 100%;
+            padding: 14px;
+            background: #0A0A0F;
+            border: 1px solid #2A2A2E;
+            color: #F5F5F0;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        input:focus { outline: none; border-color: #C5A059; }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #C5A059;
+            color: #0A0A0F;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        button:hover { background: #8B6914; }
+        .error { color: #DC3545; font-size: 13px; margin-top: 12px; }
+        
+        /* Admin Panel */
+        .admin-panel { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2A2A2E;
+            margin-bottom: 30px;
+        }
+        .logo { color: #C5A059; font-size: 18px; }
+        .logout { 
+            background: transparent; 
+            color: #6B6B6E; 
+            border: 1px solid #2A2A2E;
+            width: auto;
+            padding: 8px 16px;
+            font-size: 11px;
+        }
+        .section { margin-bottom: 30px; }
+        .section h2 { 
+            color: #C5A059; 
+            font-size: 14px; 
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .result-box {
+            background: #141418;
+            border: 1px solid #2A2A2E;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .score-big {
+            font-size: 48px;
+            color: #C5A059;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .tier-label {
+            text-align: center;
+            color: #6B6B6E;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2A2A2E;
+            font-size: 13px;
+        }
+        .detail:last-child { border-bottom: none; }
+        .label { color: #6B6B6E; }
+        .value { color: #F5F5F0; }
+        .loading {
+            text-align: center;
+            color: #C5A059;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <h1>◆ Conflict Zero</h1>
+            <p class="subtitle">Admin — Validación y Certificación</p>
+            <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
+            <button onclick="doLogin()">ACCEDER</button>
+            <div class="error" id="loginError"></div>
+        </div>
+    </div>
+    
+    <!-- ADMIN -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="header">
+            <span class="logo">◆ ADMIN</span>
+            <button class="logout" onclick="doLogout()">CERRAR SESIÓN</button>
+        </div>
+        
+        <div class="section">
+            <h2>Validación LegalBot V3.0</h2>
+            <div class="form-row">
+                <input type="text" id="rucInput" placeholder="RUC (11 dígitos)" maxlength="11">
+                <input type="number" id="volumenInput" placeholder="Volumen" value="0">
+                <button onclick="validarRUC()">VALIDAR</button>
+            </div>
+            <div class="loading" id="loading">Validando...</div>
+            <div class="result-box" id="resultBox">
+                <div class="score-big" id="scoreDisplay">--</div>
+                <div class="tier-label" id="tierDisplay">--</div>
+                <div id="detailsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== LOGIN ==========
+        const ADMIN_PASSWORD = 'cz2026';
+        
+        function doLogin() {
+            const input = document.getElementById('passwordInput').value;
+            const errorEl = document.getElementById('loginError');
+            
+            if (input === ADMIN_PASSWORD) {
+                localStorage.setItem('cz_admin_logged', 'true');
+                showPanel();
+            } else {
+                errorEl.textContent = 'Contraseña incorrecta';
+            }
+        }
+        
+        function doLogout() {
+            localStorage.removeItem('cz_admin_logged');
+            location.reload();
+        }
+        
+        function showPanel() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        }
+        
+        // Auto-login si ya está logueado
+        if (localStorage.getItem('cz_admin_logged') === 'true') {
+            showPanel();
+        }
+        
+        // Enter key en password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') doLogin();
+        });
+        
+        // ========== VALIDACIÓN ==========
+        const API_URL = 'https://conflict-zero-api.onrender.com/api/v1';
+        
+        async function validarRUC() {
+            const ruc = document.getElementById('rucInput').value.trim();
+            const volumen = document.getElementById('volumenInput').value || 0;
+            const loadingEl = document.getElementById('loading');
+            const resultBox = document.getElementById('resultBox');
+            
+            if (ruc.length !== 11) {
+                alert('Ingresa un RUC válido de 11 dígitos');
+                return;
+            }
+            
+            loadingEl.style.display = 'block';
+            resultBox.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_URL}/legal/validate/${ruc}?volumen=${volumen}`);
+                const data = await response.json();
+                
+                loadingEl.style.display = 'none';
+                
+                // Score y tier
+                document.getElementById('scoreDisplay').textContent = data.score + '/100';
+                document.getElementById('tierDisplay').textContent = data.tier;
+                
+                // Color según tier
+                const scoreEl = document.getElementById('scoreDisplay');
+                if (data.tier === 'RECHAZADO') scoreEl.style.color = '#DC3545';
+                else if (data.tier === 'BRONZE') scoreEl.style.color = '#CD7F32';
+                else if (data.tier === 'SILVER') scoreEl.style.color = '#A8A8A8';
+                else scoreEl.style.color = '#C5A059';
+                
+                // Detalles
+                let detailsHTML = `
+                    <div class="detail">
+                        <span class="label">Empresa</span>
+                        <span class="value">${data.razon_social || 'N/A'}</span>
+                    </div>
+                `;
+                
+                if (data.detalles && data.detalles.length > 0) {
+                    const det = data.detalles[0];
+                    detailsHTML += `
+                        <div class="detail">
+                            <span class="label">Resolución</span>
+                            <span class="value">${det.resolucion}</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Entidad</span>
+                            <span class="value">${det.entidad} (×${det.entidad_mult})</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Tiempo</span>
+                            <span class="value">${det.anios} años</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Impacto</span>
+                            <span class="value">-${det.impacto} pts</span>
+                        </div>
+                    `;
+                }
+                
+                detailsHTML += `
+                    <div class="detail">
+                        <span class="label">Mensaje</span>
+                        <span class="value">${data.mensaje}</span>
+                    </div>
+                `;
+                
+                document.getElementById('detailsContainer').innerHTML = detailsHTML;
+                resultBox.style.display = 'block';
+                
+            } catch (err) {
+                loadingEl.style.display = 'none';
+                alert('Error de conexión: ' + err.message);
+            }
+        }
+        
+        // Enter key en RUC
+        document.getElementById('rucInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validarRUC();
+        });
+    </script>
+</body>
+</html>
