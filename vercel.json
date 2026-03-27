@@ -1,5 +1,8 @@
 {
-  "rewrites": [
-    { "source": "/verificar/:slug", "destination": "/verificar/:slug.html" }
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/verificar/([^/]+)", "dest": "/verificar/$1.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
