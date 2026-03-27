@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud Recibida — Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --gold: #C5A059;
+            --gold-dark: #8B6914;
+            --black: #0A0A0F;
+            --card: #141418;
+            --stone: #2A2A2E;
+            --bone: #F5F5F0;
+            --muted: #8A8A85;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            background: var(--black);
+            color: var(--bone);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px solid var(--stone);
+            background: var(--card);
+            margin: 20px;
+        }
+        
+        .seal {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            color: var(--gold);
+        }
+        
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+        
+        p {
+            color: var(--bone);
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+        
+        .reference {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin: 32px 0;
+            padding: 16px;
+            border-top: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+        }
+        
+        .timeline {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--black);
+            border-left: 2px solid var(--gold);
+            text-align: left;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-marker {
+            width: 24px;
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        .timeline-text {
+            color: var(--muted);
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 32px;
+            padding: 14px 32px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+        
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--stone);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="seal">◆</div>
+        
+        <p class="subtitle">Programa Fundador — Edición Limitada</p>
+        
+        <h1>Solicitud Registrada</h1>
+        
+        <p>Su perfil ha sido asignado al Comité de Admisión.</p>
+        
+        <div class="reference" id="referenceBox">
+            REF: <span id="refNumber">CZ-2026-001</span>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-marker">01</span>
+                <span class="timeline-text">Evaluación de antecedentes (48h)</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-marker">02</span>
+                <span class="timeline-text">Entrevista de activación (si aprobado)</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-marker">03</span>
+                <span class="timeline-text">Onboarding y acceso a plataforma</span>
+            </div>
+        </div>
+        
+        <a href="https://czperu.com" class="btn">Volver al Sitio</a>
+        
+        <footer>
+            Conflict Zero — Estándar de Verificación Institucional<br>
+            © 2026
+        </footer>
+    </div>
+    
+    <script>
+        // Generar número de referencia aleatorio si no viene de localStorage
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        
+        if (ref) {
+            document.getElementById('refNumber').textContent = ref;
+        } else {
+            // Generar basado en localStorage si existe
+            const apps = JSON.parse(localStorage.getItem('cz_applications') || '[]');
+            if (apps.length > 0) {
+                const lastApp = apps[apps.length - 1];
+                document.getElementById('refNumber').textContent = lastApp.id || 'CZ-2026-001';
+            }
+        }
+    </script>
+</body>
+</html>
