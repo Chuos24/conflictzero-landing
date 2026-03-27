@@ -758,7 +758,15 @@
                     </p>
                 </div>
                 
-                <form id="founderForm">
+                <form id="founderForm" action="https://formsubmit.co/founders@czperu.com" method="POST">
+                    <!-- FormSubmit config -->
+                    <input type="hidden" name="_subject" value="Nueva Aplicación Fundador - Conflict Zero">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://czperu.com/founders.html?submitted=true">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- Hidden ref number -->
+                    <input type="hidden" id="refNumber" name="Referencia" value="">
                     <div class="form-group">
                         <label for="companyName">Razón Social</label>
                         <input type="text" id="companyName" name="companyName" required placeholder="Constructora ABC S.A.C.">
@@ -870,6 +878,8 @@
         const successMessage = document.getElementById('successMessage');
         const formHeader = document.getElementById('formHeader');
         const referenceNumber = document.getElementById('referenceNumber');
+        const refInput = document.getElementById('refNumber');
+        const referenceNumber = document.getElementById('referenceNumber');
         
         // Validation functions
         function validateRUC(ruc) {
@@ -975,13 +985,15 @@
             
             if (hasError) return;
             
-            // Generate reference number
+            // Generate reference number y ponerlo en el campo oculto
             const ref = generateReference();
             referenceNumber.textContent = ref;
+            if (refInput) refInput.value = ref;
             
             // Show loading
             submitBtn.disabled = true;
             submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Enviando solicitud...';
             
             // Prepare data for storage
             const applicationData = {
@@ -997,50 +1009,27 @@
                 subcontractor_count: formData.subcontractors
             };
             
+            // Save to localStorage (backup)
             try {
-                // Save to localStorage first
                 const applications = JSON.parse(localStorage.getItem('cz_applications') || '[]');
                 applications.push(applicationData);
                 localStorage.setItem('cz_applications', JSON.stringify(applications));
-                console.log('✓ Guardado en localStorage:', ref);
-                
-                // Try to sync with API (background)
-                try {
-                    const response = await fetch(`${API_BASE_URL}/api/v2/founder-applications/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(applicationData)
-                    });
-                    
-                    if (response.ok) {
-                        const idx = applications.findIndex(a => a.id === ref);
-                        if (idx >= 0) {
-                            applications[idx].synced = true;
-                            localStorage.setItem('cz_applications', JSON.stringify(applications));
-                        }
-                        console.log('✓ Sync con API exitoso');
-                    }
-                } catch (apiError) {
-                    console.log('✗ API no disponible, datos guardados localmente');
-                }
-                
-                // Show success after brief delay (pesadez institucional)
-                setTimeout(() => {
-                    form.style.display = 'none';
-                    formHeader.style.display = 'none';
-                    successMessage.classList.add('show');
-                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 800);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
+                console.log('✓ Backup en localStorage:', ref);
+            } catch (e) {
+                console.log('✗ Error localStorage:', e);
             }
+            
+            // El formulario se enviará normalmente a FormSubmit
+            // El submit continúa naturalmente después de esta función
         });
+        
+        // Check if submitted via FormSubmit (URL param)
+        if (window.location.search.includes('submitted=true')) {
+            form.style.display = 'none';
+            formHeader.style.display = 'none';
+            successMessage.classList.add('show');
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        })
         
         // Admin tools
         window.CZAdmin = {
