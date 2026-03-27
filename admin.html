@@ -706,6 +706,7 @@
     
     <script>
         const ADMIN_PASSWORD = 'cz2026';
+        const FACTALIZA_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MDY0OCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImNvbnN1bHRvciJ9.d_-YT6RuTIrq-RZj1TO6Q6r3EG2NL4MRO9odkcaGDYA';
         let validatedData = null;
         
         // Check session
@@ -969,6 +970,92 @@
             };
         }
         
+        async function fetchSUNATReal(ruc) {
+            try {
+                const response = await fetch(`https://api.apis.net.pe/v2/sunat/ruc?numero=${ruc}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${FACTALIZA_API_KEY}`,
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Mapear respuesta de Factaliza a nuestro formato
+                return {
+                    ruc: data.numeroDocumento || ruc,
+                    razonSocial: data.nombre || data.nombreComercial || 'SIN NOMBRE',
+                    estado: data.estado || 'ACTIVO',
+                    condicion: data.condicion || 'HABIDO',
+                    deuda: data.deuda || 0,
+                    trabajadores: data.trabajadores || data.cantidadTrabajadores || 0,
+                    antiguedad_meses: calcularAntiguedad(data.fechaInicioActividades),
+                    direccion: data.direccion || '',
+                    telefono: data.telefono || '',
+                    // Datos adicionales útiles
+                    actividadEconomica: data.actividadEconomica || '',
+                    fechaInicio: data.fechaInicioActividades || ''
+                };
+            } catch (error) {
+                console.error('Error fetching SUNAT:', error);
+                return null;
+            }
+        }
+        
+        function calcularAntiguedad(fechaInicio) {
+            if (!fechaInicio) return 0;
+            const inicio = new Date(fechaInicio);
+            const ahora = new Date();
+            return (ahora.getFullYear() - inicio.getFullYear()) * 12 + (ahora.getMonth() - inicio.getMonth());
+        }
+        
+        async function fetchOSCEReal(ruc) {
+            // Por ahora usamos mock - el backend endpoint está caído
+            // TODO: Conectar a endpoint real cuando esté arreglado
+            return fetchOSCEMock(ruc);
+        }
+        
+        function fetchOSCEMock(ruc) {
+            // Mock de OSCE basado en patrones realistas
+            // En producción, esto vendría de tu backend o scraping
+            
+            const rucNum = parseInt(ruc.substring(0, 2));
+            
+            // Zamora Jara - limpio
+            if (ruc === '20529400790') {
+                return {
+                    inhabilitado: false,
+                    sanciones_count: 0,
+                    ultima_sancion_dias: null,
+                    sanciones_detalle: []
+                };
+            }
+            
+            // Algunos RUCs de prueba con problemas
+            if (ruc === '20999999999') {
+                return {
+                    inhabilitado: true,
+                    sanciones_count: 2,
+                    ultima_sancion_dias: 180,
+                    sanciones_detalle: [
+                        { tipo: 'Inhabilitación', fecha: '2025-09-15', entidad: 'OSCE' }
+                    ]
+                };
+            }
+            
+            // Default: empresas limpias (la mayoría)
+            return {
+                inhabilitado: false,
+                sanciones_count: 0,
+                ultima_sancion_dias: null,
+                sanciones_detalle: []
+            };
+        }
         async function validateRUC() {
             const ruc = document.getElementById('rucInput').value.trim();
             const volumen = parseFloat(document.getElementById('volumenInput')?.value || 0);
@@ -983,18 +1070,28 @@
             document.getElementById('loader').classList.add('show');
             
             try {
-                // Simulate API delay
-                await new Promise(r => setTimeout(r, 1500));
+                // Intentar llamar API real de SUNAT
+                let sunatData = await fetchSUNATReal(ruc);
                 
-                // Get data (mock for now, replace with real APIs)
-                const apiData = getMockData(ruc);
+                // Si falla, usar mock
+                if (!sunatData) {
+                    console.log('Usando datos mock para SUNAT');
+                    const mockData = getMockData(ruc);
+                    sunatData = mockData.sunat;
+                }
+                
+                // OSCE - por ahora mock (backend caído)
+                const osceData = await fetchOSCEReal(ruc);
+                
+                // Datos heurísticos (mock por ahora)
+                const heuristicData = {
+                    cambios_representante_6m: 0,
+                    empresas_mismo_domicilio: 1,
+                    ratio_facturacion_trabajador: 40000
+                };
                 
                 // Calculate scores
-                const scores = calculateFinalScore(
-                    apiData.sunat,
-                    apiData.osce,
-                    apiData.heuristic
-                );
+                const scores = calculateFinalScore(sunatData, osceData, heuristicData);
                 
                 // Determine tier
                 const tier = determineTier(scores, volumen, esFounder);
@@ -1002,15 +1099,20 @@
                 // Display result
                 displayResult({
                     ruc,
-                    company: apiData.sunat.razonSocial || 'EMPRESA SIN NOMBRE',
+                    company: sunatData.razonSocial || 'EMPRESA SIN NOMBRE',
                     scores,
                     tier,
-                    sunat: apiData.sunat,
-                    osce: apiData.osce
+                    sunat: sunatData,
+                    osate: osceData
                 });
                 
             } catch (error) {
+                console.error('Error:', error);
                 alert('Error al validar. Intenta de nuevo.');
+            } finally {
+                document.getElementById('loader').classList.remove('show');
+            }
+        }
                 console.error(error);
             } finally {
                 document.getElementById('loader').classList.remove('show');
