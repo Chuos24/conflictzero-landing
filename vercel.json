@@ -1,6 +1,5 @@
 {
-  "routes": [
-    { "src": "/verificar/([^/]+)", "dest": "/verificar/$1.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "rewrites": [
+    { "source": "/verificar/:slug", "destination": "/verificar/:slug.html" }
   ]
 }
