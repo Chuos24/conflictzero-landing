@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --gold: #C5A059;
+            --gold-dark: #8B6914;
+            --black: #0A0A0F;
+            --card: #141418;
+            --stone: #2A2A2E;
+            --bone: #F5F5F0;
+            --muted: #6B6B6E;
+            --success: #2D4A3E;
+            --danger: #8B4513;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            background: var(--black);
+            color: var(--bone);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        
+        .header {
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--stone);
+            background: var(--black);
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--stone);
+            color: var(--muted);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+        }
+        
+        .logout-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            border: 1px solid var(--stone);
+            padding: 48px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .login-box h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 28px;
+            margin-bottom: 32px;
+            letter-spacing: 0.1em;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 14px;
+            background: var(--black);
+            border: 1px solid var(--stone);
+            color: var(--bone);
+            font-size: 14px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .error-msg {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        
+        /* Admin Panel */
+        .admin-container {
+            display: none;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .admin-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 32px;
+            letter-spacing: 0.1em;
+        }
+        
+        .generator-box {
+            border: 1px solid var(--stone);
+            padding: 32px;
+            margin-bottom: 40px;
+            background: var(--card);
+        }
+        
+        .generator-box h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            background: var(--black);
+            border: 1px solid var(--stone);
+            color: var(--bone);
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .btn-generate {
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 16px 32px;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        
+        .btn-generate:hover {
+            background: var(--gold-dark);
+        }
+        
+        /* Certificates Table */
+        .table-box {
+            border: 1px solid var(--stone);
+            padding: 32px;
+        }
+        
+        .table-box h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--stone);
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid var(--stone);
+            color: var(--bone);
+        }
+        
+        tr:hover td {
+            background: rgba(197, 160, 89, 0.05);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-bronze { background: rgba(205, 127, 50, 0.2); color: #CD7F32; }
+        .badge-silver { background: rgba(168, 168, 168, 0.2); color: #A8A8A8; }
+        .badge-gold { background: rgba(197, 160, 89, 0.2); color: var(--gold); }
+        .badge-founder { background: rgba(197, 160, 89, 0.3); color: var(--gold); border: 1px solid var(--gold); }
+        
+        .cert-link {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        
+        .cert-link:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--stone);
+            color: var(--muted);
+            padding: 4px 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        .btn-copy:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+        }
+        
+        /* Output Panel */
+        .output-panel {
+            display: none;
+            border: 1px solid var(--success);
+            padding: 20px;
+            margin-top: 20px;
+            background: rgba(45, 74, 62, 0.1);
+        }
+        
+        .output-panel.show {
+            display: block;
+        }
+        
+        .output-panel h3 {
+            color: var(--gold);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .output-url {
+            background: var(--black);
+            padding: 12px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--bone);
+            margin-bottom: 12px;
+            word-break: break-all;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <h1>◆ Conflict Zero</h1>
+            <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
+            <button onclick="login()">ACCEDER</button>
+            <div class="error-msg" id="loginError"></div>
+        </div>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div class="admin-container" id="adminPanel">
+        <div class="header">
+            <div class="logo">◆ ADMIN</div>
+            <button class="logout-btn" onclick="logout()">CERRAR SESIÓN</button>
+        </div>
+        
+        <h1 class="admin-title">Generador de Certificados</h1>
+        
+        <div class="generator-box">
+            <h2>Nuevo Certificado</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>RUC (11 dígitos)</label>
+                    <input type="text" id="certRuc" maxlength="11" placeholder="20100123091">
+                </div>
+                <div class="form-group">
+                    <label>Razón Social</label>
+                    <input type="text" id="certCompany" placeholder="Constructora ABC S.A.C.">
+                </div>
+                <div class="form-group">
+                    <label>Representante Legal</label>
+                    <input type="text" id="certRep" placeholder="Juan Pérez López">
+                </div>
+                <div class="form-group">
+                    <label>Email del Cliente</label>
+                    <input type="email" id="certEmail" placeholder="ceo@empresa.com">
+                </div>
+                <div class="form-group">
+                    <label>Plan</label>
+                    <select id="certPlan">
+                        <option value="bronze">Bronze</option>
+                        <option value="silver" selected>Silver</option>
+                        <option value="gold">Gold</option>
+                        <option value="founder">Founder</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Slug (opcional)</label>
+                    <input type="text" id="certSlug" placeholder="abc-sac (autogenerado)">
+                </div>
+                <div class="form-group full-width">
+                    <label>Notas internas</label>
+                    <input type="text" id="certNotes" placeholder="Cómo se encontró el lead, referido de..., etc.">
+                </div>
+            </div>
+            <button class="btn-generate" onclick="generateCertificate()">GENERAR CERTIFICADO</button>
+            
+            <div class="output-panel" id="outputPanel">
+                <h3>✓ Certificado Generado</h3>
+                <div class="output-url" id="outputUrl"></div>
+                <button class="btn-copy" onclick="copyUrl()">Copiar URL</button>
+            </div>
+        </div>
+        
+        <div class="table-box">
+            <h2>Certificados Emitidos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ref</th>
+                        <th>Empresa</th>
+                        <th>RUC</th>
+                        <th>Plan</th>
+                        <th>Fecha</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody id="certTable">
+                    <tr>
+                        <td colspan="6" class="empty-state">No hay certificados emitidos aún</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        const ADMIN_PASSWORD = 'cz2026';
+        
+        // Check session
+        if (localStorage.getItem('cz_admin_logged') === 'true') {
+            showAdmin();
+        }
+        
+        function login() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === ADMIN_PASSWORD) {
+                localStorage.setItem('cz_admin_logged', 'true');
+                showAdmin();
+            } else {
+                document.getElementById('loginError').textContent = 'Contraseña incorrecta';
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('cz_admin_logged');
+            location.reload();
+        }
+        
+        function showAdmin() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadCertificates();
+        }
+        
+        function generateSlug(company) {
+            const custom = document.getElementById('certSlug').value.trim();
+            if (custom) return custom.toLowerCase().replace(/[^a-z0-9]/g, '-');
+            
+            const random = Math.random().toString(36).substring(2, 10);
+            return company ? company.toLowerCase().substring(0, 15).replace(/[^a-z]/g, '-') + '-' + random.substring(0, 4) : random;
+        }
+        
+        function generateCertificate() {
+            const ruc = document.getElementById('certRuc').value.trim();
+            const company = document.getElementById('certCompany').value.trim();
+            const rep = document.getElementById('certRep').value.trim();
+            const email = document.getElementById('certEmail').value.trim();
+            const plan = document.getElementById('certPlan').value;
+            const notes = document.getElementById('certNotes').value.trim();
+            
+            if (!ruc || ruc.length !== 11) {
+                alert('RUC debe tener 11 dígitos');
+                return;
+            }
+            if (!company) {
+                alert('Ingresa la Razón Social');
+                return;
+            }
+            
+            const slug = generateSlug(company);
+            const ref = 'CZ-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 900 + 100);
+            const now = new Date();
+            const emissionDate = now.toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+            const expirationDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate()).toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+            
+            const planColors = {
+                bronze: { color: '#CD7F32', badge: 'Bronze', bg: 'rgba(205, 127, 50, 0.1)' },
+                silver: { color: '#A8A8A8', badge: 'Silver', bg: 'rgba(168, 168, 168, 0.1)' },
+                gold: { color: '#C5A059', badge: 'Gold', bg: 'rgba(197, 160, 89, 0.1)' },
+                founder: { color: '#C5A059', badge: 'Founder', bg: 'rgba(197, 160, 89, 0.15)' }
+            };
+            
+            const style = planColors[plan];
+            
+            // Generate certificate HTML
+            const certHTML = generateCertHTML({
+                ref, ruc, company, rep, email, plan, slug,
+                emissionDate, expirationDate, style
+            });
+            
+            // Save to localStorage
+            const certs = JSON.parse(localStorage.getItem('cz_certificates') || '[]');
+            certs.unshift({
+                ref, ruc, company, plan, slug,
+                email, rep, notes,
+                createdAt: now.toISOString(),
+                html: certHTML
+            });
+            localStorage.setItem('cz_certificates', JSON.stringify(certs));
+            
+            // Download HTML file
+            const blob = new Blob([certHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `certificado-${slug}.html`;
+            a.click();
+            
+            // Show output
+            const baseUrl = 'https://czperu.com/certificados/';
+            const fullUrl = baseUrl + slug + '.html';
+            document.getElementById('outputUrl').textContent = fullUrl;
+            document.getElementById('outputPanel').classList.add('show');
+            
+            loadCertificates();
+        }
+        
+        function generateCertHTML(data) {
+            const { ref, ruc, company, rep, plan, emissionDate, expirationDate, style } = data;
+            const maskedRuc = ruc.substring(0, 6) + '****';
+            
+            return `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado — ${company}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --gold: ${style.color}; --black: #0A0A0F; --card: #0D0D12; --stone: #2A2A2E; --bone: #F5F5F0; --muted: #8A8A85; }
+        body { font-family: 'Inter', sans-serif; font-weight: 300; background: var(--black); color: var(--bone); line-height: 1.7; min-height: 100vh; display: flex; flex-direction: column; }
+        .header { padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.95); border-bottom: 1px solid var(--stone); }
+        .logo { display: flex; align-items: center; gap: 16px; }
+        .logo-icon { width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; }
+        .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--bone); letter-spacing: 0.15em; text-transform: uppercase; }
+        .cert-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 64px; background: radial-gradient(ellipse at 20% 20%, ${style.bg} 0%, transparent 50%), var(--black); }
+        .cert-card { background: var(--card); border: 1px solid var(--stone); padding: 60px; max-width: 700px; width: 100%; text-align: center; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .cert-border { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 1px solid var(--stone); pointer-events: none; }
+        .seal { width: 140px; height: 140px; margin: 0 auto 32px; }
+        .seal svg { width: 100%; height: 100%; }
+        .badge { display: inline-block; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; padding: 10px 24px; border: 1px solid ${style.color}; color: ${style.color}; background: ${style.bg}; margin-bottom: 32px; }
+        .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+        .company { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--bone); margin-bottom: 8px; }
+        .ruc { font-size: 14px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 32px; }
+        .divider { width: 60px; height: 1px; background: var(--stone); margin: 32px auto; }
+        .dates { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 32px 0; }
+        .date-box { text-align: center; }
+        .date-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .date-value { font-size: 16px; color: var(--bone); }
+        .ref { margin-top: 32px; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+        .ref span { color: ${style.color}; }
+        .footer { background: var(--card); border-top: 1px solid var(--stone); padding: 40px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--bone); letter-spacing: 0.2em; margin-bottom: 8px; }
+        .footer-text { font-size: 12px; color: var(--muted); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="logo-text">Conflict Zero</span>
+        </div>
+    </header>
+    
+    <main class="cert-container">
+        <div class="cert-card">
+            <div class="cert-border"></div>
+            <div class="seal">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="${style.color}" stroke-width="1.5"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="${style.color}" stroke-width="0.5" opacity="0.5"/>
+                    <circle cx="50" cy="50" r="32" fill="none" stroke="${style.color}" stroke-width="0.5" opacity="0.5"/>
+                    <path id="tp" d="M50,15 A35,35 0 1,1 49.99,15" fill="none"/>
+                    <text fill="${style.color}" font-size="5" font-family="Cormorant Garamond" letter-spacing="0.3em"><textPath href="#tp" startOffset="50%" text-anchor="middle">CONFLICT ZERO • CERTIFICADO •</textPath></text>
+                    <text x="50" y="54" text-anchor="middle" fill="${style.color}" font-family="Cormorant Garamond" font-size="24" font-weight="300">S</text>
+                </svg>
+            </div>
+            <span class="badge">${style.badge}</span>
+            <div class="label">Empresa Certificada</div>
+            <h1 class="company">${company}</h1>
+            <div class="ruc">RUC: ${maskedRuc}</div>
+            <div class="divider"></div>
+            <div class="dates">
+                <div class="date-box">
+                    <div class="date-label">Emisión</div>
+                    <div class="date-value">${emissionDate}</div>
+                </div>
+                <div class="date-box">
+                    <div class="date-label">Vigencia</div>
+                    <div class="date-value">${expirationDate}</div>
+                </div>
+            </div>
+            <div class="ref">REF: <span>${ref}</span></div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-logo">CONFLICT ZERO</div>
+        <div class="footer-text">Estándar de Verificación Institucional • © 2026</div>
+    </footer>
+</body>
+</html>`;
+        }
+        
+        function loadCertificates() {
+            const certs = JSON.parse(localStorage.getItem('cz_certificates') || '[]');
+            const tbody = document.getElementById('certTable');
+            
+            if (certs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay certificados emitidos aún</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = certs.map(cert => {
+                const date = new Date(cert.createdAt).toLocaleDateString('es-PE');
+                const baseUrl = 'https://czperu.com/certificados/';
+                const url = baseUrl + cert.slug + '.html';
+                return `
+                    <tr>
+                        <td>${cert.ref}</td>
+                        <td>${cert.company}</td>
+                        <td>${cert.ruc}</td>
+                        <td><span class="badge badge-${cert.plan}">${cert.plan}</span></td>
+                        <td>${date}</td>
+                        <td>
+                            <a href="${url}" class="cert-link" target="_blank">Ver</a>
+                            <button class="btn-copy" onclick="copyToClipboard('${url}')">Copiar</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        function copyUrl() {
+            const url = document.getElementById('outputUrl').textContent;
+            copyToClipboard(url);
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URL copiada: ' + text);
+            });
+        }
+        
+        // Enter key login
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') login();
+        });
+    </script>
+</body>
+</html>
