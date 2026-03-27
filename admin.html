@@ -715,15 +715,12 @@
         }
         
         function login() {
-            const input = document.getElementById('passwordInput').value.trim();
-            console.log('Intentando login con:', input);
-            console.log('Password esperado:', ADMIN_PASSWORD);
+            const input = document.getElementById('passwordInput').value;
             if (input === ADMIN_PASSWORD) {
                 localStorage.setItem('cz_admin_logged', 'true');
                 showAdmin();
             } else {
                 document.getElementById('loginError').textContent = 'Contraseña incorrecta';
-                console.log('Login fallido');
             }
         }
         
@@ -1116,8 +1113,27 @@
                 document.getElementById('loader').classList.remove('show');
             }
         }
-        
-        function getMockData(ruc) {
+                    sunatData = mockData.sunat;
+                }
+                
+                // OSCE - por ahora mock (backend caído)
+                const osceData = await fetchOSCEReal(ruc);
+                
+                // Datos heurísticos (mock por ahora)
+                const heuristicData = {
+                    cambios_representante_6m: 0,
+                    empresas_mismo_domicilio: 1,
+                    ratio_facturacion_trabajador: 40000
+                };
+                
+                // Calculate scores
+                const scores = calculateFinalScore(sunatData, osceData, heuristicData);
+                
+                // Determine tier
+                const tier = determineTier(scores, volumen, esFounder);
+                
+                // Display result
+                displayResult({
                     ruc,
                     company: sunatData.razonSocial || 'EMPRESA SIN NOMBRE',
                     scores,
