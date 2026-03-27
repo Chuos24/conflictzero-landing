@@ -575,12 +575,26 @@
             <h2>1. Validación OSCE/SUNAT</h2>
             <p style="color: var(--muted); margin-bottom: 24px; font-size: 14px;">
                 Ingresa el RUC para validar contra SUNAT y verificar inhabilitaciones en OSCE.
-                Solo empresas con Score 100 pueden recibir certificado.
+                El Score determina el tier de certificación disponible.
             </p>
             
-            <div class="form-group">
-                <label>RUC (11 dígitos)</label>
-                <input type="text" id="rucInput" maxlength="11" placeholder="20100123091">
+            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>RUC (11 dígitos)</label>
+                    <input type="text" id="rucInput" maxlength="11" placeholder="20100123091">
+                </div>
+                
+                <div class="form-group">
+                    <label>Volumen Anual (S/)</label>
+                    <input type="number" id="volumenInput" placeholder="100000000">
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin: 20px 0;">
+                <label style="display: flex; align-items: center; cursor: pointer;">
+                    <input type="checkbox" id="founderCheck" style="width: auto; margin-right: 12px;">
+                    <span>Aplicar para Programa Fundador (Score 100 + Volumen > S/ 50M)</span>
+                </label>
             </div>
             
             <button class="btn-primary" onclick="validateRUC()">VALIDAR EMPRESA</button>
@@ -635,10 +649,10 @@
             <div class="form-group">
                 <label>Plan</label>
                 <select id="certPlan">
-                    <option value="bronze">Bronze ($400/año)</option>
-                    <option value="silver">Silver ($800/año)</option>
-                    <option value="gold">Gold ($2,500/año)</option>
-                    <option value="founder" selected>Founder — Edición Limitada ($2,500/año)</option>
+                    <option value="bronze">Bronze (S/ 400/año) — Score 30-69</option>
+                    <option value="silver">Silver (S/ 800/año) — Score 70-89</option>
+                    <option value="gold">Gold (S/ 2,500/año) — Score 90-99</option>
+                    <option value="founder" selected>Founder (S/ 2,500/año) — Score 100 — Edición Limitada</option>
                 </select>
             </div>
             
@@ -736,8 +750,229 @@
             }
         }
         
+        // SCORING ENGINE - Conflict Zero Formula v2.0
+        // Peso: SUNAT 30%, OSCE 40%, Heurístico 30%
+        
+        function calculateSUNATScore(sunatData) {
+            let score = 100;
+            
+            // Condición del contribuyente
+            if (sunatData.condicion === 'NO HABIDO') score = 0;
+            else if (sunatData.condicion === 'NO HALLADO') score = 20;
+            else if (sunatData.condicion === 'PENDIENTE') score = 60;
+            
+            // Deuda tributaria
+            if (sunatData.deuda > 100000) score = Math.min(score, 40);
+            else if (sunatData.deuda > 10000) score = Math.min(score, 70);
+            else if (sunatData.deuda > 0) score = Math.min(score, 85);
+            
+            // Estado
+            if (sunatData.estado === 'BAJA') score = 0;
+            else if (sunatData.estado === 'SUSPENSION TEMPORAL') score = Math.min(score, 30);
+            
+            // Antigüedad (penalización si es muy nueva)
+            if (sunatData.antiguedad_meses && sunatData.antiguedad_meses < 12) {
+                score -= 30;
+            }
+            
+            return Math.max(0, score);
+        }
+        
+        function calculateOSCEScore(osceData) {
+            let score = 100;
+            
+            // Inhabilitación es bloqueante absoluto
+            if (osceData.inhabilitado) return 0;
+            
+            // Sanciones
+            if (osceData.sanciones_count > 0) {
+                score = 50;
+                // Sanción reciente (< 1 año) es más grave
+                if (osceData.ultima_sancion_dias && osceData.ultima_sancion_dias < 365) {
+                    score = 30;
+                }
+                // Múltiples sanciones
+                if (osceData.sanciones_count > 2) {
+                    score = Math.min(score, 20);
+                }
+            }
+            
+            return Math.max(0, score);
+        }
+        
+        function calculateHeuristicScore(data) {
+            let score = 100;
+            
+            // Rotación de representantes (inestabilidad)
+            if (data.cambios_representante_6m > 2) score -= 40;
+            else if (data.cambios_representante_6m > 0) score -= 15;
+            
+            // Múltiples empresas mismo domicilio
+            if (data.empresas_mismo_domicilio > 5) score -= 30;
+            else if (data.empresas_mismo_domicilio > 2) score -= 10;
+            
+            // Ratio facturación/trabajador (incongruencia)
+            if (data.ratio_facturacion_trabajador > 100000) score -= 20;
+            
+            // Número de trabajadores (empresas sin empleados son riesgosas)
+            if (data.trabajadores === 0) score -= 25;
+            else if (data.trabajadores < 3) score -= 10;
+            
+            return Math.max(0, score);
+        }
+        
+        function calculateFinalScore(sunatData, osceData, heuristicData) {
+            const sunatScore = calculateSUNATScore(sunatData);
+            const osceScore = calculateOSCEScore(osceData);
+            const heuristicScore = calculateHeuristicScore({...sunatData, ...osceData, ...heuristicData});
+            
+            // Ponderación final
+            const finalScore = Math.round(
+                (sunatScore * 0.30) + 
+                (osceScore * 0.40) + 
+                (heuristicScore * 0.30)
+            );
+            
+            return {
+                final: Math.max(0, Math.min(100, finalScore)),
+                sunat: sunatScore,
+                osce: osceScore,
+                heuristic: heuristicScore
+            };
+        }
+        
+        // TIER DETERMINATION
+        function determineTier(score, volumenAnual = 0, esFounder = false) {
+            // Hard blockers - Inhabilitación OSCE
+            if (score.final === 0 && score.osce === 0) {
+                return {
+                    tier: 'RECHAZADO',
+                    badge: null,
+                    color: '#DC3545',
+                    message: 'NO APTO PARA CERTIFICACIÓN',
+                    subMessage: 'Inhabilitación OSCE vigente. Requiere regularización antes de certificar.',
+                    allowed: false,
+                    price: null,
+                    consultoria: true
+                };
+            }
+            
+            // Bloqueo por condición NO HABIDO
+            if (score.sunat === 0) {
+                return {
+                    tier: 'RECHAZADO',
+                    badge: null,
+                    color: '#DC3545',
+                    message: 'NO APTO PARA CERTIFICACIÓN',
+                    subMessage: 'Condición NO HABIDO en SUNAT. Riesgo fiscal extremo.',
+                    allowed: false,
+                    price: null,
+                    consultoria: true
+                };
+            }
+            
+            // BRONZE: Score 30-69
+            if (score.final >= 30 && score.final < 70) {
+                return {
+                    tier: 'BRONZE',
+                    badge: 'B',
+                    color: '#CD7F32',
+                    message: 'VERIFICADO CON OBSERVACIONES',
+                    subMessage: 'Empresa operativa con riesgos moderados detectados.',
+                    allowed: true,
+                    price: 400,
+                    restrictions: ['No incluye API ERP', 'No incluye Mi Red', 'Verificación manual trimestral']
+                };
+            }
+            
+            // SILVER: Score 70-89
+            if (score.final >= 70 && score.final < 90) {
+                return {
+                    tier: 'SILVER',
+                    badge: 'S',
+                    color: '#A8A8A8',
+                    message: 'VERIFICADO PROFESIONAL',
+                    subMessage: 'Cumplimiento estándar establecido.',
+                    allowed: true,
+                    price: 800,
+                    restrictions: ['No incluye Mi Red (árbol de subcontratistas)']
+                };
+            }
+            
+            // GOLD: Score 90-99
+            if (score.final >= 90 && score.final < 100) {
+                // Si tiene deuda, máximo Silver
+                if (score.sunat < 85) {
+                    return {
+                        tier: 'SILVER',
+                        badge: 'S',
+                        color: '#A8A8A8',
+                        message: 'VERIFICADO PROFESIONAL',
+                        subMessage: 'Deuda SUNAT pendiente limita a Silver.',
+                        allowed: true,
+                        price: 800,
+                        restrictions: ['No incluye Mi Red', 'Requiere regularización de deuda para upgrade']
+                    };
+                }
+                
+                return {
+                    tier: 'GOLD',
+                    badge: 'G',
+                    color: '#C5A059',
+                    message: 'VERIFICADO GOLD',
+                    subMessage: 'Excelencia en cumplimiento normativo.',
+                    allowed: true,
+                    price: 2500,
+                    restrictions: []
+                };
+            }
+            
+            // FOUNDER: Score 100 + Volumen > S/ 50M + Flag Founder
+            if (score.final === 100 && volumenAnual >= 50000000 && esFounder) {
+                return {
+                    tier: 'FOUNDER',
+                    badge: '★',
+                    color: '#FFD700',
+                    message: 'PROGRAMA FUNDADOR 2026',
+                    subMessage: 'Edición Limitada - Early Adopter',
+                    allowed: true,
+                    price: 2500,
+                    founderNumber: '001/010',
+                    restrictions: [],
+                    benefits: ['Precio bloqueado 3 años', 'Acceso Puerta CZ', 'Soporte directo CEO']
+                };
+            }
+            
+            // Si score 100 pero no califica para Founder
+            if (score.final === 100) {
+                return {
+                    tier: 'GOLD',
+                    badge: 'G',
+                    color: '#C5A059',
+                    message: 'VERIFICADO GOLD',
+                    subMessage: 'Score perfecto. No califica para Founder (volumen o flag).',
+                    allowed: true,
+                    price: 2500,
+                    restrictions: []
+                };
+            }
+            
+            // Fallback
+            return {
+                tier: 'RECHAZADO',
+                badge: null,
+                color: '#DC3545',
+                message: 'NO APTO',
+                subMessage: 'Score fuera de rangos aceptables.',
+                allowed: false,
+                price: null
+            };
+        }
+        
         async function validateRUC() {
             const ruc = document.getElementById('rucInput').value.trim();
+            const volumen = parseFloat(document.getElementById('volumenInput')?.value || 0);
+            const esFounder = document.getElementById('founderCheck')?.checked || false;
             
             if (!ruc || ruc.length !== 11 || !/^\d{11}$/.test(ruc)) {
                 alert('Ingresa un RUC válido de 11 dígitos');
@@ -748,13 +983,31 @@
             document.getElementById('loader').classList.add('show');
             
             try {
-                // Mock validation - replace with real API
-                await new Promise(r => setTimeout(r, 1500)); // Simulate API delay
+                // Simulate API delay
+                await new Promise(r => setTimeout(r, 1500));
                 
-                // Example data - in production, fetch from real APIs
-                const mockData = getMockData(ruc);
+                // Get data (mock for now, replace with real APIs)
+                const apiData = getMockData(ruc);
                 
-                displayResult(mockData);
+                // Calculate scores
+                const scores = calculateFinalScore(
+                    apiData.sunat,
+                    apiData.osce,
+                    apiData.heuristic
+                );
+                
+                // Determine tier
+                const tier = determineTier(scores, volumen, esFounder);
+                
+                // Display result
+                displayResult({
+                    ruc,
+                    company: apiData.sunat.razonSocial,
+                    scores,
+                    tier,
+                    sunat: apiData.sunat,
+                    osce: apiData.osce
+                });
                 
             } catch (error) {
                 alert('Error al validar. Intenta de nuevo.');
@@ -765,46 +1018,102 @@
         }
         
         function getMockData(ruc) {
-            // Zamora Jara SAC - your father's company
+            // Zamora Jara SAC - perfect score
             if (ruc === '20529400790') {
                 return {
-                    ruc: '20529400790',
-                    company: 'CONSTRUCTORA ZAMORA JARA S.A.C.',
-                    estado: 'ACTIVO',
-                    condicion: 'HABIDO',
-                    deuda: 0,
-                    trabajadores: 45,
-                    osceInhabilitado: false,
-                    osceSanciones: 0,
-                    score: 100,
-                    status: 'APTO',
-                    details: [
-                        { text: 'Estado SUNAT: ACTIVO', type: 'success' },
-                        { text: 'Condición: HABIDO', type: 'success' },
-                        { text: 'Deuda tributaria: S/ 0.00', type: 'success' },
-                        { text: 'Sin inhabilitaciones OSCE', type: 'success' },
-                        { text: 'Sin sanciones vigentes', type: 'success' }
-                    ]
+                    sunat: {
+                        ruc: '20529400790',
+                        razonSocial: 'CONSTRUCTORA ZAMORA JARA S.A.C.',
+                        estado: 'ACTIVO',
+                        condicion: 'HABIDO',
+                        deuda: 0,
+                        trabajadores: 45,
+                        antiguedad_meses: 120
+                    },
+                    osce: {
+                        inhabilitado: false,
+                        sanciones_count: 0,
+                        ultima_sancion_dias: null
+                    },
+                    heuristic: {
+                        cambios_representante_6m: 0,
+                        empresas_mismo_domicilio: 1,
+                        ratio_facturacion_trabajador: 45000
+                    }
                 };
             }
             
-            // Generic mock for other RUCs
+            // Empresa con deuda - Silver max
+            if (ruc === '20100123091') {
+                return {
+                    sunat: {
+                        ruc: '20100123091',
+                        razonSocial: 'CONSTRUCTORA LIMA SUR S.A.C.',
+                        estado: 'ACTIVO',
+                        condicion: 'HABIDO',
+                        deuda: 50000,
+                        trabajadores: 25,
+                        antiguedad_meses: 60
+                    },
+                    osce: {
+                        inhabilitado: false,
+                        sanciones_count: 0,
+                        ultima_sancion_dias: null
+                    },
+                    heuristic: {
+                        cambios_representante_6m: 1,
+                        empresas_mismo_domicilio: 2,
+                        ratio_facturacion_trabajador: 35000
+                    }
+                };
+            }
+            
+            // Empresa inhabilitada - Bloqueada
+            if (ruc === '20999999999') {
+                return {
+                    sunat: {
+                        ruc: '20999999999',
+                        razonSocial: 'EMPRESA PROBLEMA S.A.C.',
+                        estado: 'ACTIVO',
+                        condicion: 'HABIDO',
+                        deuda: 0,
+                        trabajadores: 10,
+                        antiguedad_meses: 24
+                    },
+                    osce: {
+                        inhabilitado: true,
+                        sanciones_count: 2,
+                        ultima_sancion_dias: 180
+                    },
+                    heuristic: {
+                        cambios_representante_6m: 3,
+                        empresas_mismo_domicilio: 8,
+                        ratio_facturacion_trabajador: 120000
+                    }
+                };
+            }
+            
+            // Default mock
             return {
-                ruc: ruc,
-                company: 'EMPRESA DEMO S.A.C.',
-                estado: 'ACTIVO',
-                condicion: 'HABIDO',
-                deuda: 0,
-                trabajadores: 25,
-                osceInhabilitado: false,
-                osceSanciones: 0,
-                score: 100,
-                status: 'APTO',
-                details: [
-                    { text: 'Estado SUNAT: ACTIVO', type: 'success' },
-                    { text: 'Condición: HABIDO', type: 'success' },
-                    { text: 'Sin inhabilitaciones', type: 'success' }
-                ]
+                sunat: {
+                    ruc: ruc,
+                    razonSocial: 'EMPRESA DEMO S.A.C.',
+                    estado: 'ACTIVO',
+                    condicion: 'HABIDO',
+                    deuda: 0,
+                    trabajadores: 15,
+                    antiguedad_meses: 36
+                },
+                osce: {
+                    inhabilitado: false,
+                    sanciones_count: 0,
+                    ultima_sancion_dias: null
+                },
+                heuristic: {
+                    cambios_representante_6m: 0,
+                    empresas_mismo_domicilio: 1,
+                    ratio_facturacion_trabajador: 40000
+                }
             };
         }
         
@@ -812,27 +1121,81 @@
             validatedData = data;
             
             const resultDiv = document.getElementById('validationResult');
-            const isApto = data.score === 100;
-            const statusClass = isApto ? 'success' : (data.score >= 50 ? 'warning' : 'danger');
+            const tier = data.tier;
+            const scores = data.scores;
+            
+            const statusClass = tier.allowed ? (scores.final >= 90 ? 'success' : (scores.final >= 70 ? 'warning' : 'danger')) : 'danger';
             
             resultDiv.className = 'validation-result show ' + statusClass;
             
+            let breakdownHTML = '';
+            if (tier.allowed) {
+                breakdownHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; padding: 16px; background: var(--black); border: 1px solid var(--stone);">
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 500; color: ${scores.sunat >= 80 ? '#2D4A3E' : (scores.sunat >= 50 ? '#C5A059' : '#DC3545')};">${scores.sunat}</div>
+                            <div style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em;">SUNAT (30%)</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 500; color: ${scores.osce >= 80 ? '#2D4A3E' : (scores.osce >= 50 ? '#C5A059' : '#DC3545')};">${scores.osce}</div>
+                            <div style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em;">OSCE (40%)</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 500; color: ${scores.heuristic >= 80 ? '#2D4A3E' : (scores.heuristic >= 50 ? '#C5A059' : '#DC3545')};">${scores.heuristic}</div>
+                            <div style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em;">ESTABILIDAD (30%)</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            let restrictionsHTML = '';
+            if (tier.restrictions && tier.restrictions.length > 0) {
+                restrictionsHTML = `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(197, 160, 89, 0.1); border-left: 3px solid var(--gold);">
+                        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">RESTRICCIONES:</p>
+                        ${tier.restrictions.map(r => `<p style="font-size: 12px; color: var(--bone); margin: 4px 0;">• ${r}</p>`).join('')}
+                    </div>
+                `;
+            }
+            
+            let benefitsHTML = '';
+            if (tier.benefits && tier.benefits.length > 0) {
+                benefitsHTML = `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(45, 74, 62, 0.1); border-left: 3px solid var(--success);">
+                        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">BENEFICIOS FOUNDER:</p>
+                        ${tier.benefits.map(b => `<p style="font-size: 12px; color: var(--bone); margin: 4px 0;">• ${b}</p>`).join('')}
+                    </div>
+                `;
+            }
+            
             resultDiv.innerHTML = `
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <div class="score-display ${statusClass}">${data.score}/100</div>
-                    <span class="status-badge ${statusClass}">${data.status}</span>
+                    <div class="score-display ${statusClass}">${scores.final}/100</div>
+                    <span class="status-badge ${statusClass}" style="background: ${tier.color}; color: ${tier.tier === 'FOUNDER' ? '#0A0A0F' : 'var(--bone)'};">
+                        ${tier.tier} ${tier.founderNumber ? `— ${tier.founderNumber}` : ''}
+                    </span>
+                    <div style="margin-top: 12px; font-size: 18px; color: ${tier.color}; font-weight: 500;">
+                        ${tier.message}
+                    </div>
+                    <p style="font-size: 13px; color: var(--muted); margin-top: 8px;">${tier.subMessage}</p>
                 </div>
+                
+                ${breakdownHTML}
                 
                 <div class="company-info">
                     <h3>${data.company}</h3>
                     <p>RUC: ${data.ruc}</p>
-                    <p>Estado SUNAT: ${data.estado} | Condición: ${data.condicion}</p>
-                    ${data.deuda > 0 ? `<p style="color: var(--danger);">Deuda: S/ ${data.deuda.toLocaleString()}</p>` : '<p>Deuda: S/ 0.00</p>'}
+                    <p>Estado: ${data.sunat.estado} | Condición: ${data.sunat.condicion}</p>
+                    <p>Deuda: S/ ${data.sunat.deuda.toLocaleString()} | Trabajadores: ${data.sunat.trabajadores}</p>
                 </div>
                 
-                <ul class="detail-list">
-                    ${data.details.map(d => `<li class="${d.type}">${d.text}</li>`).join('')}
-                </ul>
+                ${tier.price ? `<div style="text-align: center; margin: 20px 0; padding: 16px; border: 1px solid ${tier.color};">
+                    <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">PRECIO ANUAL</p>
+                    <p style="font-size: 32px; color: ${tier.color}; font-weight: 500;">S/ ${tier.price.toLocaleString()}</p>
+                </div>` : ''}
+                
+                ${restrictionsHTML}
+                ${benefitsHTML}
                 
                 <div class="timestamp">
                     Validado: ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}
@@ -841,13 +1204,17 @@
             
             goToStep(2);
             
-            if (isApto) {
+            if (tier.allowed) {
                 document.getElementById('continueSection').style.display = 'block';
                 document.getElementById('rejectionBox').classList.remove('show');
                 
                 // Pre-fill step 3
                 document.getElementById('validatedRuc').value = data.ruc;
                 document.getElementById('validatedCompany').value = data.company;
+                document.getElementById('certPlan').value = tier.tier.toLowerCase();
+                
+                // Store tier for certificate generation
+                validatedData.tier = tier;
             } else {
                 document.getElementById('continueSection').style.display = 'none';
                 document.getElementById('rejectionBox').classList.add('show');
