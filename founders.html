@@ -758,13 +758,7 @@
                     </p>
                 </div>
                 
-                <form id="founderForm" action="https://formsubmit.co/contacto@czperu.com" method="POST">
-                    <!-- FormSubmit config -->
-                    <input type="hidden" name="_subject" value="Nueva Aplicación Fundador - Conflict Zero">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://czperu.com/founders.html?submitted=true">
-                    <input type="hidden" name="_captcha" value="false">
-                    
+                <form id="founderForm">
                     <!-- Hidden ref number -->
                     <input type="hidden" id="refNumber" name="Referencia" value="">
                     <div class="form-group">
@@ -851,6 +845,7 @@
         <p>© 2026 Conflict Zero — Estándar de Verificación Institucional</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         // Generar número de solicitud secuencial
         function generateReference() {
@@ -1019,17 +1014,45 @@
                 console.log('✗ Error localStorage:', e);
             }
             
-            // El formulario se enviará normalmente a FormSubmit
-            // El submit continúa naturalmente después de esta función
+            // Enviar por EmailJS
+            try {
+                const templateParams = {
+                    to_email: 'contacto@czperu.com',
+                    from_name: formData.contactName,
+                    from_email: formData.email,
+                    company_name: formData.companyName,
+                    ruc: formData.ruc,
+                    contact_name: formData.contactName,
+                    contact_email: formData.email,
+                    contact_phone: formData.phone,
+                    annual_volume: formData.volume,
+                    subcontractor_count: formData.subcontractors,
+                    reference: ref,
+                    submitted_at: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })
+                };
+                
+                await emailjs.send(
+                    'service_cz_default',  // Service ID (cambiar al crear cuenta)
+                    'template_founder_app',  // Template ID (cambiar al crear template)
+                    templateParams
+                );
+                
+                console.log('✓ Email enviado vía EmailJS');
+                
+                // Show success
+                form.style.display = 'none';
+                formHeader.style.display = 'none';
+                successMessage.classList.add('show');
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+            } catch (emailError) {
+                console.error('✗ Error enviando email:', emailError);
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Presentar Solicitud';
+                alert('Error al enviar. Por favor intenta de nuevo o contáctanos por WhatsApp.');
+            }
         });
-        
-        // Check if submitted via FormSubmit (URL param)
-        if (window.location.search.includes('submitted=true')) {
-            form.style.display = 'none';
-            formHeader.style.display = 'none';
-            successMessage.classList.add('show');
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
         
         // Admin tools
         window.CZAdmin = {
@@ -1049,6 +1072,10 @@
                 return 'localStorage limpiado';
             }
         };
+        
+        // Initialize EmailJS (reemplazar con tu Public Key)
+        emailjs.init('YOUR_PUBLIC_KEY');
+        
         console.log('%c Conflict Zero', 'font-family: Cormorant Garamond; font-size: 20px; color: #C5A059;');
         console.log('%c Estándar de Verificación Institucional', 'font-size: 11px; color: #8A8A85; letter-spacing: 0.1em;');
         console.log('%c Admin: CZAdmin.getApplications(), exportToJSON(), clearApplications()', 'font-size: 10px; color: #666;');
