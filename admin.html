@@ -972,10 +972,10 @@
         
         const API_BASE_URL = 'https://conflict-zero-api.onrender.com/api/v1';
         
-        // Consulta RUC usando el backend de Conflict Zero (Factaliza + OSCE/TCE DB)
-        async function fetchRUCFromBackend(ruc) {
+        // LEGALBOT UNIVERSAL V2.0 - Algoritmo Legal para TODOS los RUCs
+        async function fetchLegalBot(ruc, volumen = 0) {
             try {
-                const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
+                const response = await fetch(`${API_BASE_URL}/legal/validate/${ruc}?volumen=${volumen}`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json'
@@ -983,40 +983,28 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`Backend Error: ${response.status}`);
+                    throw new Error(`LegalBot Error: ${response.status}`);
                 }
                 
                 const data = await response.json();
                 
-                // Mapear respuesta del backend a nuestro formato
                 return {
                     ruc: data.ruc,
-                    company: data.razon_social || 'SIN NOMBRE',
-                    sunat: {
-                        ruc: data.ruc,
-                        razonSocial: data.razon_social,
-                        estado: data.estado || 'ACTIVO',
-                        condicion: data.condicion || 'HABIDO',
-                        deuda: data.sunat?.deuda || 0,
-                        trabajadores: data.sunat?.trabajadores || 0,
-                        direccion: data.direccion || ''
-                    },
-                    osce: {
-                        inhabilitado: data.sanciones?.some(s => s.status === 'VIGENTE' && s.severity === 'ALTA') || false,
-                        sanciones_count: data.sanciones?.length || 0,
-                        sanciones_vigentes: data.sanciones?.filter(s => s.status === 'VIGENTE').length || 0,
-                        sanciones_detalle: data.sanciones || []
-                    },
-                    // Datos de scoring del backend
-                    backendScore: {
-                        total: data.score || 0,
-                        risk_level: data.risk_level,
-                        risk_emoji: data.risk_emoji,
-                        breakdown: data.score_breakdown
-                    }
+                    company: data.razon_social,
+                    score: data.score,
+                    tier: data.tier,
+                    status: data.status,
+                    fechaDesbloqueo: data.fecha_desbloqueo_gold,
+                    confianza: data.confianza,
+                    zonaCritica: data.zona_critica,
+                    requiereVerificacion: data.requiere_verificacion,
+                    esFounderEligible: data.es_founder_eligible,
+                    sancionesCount: data.sanciones_count,
+                    mensaje: data.mensaje,
+                    automatico: data.automatico
                 };
             } catch (error) {
-                console.error('Error fetching from backend:', error);
+                console.error('Error LegalBot:', error);
                 return null;
             }
         }
@@ -1035,43 +1023,87 @@
             document.getElementById('loader').classList.add('show');
             
             try {
-                // Llamar al backend de Conflict Zero (Factaliza + OSCE/TCE DB)
-                const backendData = await fetchRUCFromBackend(ruc);
+                // LEGALBOT UNIVERSAL V2.0
+                const legalData = await fetchLegalBot(ruc, volumen);
                 
-                if (!backendData) {
-                    throw new Error('No se pudo consultar el backend');
+                if (!legalData) {
+                    throw new Error('No se pudo consultar LegalBot');
                 }
                 
-                // Calcular scores locales para el tiering
-                const sunatScore = calculateSUNATScore(backendData.sunat);
-                const osceScore = calculateOSCEScore(backendData.osce);
-                const heuristicScore = 100; // Por ahora, sin datos heurísticos
-                
-                const scores = {
-                    final: Math.round((sunatScore * 0.30) + (osceScore * 0.40) + (heuristicScore * 0.30)),
-                    sunat: sunatScore,
-                    osce: osceScore,
-                    heuristic: heuristicScore
+                // Mapear tier LegalBot a nuestro formato
+                const tierMapping = {
+                    'RECHAZADO': {
+                        tier: 'RECHAZADO',
+                        badge: null,
+                        color: '#DC3545',
+                        message: 'NO APTO PARA CERTIFICACIÓN',
+                        subMessage: legalData.mensaje,
+                        allowed: false,
+                        price: null
+                    },
+                    'BRONZE': {
+                        tier: 'BRONZE',
+                        badge: 'B',
+                        color: '#CD7F32',
+                        message: 'VERIFICADO BRONZE',
+                        subMessage: legalData.zonaCritica ? 'Zona crítica (2-3 años) - Verificación requerida para Founder' : 'Empresa operativa con historial sancionado.',
+                        allowed: true,
+                        price: 400,
+                        restrictions: ['No incluye API ERP', 'No incluye Mi Red', 'Verificación manual trimestral']
+                    },
+                    'BRONZE_VERIFICACION': {
+                        tier: 'BRONZE',
+                        badge: 'B',
+                        color: '#CD7F32',
+                        message: 'VERIFICADO BRONZE',
+                        subMessage: '⚠️ ZONA CRÍTICA: Requiere verificación manual antes de upgrade a Gold.',
+                        allowed: true,
+                        price: 400,
+                        restrictions: ['Verificación manual obligatoria', 'Upgrade a Gold bloqueado hasta ' + (legalData.fechaDesbloqueo ? legalData.fechaDesbloqueo.substring(0,10) : 'fecha legal')]
+                    },
+                    'SILVER': {
+                        tier: 'SILVER',
+                        badge: 'S',
+                        color: '#A8A8A8',
+                        message: 'VERIFICADO SILVER',
+                        subMessage: 'Cumplimiento estándar establecido.',
+                        allowed: true,
+                        price: 800,
+                        restrictions: ['No incluye Mi Red (árbol de subcontratistas)']
+                    },
+                    'GOLD': {
+                        tier: 'GOLD',
+                        badge: 'G',
+                        color: '#C5A059',
+                        message: 'VERIFICADO GOLD',
+                        subMessage: 'Excelencia en cumplimiento normativo.',
+                        allowed: true,
+                        price: 2500,
+                        restrictions: []
+                    },
+                    'FOUNDER': {
+                        tier: 'FOUNDER',
+                        badge: '★',
+                        color: '#FFD700',
+                        message: 'PROGRAMA FUNDADOR 2026',
+                        subMessage: 'Edición Limitada - Early Adopter',
+                        allowed: true,
+                        price: 2500,
+                        founderNumber: '001/010',
+                        restrictions: [],
+                        benefits: ['Precio bloqueado 3 años', 'Acceso Puerta CZ', 'Soporte directo CEO']
+                    }
                 };
                 
-                // Override con score del backend si es más preciso
-                if (backendData.backendScore?.total > 0) {
-                    scores.final = backendData.backendScore.total;
-                }
-                
-                // Determine tier
-                const tier = determineTier(scores, volumen, esFounder);
+                const tier = tierMapping[legalData.tier] || tierMapping['RECHAZADO'];
                 
                 // Display result
-                displayResult({
+                displayLegalBotResult({
                     ruc,
-                    company: backendData.company,
-                    scores,
-                    tier,
-                    sunat: backendData.sunat,
-                    osce: backendData.osce,
-                    backendScore: backendData.backendScore,
-                    sanciones: backendData.osce.sanciones_detalle
+                    company: legalData.company,
+                    score: legalData.score,
+                    tier: tier,
+                    legalData: legalData
                 });
                 
             } catch (error) {
