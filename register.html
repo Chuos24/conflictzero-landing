@@ -364,28 +364,27 @@
             msg.className = 'message';
             
             try {
-                // Send to backend API
-                const response = await fetch('https://conflict-zero-api.onrender.com/api/v1/auth/register', {
+                // Send to backend API - NUEVO ENDPOINT register-web
+                const response = await fetch('https://conflict-zero-api.onrender.com/api/v1/auth/register-web', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
                 
-                if (response.ok) {
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
                     msg.className = 'message success';
-                    msg.textContent = 'Solicitud enviada exitosamente. Nuestro equipo revisara su informacion y se contactara en 24-48 horas.';
+                    msg.textContent = 'Solicitud enviada exitosamente. Revisa tu correo para recibir tus credenciales de acceso.';
                     document.getElementById('registerForm').reset();
                 } else {
-                    throw new Error('Error en el servidor');
+                    throw new Error(result.message || 'Error en el servidor');
                 }
             } catch (error) {
-                // Fallback: simular exito para demo
-                msg.className = 'message success';
-                msg.textContent = 'Solicitud enviada exitosamente. Nuestro equipo revisara su informacion y se contactara en 24-48 horas.';
-                document.getElementById('registerForm').reset();
-                
-                // Log para debugging
-                console.log('Registration data:', data);
+                // Mostrar error real
+                msg.className = 'message error';
+                msg.textContent = 'Error al enviar la solicitud. Por favor intenta nuevamente o contacta soporte.';
+                console.error('Registration error:', error);
             }
             
             btn.disabled = false;

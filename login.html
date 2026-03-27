@@ -351,33 +351,37 @@
             btn.innerHTML = 'Verificando... <span class="spinner"></span>';
             error.classList.remove('visible');
             
-            // Validar credenciales
-            const VALID_USERS = [
-                { email: 'founder@conflictzero.com', password: 'CZ2025!' },
-                { email: 'admin@czperu.com', password: 'Admin2025!' },
-                { email: 'demo@czperu.com', password: 'Demo2025!' }
-            ];
-            
-            const user = VALID_USERS.find(u => u.email === email && u.password === password);
-            
-            if (!user) {
-                error.textContent = 'Credenciales incorrectas. Acceso exclusivo para miembros.';
+            try {
+                // Llamar al backend real
+                const response = await fetch('https://conflict-zero-api.onrender.com/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Credenciales incorrectas');
+                }
+                
+                // Guardar token y datos de usuario
+                localStorage.setItem('cz_token', data.access_token);
+                localStorage.setItem('cz_user', JSON.stringify({
+                    email: email,
+                    loginTime: new Date().toISOString(),
+                    token: data.access_token
+                }));
+                
+                // Redirigir al dashboard
+                window.location.href = '/dashboard.html';
+                
+            } catch (err) {
+                error.textContent = err.message || 'Error al iniciar sesión. Intente nuevamente.';
                 error.classList.add('visible');
                 btn.disabled = false;
                 btn.textContent = 'Acceder';
-                return;
             }
-            
-            // Login exitoso
-            localStorage.setItem('cz_user', JSON.stringify({
-                email: email,
-                loginTime: new Date().toISOString(),
-                plan: email === 'founder@conflictzero.com' ? 'ENTERPRISE' : 'STARTER'
-            }));
-            
-            setTimeout(() => {
-                window.location.href = '/dashboard.html';
-            }, 600);
         }
     </script>
 </body>
