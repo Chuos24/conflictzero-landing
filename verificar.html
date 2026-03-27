@@ -3,981 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación de Certificado - Conflict Zero</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Certificado de Verificación — Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #c9a961;
-            --gold-light: #d4b978;
-            --dark: #0a0a0a;
-            --dark-card: #1a1a1a;
-            --text: #e0e0e0;
-            --text-muted: #888;
-            --success: #40c057;
-            --warning: #fab005;
-            --danger: #fa5252;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --gold: #C5A059;
+            --gold-dark: #8B6914;
+            --gold-light: #D4AF37;
+            --black: #0A0A0F;
+            --card: #0D0D12;
+            --stone: #2A2A2E;
+            --bone: #F5F5F0;
+            --muted: #8A8A85;
+            --forest: #1B3A2F;
+            --bronze: #CD7F32;
+            --silver: #A8A8A8;
+            --danger: #DC3545;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
-            color: var(--text);
-            line-height: 1.6;
+            font-weight: 300;
+            background: var(--black);
+            color: var(--bone);
+            line-height: 1.7;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+        }
+        
+        /* Header */
         .header {
-            background: linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, transparent 50%);
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
+            padding: 24px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--stone);
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             text-decoration: none;
         }
         
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            border-radius: 8px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .logo-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--dark);
+            width: 22px;
+            height: 22px;
+            stroke: var(--gold);
+            stroke-width: 1;
+            fill: none;
         }
         
         .logo-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text);
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--bone);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
         
-        .logo-text span {
-            color: var(--gold);
-        }
-        
-        .main {
-            padding: 40px 0;
-        }
-        
-        .verification-card {
-            background: var(--dark-card);
-            border: 1px solid rgba(201, 169, 97, 0.3);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 30px;
-        }
-        
-        .verification-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
-        }
-        
-        .status-badge {
-            display: inline-flex;
+        /* Main Certificate */
+        .certificate-container {
+            flex: 1;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 20px;
+            justify-content: center;
+            padding: 64px;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(197, 160, 89, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(27, 58, 47, 0.05) 0%, transparent 50%),
+                var(--black);
         }
         
-        .status-badge.valid {
-            background: rgba(64, 192, 87, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(64, 192, 87, 0.3);
+        .certificate {
+            background: var(--card);
+            border: 1px solid var(--stone);
+            border-radius: 8px;
+            padding: 80px 100px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                0 2px 4px -1px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }
         
-        .status-badge.invalid {
-            background: rgba(250, 82, 82, 0.15);
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid var(--stone);
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        /* Sello según nivel */
+        .seal-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 48px;
+            position: relative;
+        }
+        
+        .seal-container.bronze .seal-ring { stroke: var(--bronze); }
+        .seal-container.bronze .seal-text { fill: var(--bronze); }
+        .seal-container.bronze .seal-center { fill: var(--bronze); }
+        
+        .seal-container.silver .seal-ring { stroke: var(--silver); }
+        .seal-container.silver .seal-text { fill: var(--silver); }
+        .seal-container.silver .seal-center { fill: var(--silver); }
+        
+        .seal-container.gold .seal-ring { stroke: var(--gold); }
+        .seal-container.gold .seal-text { fill: var(--gold); }
+        .seal-container.gold .seal-center { fill: var(--gold); }
+        
+        .seal-container.expired .seal-ring { stroke: var(--danger); }
+        .seal-container.expired .seal-text { fill: var(--danger); }
+        .seal-container.expired .seal-center { fill: var(--danger); }
+        
+        .seal-container svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 4px;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+        
+        .status-badge.bronze {
+            color: var(--bronze);
+            border: 1px solid var(--bronze);
+            background: rgba(205, 127, 50, 0.1);
+        }
+        
+        .status-badge.silver {
+            color: var(--silver);
+            border: 1px solid var(--silver);
+            background: rgba(168, 168, 168, 0.1);
+        }
+        
+        .status-badge.gold {
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            background: rgba(197, 160, 89, 0.1);
+        }
+        
+        .status-badge.expired {
             color: var(--danger);
-            border: 1px solid rgba(250, 82, 82, 0.3);
+            border: 1px solid var(--danger);
+            background: rgba(220, 53, 69, 0.1);
         }
         
-        .status-badge.warning {
-            background: rgba(250, 176, 5, 0.15);
-            color: var(--warning);
-            border: 1px solid rgba(250, 176, 5, 0.3);
+        /* Company Info */
+        .cert-header {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
         }
         
-        .verification-title {
+        .company-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-weight: 400;
+            color: var(--bone);
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
         }
         
-        .verification-subtitle {
-            color: var(--text-muted);
-            font-size: 16px;
+        .company-ruc {
+            font-size: 13px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            margin-bottom: 48px;
         }
         
-        .cert-info {
+        /* Divider */
+        .cert-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--stone);
+            margin: 0 auto 48px;
+        }
+        
+        /* Certification Details */
+        .cert-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+            text-align: left;
+            padding: 0 40px;
         }
         
-        .info-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .detail-item {
+            text-align: center;
         }
         
-        .info-label {
-            font-size: 12px;
-            color: var(--text-muted);
+        .detail-label {
+            font-size: 9px;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--muted);
             margin-bottom: 8px;
         }
         
-        .info-value {
+        .detail-value {
+            font-size: 14px;
+            color: var(--bone);
+            letter-spacing: 0.05em;
+        }
+        
+        /* Footer Info */
+        .cert-footer {
+            border-top: 1px solid var(--stone);
+            padding-top: 32px;
+            margin-top: 32px;
+        }
+        
+        .verified-by {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        
+        .cz-brand {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 16px;
-            font-weight: 500;
-            color: var(--text);
+            color: var(--bone);
+            letter-spacing: 0.2em;
+            margin-bottom: 24px;
         }
         
-        .score-section {
-            background: linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, rgba(201, 169, 97, 0.02) 100%);
-            border: 1px solid rgba(201, 169, 97, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .score-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .score-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 600;
-        }
-        
-        .score-value {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--gold);
-        }
-        
-        .score-bar {
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        
-        .score-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--danger) 0%, var(--warning) 50%, var(--success) 100%);
-            border-radius: 6px;
-            transition: width 0.5s ease;
-        }
-        
-        .score-legend {
-            display: flex;
-            justify-content: space-between;
+        .social-proof {
             font-size: 12px;
-            color: var(--text-muted);
+            color: var(--muted);
+            font-style: italic;
         }
         
-        .formula-section {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .formula-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
+        .social-proof strong {
             color: var(--gold);
+            font-style: normal;
         }
         
-        .formula-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 2;
-            overflow-x: auto;
-        }
-        
-        .formula-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .penalty {
-            color: var(--danger);
-        }
-        
-        .bonus {
-            color: var(--success);
-        }
-        
-        .sources-section {
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .sources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-        }
-        
-        .source-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        
-        .source-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .source-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-        }
-        
-        .source-icon.sunat { background: rgba(64, 192, 87, 0.15); color: var(--success); }
-        .source-icon.osce { background: rgba(201, 169, 97, 0.15); color: var(--gold); }
-        .source-icon.tce { background: rgba(201, 169, 97, 0.15); color: var(--gold); }
-        .source-icon.rnp { background: rgba(250, 82, 82, 0.15); color: var(--danger); }
-        .source-icon.sunafil { background: rgba(250, 176, 5, 0.15); color: var(--warning); }
-        .source-icon.indeco { background: rgba(201, 169, 97, 0.15); color: var(--gold); }
-        
-        .source-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        .source-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        
-        .source-penalty {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(250, 82, 82, 0.05);
-            border-radius: 6px;
-            font-size: 13px;
-        }
-        
-        .penalty-label {
-            color: var(--text-muted);
-        }
-        
-        .penalty-value {
-            color: var(--danger);
-            font-weight: 600;
-        }
-        
-        .sanciones-section {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 30px;
-        }
-        
-        .sanciones-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .sancion-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            border-left: 4px solid var(--danger);
-        }
-        
-        .sancion-item.medium {
-            border-left-color: var(--warning);
-        }
-        
-        .sancion-item.low {
-            border-left-color: var(--gold);
-        }
-        
-        .sancion-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-        
-        .sancion-icon.critical {
-            background: rgba(250, 82, 82, 0.15);
-        }
-        
-        .sancion-icon.warning {
-            background: rgba(250, 176, 5, 0.15);
-        }
-        
-        .sancion-info {
-            flex: 1;
-        }
-        
-        .sancion-type {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-        
-        .sancion-detail {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        
-        .sancion-penalty {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--danger);
-        }
-        
-        .status-vigente {
-            color: var(--danger);
-            font-weight: 600;
-            background: rgba(250, 82, 82, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        .status-vencida {
-            color: var(--success);
-            font-weight: 600;
-            background: rgba(64, 192, 87, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        .footer {
+        /* CTA Section */
+        .cta-section {
+            background: var(--card);
+            border-top: 1px solid var(--stone);
+            padding: 48px 64px;
             text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(201, 169, 97, 0.1);
-            margin-top: 40px;
         }
         
-        .footer-text {
-            color: var(--text-muted);
+        .cta-text {
             font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
         }
         
-        .footer-brand {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
+        .cta-button {
+            display: inline-block;
+            background: transparent;
             color: var(--gold);
-            margin-top: 10px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            padding: 16px 32px;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s;
         }
         
+        .cta-button:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+        
+        /* Not Found State */
+        .not-found {
+            text-align: center;
+            padding: 120px 64px;
+        }
+        
+        .not-found h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--bone);
+        }
+        
+        .not-found p {
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .verification-card {
-                padding: 24px;
+            .header { padding: 20px 32px; }
+            .certificate-container { padding: 32px; }
+            .certificate { padding: 48px 32px; }
+            .seal-container { width: 140px; height: 140px; }
+            .company-name { font-size: 24px; }
+            .cert-details { 
+                grid-template-columns: 1fr; 
+                padding: 0;
+                gap: 24px;
             }
-            
-            .score-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 16px;
-            }
-            
-            .score-value {
-                font-size: 36px;
-            }
+            .cta-section { padding: 32px; }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <a href="/" class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                </div>
-                <div class="logo-text">Conflict <span>Zero</span></div>
-            </a>
-        </div>
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <span class="logo-text">Conflict Zero</span>
+        </a>
     </header>
 
-    <main class="main">
-        <div class="container">
-            <div class="verification-card">
-                <div class="verification-header">
-                    <div class="status-badge valid" id="certStatus">
-                        <span>✓</span> CERTIFICADO VÁLIDO
-                    </div>
-                    <h1 class="verification-title">Verificación de Certificado</h1>
-                    <p class="verification-subtitle">Este certificado ha sido emitido por Conflict Zero S.A.C.</p>
-                </div>
-
-                <div class="cert-info">
-                    <div class="info-item">
-                        <div class="info-label">Número de Certificado</div>
-                        <div class="info-value" id="certId">-</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">RUC</div>
-                        <div class="info-value" id="certRuc">-</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Razón Social</div>
-                        <div class="info-value" id="certEmpresa">-</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Fecha de Emisión</div>
-                        <div class="info-value" id="certFecha">-</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Válido Hasta</div>
-                        <div class="info-value" id="certVenc">-</div>
-                    </div>
-                </div>
-
-                <div class="score-section">
-                    <div class="score-header">
-                        <h2 class="score-title">Score de Riesgo</h2>
-                        <div class="score-value" id="scoreValue">0</div>
-                    </div>
-                    <div class="score-bar">
-                        <div class="score-bar-fill" id="scoreBar" style="width: 0%"></div>
-                    </div>
-                    <div class="score-legend">
-                        <span>Crítico (0)</span>
-                        <span>Observado (50)</span>
-                        <span>Limpio (100)</span>
-                    </div>
-                </div>
-
-                <div class="formula-section">
-                    <h2 class="formula-title">📊 Fórmula B - Ponderada por Tiempo</h2>
-                    <div class="formula-box">
-                        <div class="formula-line">
-                            <span>SCORE BASE</span>
-                            <span class="bonus">= 100</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>Sin SUNAT</span>
-                            <span>- 40 puntos (CRÍTICO)</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>Inhabilitación Vigente</span>
-                            <span>RECHAZO AUTOMÁTICO</span>
-                        </div>
-                        
-                        <div style="margin: 16px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 6px;">
-                            <p style="color: var(--gold); font-size: 13px; margin-bottom: 8px;">
-                                <strong>Decaimiento temporal:</strong>
-                            </p>
-                            <div class="formula-line" style="font-size: 13px;">
-                                <span>&lt; 2 años</span>
-                                <span>100% peso</span>
-                            </div>
-                            <div class="formula-line" style="font-size: 13px;">
-                                <span>2-5 años</span>
-                                <span>50% peso</span>
-                            </div>
-                            <div class="formula-line" style="font-size: 13px;">
-                                <span>&gt; 5 años</span>
-                                <span>25% peso</span>
-                            </div>
-                        </div>
-                        
-                        <div class="formula-line penalty">
-                            <span>RNP Inhabilitación</span>
-                            <span>- 80 puntos</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>OSCE / TCE</span>
-                            <span>- 20 puntos c/u</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>RNP Multas</span>
-                            <span>- 5 puntos c/u</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>SUNAFIL (SST, etc.)</span>
-                            <span>- 30 puntos</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>INDECOPI</span>
-                            <span>- 15 puntos</span>
-                        </div>
-                        <div class="formula-line bonus">
-                            <span>Bonus por Propiedades</span>
-                            <span>+2 c/u (máx +10)</span>
-                        </div>
-                        <div class="formula-line penalty">
-                            <span>Patrón 3+ sanciones graves</span>
-                            <span>- 15 puntos</span>
-                        </div>
-                        
-                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(201, 169, 97, 0.2);">
-                            <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">
-                                <strong>Clasificación:</strong>
-                            </p>
-                            <div class="formula-line" style="font-size: 12px;">
-                                <span style="color: var(--success);">90-100: LIMPIO</span>
-                                <span>Bajo riesgo</span>
-                            </div>
-                            <div class="formula-line" style="font-size: 12px;">
-                                <span style="color: var(--warning);">70-89: OBSERVADO LEVE</span>
-                                <span>Medio riesgo</span>
-                            </div>
-                            <div class="formula-line" style="font-size: 12px;">
-                                <span style="color: orange;">40-69: OBSERVADO GRAVE</span>
-                                <span>Alto riesgo</span>
-                            </div>
-                            <div class="formula-line" style="font-size: 12px;">
-                                <span style="color: var(--danger);">0-39: RECHAZADO</span>
-                                <span>Crítico</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sources-section">
-                    <h2 class="section-title">🔍 Fuentes de Verificación</h2>
-                    <div class="sources-grid">
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon sunat">SUNAT</div>
-                                <div class="source-name">SUNAT</div>
-                            </div>
-                            <div class="source-desc">Superintendencia Nacional de Aduanas y de Administración Tributaria. Verifica estado tributario del RUC.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-40 puntos</span>
-                            </div>
-                        </div>
-
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon osce">OSCE</div>
-                                <div class="source-name">OSCE</div>
-                            </div>
-                            <div class="source-desc">Organismo Supervisor de las Contrataciones del Estado. Registra inhabilitaciones en contrataciones públicas.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-20 puntos</span>
-                            </div>
-                        </div>
-
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon tce">TCE</div>
-                                <div class="source-name">TCE</div>
-                            </div>
-                            <div class="source-desc">Tribunal de Contrataciones del Estado. Sanciones por infracciones en procesos de selección.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-20 puntos</span>
-                            </div>
-                        </div>
-
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon rnp">RNP</div>
-                                <div class="source-name">RNP</div>
-                            </div>
-                            <div class="source-desc">Registro Nacional de Proveedores. Inhabilitaciones definitivas y multas vigentes.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-80 puntos (Inhab.) / -5 (Multa)</span>
-                            </div>
-                        </div>
-
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon sunafil">SUNAFIL</div>
-                                <div class="source-name">SUNAFIL</div>
-                            </div>
-                            <div class="source-desc">Superintendencia de Fiscalización Laboral. Sanciones por SST, jornada laboral, discriminación.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-30 puntos</span>
-                            </div>
-                        </div>
-
-                        <div class="source-card">
-                            <div class="source-header">
-                                <div class="source-icon indeco">INDE.</div>
-                                <div class="source-name">INDECOPI</div>
-                            </div>
-                            <div class="source-desc">Defensa de la Competencia y Protección al Consumidor. Sanciones por competencia desleal.</div>
-                            <div class="source-penalty">
-                                <span class="penalty-label">Penalidad</span>
-                                <span class="penalty-value">-15 puntos</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sanciones-section">
-                    <h2 class="section-title">⚠️ Sanciones Detectadas</h2>
-                    <div class="sanciones-list" id="sancionesList">
-                        <!-- Se llena dinámicamente -->
-                    </div>
-                </div>
-            </div>
-        </div>
+    <main class="certificate-container" id="certificateContainer">
+        <!-- Certificate content will be injected by JavaScript -->
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">Certificado emitido por</p>
-            <p class="footer-brand">Conflict Zero S.A.C.</p>
-        </div>
-    </footer>
+    <section class="cta-section" id="ctaSection">
+        <p class="cta-text">¿Necesitas verificar a tu empresa o contratistas?</p>
+        <a href="https://cz-founders.vercel.app" class="cta-button">Solicitar Certificación</a>
+    </section>
 
     <script>
-        // DEBUG INICIAL
-        console.log('=== VERIFICAR.HTML CARGADO ===');
-        console.log('URL:', window.location.href);
-        console.log('Query:', window.location.search);
-        
-        // Backend API URL
-        const API_BASE_URL = 'https://conflict-zero-api.onrender.com/api/v1';
-        
-        // Obtener parámetros de URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const certId = urlParams.get('cert') || 'CZ-XXXXXXXX';
-        const ruc = urlParams.get('ruc') || '';
-        const scoreFromUrl = parseInt(urlParams.get('score')) || 0;
-        
-        console.log('PARÁMETROS:', { certId, ruc, scoreFromUrl });
-        
-        // Referencias a elementos DOM (globales)
-        let scoreValueEl, scoreBarEl, certStatusEl;
-        
-        // Esperar a que el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM listo, iniciando...');
-            
-            // Guardar referencias
-            scoreValueEl = document.getElementById('scoreValue');
-            scoreBarEl = document.getElementById('scoreBar');
-            certStatusEl = document.getElementById('certStatus');
-            
-            // Mostrar datos iniciales del QR (URL) inmediatamente
-            document.getElementById('certId').textContent = certId;
-            document.getElementById('certRuc').textContent = ruc || 'No especificado';
-            document.getElementById('certFecha').textContent = new Date().toLocaleDateString('es-PE');
-            document.getElementById('certVenc').textContent = new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString('es-PE');
-            
-            // Mostrar score del QR inmediatamente
-            if (scoreValueEl && scoreBarEl) {
-                scoreValueEl.textContent = scoreFromUrl;
-                scoreBarEl.style.width = scoreFromUrl + '%';
-                console.log('Score mostrado:', scoreFromUrl);
-            } else {
-                console.error('ERROR: Elementos score no encontrados');
+        // Datos de ejemplo para demostración
+        // En producción, esto vendría de una API
+        const mockData = {
+            'a3f9k2m8': {
+                level: 'gold',
+                statusBadge: 'Verificación Empresarial',
+                companyName: 'Constructora ABC',
+                companyNamePartial: 'Constructora A*** SAC',
+                ruc: '20100123091',
+                rucPartial: '20100123***',
+                emissionDate: '15 MAR 2026',
+                expirationDate: '15 MAR 2027',
+                viewsThisMonth: 47,
+                status: 'active'
+            },
+            'b7k2m9p4': {
+                level: 'silver',
+                statusBadge: 'Verificación Profesional',
+                companyName: 'Ingeniería Proyectos Sur',
+                companyNamePartial: 'Ingeniería P*** Sur S.A.C.',
+                ruc: '20512345678',
+                rucPartial: '20512345***',
+                emissionDate: '20 FEB 2026',
+                expirationDate: '20 FEB 2027',
+                viewsThisMonth: 23,
+                status: 'active'
+            },
+            'c9x4n1q7': {
+                level: 'bronze',
+                statusBadge: 'Verificación Básica',
+                companyName: 'Servicios Eléctricos Lima',
+                companyNamePartial: 'Servicios E*** Lima E.I.R.L.',
+                ruc: '20698765432',
+                rucPartial: '20698765***',
+                emissionDate: '01 MAR 2026',
+                expirationDate: '01 MAR 2027',
+                viewsThisMonth: 12,
+                status: 'active'
+            },
+            'demo-expired': {
+                level: 'expired',
+                statusBadge: 'Verificación Vencida',
+                companyName: 'Constructora Demo',
+                companyNamePartial: 'Constructora D*** S.A.',
+                ruc: '20987654321',
+                rucPartial: '20987654***',
+                emissionDate: '01 ENE 2025',
+                expirationDate: '01 ENE 2026',
+                viewsThisMonth: 8,
+                status: 'expired'
             }
-            
-            aplicarColoresScore(scoreFromUrl);
-            
-            // Iniciar consulta después de mostrar datos iniciales
-            setTimeout(() => consultarRUC(ruc), 100);
-        });
-        
-        // Función para aplicar colores según score
-        function aplicarColoresScore(score) {
-            if (!certStatusEl || !scoreValueEl) {
-                console.error('Elementos no disponibles para aplicar colores');
-                return;
-            }
-            
-            if (score >= 90) {
-                scoreValueEl.style.color = 'var(--success)';
-                certStatusEl.className = 'status-badge valid';
-                certStatusEl.innerHTML = '<span>✓</span> CERTIFICADO VÁLIDO - LIMPIO';
-            } else if (score >= 70) {
-                scoreValueEl.style.color = 'var(--warning)';
-                certStatusEl.className = 'status-badge warning';
-                certStatusEl.innerHTML = '<span>!</span> OBSERVADO LEVE';
-            } else if (score >= 40) {
-                scoreValueEl.style.color = 'orange';
-                certStatusEl.className = 'status-badge warning';
-                certStatusEl.innerHTML = '<span>⚠</span> OBSERVADO GRAVE';
-            } else {
-                scoreValueEl.style.color = 'var(--danger)';
-                certStatusEl.className = 'status-badge invalid';
-                certStatusEl.innerHTML = '<span>✕</span> RECHAZADO';
-            }
+        };
+
+        // Colores según nivel
+        const levelColors = {
+            bronze: '#CD7F32',
+            silver: '#A8A8A8',
+            gold: '#C5A059',
+            expired: '#DC3545'
+        };
+
+        function getSlugFromUrl() {
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            return parts[parts.length - 1] || parts[parts.length - 2];
         }
-        
-        // Función para consultar RUC real
-        async function consultarRUC(ruc) {
-            if (!ruc || ruc.length !== 11) {
-                document.getElementById('certEmpresa').innerHTML = 
-                    '<span style="color: var(--text-muted);">RUC no especificado en el certificado</span>';
-                mostrarSancionesVacias();
-                return;
-            }
+
+        function renderCertificate(data) {
+            const container = document.getElementById('certificateContainer');
+            const color = levelColors[data.level];
             
-            // Mostrar estado de carga
-            document.getElementById('certEmpresa').innerHTML = 
-                '<span style="color: var(--gold);">⏳ Consultando datos del RUC ' + ruc + '...</span>';
-            
-            try {
-                // Intentar consultar API con timeout de 20 segundos
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 20000);
-                
-                const response = await fetch(`${API_BASE_URL}/consulta-completa/${ruc}`, {
-                    signal: controller.signal,
-                    headers: { 'Accept': 'application/json' }
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error('API error: ' + response.status);
-                }
-                
-                const data = await response.json();
-                console.log('Datos recibidos de API:', data);
-                
-                // Actualizar con datos reales de la API
-                mostrarResultados(data);
-                
-            } catch (error) {
-                console.log('API no disponible:', error.message);
-                mostrarDatosQR();
-            }
-        }
-        
-        function mostrarResultados(data) {
-            // Actualizar razón social
-            const certEmpresa = document.getElementById('certEmpresa');
-            if (certEmpresa) {
-                certEmpresa.textContent = data.razon_social || 'NO ENCONTRADO';
-            }
-            
-            // Actualizar score si es diferente al del QR
-            if (data.score !== scoreFromUrl && scoreValueEl && scoreBarEl) {
-                console.log('Actualizando score:', scoreFromUrl, '→', data.score);
-                scoreValueEl.textContent = data.score;
-                scoreBarEl.style.width = data.score + '%';
-                aplicarColoresScore(data.score);
-            }
-            
-            // Mostrar sanciones
-            mostrarSanciones(data);
-            
-            // Actualizar fórmula mostrada
-            if (data.formula_utilizada) {
-                const formulaTitle = document.querySelector('.formula-title');
-                if (formulaTitle) {
-                    formulaTitle.innerHTML = `📊 Fórmula de Cálculo <span style="font-size: 12px; color: var(--gold);">(${data.formula_utilizada})</span>`;
-                }
-            }
-        }
-        
-        function mostrarSanciones(data) {
-            const sancionesList = document.getElementById('sancionesList');
-            if (!sancionesList) return;
-            
-            // Combinar sanciones de todas las fuentes
-            let todasSanciones = [];
-            
-            // Sanciones OSCE detalladas (nueva tabla)
-            if (data.sanciones_osce_detalle && data.sanciones_osce_detalle.length > 0) {
-                data.sanciones_osce_detalle.forEach(s => {
-                    todasSanciones.push({
-                        tipo: s.tipo_sancion || 'Sanción OSCE',
-                        entidad: s.fuente || s.entidad || 'OSCE',
-                        resolucion: s.numero_resolucion || 'N/A',
-                        fecha_inicio: s.fecha_inicio,
-                        fecha_fin: s.fecha_fin,
-                        estado: s.estado || 'DESCONOCIDO',
-                        motivo: s.motivo,
-                        severidad: s.tipo_sancion === 'inhabilitacion_judicial' ? 5 : 
-                                   s.tipo_sancion === 'sancion_inhabilitacion' ? 4 : 2,
-                        peso: s.tipo_sancion === 'inhabilitacion_judicial' ? 80 : 
-                              s.tipo_sancion === 'sancion_inhabilitacion' ? 50 : 20
-                    });
-                });
-            }
-            // Fallback: Sanciones OSCE desde array sanciones_osce
-            else if (data.sanciones_osce && data.sanciones_osce.length > 0) {
-                data.sanciones_osce.forEach(s => {
-                    todasSanciones.push({
-                        tipo: s.tipo || s.description || 'Sanción OSCE',
-                        entidad: s.entity || 'OSCE',
-                        resolucion: s.sanction_id || 'N/A',
-                        fecha_inicio: s.date,
-                        fecha_fin: s.fecha_fin,
-                        estado: s.status || 'ACTIVA',
-                        severidad: s.severity === 'GRAVE' ? 5 : s.severity === 'ALTA' ? 4 : 2,
-                        peso: s.severity === 'GRAVE' ? 80 : s.severity === 'ALTA' ? 50 : 20
-                    });
-                });
-            }
-            // Fallback legacy: Sanciones desde array general
-            else if (data.sanciones && data.sanciones.length > 0) {
-                data.sanciones.forEach(s => {
-                    todasSanciones.push({
-                        tipo: s.tipo || s.description || 'Sanción OSCE',
-                        entidad: s.entidad || s.entity || 'OSCE',
-                        resolucion: s.resolucion || s.sanction_id || 'N/A',
-                        fecha_inicio: s.fecha_inicio || s.date,
-                        fecha_fin: s.fecha_fin,
-                        estado: s.estado || s.status || 'ACTIVA',
-                        severidad: s.severidad || (s.severity === 'GRAVE' ? 5 : s.severity === 'ALTA' ? 4 : 2),
-                        peso: s.peso || (s.severity === 'GRAVE' ? 80 : s.severity === 'ALTA' ? 50 : 20)
-                    });
-                });
-            }
-            
-            // Sanciones RNP/TCE
-            if (data.sanciones_rnp_tce && data.sanciones_rnp_tce.length > 0) {
-                data.sanciones_rnp_tce.forEach(s => {
-                    todasSanciones.push({
-                        tipo: s.tipo_sancion || 'Sanción RNP-TCE',
-                        entidad: s.fuente || 'RNP-TCE',
-                        resolucion: s.resolucion || 'N/A',
-                        fecha: s.fecha_desde || 'N/A',
-                        estado: s.estado || 'VIGENTE',
-                        severidad: s.tipo_sancion === 'Definitivo' ? 5 : 3,
-                        peso: s.tipo_sancion === 'Definitivo' ? 80 : 40
-                    });
-                });
-            }
-            
-            if (todasSanciones.length === 0) {
-                sancionesList.innerHTML = '<p style="color: var(--success); text-align: center; padding: 20px;">✓ No se detectaron sanciones para esta empresa.</p>';
-            } else {
-                sancionesList.innerHTML = todasSanciones.map(s => {
-                    let nivel = 'low';
-                    if (s.severidad >= 4) nivel = 'critical';
-                    else if (s.severidad >= 3) nivel = 'medium';
+            const sealSvg = `
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="${color}" stroke-width="2" class="seal-ring"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
+                    <circle cx="50" cy="50" r="32" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
                     
-                    // Formatear fechas
-                    const fechaInicio = s.fecha_inicio ? formatearFecha(s.fecha_inicio) : 'N/A';
-                    const fechaFin = s.fecha_fin ? formatearFecha(s.fecha_fin) : 'Indefinida';
-                    const estadoClass = s.estado === 'VIGENTE' ? 'status-vigente' : 'status-vencida';
+                    <path id="textPath" d="M 50,15 A 35,35 0 1,1 49.99,15" fill="none" />
+                    <text class="seal-text" fill="${color}" font-family="Cormorant Garamond" font-size="5" font-weight="400" letter-spacing="0.3em">
+                        <textPath href="#textPath" startOffset="50%" text-anchor="middle">
+                            CONFLICT ZERO • CERTIFICADO •
+                        </textPath>
+                    </text>
                     
-                    return `
-                        <div class="sancion-item ${nivel}">
-                            <div class="sancion-icon ${nivel}">⚠</div>
-                            <div class="sancion-info">
-                                <div class="sancion-type">${s.tipo} - ${s.entidad}</div>
-                                <div class="sancion-detail">
-                                    <strong>Resolución:</strong> ${s.resolucion} <br>
-                                    <strong>Inicio:</strong> ${fechaInicio} | 
-                                    <strong>Fin:</strong> ${fechaFin} <br>
-                                    <span class="${estadoClass}">Estado: ${s.estado}</span>
-                                </div>
-                            </div>
-                            <div class="sancion-penalty">-${s.peso} pts</div>
+                    <text x="50" y="52" text-anchor="middle" class="seal-center" fill="${color}" font-family="Cormorant Garamond" font-size="20" font-weight="300" dominant-baseline="middle">
+                        ${data.level === 'gold' ? 'G' : data.level === 'silver' ? 'S' : data.level === 'bronze' ? 'B' : '✕'}
+                    </text>
+                </svg>
+            `;
+            
+            container.innerHTML = `
+                <div class="certificate">
+                    <div class="seal-container ${data.level}">
+                        ${sealSvg}
+                    </div>
+                    
+                    <span class="status-badge ${data.level}">${data.statusBadge}</span>
+                    
+                    <div class="cert-header">Empresa Certificada</div>
+                    <h1 class="company-name">${data.companyNamePartial}</h1>
+                    <div class="company-ruc">RUC: ${data.rucPartial}</div>
+                    
+                    <div class="cert-divider"></div>
+                    
+                    <div class="cert-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Fecha de Emisión</div>
+                            <div class="detail-value">${data.emissionDate}</div>
                         </div>
-                    `;
-                }).join('');
+                        <div class="detail-item">
+                            <div class="detail-label">Vigencia Hasta</div>
+                            <div class="detail-value" style="color: ${data.status === 'expired' ? '#DC3545' : 'inherit'}">${data.expirationDate}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cert-footer">
+                        <div class="verified-by">Verificado por</div>
+                        <div class="cz-brand">CONFLICT ZERO</div>
+                        <p class="social-proof">
+                            Este perfil ha sido consultado por <strong>${data.viewsThisMonth}</strong> empresas este mes
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNotFound() {
+            const container = document.getElementById('certificateContainer');
+            container.innerHTML = `
+                <div class="not-found">
+                    <h2 class="serif">Certificado No Encontrado</h2>
+                    <p>El enlace de verificación que has utilizado no corresponde a ningún certificado activo.</p>
+                    <p style="font-size: 12px; color: var(--muted); margin-top: 32px;">
+                        Si crees que esto es un error, contacta al equipo de verificación.
+                    </p>
+                </div>
+            `;
+        }
+
+        function init() {
+            const slug = getSlugFromUrl();
+            
+            // Si no hay slug o es la página base, mostrar ejemplo Gold
+            if (!slug || slug === 'verificar' || slug === 'verificar.html') {
+                renderCertificate(mockData['a3f9k2m8']);
+                return;
+            }
+            
+            // Buscar en datos de ejemplo
+            if (mockData[slug]) {
+                renderCertificate(mockData[slug]);
+            } else {
+                // Para demo, si el slug no existe, mostrar ejemplo Gold
+                // En producción, esto sería: renderNotFound();
+                renderCertificate(mockData['a3f9k2m8']);
             }
         }
-        
-        function mostrarDatosQR() {
-            const certEmpresa = document.getElementById('certEmpresa');
-            if (certEmpresa) {
-                certEmpresa.innerHTML = '<span style="color: var(--text-muted);">Datos del certificado</span>';
-            }
-            mostrarSancionesVacias();
-        }
-        
-        function mostrarSancionesVacias() {
-            const sancionesList = document.getElementById('sancionesList');
-            if (sancionesList) {
-                sancionesList.innerHTML = 
-                    '<p style="color: var(--text-muted); text-align: center; padding: 20px;">' +
-                    'No se detectaron sanciones para esta empresa.<br>' +
-                    '<strong style="color: var(--gold);">Score: ' + scoreFromUrl + '</strong>' +
-                    '</p>';
-            }
-        }
-        
-        // Formatear fecha ISO a formato legible
-        function formatearFecha(fechaStr) {
-            if (!fechaStr || fechaStr === 'N/A' || fechaStr === 'null') return 'N/A';
-            try {
-                const fecha = new Date(fechaStr);
-                if (isNaN(fecha.getTime())) return fechaStr;
-                return fecha.toLocaleDateString('es-PE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            } catch (e) {
-                return fechaStr;
-            }
-        }
+
+        init();
     </script>
-</body></html>
+</body>
+</html>
