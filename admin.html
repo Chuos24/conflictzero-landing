@@ -1116,27 +1116,8 @@
                 document.getElementById('loader').classList.remove('show');
             }
         }
-                    sunatData = mockData.sunat;
-                }
-                
-                // OSCE - por ahora mock (backend caído)
-                const osceData = await fetchOSCEReal(ruc);
-                
-                // Datos heurísticos (mock por ahora)
-                const heuristicData = {
-                    cambios_representante_6m: 0,
-                    empresas_mismo_domicilio: 1,
-                    ratio_facturacion_trabajador: 40000
-                };
-                
-                // Calculate scores
-                const scores = calculateFinalScore(sunatData, osceData, heuristicData);
-                
-                // Determine tier
-                const tier = determineTier(scores, volumen, esFounder);
-                
-                // Display result
-                displayResult({
+        
+        function getMockData(ruc) {
                     ruc,
                     company: sunatData.razonSocial || 'EMPRESA SIN NOMBRE',
                     scores,
