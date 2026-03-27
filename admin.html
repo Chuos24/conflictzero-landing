@@ -715,12 +715,15 @@
         }
         
         function login() {
-            const input = document.getElementById('passwordInput').value;
+            const input = document.getElementById('passwordInput').value.trim();
+            console.log('Intentando login con:', input);
+            console.log('Password esperado:', ADMIN_PASSWORD);
             if (input === ADMIN_PASSWORD) {
                 localStorage.setItem('cz_admin_logged', 'true');
                 showAdmin();
             } else {
                 document.getElementById('loginError').textContent = 'Contraseña incorrecta';
+                console.log('Login fallido');
             }
         }
         
