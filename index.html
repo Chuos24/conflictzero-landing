@@ -3,433 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conflict Zero - Sello de Cumplimiento para la Construcción Peruana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Programa Fundador - Conflict Zero | Sello de Cumplimiento para Constructoras</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --gold: #c9a961;
-            --gold-light: #e8d5a3;
-            --text: #f5f5f5;
-            --text-muted: #888;
-            --border: #2a2a2a;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0a0a0a; 
+            color: #f5f5f5; 
+            line-height: 1.6; 
         }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            min-height: 100vh;
-        }
-        
-        /* Header */
-        .header {
-            padding: 24px 48px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-card);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-        }
-        
-        .logo-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--gold);
-            stroke-width: 1.5;
-            fill: none;
-        }
-        
-        .logo-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: 2px;
-        }
-        
-        .logo-text span {
-            color: var(--gold);
-            font-weight: 400;
-        }
-        
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-        
-        .nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        
-        .nav a:hover {
-            color: var(--gold);
-        }
-        
-        .btn-primary {
-            padding: 12px 24px;
-            background: var(--gold);
-            border: none;
-            border-radius: 8px;
-            color: var(--bg-dark);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        
-        .btn-primary:hover {
-            background: var(--gold-light);
-        }
-        
-        /* Hero */
-        .hero {
-            padding: 120px 48px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .hero-tag {
-            color: var(--gold);
-            font-size: 12px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-        
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 64px;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 32px;
-        }
-        
-        .hero h1 span {
-            color: var(--gold);
-        }
-        
-        .hero p {
-            color: var(--text-muted);
-            font-size: 18px;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 48px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-        }
-        
-        .btn-large {
-            padding: 18px 36px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .btn-outline {
-            padding: 18px 36px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .feature {
-            padding: 64px 48px;
-            border-right: 1px solid var(--border);
-        }
-        
-        .feature:last-child {
-            border-right: none;
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 20px;
-            margin-bottom: 24px;
-        }
-        
-        .feature-tag {
-            color: var(--gold);
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        
-        .feature h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-        
-        .feature p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            padding: 80px 48px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 56px;
-            font-weight: 300;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-        
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        /* CTA */
-        .cta {
-            padding: 120px 48px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        
-        .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 40px;
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-        
-        .cta p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
-        
-        /* Footer */
-        .footer {
-            padding: 48px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 32px;
-        }
-        
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-        }
-        
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-        
-        .footer-copy {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        header { padding: 20px 0; border-bottom: 1px solid rgba(201, 169, 97, 0.2); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 40px; height: 40px; border: 2px solid #c9a961; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .logo-text { font-size: 24px; font-weight: 600; color: #f5f5f5; }
+        .logo-text span { color: #c9a961; }
+        .badge { background: #c9a961; color: #0a0a0a; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .hero { padding: 80px 0 60px; text-align: center; }
+        .hero-badge { display: inline-block; background: rgba(201, 169, 97, 0.1); border: 1px solid #c9a961; color: #c9a961; padding: 8px 20px; border-radius: 30px; font-size: 12px; font-weight: 500; text-transform: uppercase; margin-bottom: 32px; }
+        .hero h1 { font-size: 56px; font-weight: 500; line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 span { color: #c9a961; }
+        .hero-subtitle { font-size: 20px; color: #888; max-width: 700px; margin: 0 auto 40px; }
+        .hero-stats { display: flex; justify-content: center; gap: 60px; margin-top: 48px; }
+        .hero-stat { text-align: center; }
+        .hero-stat-number { font-size: 48px; color: #c9a961; font-weight: 600; }
+        .hero-stat-label { font-size: 14px; color: #888; text-transform: uppercase; }
+        .pain-section { padding: 80px 0; background: #141414; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 40px; margin-bottom: 16px; }
+        .section-header p { color: #888; font-size: 18px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .pain-card { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 169, 97, 0.2); border-radius: 12px; padding: 40px 32px; text-align: center; }
+        .pain-icon { font-size: 48px; margin-bottom: 20px; }
+        .pain-amount { font-size: 36px; color: #dc2626; margin-bottom: 8px; }
+        .pain-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .pain-desc { color: #888; font-size: 14px; }
+        .form-section { padding: 100px 0; }
+        .form-container { max-width: 600px; margin: 0 auto; background: #141414; border: 1px solid rgba(201, 169, 97, 0.3); border-radius: 20px; padding: 60px; }
+        .form-header { text-align: center; margin-bottom: 40px; }
+        .form-header h2 { font-size: 32px; margin-bottom: 12px; }
+        .spots-left { display: inline-flex; align-items: center; gap: 8px; background: rgba(220, 38, 38, 0.2); color: #dc2626; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #888; }
+        .form-group input, .form-group select { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 14px 16px; color: #f5f5f5; font-size: 16px; }
+        .btn-primary { width: 100%; background: #c9a961; color: #0a0a0a; border: none; border-radius: 8px; padding: 18px 32px; font-size: 16px; font-weight: 600; cursor: pointer; text-transform: uppercase; }
+        .btn-primary:hover { background: #a88b4a; }
+        .form-note { text-align: center; margin-top: 24px; font-size: 13px; color: #888; }
+        footer { padding: 40px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center; }
+        footer p { color: #888; font-size: 14px; }
         @media (max-width: 768px) {
-            .header {
-                padding: 16px 24px;
-            }
-            
-            .nav {
-                display: none;
-            }
-            
-            .hero {
-                padding: 80px 24px;
-            }
-            
-            .hero h1 {
-                font-size: 40px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature {
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
+            .hero h1 { font-size: 36px; }
+            .pain-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .form-container { padding: 40px 24px; }
         }
     </style>
 </head>
 <body>
-    <!-- Banner Pivote Constructoras -->
-    <div style="background: linear-gradient(90deg, #c9a961, #a88b4a); color: #0a0a0a; text-align: center; padding: 12px; font-weight: 600; font-size: 14px;">
-        🚧 <strong>NUEVA PLATAFORMA PARA CONSTRUCTORAS</strong> — Verificación Enterprise + Certificación CAPECO 
-        <a href="https://cz-founders.vercel.app" style="color: #0a0a0a; text-decoration: underline; margin-left: 8px;">Aplicar al Programa Fundador →</a>
-    </div>
-    
-    <header class="header">
-        <a href="/" class="logo">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <div class="logo-text">Conflict <span>Zero</span></div>
+                </a>
+                <span class="badge">Programa Exclusivo</span>
             </div>
-            <div class="logo-text">Conflict <span>Zero</span></div>
-        </a>
-        
-        <nav class="nav">
-            <a href="/verificar.html">Verificar Sello</a>
-            <a href="https://cz-founders.vercel.app" style="color: var(--gold);">Programa Fundador <span style="background: var(--gold); color: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 10px;">10 cupos</span></a>
-            <a href="/login.html">Acceso</a>
-            <a href="https://cz-founders.vercel.app" class="btn-primary">Aplicar Ahora</a>
-        </nav>
+        </div>
     </header>
-    
+
     <section class="hero">
-        <p class="hero-tag">El Estándar de Cumplimiento para el Sector Construcción</p>
-        <h1>El Sello de Cumplimiento<br><span>para la Construcción Peruana</span></h1>
-        <p>Verificación automática OSCE/SUNAT + Certificación legal válida para licitaciones públicas y privadas. <strong style="color: var(--gold);">43% de las sanciones son por contratar proveedores inhabilitados.</strong></p>
-        
-        <div class="hero-buttons">
-            <a href="https://cz-founders.vercel.app" class="btn-primary btn-large">Aplicar al Programa Fundador</a>
-            <a href="#riesgos" class="btn-outline">Ver el Riesgo Legal</a>
+        <div class="container">
+            <span class="hero-badge">10 Cupos Disponibles</span>
+            <h1>El Sello de Cumplimiento<br>para la <span>Construcción Peruana</span></h1>
+            <p class="hero-subtitle">
+                Estándar de verificación digital en alianza con CAPECO. Únete al Programa Fundador: 
+                3 meses de acceso Enterprise gratuito a cambio de tu feedback estratégico.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">S/ 450K</div>
+                    <div class="hero-stat-label">Multa OSCE promedio</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">3 años</div>
+                    <div class="hero-stat-label">Inhabilitación típica</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">10</div>
+                    <div class="hero-stat-label">Cupos fundadores</div>
+                </div>
+            </div>
         </div>
     </section>
-    
-    <section class="features" id="riesgos">
-        <div class="feature">
-            <div class="feature-icon" style="color: #dc3545; border-color: #dc3545;">⚠️</div>
-            <p class="feature-tag" style="color: #dc3545;">El Riesgo</p>
-            <h3>S/ 450,000</h3>
-            <p>Multa OSCE promedio por contratar empresas sancionadas en procesos públicos.</p>
-        </div>
-        
-        <div class="feature">
-            <div class="feature-icon" style="color: #ffc107; border-color: #ffc107;">🚫</div>
-            <p class="feature-tag" style="color: #ffc107;">La Inhabilitación</p>
-            <h3>3 Años</h3>
-            <p>Sin poder participar en licitaciones públicas ni privadas de gran escala.</p>
-        </div>
-        
-        <div class="feature">
-            <div class="feature-icon">✓</div>
-            <p class="feature-tag">La Solución</p>
-            <h3>Sello Conflict Zero</h3>
-            <p>Certificación válida para licitaciones. Requisito contractual cada vez más exigido.</p>
-        </div>
-    </section>
-    
-    <section class="stats">
-        <div>
-            <p class="stat-number" style="color: #dc3545;">S/ 450K</p>
-            <p class="stat-label">Multa OSCE Promedio</p>
-        </div>
-        
-        <div>
-            <p class="stat-number">3 Años</p>
-            <p class="stat-label">Inhabilitación Típica</p>
-        </div>
-        
-        <div>
-            <p class="stat-number" style="color: var(--gold);">43%</p>
-            <p class="stat-label">De Sanciones por No Verificar</p>
+
+    <section class="pain-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>El Riesgo de No Verificar</h2>
+                <p>Una sola contraparte inhabilitada puede costarte la licitación — o tu empresa</p>
+            </div>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">⚠️</div>
+                    <div class="pain-amount">S/ 450,000</div>
+                    <h3 class="pain-title">Multa OSCE</h3>
+                    <p class="pain-desc">Promedio de penalidades por contratar empresas sancionadas en procesos públicos</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🚫</div>
+                    <div class="pain-amount">3 años</div>
+                    <h3 class="pain-title">Inhabilitación</h3>
+                    <p class="pain-desc">Sin poder participar en licitaciones públicas ni privadas de gran escala</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">⚖️</div>
+                    <div class="pain-amount">Penal</div>
+                    <h3 class="pain-title">Responsabilidad Legal</h3>
+                    <p class="pain-desc">Directores pueden enfrentar investigación por omisión de debida diligencia</p>
+                </div>
+            </div>
         </div>
     </section>
-    
-    <section class="cta">
-        <h2>Programa Fundador</h2>
-        <p><strong>10 cupos exclusivos.</strong> 3 meses de acceso Enterprise gratuito.<br>Para constructoras que facturan > S/ 50M anuales.</p>
-        <a href="https://cz-founders.vercel.app" class="btn-primary btn-large">Aplicar al Programa Fundador</a>
-        
-        <p style="margin-top: 24px; font-size: 12px; color: var(--text-muted);">
-            Aliado estratégico del sector construcción peruano • Cumplimiento Ley 30225
-        </p>
-    </section>
-    
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="https://cz-founders.vercel.app">Programa Fundador</a>
-            <a href="/verificar.html">Verificar Sello</a>
-            <a href="/terminos.html">Términos</a>
-            <a href="/privacidad.html">Privacidad</a>
+
+    <section class="form-section" id="aplicar">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Aplicar al Programa Fundador</h2>
+                    <span class="spots-left">
+                        <span style="width: 8px; height: 8px; background: #dc2626; border-radius: 50%;"></span>
+                        Solo 10 cupos disponibles
+                    </span>
+                </div>
+                <form id="founderForm">
+                    <div class="form-group">
+                        <label for="companyName">Razón Social de la Empresa</label>
+                        <input type="text" id="companyName" name="companyName" required placeholder="Constructora ABC S.A.C.">
+                    </div>
+                    <div class="form-group">
+                        <label for="ruc">RUC</label>
+                        <input type="text" id="ruc" name="ruc" required pattern="[0-9]{11}" placeholder="20100123091" maxlength="11">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName">Nombre del Contacto</label>
+                        <input type="text" id="contactName" name="contactName" required placeholder="Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Corporativo</label>
+                        <input type="email" id="email" name="email" required placeholder="juan.perez@constructora.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+51 999 999 999">
+                    </div>
+                    <div class="form-group">
+                        <label for="volume">Volumen Anual de Contratación (aprox.)</label>
+                        <select id="volume" name="volume" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="10-50M">S/ 10M - 50M</option>
+                            <option value="50-200M">S/ 50M - 200M</option>
+                            <option value="200M+">S/ 200M+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subcontractors">Cantidad de Subcontratistas Activos</label>
+                        <select id="subcontractors" name="subcontractors" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="5-20">5 - 20</option>
+                            <option value="20-50">20 - 50</option>
+                            <option value="50+">50+</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Enviar Aplicación</button>
+                    <p class="form-note">
+                        Revisamos cada aplicación personalmente. Te contactaremos en 24-48 horas.
+                    </p>
+                </form>
+            </div>
         </div>
-        
-        <p class="footer-copy">
-            © 2026 Conflict Zero • Aliado Estratégico de la Construcción Peruana<br>
-            <span style="font-size: 11px; color: #666;">
-                Cumplimiento: Ley 30225 (Contrataciones del Estado) • Ley 30424 (Prevención de Corrupción)
-            </span>
-        </p>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Conflict Zero. Todos los derechos reservados. | founders@czperu.com</p>
+        </div>
     </footer>
-    </footer>
+
+    <script>
+        // CONFIGURACIÓN - Cambiar cuando PostgreSQL esté listo
+        const API_BASE_URL = 'https://czperu-api.onrender.com';
+        const USE_LOCALSTORAGE_PRIMARY = true;
+        
+        function saveToLocalStorage(data) {
+            const applications = JSON.parse(localStorage.getItem('cz_applications') || '[]');
+            const appWithId = {
+                ...data, 
+                id: 'app_' + Date.now(),
+                submitted_at: new Date().toISOString(),
+                synced: false
+            };
+            applications.push(appWithId);
+            localStorage.setItem('cz_applications', JSON.stringify(applications));
+            return appWithId;
+        }
+        
+        async function syncToAPI(data) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/v2/founder-applications/`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok || response.status === 201) {
+                    console.log('✓ Sync con API exitoso');
+                    return true;
+                }
+                return false;
+            } catch (e) {
+                console.log('✗ API no disponible, queda en localStorage');
+                return false;
+            }
+        }
+        
+        document.getElementById('founderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+            
+            const formData = {
+                ruc: document.getElementById('ruc').value,
+                company_name: document.getElementById('companyName').value,
+                contact_name: document.getElementById('contactName').value,
+                contact_email: document.getElementById('email').value,
+                contact_phone: document.getElementById('phone').value,
+                annual_volume: document.getElementById('volume').value,
+                subcontractor_count: document.getElementById('subcontractors').value
+            };
+            
+            const savedApp = saveToLocalStorage(formData);
+            console.log('✓ Guardado en localStorage:', savedApp.id);
+            
+            const apiSuccess = await syncToAPI(formData);
+            
+            if (apiSuccess) {
+                const apps = JSON.parse(localStorage.getItem('cz_applications') || '[]');
+                const idx = apps.findIndex(a => a.id === savedApp.id);
+                if (idx >= 0) {
+                    apps[idx].synced = true;
+                    localStorage.setItem('cz_applications', JSON.stringify(apps));
+                }
+            }
+            
+            alert('¡Aplicación recibida! Te contactaremos en 24-48 horas.');
+            this.reset();
+            
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
+        
+        window.CZAdmin = {
+            getApplications: () => JSON.parse(localStorage.getItem('cz_applications') || '[]'),
+            exportToJSON: () => {
+                const data = window.CZAdmin.getApplications();
+                const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'cz_applications_' + new Date().toISOString().split('T')[0] + '.json';
+                a.click();
+                return data.length + ' aplicaciones exportadas';
+            },
+            clearApplications: () => {
+                localStorage.removeItem('cz_applications');
+                return 'localStorage limpiado';
+            }
+        };
+        console.log('🔧 Admin tools disponibles: CZAdmin.getApplications(), CZAdmin.exportToJSON()');
+    </script>
 </body>
 </html>
- 
