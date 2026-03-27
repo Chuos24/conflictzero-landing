@@ -1381,6 +1381,147 @@
             }
         }
         
+        // LEGALBOT V3.0 - Display con desglose multidimensional
+        function displayLegalBotResult(data) {
+            validatedData = data;
+            
+            const resultDiv = document.getElementById('validationResult');
+            const tier = data.tier;
+            const score = data.score;
+            const legalData = data.legalData;
+            
+            const statusClass = tier.allowed ? (score >= 90 ? 'success' : (score >= 70 ? 'warning' : 'danger')) : 'danger';
+            
+            resultDiv.className = 'validation-result show ' + statusClass;
+            
+            // Desglose de sanciones V3
+            let sancionesHTML = '';
+            if (legalData.detalles && legalData.detalles.length > 0) {
+                sancionesHTML = `
+                    <div style="margin: 20px 0; padding: 16px; background: var(--black); border: 1px solid var(--stone);">
+                        <p style="font-size: 11px; color: var(--gold); font-weight: 500; margin-bottom: 12px; letter-spacing: 0.1em;">
+                            📊 DESGLOSE MULTIDIMENSIONAL (${legalData.sanciones_count} sanciones)
+                        </p>
+                        <p style="font-size: 10px; color: var(--muted); margin-bottom: 16px;">
+                            Impacto total: -${legalData.impacto_total} pts | Confianza: ${Math.round(legalData.confianza * 100)}%
+                        </p>
+                        ${legalData.detalles.map(d => `
+                            <div style="margin: 8px 0; padding: 12px; background: rgba(0,0,0,0.3); border-left: 3px solid ${d.impacto > 50 ? '#DC3545' : (d.impacto > 30 ? '#C5A059' : '#6C757D')};">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <p style="font-size: 12px; color: var(--bone); font-weight: 500;">
+                                        ${d.resolucion}
+                                    </p>
+                                    <span style="font-size: 16px; font-weight: 600; color: ${d.impacto > 50 ? '#DC3545' : (d.impacto > 30 ? '#C5A059' : '#6C757D')};">
+                                        -${d.impacto}
+                                    </span>
+                                </div>
+                                <p style="font-size: 10px; color: var(--muted); margin-bottom: 8px; line-height: 1.4;">
+                                    ${d.descripcion}
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 10px; color: var(--muted);">
+                                    <div>
+                                        <span style="color: var(--stone);">Gravedad:</span> ${d.gravedad_base}
+                                    </div>
+                                    <div>
+                                        <span style="color: var(--stone);">Entidad:</span> ${d.entidad} (${d.entidad_mult}x)
+                                    </div>
+                                    <div>
+                                        <span style="color: var(--stone);">Tiempo:</span> ${d.anios}a (${d.factor_tiempo}x)
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Mensaje de rechazo si aplica
+            let rechazoHTML = '';
+            if (!tier.allowed) {
+                rechazoHTML = `
+                    <div style="margin: 20px 0; padding: 20px; background: rgba(220, 53, 69, 0.15); border: 2px solid #DC3545; text-align: center;">
+                        <p style="font-size: 24px; margin-bottom: 8px;">⛔</p>
+                        <p style="font-size: 16px; color: #DC3545; font-weight: 600; margin-bottom: 8px;">
+                            RECHAZADO
+                        </p>
+                        <p style="font-size: 13px; color: var(--muted);">
+                            ${legalData.mensaje || 'Sanción grave vigente. No apto para certificación.'}
+                        </p>
+                    </div>
+                `;
+            }
+            
+            let restrictionsHTML = '';
+            if (tier.restrictions && tier.restrictions.length > 0) {
+                restrictionsHTML = `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(197, 160, 89, 0.1); border-left: 3px solid var(--gold);">
+                        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">RESTRICCIONES:</p>
+                        ${tier.restrictions.map(r => `<p style="font-size: 12px; color: var(--bone); margin: 4px 0;">• ${r}</p>`).join('')}
+                    </div>
+                `;
+            }
+            
+            let benefitsHTML = '';
+            if (tier.benefits && tier.benefits.length > 0) {
+                benefitsHTML = `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(45, 74, 62, 0.1); border-left: 3px solid var(--success);">
+                        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">BENEFICIOS FOUNDER:</p>
+                        ${tier.benefits.map(b => `<p style="font-size: 12px; color: var(--bone); margin: 4px 0;">• ${b}</p>`).join('')}
+                    </div>
+                `;
+            }
+            
+            resultDiv.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="score-display ${statusClass}">${score}/100</div>
+                    <span class="status-badge ${statusClass}" style="background: ${tier.color}; color: ${tier.tier === 'FOUNDER' ? '#0A0A0F' : 'var(--bone)'}">
+                        ${tier.tier} ${tier.founderNumber ? `— ${tier.founderNumber}` : ''}
+                    </span>
+                    <div style="margin-top: 12px; font-size: 18px; color: ${tier.color}; font-weight: 500;">
+                        ${tier.message}
+                    </div>
+                    <p style="font-size: 13px; color: var(--muted); margin-top: 8px;">${tier.subMessage}</p>
+                    ${legalData.tiene_definitiva ? '<p style="font-size: 12px; color: #DC3545; margin-top: 8px;">⚠️ Inhabilitación definitiva detectada</p>' : ''}
+                </div>
+                
+                ${sancionesHTML}
+                ${rechazoHTML}
+                
+                <div class="company-info">
+                    <h3>${data.company}</h3>
+                    <p>RUC: ${data.ruc}</p>
+                </div>
+                
+                ${tier.price ? `<div style="text-align: center; margin: 20px 0; padding: 16px; border: 1px solid ${tier.color};">
+                    <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">PRECIO ANUAL</p>
+                    <p style="font-size: 32px; color: ${tier.color}; font-weight: 500;">S/ ${tier.price.toLocaleString()}</p>
+                </div>` : ''}
+                
+                ${restrictionsHTML}
+                ${benefitsHTML}
+                
+                <div class="timestamp">
+                    LegalBot V3.0 | ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}
+                </div>
+            `;
+            
+            goToStep(2);
+            
+            if (tier.allowed) {
+                document.getElementById('continueSection').style.display = 'block';
+                document.getElementById('rejectionBox').classList.remove('show');
+                
+                // Pre-fill step 3
+                document.getElementById('validatedRuc').value = data.ruc;
+                document.getElementById('validatedCompany').value = data.company;
+                document.getElementById('certPlan').value = tier.tier.toLowerCase();
+                validatedData = { ...data, tier };
+            } else {
+                document.getElementById('continueSection').style.display = 'none';
+                document.getElementById('rejectionBox').classList.add('show');
+            }
+        }
+        
         function generateSlug(company) {
             const custom = document.getElementById('certSlug').value.trim();
             if (custom) return custom.toLowerCase().replace(/[^a-z0-9]/g, '-');
