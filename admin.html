@@ -1002,7 +1002,7 @@
                 // Display result
                 displayResult({
                     ruc,
-                    company: apiData.sunat.razonSocial,
+                    company: apiData.sunat.razonSocial || 'EMPRESA SIN NOMBRE',
                     scores,
                     tier,
                     sunat: apiData.sunat,
