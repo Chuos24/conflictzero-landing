@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Mobile — Conflict Zero</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A0F;
+            color: #F5F5F0;
+            padding: 16px;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #2A2A2E;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #C5A059;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .header p {
+            color: #6B6B6E;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .input-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            color: #6B6B6E;
+            font-size: 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        input, select {
+            width: 100%;
+            padding: 14px;
+            background: #141418;
+            border: 1px solid #2A2A2E;
+            color: #F5F5F0;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #C5A059;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #C5A059;
+            color: #0A0A0F;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 8px;
+            border-radius: 4px;
+        }
+        button:active {
+            background: #8B6914;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            background: #141418;
+            border: 1px solid #2A2A2E;
+            border-radius: 4px;
+            display: none;
+        }
+        .result.show { display: block; }
+        .score {
+            font-size: 48px;
+            font-weight: 300;
+            text-align: center;
+            color: #C5A059;
+        }
+        .tier {
+            text-align: center;
+            font-size: 14px;
+            color: #6B6B6E;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2A2A2E;
+            font-size: 13px;
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: #6B6B6E; }
+        .detail-value { color: #F5F5F0; }
+        .error {
+            color: #DC3545;
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .loading {
+            text-align: center;
+            color: #C5A059;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>◆ Conflict Zero</h1>
+        <p>Validación LegalBot V3.0</p>
+    </div>
+
+    <div class="input-group">
+        <label>RUC (11 dígitos)</label>
+        <input type="text" id="rucInput" maxlength="11" placeholder="20529400790" inputmode="numeric">
+    </div>
+
+    <div class="input-group">
+        <label>Volumen anual (opcional)</label>
+        <input type="number" id="volumenInput" placeholder="0" value="0">
+    </div>
+
+    <button onclick="validar()">VALIDAR RUC</button>
+
+    <div class="loading" id="loading">Validando...</div>
+    <div class="error" id="error"></div>
+
+    <div class="result" id="result">
+        <div class="score" id="scoreDisplay">--</div>
+        <div class="tier" id="tierDisplay">--</div>
+        
+        <div style="margin-top: 20px;">
+            <div class="detail-row">
+                <span class="detail-label">Resolución</span>
+                <span class="detail-value" id="resolucionDisplay">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Entidad</span>
+                <span class="detail-value" id="entidadDisplay">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Tiempo</span>
+                <span class="detail-value" id="tiempoDisplay">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Impacto</span>
+                <span class="detail-value" id="impactoDisplay">--</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #2A2A2E;">
+            <div class="detail-row">
+                <span class="detail-label">Empresa</span>
+                <span class="detail-value" id="empresaDisplay">--</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://conflict-zero-api.onrender.com/api/v1';
+
+        async function validar() {
+            const ruc = document.getElementById('rucInput').value.trim();
+            const volumen = document.getElementById('volumenInput').value || 0;
+            const errorEl = document.getElementById('error');
+            const loadingEl = document.getElementById('loading');
+            const resultEl = document.getElementById('result');
+
+            // Reset
+            errorEl.textContent = '';
+            resultEl.classList.remove('show');
+
+            // Validación básica
+            if (!ruc || ruc.length !== 11) {
+                errorEl.textContent = 'Ingresa un RUC válido de 11 dígitos';
+                return;
+            }
+
+            loadingEl.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_URL}/legal/validate/${ruc}?volumen=${volumen}`);
+                const data = await response.json();
+
+                loadingEl.style.display = 'none';
+
+                if (data.error) {
+                    errorEl.textContent = data.error;
+                    return;
+                }
+
+                // Mostrar resultados
+                document.getElementById('scoreDisplay').textContent = data.score + '/100';
+                document.getElementById('tierDisplay').textContent = data.tier;
+                document.getElementById('empresaDisplay').textContent = data.razon_social || 'No disponible';
+
+                // Detalles de la primera sanción
+                if (data.detalles && data.detalles.length > 0) {
+                    const det = data.detalles[0];
+                    document.getElementById('resolucionDisplay').textContent = det.resolucion || 'N/A';
+                    document.getElementById('entidadDisplay').textContent = det.entidad + ' (x' + det.entidad_mult + ')';
+                    document.getElementById('tiempoDisplay').textContent = det.anios + ' años';
+                    document.getElementById('impactoDisplay').textContent = '-' + det.impacto + ' pts';
+                } else {
+                    document.getElementById('resolucionDisplay').textContent = 'Ninguna';
+                    document.getElementById('entidadDisplay').textContent = '-';
+                    document.getElementById('tiempoDisplay').textContent = '-';
+                    document.getElementById('impactoDisplay').textContent = '-';
+                }
+
+                // Color según tier
+                const scoreEl = document.getElementById('scoreDisplay');
+                if (data.tier === 'RECHAZADO') scoreEl.style.color = '#DC3545';
+                else if (data.tier === 'BRONZE') scoreEl.style.color = '#CD7F32';
+                else if (data.tier === 'SILVER') scoreEl.style.color = '#A8A8A8';
+                else if (data.tier === 'GOLD' || data.tier === 'FOUNDER') scoreEl.style.color = '#C5A059';
+
+                resultEl.classList.add('show');
+
+            } catch (err) {
+                loadingEl.style.display = 'none';
+                errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+                console.error(err);
+            }
+        }
+
+        // Enter key
+        document.getElementById('rucInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validar();
+        });
+    </script>
+</body>
+</html>
