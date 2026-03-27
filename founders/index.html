@@ -107,25 +107,70 @@
         
         /* Hero */
         .hero {
-            padding: 120px 64px;
+            padding: 80px 64px 120px;
             text-align: center;
             max-width: 1000px;
             margin: 0 auto;
         }
         
+        /* Sello 3D Institucional */
+        .seal-hero {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 48px;
+            position: relative;
+        }
+        
+        .seal-hero svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 8px 32px rgba(197, 160, 89, 0.25));
+        }
+        
+        .seal-hero .seal-outer {
+            fill: url(#goldGradient);
+            stroke: var(--gold-light);
+            stroke-width: 0.5;
+        }
+        
+        .seal-hero .seal-inner {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 0.3;
+            opacity: 0.6;
+        }
+        
+        .seal-hero .seal-text {
+            fill: var(--black);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        
+        .seal-hero .seal-center {
+            fill: var(--black);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+        }
+        
         .hero-badge {
             display: inline-block;
-            font-size: 11px;
-            letter-spacing: 0.2em;
+            font-size: 10px;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--forest);
-            border-bottom: 1px solid var(--forest);
-            padding-bottom: 8px;
+            color: var(--gold);
+            border: 1px solid var(--stone);
+            padding: 12px 24px;
+            border-radius: 4px;
             margin-bottom: 48px;
+            background: rgba(197, 160, 89, 0.03);
         }
         
         .hero h1 {
-            font-size: 56px;
+            font-size: 52px;
             line-height: 1.15;
             margin-bottom: 32px;
             color: var(--bone);
@@ -137,12 +182,41 @@
         }
         
         .hero-subtitle {
-            font-size: 17px;
+            font-size: 16px;
             color: var(--muted);
-            max-width: 640px;
-            margin: 0 auto 64px;
+            max-width: 600px;
+            margin: 0 auto 48px;
             font-weight: 300;
-            line-height: 1.8;
+            line-height: 1.9;
+        }
+        
+        /* Credibilidad Institucional */
+        .hero-cred {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-bottom: 64px;
+            padding: 24px 0;
+            border-top: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+        }
+        
+        .cred-item {
+            text-align: center;
+        }
+        
+        .cred-label {
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+        
+        .cred-value {
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: var(--bone);
         }
         
         .hero-stats {
@@ -398,6 +472,42 @@
             line-height: 1.8;
         }
         
+        /* Aviso Legal - Riesgo Compliance */
+        .legal-notice {
+            background: rgba(27, 58, 47, 0.15);
+            border: 1px solid var(--forest);
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+        }
+        
+        .legal-notice-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .legal-notice-icon {
+            color: var(--forest);
+            font-size: 14px;
+        }
+        
+        .legal-notice-title {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--forest);
+            font-weight: 400;
+        }
+        
+        .legal-notice p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin: 0;
+        }
+        
         /* Success Message - Club Privado */
         .success-message {
             display: none;
@@ -532,12 +642,55 @@
     </header>
 
     <section class="hero">
+        <!-- Sello 3D Metálico -->
+        <div class="seal-hero">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#D4AF37" />
+                        <stop offset="50%" style="stop-color:#C5A059" />
+                        <stop offset="100%" style="stop-color:#8B6914" />
+                    </linearGradient>
+                    <filter id="sealShadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#C5A059" flood-opacity="0.3"/>
+                    </filter>
+                </defs>
+                <circle cx="50" cy="50" r="46" class="seal-outer" filter="url(#sealShadow)" />
+                <circle cx="50" cy="50" r="38" class="seal-inner" />
+                <circle cx="50" cy="50" r="32" class="seal-inner" />
+                <path id="textPath" d="M 50,15 A 35,35 0 1,1 49.99,15" fill="none" />
+                <text class="seal-text">
+                    <textPath href="#textPath" startOffset="50%" text-anchor="middle">
+                        CONFLICT ZERO • ESTÁNDAR INSTITUCIONAL •
+                    </textPath>
+                </text>
+                <text x="50" y="52" text-anchor="middle" class="seal-center" dominant-baseline="middle">CZ</text>
+                <path d="M50 10 L50 14 M50 86 L50 90 M10 50 L14 50 M86 50 L90 50" stroke="#8B6914" stroke-width="1" />
+            </svg>
+        </div>
+        
         <span class="hero-badge">Edición Limitada — 2026</span>
         <h1>El Estándar de <span>Verificación</span><br>para la Construcción Peruana</h1>
         <p class="hero-subtitle">
-            Certificación institucional en alianza con CAPECO. 
+            Certificación institucional desarrollada bajo estándares OSCE. 
             Protocolo de cumplimiento para constructoras con facturación superior a S/ 50M anuales.
         </p>
+        
+        <!-- Credibilidad Institucional -->
+        <div class="hero-cred">
+            <div class="cred-item">
+                <div class="cred-label">Estandar</div>
+                <div class="cred-value">OSCE / SUNAT / TCE</div>
+            </div>
+            <div class="cred-item">
+                <div class="cred-label">Alianza Sectorial</div>
+                <div class="cred-value">CAPECO</div>
+            </div>
+            <div class="cred-item">
+                <div class="cred-label">Marco Legal</div>
+                <div class="cred-value">Ley 30225</div>
+            </div>
+        </div>
         <div class="hero-stats">
             <div class="hero-stat">
                 <div class="hero-stat-number">S/ 450,000</div>
@@ -591,6 +744,18 @@
                     <span class="edition-badge">
                         Edición <span class="number">001</span> / <span class="number">010</span>
                     </span>
+                </div>
+                
+                <div class="legal-notice">
+                    <div class="legal-notice-header">
+                        <span class="legal-notice-icon">◆</span>
+                        <span class="legal-notice-title">Obligación de Debida Diligencia</span>
+                    </div>
+                    <p>
+                        Empresas con facturación > S/ 50M están sujetas a auditoría OSCE. 
+                        La Ley 30225 exige verificación de contrapartes para contratos públicos. 
+                        La omisión puede resultar en sanciones de hasta S/ 450,000 e inhabilitación de 36 meses.
+                    </p>
                 </div>
                 
                 <form id="founderForm">
