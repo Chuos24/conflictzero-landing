@@ -214,8 +214,22 @@
             loadingEl.style.display = 'block';
             resultBox.style.display = 'none';
             
+            const url = `${API_URL}/legal/validate/${ruc}?volumen=${volumen}`;
+            console.log('Fetching:', url);
+            
             try {
-                const response = await fetch(`${API_URL}/legal/validate/${ruc}?volumen=${volumen}`);
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
                 const data = await response.json();
                 
                 loadingEl.style.display = 'none';
@@ -273,7 +287,8 @@
                 
             } catch (err) {
                 loadingEl.style.display = 'none';
-                alert('Error de conexión: ' + err.message);
+                console.error('Error completo:', err);
+                alert('Error: ' + err.message + '\n\nVerifica tu conexión a internet o intenta con WiFi.');
             }
         }
         
