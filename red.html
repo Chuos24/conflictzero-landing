@@ -753,7 +753,7 @@
                     const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
                     return name.length > 18 ? name.substring(0, 18) + '...' : name;
                 })
-                .style('font-size', d => d.ruc === RUC' ? '12px' : '9px')
+                .style('font-size', d => d.ruc === RUC ? '12px' : '9px')
                 .style('fill', '#F5F5F0');
             
             simulation.on('tick', () => {
