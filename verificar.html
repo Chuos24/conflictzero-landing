@@ -255,6 +255,30 @@
             background: rgba(184, 115, 51, 0.1);
         }
         
+        .badge.GOLD {
+            border: 1px solid #C5A059;
+            color: #C5A059;
+            background: rgba(197, 160, 89, 0.1);
+        }
+        
+        .badge.SILVER {
+            border: 1px solid #8A9BA8;
+            color: #8A9BA8;
+            background: rgba(138, 155, 168, 0.1);
+        }
+        
+        .badge.BRONZE {
+            border: 1px solid #B87333;
+            color: #B87333;
+            background: rgba(184, 115, 51, 0.1);
+        }
+        
+        .badge.RECHAZADO {
+            border: 1px solid #DC2626;
+            color: #DC2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+        
         .company-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
@@ -481,30 +505,6 @@
                 status: 'active',
                 url: '/certificado-a3f9k2m8.html'
             },
-            '20100123091': {
-                level: 'gold',
-                badge: 'Verificación Empresarial',
-                company: 'Constructora A*** SAC',
-                ruc: '20100123***',
-                status: 'active',
-                url: '/certificado-a3f9k2m8.html'
-            },
-            'b7k2m9p4': {
-                level: 'silver',
-                badge: 'Verificación Profesional',
-                company: 'Ingeniería B*** SAC',
-                ruc: '20501234***',
-                status: 'active',
-                url: '/certificado-b7k2m9p4.html'
-            },
-            'c9x4n1q7': {
-                level: 'bronze',
-                badge: 'Verificación Básica',
-                company: 'Servicios C*** EIRL',
-                ruc: '20601234***',
-                status: 'active',
-                url: '/certificado-c9x4n1q7.html'
-            },
             'demo-expired': {
                 level: 'expired',
                 badge: 'Verificación Vencida',
@@ -515,8 +515,11 @@
             }
         };
         
-        function verificar() {
-            const input = document.getElementById('searchInput').value.trim().toLowerCase();
+        // API Configuration
+        const API_BASE_URL = 'https://conflict-zero-api.onrender.com';
+        
+        async function verificar() {
+            const input = document.getElementById('searchInput').value.trim();
             const container = document.getElementById('resultContainer');
             
             if (!input) {
@@ -528,24 +531,182 @@
             container.innerHTML = `
                 <div class="loading">
                     <div class="spinner"></div>
-                    <p>Consultando registro oficial...</p>
+                    <p>Consultando registros OSCE/SUNAT...</p>
                 </div>
             `;
             container.classList.add('active');
             
-            // Simular delay de consulta
-            setTimeout(() => {
-                const empresa = empresasDemo[input];
+            // Si es código de certificado demo
+            const empresaDemo = empresasDemo[input.toLowerCase()];
+            if (empresaDemo && input.length < 11) {
+                setTimeout(() => mostrarResultadoDemo(empresaDemo), 500);
+                return;
+            }
+            
+            // Consultar API real
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/v3/validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ruc: input })
+                });
                 
-                if (empresa) {
-                    mostrarResultado(empresa);
+                const data = await response.json();
+                
+                if (data.success) {
+                    mostrarResultadoAPI(data);
                 } else {
-                    mostrarNoEncontrado();
+                    mostrarNoEncontradoAPI(data);
                 }
-            }, 800);
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorConexion();
+            }
         }
         
-        function mostrarResultado(empresa) {
+        function mostrarResultadoAPI(data) {
+            const container = document.getElementById('resultContainer');
+            
+            const tierColors = {
+                'GOLD': '#C5A059',
+                'SILVER': '#8A9BA8',
+                'BRONZE': '#B87333',
+                'RECHAZADO': '#DC2626'
+            };
+            
+            const tierLetters = {
+                'GOLD': 'G',
+                'SILVER': 'S',
+                'BRONZE': 'B',
+                'RECHAZADO': '!'
+            };
+            
+            const color = tierColors[data.tier?.name] || '#C5A059';
+            const letra = tierLetters[data.tier?.name] || 'G';
+            const tierName = data.tier?.name || 'GOLD';
+            
+            // Construir lista de sanciones
+            let sancionesHTML = '';
+            if (data.sanciones_detalle && data.sanciones_detalle.length > 0) {
+                sancionesHTML = `
+                    <div style="margin-top: 24px; padding: 20px; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 8px;">
+                        <h3 style="color: #DC2626; font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.1em;">⚠️ Sanciones Detectadas</h3>
+                        ${data.sanciones_detalle.map(s => {
+                            const estadoClass = s.estado === 'VIGENTE' ? 'vigente' : 'vencida';
+                            const estadoColor = s.estado === 'VIGENTE' ? '#DC2626' : '#F59E0B';
+                            return `
+                            <div style="margin-bottom: 16px; padding: 16px; background: rgba(10,10,15,0.5); border-radius: 6px; border-left: 3px solid ${estadoColor};">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <span style="color: #8A8A85; font-size: 12px;">${s.entidad}</span>
+                                    <span style="color: ${estadoColor}; font-size: 11px; font-weight: 600; text-transform: uppercase; padding: 2px 8px; background: rgba(220,38,38,0.2); border-radius: 4px;">${s.estado}</span>
+                                </div>
+                                <div style="color: #F5F5F0; font-size: 13px; margin-bottom: 4px;">${s.tipo}</div>
+                                <div style="color: #6B6B6E; font-size: 11px;">Resolución: ${s.resolucion}</div>
+                                <div style="color: #6B6B6E; font-size: 11px;">Inicio: ${s.fecha_inicio}</div>
+                            </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            // Construir HTML de planes disponibles
+            let planesHTML = '';
+            if (data.plans) {
+                const planRecomendado = data.plans.find(p => p.recommended);
+                if (planRecomendado) {
+                    planesHTML = `
+                        <div style="margin-top: 20px; padding: 16px; background: rgba(197, 160, 89, 0.1); border: 1px solid rgba(197, 160, 89, 0.3); border-radius: 8px;">
+                            <div style="color: #C5A059; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Plan Recomendado</div>
+                            <div style="color: #F5F5F0; font-size: 18px; font-weight: 500;">${planRecomendado.name}</div>
+                            <div style="color: #8A8A85; font-size: 14px;">${planRecomendado.price_formatted} / mes</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            container.innerHTML = `
+                <div class="result-found">
+                    <div class="seal">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="${color}" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
+                            <circle cx="50" cy="50" r="32" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
+                            <path id="textPath" d="M 50,15 A 35,35 0 1,1 49.99,15" fill="none"/>
+                            <text fill="${color}" font-size="5" font-family="Cormorant Garamond" font-weight="400" letter-spacing="0.3em">
+                                <textPath href="#textPath" startOffset="50%" text-anchor="middle">CONFLICT ZERO • CERTIFICADO •</textPath>
+                            </text>
+                            <text x="50" y="52" text-anchor="middle" fill="${color}" font-family="Cormorant Garamond" font-size="20" font-weight="300" dominant-baseline="middle">${letra}</text>
+                        </svg>
+                    </div>
+                    
+                    <span class="badge ${tierName.toLowerCase()}">${data.tier?.description || 'Verificación Empresarial'}</span>
+                    
+                    <h2 class="company-name">${data.company_name}</h2>
+                    <p class="ruc">RUC: ${data.ruc}</p>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin: 20px 0;">
+                        <div style="text-align: center;">
+                            <div style="color: ${color}; font-size: 32px; font-weight: 300; font-family: 'Cormorant Garamond', serif;">${data.score}</div>
+                            <div style="color: #6B6B6E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">Score Legal</div>
+                        </div>
+                        <div style="width: 1px; height: 40px; background: #2A2A2E;"></div>
+                        <div style="text-align: center;">
+                            <div style="color: ${color}; font-size: 24px; font-weight: 500; letter-spacing: 0.1em;">${tierName}</div>
+                            <div style="color: #6B6B6E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">Tier</div>
+                        </div>
+                    </div>
+                    
+                    ${sancionesHTML}
+                    ${planesHTML}
+                    
+                    <p class="verified-by" style="margin-top: 24px;">Verificado por</p>
+                    <p class="cz-name">CONFLICT ZERO</p>
+                    
+                    ${data.can_purchase ? `
+                    <a href="/pricing.html?ruc=${data.ruc}" class="view-full-btn">Ver Planes Disponibles</a>
+                    ` : `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(220, 38, 38, 0.1); border-radius: 6px; color: #DC2626; font-size: 12px;">
+                        Score insuficiente para certificación
+                    </div>
+                    `}
+                </div>
+            `;
+        }
+        
+        function mostrarNoEncontradoAPI(data) {
+            const container = document.getElementById('resultContainer');
+            
+            container.innerHTML = `
+                <div class="result-not-found">
+                    <div class="not-found-icon">⚠️</div>
+                    <h2 class="not-found-title">${data.error === 'RUC_NOT_FOUND' ? 'RUC No Encontrado' : 'Verificación No Disponible'}</h2>
+                    <p class="not-found-text">
+                        ${data.message || 'Esta empresa no se encuentra en el registro de Conflict Zero.'}<br>
+                        <span style="color: #8A8A85; font-size: 13px; margin-top: 8px; display: block;">
+                            Fuente: ${data.fuente_datos || 'CONSULTA'}
+                        </span>
+                    </p>
+                    <a href="/founders.html" class="not-found-cta">Verificar mi empresa ahora</a>
+                </div>
+            `;
+        }
+        
+        function mostrarErrorConexion() {
+            const container = document.getElementById('resultContainer');
+            container.innerHTML = `
+                <div class="result-not-found">
+                    <div class="not-found-icon">📡</div>
+                    <h2 class="not-found-title">Error de Conexión</h2>
+                    <p class="not-found-text">
+                        No se pudo conectar con el servidor de verificación.<br>
+                        Por favor, intente nuevamente en unos momentos.
+                    </p>
+                </div>
+            `;
+        }
+        
+        function mostrarResultadoDemo(empresa) {
             const container = document.getElementById('resultContainer');
             const isExpired = empresa.status === 'expired';
             
@@ -595,22 +756,6 @@
                     <p class="cz-name">CONFLICT ZERO</p>
                     
                     <a href="${empresa.url}" class="view-full-btn">Ver Certificado Completo</a>
-                </div>
-            `;
-        }
-        
-        function mostrarNoEncontrado() {
-            const container = document.getElementById('resultContainer');
-            
-            container.innerHTML = `
-                <div class="result-not-found">
-                    <div class="not-found-icon">⚠️</div>
-                    <h2 class="not-found-title">Empresa No Verificada</h2>
-                    <p class="not-found-text">
-                        Esta empresa no se encuentra en el registro de Conflict Zero.<br>
-                        Las constructoras asociadas exigen Sello Conflict Zero vigente para sus contratistas.
-                    </p>
-                    <a href="/founders.html" class="not-found-cta">Verificar mi empresa ahora</a>
                 </div>
             `;
         }
