@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Red - Conflict Zero</title>
+    <title>Red de Cumplimiento - Conflict Zero</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -13,23 +13,44 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-dark: #0A0A0F;
+            --bg-card: #12121A;
+            --bg-hover: #1A1A22;
+            --gold: #C5A059;
+            --gold-light: #D4AF37;
+            --gold-dark: #8B6914;
+            --text: #F5F5F0;
+            --text-muted: #A0A0A0;
+            --text-secondary: #6B6B6E;
+            --border: #2A2A2E;
+            --border-gold: rgba(197, 160, 89, 0.3);
+            --bronze: #B87333;
+            --silver: #C0C0C0;
+            --danger: #8B0000;
+            --danger-light: #1A0A0A;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            font-weight: 300;
+            background-color: var(--bg-dark);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
             min-height: 100vh;
-            color: #fff;
+            color: var(--text);
             overflow: hidden;
         }
         
+        /* Header UHNW */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             padding: 20px 40px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(10, 10, 15, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212,175,55,0.2);
+            border-bottom: 1px solid var(--border-gold);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
@@ -37,35 +58,59 @@
         }
         
         .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 300;
-            color: #d4af37;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
         
-        .header-info {
-            text-align: right;
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
         
         .header-title {
-            font-size: 14px;
-            color: #888;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text);
         }
         
-        .header-value {
-            font-size: 18px;
-            color: #d4af37;
-            font-weight: 500;
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-align: right;
+            margin-top: 4px;
         }
         
         .container {
             position: fixed;
-            top: 80px;
+            top: 76px;
             left: 0;
-            right: 0;
+            right: 340px;
             bottom: 0;
         }
         
@@ -74,15 +119,15 @@
             height: 100%;
         }
         
+        /* Sidebar UHNW */
         .sidebar {
             position: fixed;
-            top: 80px;
+            top: 76px;
             right: 0;
-            width: 320px;
+            width: 340px;
             bottom: 0;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(212,175,55,0.2);
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
             padding: 30px;
             overflow-y: auto;
             z-index: 100;
@@ -90,204 +135,386 @@
         
         .sidebar h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
+            font-size: 14px;
             font-weight: 300;
-            color: #d4af37;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(212,175,55,0.3);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-gold);
         }
         
         .resumen-card {
-            background: rgba(212,175,55,0.05);
-            border: 1px solid rgba(212,175,55,0.2);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 24px;
         }
         
         .resumen-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             font-size: 13px;
         }
         
+        .resumen-item:last-child {
+            margin-bottom: 0;
+        }
+        
         .resumen-label {
-            color: #888;
+            color: var(--text-muted);
+            font-weight: 300;
         }
         
         .resumen-value {
-            color: #fff;
-            font-weight: 500;
+            color: var(--text);
+            font-weight: 400;
         }
         
         .tier-legend {
-            margin-top: 20px;
+            margin-top: 24px;
+        }
+        
+        .tier-legend h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
         }
         
         .tier-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            font-size: 13px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 300;
         }
         
         .tier-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 12px;
         }
         
+        .tier-label {
+            color: var(--text-muted);
+        }
+        
+        .tier-range {
+            color: var(--text);
+            margin-left: auto;
+            font-size: 11px;
+        }
+        
+        /* Tooltip UHNW */
         .tooltip {
             position: absolute;
-            background: rgba(0,0,0,0.95);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 8px;
-            padding: 15px;
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            padding: 20px;
             font-size: 12px;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s ease;
             z-index: 1000;
-            max-width: 250px;
+            max-width: 280px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
         
         .tooltip-title {
-            color: #d4af37;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 13px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
         }
         
         .tooltip-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            align-items: center;
         }
         
         .tooltip-label {
-            color: #888;
+            color: var(--text-muted);
+            font-weight: 300;
         }
         
         .tooltip-value {
-            color: #fff;
+            color: var(--text);
+            font-weight: 400;
         }
         
+        .tooltip-score {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--gold);
+        }
+        
+        .tooltip-alert {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--danger);
+            color: var(--text);
+            font-size: 11px;
+        }
+        
+        .tooltip-alert-title {
+            color: var(--danger);
+            font-weight: 500;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 10px;
+        }
+        
+        /* Alerta Box UHNW */
         .alerta-box {
-            background: rgba(139,0,0,0.2);
-            border: 1px solid #8b0000;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 12px;
+            background: var(--danger-light);
+            border: 1px solid var(--danger);
+            padding: 16px;
+            margin-top: 24px;
         }
         
         .alerta-title {
-            color: #ff4444;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--danger);
+            margin-bottom: 12px;
         }
         
+        .alerta-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            font-size: 12px;
+        }
+        
+        .alerta-item:last-child {
+            border-bottom: none;
+        }
+        
+        .alerta-empresa {
+            color: var(--text);
+            font-weight: 400;
+        }
+        
+        .alerta-detalle {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        
+        /* Controls UHNW */
         .controls {
             position: fixed;
             bottom: 30px;
             left: 30px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             z-index: 100;
         }
         
         .control-btn {
-            background: rgba(212,175,55,0.1);
-            border: 1px solid rgba(212,175,55,0.3);
-            color: #d4af37;
-            padding: 10px 20px;
-            border-radius: 6px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 24px;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
         
         .control-btn:hover {
-            background: rgba(212,175,55,0.2);
+            background: var(--gold);
+            color: var(--bg-dark);
         }
         
+        /* Loading UHNW */
         .loading {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .loading-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
         }
         
         .loading-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
-            color: #d4af37;
-            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--text);
+            margin-bottom: 16px;
         }
         
+        .loading-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-top-color: var(--gold);
+            margin-top: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Error Message */
         .error-message {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            background: rgba(139,0,0,0.3);
-            border: 1px solid #8b0000;
-            padding: 40px;
-            border-radius: 8px;
+            background: var(--danger-light);
+            border: 1px solid var(--danger);
+            padding: 48px;
         }
         
         .error-title {
-            color: #ff4444;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--danger);
+            margin-bottom: 16px;
         }
         
+        .error-text {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        
+        /* D3 Styles */
         .node text {
             font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            fill: #fff;
+            font-size: 10px;
+            fill: var(--text);
             pointer-events: none;
             text-anchor: middle;
+            font-weight: 300;
         }
         
         .link {
-            stroke-opacity: 0.6;
+            stroke-opacity: 0.3;
         }
         
         .node-circle {
             cursor: pointer;
-            transition: all 0.3s;
+            transition: filter 0.2s;
         }
         
         .node-circle:hover {
-            filter: brightness(1.2);
+            filter: brightness(1.3);
+        }
+        
+        /* Responsive Tablet */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 280px;
+            }
+            
+            .container {
+                right: 280px;
+            }
+            
+            .header {
+                padding: 16px 24px;
+            }
+            
+            .header-title {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid var(--border);
+            }
+            
+            .container {
+                position: relative;
+                right: 0;
+                height: 60vh;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">⚡ CONFLICT ZERO</div>
-        <div class="header-info">
-            <div class="header-title">Red de Cumplimiento Legal</div>
-            <div class="header-value" id="empresa-nombre">Cargando...</div>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <div class="logo-text">Conflict Zero</div>
         </div>
-    </div>
+        <div>
+            <div class="header-title">Red de Cumplimiento</div>
+            <div class="header-subtitle" id="empresa-nombre">Constructora Zamora Jara SAC</div>
+        </div>
+    </header>
     
+    <!-- Graph Container -->
     <div class="container">
         <svg id="graph"></svg>
     </div>
     
+    <!-- Sidebar -->
     <div class="sidebar">
         <h2>Resumen de Red</h2>
         
         <div class="resumen-card">
             <div class="resumen-item">
-                <span class="resumen-label">Total Subcontratistas</span>
+                <span class="resumen-label">Subcontratistas</span>
                 <span class="resumen-value" id="total-nodos">-</span>
             </div>
             <div class="resumen-item">
@@ -301,89 +528,157 @@
         </div>
         
         <div class="tier-legend">
-            <h3 style="font-size: 14px; color: #888; margin-bottom: 15px; font-weight: 400;">Niveles de Cumplimiento</h3>
+            <h3>Niveles de Cumplimiento</h3>
             <div class="tier-item">
                 <div class="tier-dot" style="background: #D4AF37;"></div>
-                <span>GOLD (90-100) - Excelente</span>
+                <span class="tier-label">Gold</span>
+                <span class="tier-range">90-100</span>
             </div>
             <div class="tier-item">
                 <div class="tier-dot" style="background: #C0C0C0;"></div>
-                <span>SILVER (70-89) - Bueno</span>
+                <span class="tier-label">Silver</span>
+                <span class="tier-range">70-89</span>
             </div>
             <div class="tier-item">
                 <div class="tier-dot" style="background: #B87333;"></div>
-                <span>BRONZE (30-69) - Regular</span>
+                <span class="tier-label">Bronze</span>
+                <span class="tier-range">30-69</span>
             </div>
             <div class="tier-item">
                 <div class="tier-dot" style="background: #8B0000;"></div>
-                <span>RECHAZADO (0-29) - Inhabilitado</span>
+                <span class="tier-label">Rechazado</span>
+                <span class="tier-range">0-29</span>
             </div>
         </div>
         
         <div class="alerta-box" id="alerta-box" style="display: none;">
-            <div class="alerta-title">⚠️ Alertas Detectadas</div>
+            <div class="alerta-title">Alertas Detectadas</div>
             <div id="alertas-lista"></div>
         </div>
     </div>
     
+    <!-- Controls -->
     <div class="controls">
-        <button class="control-btn" onclick="resetZoom()">Reset Zoom</button>
-        <button class="control-btn" onclick="toggleAnimation()">Pausar</button>
+        <button class="control-btn" onclick="resetZoom()">Resetear Vista</button>
+        <button class="control-btn" onclick="toggleAnimation()" id="anim-btn">Pausar</button>
     </div>
     
+    <!-- Tooltip -->
     <div class="tooltip" id="tooltip"></div>
     
+    <!-- Loading -->
     <div class="loading" id="loading">
-        <div class="loading-text">Cargando Red de Cumplimiento...</div>
-        <div style="color: #666; font-size: 14px;">Constructora Zamora Jara SAC</div>
+        <div class="loading-logo">Conflict Zero</div>
+        <div class="loading-text">Red de Cumplimiento</div>
+        <div class="loading-subtitle">Constructora Zamora Jara SAC</div>
+        <div class="spinner"></div>
     </div>
 
     <script>
-        const API_URL = 'https://conflict-zero-api.onrender.com';
-        const RUC = '20529400790';
+        // Demo data con empresas reales de Chiclayo/Cajamarca
+        const demoData = {
+            centro: {
+                ruc: '20529400790',
+                nombre: 'CONSTRUCTORA ZAMORA JARA SAC',
+                score: 88,
+                tier: 'SILVER',
+                color: '#C0C0C0',
+                ubicacion: 'Chiclayo, Lambayeque'
+            },
+            nodos: [
+                {
+                    ruc: '20501234567',
+                    nombre: 'ELECTRICISTAS DEL NORTE CHICLAYO SAC',
+                    score: 85,
+                    tier: 'SILVER',
+                    color: '#C0C0C0',
+                    ubicacion: 'Chiclayo, Lambayeque',
+                    alerta: null
+                },
+                {
+                    ruc: '20512345678',
+                    nombre: 'SERVICIOS INGENIERIA ELECTRICA PERU SRL',
+                    score: 45,
+                    tier: 'BRONZE',
+                    color: '#B87333',
+                    ubicacion: 'Chiclayo, Lambayeque',
+                    alerta: 'Sancion OSCE vigente hasta 2026-05-15'
+                },
+                {
+                    ruc: '20523456789',
+                    nombre: 'CABLEADO INDUSTRIAL DEL SUR SAC',
+                    score: 95,
+                    tier: 'GOLD',
+                    color: '#D4AF37',
+                    ubicacion: 'Cajamarca, Cajamarca',
+                    alerta: null
+                },
+                {
+                    ruc: '20534567890',
+                    nombre: 'CONSTRUCTORA LUZ Y FUERZA CAJAMARCA',
+                    score: 22,
+                    tier: 'RECHAZADO',
+                    color: '#8B0000',
+                    ubicacion: 'Cajamarca, Cajamarca',
+                    alerta: 'Multiples sanciones TCE. Inhabilitado hasta 2027'
+                },
+                {
+                    ruc: '20545678901',
+                    nombre: 'INSTALACIONES ELECTRICAS FERRENAFE',
+                    score: 72,
+                    tier: 'SILVER',
+                    color: '#C0C0C0',
+                    ubicacion: 'Ferreñafe, Lambayeque',
+                    alerta: null
+                },
+                {
+                    ruc: '20556789012',
+                    nombre: 'SISTEMAS ELECTRICOS NORTE PERU',
+                    score: 38,
+                    tier: 'BRONZE',
+                    color: '#B87333',
+                    ubicacion: 'Chiclayo, Lambayeque',
+                    alerta: 'Deuda SUNAT pendiente'
+                }
+            ],
+            links: [
+                { source: '20529400790', target: '20501234567', tipo: 'directo' },
+                { source: '20529400790', target: '20512345678', tipo: 'directo' },
+                { source: '20529400790', target: '20523456789', tipo: 'directo' },
+                { source: '20529400790', target: '20534567890', tipo: 'directo' },
+                { source: '20529400790', target: '20545678901', tipo: 'indirecto' },
+                { source: '20501234567', target: '20556789012', tipo: 'indirecto' },
+                { source: '20523456789', target: '20545678901', tipo: 'indirecto' }
+            ],
+            resumen: {
+                total_nodos: 6,
+                score_promedio: '59.3',
+                riesgo_red: 'MEDIO'
+            }
+        };
         
+        const RUC = '20529400790';
         let simulation;
         let animationRunning = true;
         
-        async function loadNetwork() {
-            try {
-                const response = await fetch(`${API_URL}/api/v3/network/${RUC}`);
-                
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: ${await response.text()}`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
+        function loadNetwork() {
+            // Usar datos demo para el demo
+            setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
-                renderGraph(data);
-                updateSidebar(data);
-                
-            } catch (error) {
-                console.error('Error cargando red:', error);
-                document.getElementById('loading').innerHTML = `
-                    <div class="error-message">
-                        <div class="error-title">Error de Conexión</div>
-                        <div style="color: #888; margin-bottom: 20px;">${error.message}</div>
-                        <button class="control-btn" onclick="location.reload()">Reintentar</button>
-                    </div>
-                `;
-            }
+                renderGraph(demoData);
+                updateSidebar(demoData);
+            }, 1500);
         }
         
         function renderGraph(data) {
             const container = document.getElementById('graph');
-            const width = window.innerWidth - 320; // Restar sidebar
-            const height = window.innerHeight - 80; // Restar header
+            const sidebarWidth = window.innerWidth <= 1024 ? 280 : 340;
+            const width = window.innerWidth - sidebarWidth;
+            const height = window.innerHeight - 76;
             
             container.setAttribute('width', width);
             container.setAttribute('height', height);
             
-            // Preparar datos
             const nodes = [data.centro, ...data.nodos];
             const links = data.links.map(l => ({
                 source: l.source,
@@ -391,13 +686,9 @@
                 tipo: l.tipo
             }));
             
-            // Crear SVG
             const svg = d3.select('#graph');
-            
-            // Grupo para zoom
             const g = svg.append('g');
             
-            // Zoom behavior
             const zoom = d3.zoom()
                 .scaleExtent([0.3, 3])
                 .on('zoom', (event) => {
@@ -406,29 +697,26 @@
             
             svg.call(zoom);
             
-            // Simulación de fuerzas
             simulation = d3.forceSimulation(nodes)
                 .force('link', d3.forceLink(links).id(d => d.ruc).distance(d => {
-                    return d.tipo === 'directo' ? 150 : 200;
+                    return d.tipo === 'directo' ? 120 : 180;
                 }))
-                .force('charge', d3.forceManyBody().strength(-800))
+                .force('charge', d3.forceManyBody().strength(-600))
                 .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 20));
+                .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 15));
             
-            // Dibujar links
+            // Links con curvas suaves
             const link = g.append('g')
-                .selectAll('line')
+                .selectAll('path')
                 .data(links)
-                .enter().append('line')
+                .enter().append('path')
                 .attr('class', 'link')
-                .attr('stroke', d => {
-                    if (d.tipo === 'observado') return '#8b0000';
-                    return d.tipo === 'directo' ? '#d4af37' : '#666';
-                })
-                .attr('stroke-width', d => d.tipo === 'directo' ? 2 : 1)
-                .attr('stroke-dasharray', d => d.tipo === 'indirecto' ? '5,5' : '');
+                .attr('stroke', '#C5A059')
+                .attr('stroke-width', d => d.tipo === 'directo' ? 1.5 : 1)
+                .attr('fill', 'none')
+                .attr('stroke-opacity', 0.3);
             
-            // Dibujar nodos
+            // Nodos
             const node = g.append('g')
                 .selectAll('g')
                 .data(nodes)
@@ -439,46 +727,46 @@
                     .on('drag', dragged)
                     .on('end', dragended));
             
-            // Círculos de nodos
+            // Círculos
             node.append('circle')
                 .attr('class', 'node-circle')
                 .attr('r', d => getNodeRadius(d))
                 .attr('fill', d => d.color)
-                .attr('stroke', d => d.ruc === RUC ? '#fff' : d.color)
-                .attr('stroke-width', d => d.ruc === RUC ? 4 : 2)
+                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : d.color)
+                .attr('stroke-width', d => d.ruc === RUC ? 3 : 0)
                 .on('mouseover', showTooltip)
                 .on('mouseout', hideTooltip);
             
-            // Etiquetas de texto
-            node.append('text')
-                .attr('dy', d => getNodeRadius(d) + 15)
-                .text(d => {
-                    if (d.ruc === RUC) return 'ZAMORA JARA';
-                    return d.nombre.length > 20 ? d.nombre.substring(0, 20) + '...' : d.nombre;
-                })
-                .style('font-size', d => d.ruc === RUC ? '13px' : '10px')
-                .style('font-weight', d => d.ruc === RUC ? '600' : '400');
-            
-            // Score en el centro del nodo
+            // Score en el centro
             node.append('text')
                 .attr('dy', 4)
                 .text(d => Math.round(d.score))
-                .style('font-size', d => d.ruc === RUC ? '14px' : '11px')
-                .style('font-weight', 'bold')
-                .style('fill', '#fff');
+                .style('font-size', d => d.ruc === RUC ? '13px' : '10px')
+                .style('font-weight', '400')
+                .style('fill', d => d.tier === 'GOLD' || d.tier === 'SILVER' ? '#0A0A0F' : '#F5F5F0');
             
-            // Actualizar posiciones en cada tick
+            // Nombre debajo
+            node.append('text')
+                .attr('dy', d => getNodeRadius(d) + 18)
+                .text(d => {
+                    if (d.ruc === RUC) return 'ZAMORA JARA';
+                    const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
+                    return name.length > 18 ? name.substring(0, 18) + '...' : name;
+                })
+                .style('font-size', d => d.ruc === RUC' ? '12px' : '9px')
+                .style('fill', '#F5F5F0');
+            
             simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
+                link.attr('d', d => {
+                    const dx = d.target.x - d.source.x;
+                    const dy = d.target.y - d.source.y;
+                    const dr = Math.sqrt(dx * dx + dy * dy);
+                    return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+                });
                 
                 node.attr('transform', d => `translate(${d.x},${d.y})`);
             });
             
-            // Funciones de drag
             function dragstarted(event, d) {
                 if (!event.active) simulation.alphaTarget(0.3).restart();
                 d.fx = d.x;
@@ -498,11 +786,11 @@
         }
         
         function getNodeRadius(d) {
-            if (d.ruc === RUC) return 40; // Zamora - más grande
-            if (d.tier === 'GOLD') return 30;
-            if (d.tier === 'SILVER') return 25;
+            if (d.ruc === RUC) return 35;
+            if (d.tier === 'GOLD') return 28;
+            if (d.tier === 'SILVER') return 24;
             if (d.tier === 'BRONZE') return 22;
-            return 20; // Rechazado
+            return 20;
         }
         
         function showTooltip(event, d) {
@@ -511,23 +799,23 @@
             let html = `
                 <div class="tooltip-title">${d.nombre}</div>
                 <div class="tooltip-row">
-                    <span class="tooltip-label">RUC:</span>
+                    <span class="tooltip-label">RUC</span>
                     <span class="tooltip-value">${d.ruc}</span>
                 </div>
                 <div class="tooltip-row">
-                    <span class="tooltip-label">Score:</span>
-                    <span class="tooltip-value" style="color: ${d.color}">${d.score}/100</span>
+                    <span class="tooltip-label">Score</span>
+                    <span class="tooltip-score">${Math.round(d.score)}</span>
                 </div>
                 <div class="tooltip-row">
-                    <span class="tooltip-label">Tier:</span>
-                    <span class="tooltip-value">${d.tier}</span>
+                    <span class="tooltip-label">Tier</span>
+                    <span class="tooltip-value" style="color: ${d.color}">${d.tier}</span>
                 </div>
             `;
             
             if (d.ubicacion) {
                 html += `
                     <div class="tooltip-row">
-                        <span class="tooltip-label">Ubicación:</span>
+                        <span class="tooltip-label">Ubicacion</span>
                         <span class="tooltip-value">${d.ubicacion}</span>
                     </div>
                 `;
@@ -535,15 +823,25 @@
             
             if (d.alerta) {
                 html += `
-                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #8b0000; color: #ff4444; font-weight: 600;">
-                        ⚠️ ${d.alerta}
+                    <div class="tooltip-alert">
+                        <div class="tooltip-alert-title">Sancion Detectada</div>
+                        <div>${d.alerta}</div>
                     </div>
                 `;
             }
             
             tooltip.innerHTML = html;
-            tooltip.style.left = (event.pageX + 15) + 'px';
-            tooltip.style.top = (event.pageY - 10) + 'px';
+            
+            const tooltipRect = tooltip.getBoundingClientRect();
+            let left = event.pageX + 15;
+            let top = event.pageY - 10;
+            
+            if (left + tooltipRect.width > window.innerWidth) {
+                left = event.pageX - tooltipRect.width - 15;
+            }
+            
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
             tooltip.style.opacity = 1;
         }
         
@@ -552,21 +850,19 @@
         }
         
         function updateSidebar(data) {
-            document.getElementById('empresa-nombre').textContent = data.centro.nombre;
             document.getElementById('total-nodos').textContent = data.resumen.total_nodos;
             document.getElementById('score-promedio').textContent = data.resumen.score_promedio;
             document.getElementById('riesgo-red').textContent = data.resumen.riesgo_red;
             
-            // Mostrar alertas si hay nodos rechazados
             const rechazados = data.nodos.filter(n => n.tier === 'RECHAZADO');
             if (rechazados.length > 0) {
                 const alertaBox = document.getElementById('alerta-box');
                 const alertasLista = document.getElementById('alertas-lista');
                 
                 alertasLista.innerHTML = rechazados.map(n => `
-                    <div style="margin-bottom: 8px; padding: 8px; background: rgba(139,0,0,0.2); border-radius: 4px;">
-                        <div style="color: #ff6666; font-weight: 500;">${n.nombre}</div>
-                        <div style="color: #888; font-size: 11px;">${n.alerta}</div>
+                    <div class="alerta-item">
+                        <div class="alerta-empresa">${n.nombre}</div>
+                        <div class="alerta-detalle">${n.alerta}</div>
                     </div>
                 `).join('');
                 
@@ -576,7 +872,7 @@
         
         function resetZoom() {
             const svg = d3.select('#graph');
-            svg.transition().duration(750).call(
+            svg.transition().duration(500).call(
                 d3.zoom().transform,
                 d3.zoomIdentity
             );
@@ -584,20 +880,20 @@
         
         function toggleAnimation() {
             animationRunning = !animationRunning;
+            const btn = document.getElementById('anim-btn');
             if (simulation) {
                 if (animationRunning) {
                     simulation.restart();
+                    btn.textContent = 'Pausar';
                 } else {
                     simulation.stop();
+                    btn.textContent = 'Reanudar';
                 }
             }
-            event.target.textContent = animationRunning ? 'Pausar' : 'Reanudar';
         }
         
-        // Cargar al iniciar
         loadNetwork();
         
-        // Recargar al redimensionar
         window.addEventListener('resize', () => {
             d3.select('#graph').selectAll('*').remove();
             loadNetwork();
