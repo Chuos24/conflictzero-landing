@@ -859,9 +859,11 @@
             // Score en el centro con font elegante
             node.append('text')
                 .attr('class', 'node-score')
-                .attr('dy', 5)
+                .attr('text-anchor', 'middle')
+                .attr('dy', '0.35em')
                 .text(d => Math.round(d.score))
-                .style('font-size', d => d.ruc === RUC ? '18px' : '14px')
+                .style('font-size', d => d.ruc === RUC ? '16px' : '13px')
+                .style('font-weight', '500')
                 .style('fill', d => {
                     if (d.tier === 'GOLD' || d.tier === 'SILVER') return '#0A0A0F';
                     return '#F5F5F0';
@@ -870,18 +872,21 @@
             // Nombre debajo con sombra de texto
             node.append('text')
                 .attr('class', 'node-label')
-                .attr('dy', d => getNodeRadius(d) + 22)
+                .attr('text-anchor', 'middle')
+                .attr('dy', d => getNodeRadius(d) + 20)
                 .text(d => {
                     if (d.ruc === RUC) return 'ZAMORA JARA';
                     const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
                     return name.length > 20 ? name.substring(0, 20) + '...' : name;
                 })
                 .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
-                .style('letter-spacing', '0.05em');
+                .style('letter-spacing', '0.05em')
+                .style('fill', '#F5F5F0');
             
             // Tier badge pequeño
             node.append('text')
-                .attr('dy', d => getNodeRadius(d) + 36)
+                .attr('text-anchor', 'middle')
+                .attr('dy', d => getNodeRadius(d) + 34)
                 .text(d => d.tier)
                 .style('font-size', '8px')
                 .style('fill', d => d.color)
