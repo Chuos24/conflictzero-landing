@@ -364,21 +364,27 @@
             msg.className = 'message';
             
             try {
-                // Send to backend API - NUEVO ENDPOINT register-web
-                const response = await fetch('https://conflict-zero-api.onrender.com/api/v1/auth/register-web', {
+                // Send to backend API - ENDPOINT register
+                const response = await fetch('https://conflict-zero-api.onrender.com/api/v3/auth/register?plan=' + data.plan, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({
+                        email: data.email,
+                        password: 'temp_' + Math.random().toString(36).substring(2, 10),
+                        full_name: data.firstName + ' ' + data.lastName,
+                        company_name: data.company,
+                        ruc: 'PENDING'
+                    })
                 });
                 
                 const result = await response.json();
                 
-                if (response.ok && result.success) {
+                if (response.ok && result.id) {
                     msg.className = 'message success';
                     msg.textContent = 'Solicitud enviada exitosamente. Revisa tu correo para recibir tus credenciales de acceso.';
                     document.getElementById('registerForm').reset();
                 } else {
-                    throw new Error(result.message || 'Error en el servidor');
+                    throw new Error(result.detail || result.message || 'Error en el servidor');
                 }
             } catch (error) {
                 // Mostrar error real
