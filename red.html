@@ -7,50 +7,32 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --bg-dark: #0A0A0F;
             --bg-card: #12121A;
-            --bg-hover: #1A1A22;
             --gold: #C5A059;
             --gold-light: #D4AF37;
-            --gold-dark: #8B6914;
             --text: #F5F5F0;
             --text-muted: #A0A0A0;
-            --text-secondary: #6B6B6E;
             --border: #2A2A2E;
-            --border-gold: rgba(197, 160, 89, 0.3);
-            --bronze: #B87333;
-            --silver: #C0C0C0;
-            --danger: #8B0000;
-            --danger-light: #1A0A0A;
         }
         
         body {
             font-family: 'Inter', sans-serif;
             font-weight: 300;
-            background-color: var(--bg-dark);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-            min-height: 100vh;
+            background: var(--bg-dark);
             color: var(--text);
             overflow: hidden;
         }
         
-        /* Header UHNW */
         .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             padding: 20px 40px;
             background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-gold);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
@@ -64,8 +46,7 @@
         }
         
         .logo-icon {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border: 1px solid var(--gold);
             display: flex;
             align-items: center;
@@ -73,8 +54,7 @@
         }
         
         .logo-icon svg {
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             stroke: var(--gold);
             stroke-width: 1.5;
             fill: none;
@@ -83,7 +63,6 @@
         .logo-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 11px;
-            font-weight: 400;
             letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--gold);
@@ -95,54 +74,34 @@
             font-weight: 300;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--text);
-        }
-        
-        .header-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            text-align: right;
-            margin-top: 4px;
         }
         
         .container {
             position: fixed;
-            top: 76px;
-            left: 0;
-            right: 340px;
-            bottom: 0;
+            top: 76px; left: 0; right: 340px; bottom: 0;
         }
         
-        #graph {
-            width: 100%;
-            height: 100%;
-        }
+        #graph { width: 100%; height: 100%; }
         
-        /* Sidebar UHNW */
         .sidebar {
             position: fixed;
-            top: 76px;
-            right: 0;
-            width: 340px;
-            bottom: 0;
+            top: 76px; right: 0;
+            width: 340px; bottom: 0;
             background: var(--bg-card);
             border-left: 1px solid var(--border);
             padding: 30px;
             overflow-y: auto;
-            z-index: 100;
         }
         
         .sidebar h2 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 14px;
-            font-weight: 300;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 24px;
             padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-gold);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
         }
         
         .resumen-card {
@@ -159,28 +118,12 @@
             font-size: 13px;
         }
         
-        .resumen-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .resumen-label {
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-        
-        .resumen-value {
-            color: var(--text);
-            font-weight: 400;
-        }
-        
-        .tier-legend {
-            margin-top: 24px;
-        }
+        .resumen-label { color: var(--text-muted); }
+        .resumen-value { color: var(--text); }
         
         .tier-legend h3 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 12px;
-            font-weight: 300;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-muted);
@@ -192,137 +135,17 @@
             align-items: center;
             margin-bottom: 12px;
             font-size: 12px;
-            font-weight: 300;
         }
         
         .tier-dot {
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             margin-right: 12px;
         }
         
-        .tier-label {
-            color: var(--text-muted);
-        }
-        
-        .tier-range {
-            color: var(--text);
-            margin-left: auto;
-            font-size: 11px;
-        }
-        
-        /* Tooltip UHNW */
-        .tooltip {
-            position: absolute;
-            background: var(--bg-card);
-            border: 1px solid var(--gold);
-            padding: 20px;
-            font-size: 12px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 1000;
-            max-width: 280px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .tooltip-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            color: var(--gold);
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .tooltip-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            align-items: center;
-        }
-        
-        .tooltip-label {
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-        
-        .tooltip-value {
-            color: var(--text);
-            font-weight: 400;
-        }
-        
-        .tooltip-score {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 300;
-            color: var(--gold);
-        }
-        
-        .tooltip-alert {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--danger);
-            color: var(--text);
-            font-size: 11px;
-        }
-        
-        .tooltip-alert-title {
-            color: var(--danger);
-            font-weight: 500;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 10px;
-        }
-        
-        /* Alerta Box UHNW */
-        .alerta-box {
-            background: var(--danger-light);
-            border: 1px solid var(--danger);
-            padding: 16px;
-            margin-top: 24px;
-        }
-        
-        .alerta-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 12px;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--danger);
-            margin-bottom: 12px;
-        }
-        
-        .alerta-item {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
-            font-size: 12px;
-        }
-        
-        .alerta-item:last-child {
-            border-bottom: none;
-        }
-        
-        .alerta-empresa {
-            color: var(--text);
-            font-weight: 400;
-        }
-        
-        .alerta-detalle {
-            color: var(--text-muted);
-            font-size: 11px;
-            margin-top: 4px;
-        }
-        
-        /* Controls UHNW */
         .controls {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 30px; left: 30px;
             display: flex;
             gap: 12px;
             z-index: 100;
@@ -334,12 +157,10 @@
             color: var(--gold);
             padding: 12px 24px;
             font-size: 11px;
-            font-weight: 400;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
         
         .control-btn:hover {
@@ -347,13 +168,42 @@
             color: var(--bg-dark);
         }
         
-        /* Loading UHNW */
+        .tooltip {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            padding: 20px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 1000;
+            max-width: 280px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tooltip-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .tooltip-label { color: var(--text-muted); }
+        .tooltip-value { color: var(--text); }
+        .tooltip-score { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold); }
+        
         .loading {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: var(--bg-dark);
             display: flex;
             flex-direction: column;
@@ -365,7 +215,6 @@
         .loading-logo {
             font-family: 'Cormorant Garamond', serif;
             font-size: 11px;
-            font-weight: 400;
             letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--gold);
@@ -375,568 +224,92 @@
         .loading-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 0.05em;
             color: var(--text);
             margin-bottom: 16px;
         }
         
-        .loading-subtitle {
-            color: var(--text-muted);
-            font-size: 13px;
-            letter-spacing: 0.05em;
-        }
-        
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border: 1px solid var(--border);
             border-top-color: var(--gold);
             margin-top: 40px;
             animation: spin 1s linear infinite;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Error Message */
-        .error-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            background: var(--danger-light);
-            border: 1px solid var(--danger);
-            padding: 48px;
-        }
-        
-        .error-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--danger);
-            margin-bottom: 16px;
-        }
-        
-        .error-text {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
-        
-        /* D3 Styles - ELEGANTE */
-        .node {
-            cursor: pointer;
-        }
-        
-        .node-circle {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
-        }
-        
-        .node-circle:hover {
-            filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.6)) 
-                    drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
-            transform-origin: center;
-        }
-        
-        /* Glassmorphism effect for nodes */
-        .node-glass {
-            fill: url(#glassGradient);
-            stroke: rgba(197, 160, 89, 0.4);
-            stroke-width: 1;
-        }
-        
-        /* Pulse animation for center node */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.1; }
-        }
-        
-        .pulse-ring {
-            animation: pulse 3s ease-in-out infinite;
-            transform-origin: center;
-        }
-        
-        .link {
-            stroke-opacity: 0.2;
-            stroke-linecap: round;
-            transition: stroke-opacity 0.3s;
-        }
-        
-        .link:hover {
-            stroke-opacity: 0.5;
-        }
-        
-        .node-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            fill: var(--text);
-            pointer-events: none;
-            text-anchor: middle;
-            font-weight: 300;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .node-score {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            pointer-events: none;
-            text-anchor: middle;
-        }
-        
-        /* Responsive Tablet */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 280px;
-            }
-            
-            .container {
-                right: 280px;
-            }
-            
-            .header {
-                padding: 16px 24px;
-            }
-            
-            .header-title {
-                font-size: 16px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .sidebar {
-                position: relative;
-                width: 100%;
-                border-left: none;
-                border-top: 1px solid var(--border);
-            }
-            
-            .container {
-                position: relative;
-                right: 0;
-                height: 60vh;
-            }
-        }
+        /* Node styles */
+        .node-circle { cursor: pointer; }
+        .node-score { font-family: 'Inter', sans-serif; font-weight: 600; }
+        .node-label { font-family: 'Inter', sans-serif; font-weight: 300; }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="logo">
             <div class="logo-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div class="logo-text">Conflict Zero</div>
         </div>
-        <div>
-            <div class="header-title">Red de Cumplimiento</div>
-            <div class="header-subtitle" id="empresa-nombre">Constructora Zamora Jara SAC</div>
-        </div>
+        <div class="header-title">Red de Cumplimiento</div>
     </header>
     
-    <!-- Graph Container -->
-    <div class="container">
-        <svg id="graph"></svg>
-    </div>
+    <div class="container"><svg id="graph"></svg></div>
     
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>Resumen de Red</h2>
-        
         <div class="resumen-card">
-            <div class="resumen-item">
-                <span class="resumen-label">Subcontratistas</span>
-                <span class="resumen-value" id="total-nodos">-</span>
-            </div>
-            <div class="resumen-item">
-                <span class="resumen-label">Score Promedio</span>
-                <span class="resumen-value" id="score-promedio">-</span>
-            </div>
-            <div class="resumen-item">
-                <span class="resumen-label">Riesgo de Red</span>
-                <span class="resumen-value" id="riesgo-red">-</span>
-            </div>
+            <div class="resumen-item"><span class="resumen-label">Subcontratistas</span><span class="resumen-value" id="total-nodos">6</span></div>
+            <div class="resumen-item"><span class="resumen-label">Score Promedio</span><span class="resumen-value" id="score-promedio">59.3</span></div>
+            <div class="resumen-item"><span class="resumen-label">Riesgo</span><span class="resumen-value" id="riesgo-red">MEDIO</span></div>
         </div>
         
         <div class="tier-legend">
-            <h3>Niveles de Cumplimiento</h3>
-            <div class="tier-item">
-                <div class="tier-dot" style="background: #D4AF37;"></div>
-                <span class="tier-label">Gold</span>
-                <span class="tier-range">90-100</span>
-            </div>
-            <div class="tier-item">
-                <div class="tier-dot" style="background: #C0C0C0;"></div>
-                <span class="tier-label">Silver</span>
-                <span class="tier-range">70-89</span>
-            </div>
-            <div class="tier-item">
-                <div class="tier-dot" style="background: #B87333;"></div>
-                <span class="tier-label">Bronze</span>
-                <span class="tier-range">30-69</span>
-            </div>
-            <div class="tier-item">
-                <div class="tier-dot" style="background: #8B0000;"></div>
-                <span class="tier-label">Rechazado</span>
-                <span class="tier-range">0-29</span>
-            </div>
-        </div>
-        
-        <div class="alerta-box" id="alerta-box" style="display: none;">
-            <div class="alerta-title">Alertas Detectadas</div>
-            <div id="alertas-lista"></div>
+            <h3>Niveles</h3>
+            <div class="tier-item"><div class="tier-dot" style="background: #D4AF37;"></div><span>Gold (90-100)</span></div>
+            <div class="tier-item"><div class="tier-dot" style="background: #C0C0C0;"></div><span>Silver (70-89)</span></div>
+            <div class="tier-item"><div class="tier-dot" style="background: #B87333;"></div><span>Bronze (30-69)</span></div>
+            <div class="tier-item"><div class="tier-dot" style="background: #8B0000;"></div><span>Rechazado (0-29)</span></div>
         </div>
     </div>
     
-    <!-- Controls -->
     <div class="controls">
-        <button class="control-btn" onclick="resetZoom()">Resetear Vista</button>
-        <button class="control-btn" onclick="toggleAnimation()" id="anim-btn">Pausar</button>
+        <button class="control-btn" onclick="resetZoom()">Resetear</button>
+        <button class="control-btn" onclick="toggleAnimation()">Pausar</button>
     </div>
     
-    <!-- Tooltip -->
     <div class="tooltip" id="tooltip"></div>
     
-    <!-- Loading -->
     <div class="loading" id="loading">
         <div class="loading-logo">Conflict Zero</div>
         <div class="loading-text">Red de Cumplimiento</div>
-        <div class="loading-subtitle">Constructora Zamora Jara SAC</div>
         <div class="spinner"></div>
     </div>
 
     <script>
-        // Demo data con empresas reales de Chiclayo/Cajamarca
         const demoData = {
-            centro: {
-                ruc: '20529400790',
-                nombre: 'CONSTRUCTORA ZAMORA JARA SAC',
-                score: 88,
-                tier: 'SILVER',
-                color: '#C0C0C0',
-                ubicacion: 'Chiclayo, Lambayeque'
-            },
+            centro: { ruc: '20529400790', nombre: 'ZAMORA JARA', score: 88, tier: 'SILVER', color: '#C0C0C0' },
             nodos: [
-                {
-                    ruc: '20501234567',
-                    nombre: 'ELECTRICISTAS DEL NORTE CHICLAYO SAC',
-                    score: 85,
-                    tier: 'SILVER',
-                    color: '#C0C0C0',
-                    ubicacion: 'Chiclayo, Lambayeque',
-                    alerta: null
-                },
-                {
-                    ruc: '20512345678',
-                    nombre: 'SERVICIOS INGENIERIA ELECTRICA PERU SRL',
-                    score: 45,
-                    tier: 'BRONZE',
-                    color: '#B87333',
-                    ubicacion: 'Chiclayo, Lambayeque',
-                    alerta: 'Sancion OSCE vigente hasta 2026-05-15'
-                },
-                {
-                    ruc: '20523456789',
-                    nombre: 'CABLEADO INDUSTRIAL DEL SUR SAC',
-                    score: 95,
-                    tier: 'GOLD',
-                    color: '#D4AF37',
-                    ubicacion: 'Cajamarca, Cajamarca',
-                    alerta: null
-                },
-                {
-                    ruc: '20534567890',
-                    nombre: 'CONSTRUCTORA LUZ Y FUERZA CAJAMARCA',
-                    score: 22,
-                    tier: 'RECHAZADO',
-                    color: '#8B0000',
-                    ubicacion: 'Cajamarca, Cajamarca',
-                    alerta: 'Multiples sanciones TCE. Inhabilitado hasta 2027'
-                },
-                {
-                    ruc: '20545678901',
-                    nombre: 'INSTALACIONES ELECTRICAS FERRENAFE',
-                    score: 72,
-                    tier: 'SILVER',
-                    color: '#C0C0C0',
-                    ubicacion: 'Ferreñafe, Lambayeque',
-                    alerta: null
-                },
-                {
-                    ruc: '20556789012',
-                    nombre: 'SISTEMAS ELECTRICOS NORTE PERU',
-                    score: 38,
-                    tier: 'BRONZE',
-                    color: '#B87333',
-                    ubicacion: 'Chiclayo, Lambayeque',
-                    alerta: 'Deuda SUNAT pendiente'
-                }
+                { ruc: '20501234567', nombre: 'ELECTRICISTAS DEL NORTE', score: 85, tier: 'SILVER', color: '#C0C0C0' },
+                { ruc: '20512345678', nombre: 'INGENIERIA ELECTRICA PERU', score: 45, tier: 'BRONZE', color: '#B87333' },
+                { ruc: '20523456789', nombre: 'CABLEADO INDUSTRIAL SUR', score: 95, tier: 'GOLD', color: '#D4AF37' },
+                { ruc: '20534567890', nombre: 'LUZ Y FUERZA CAJAMARCA', score: 22, tier: 'RECHAZADO', color: '#8B0000' },
+                { ruc: '20545678901', nombre: 'INSTALACIONES FERRENAFE', score: 72, tier: 'SILVER', color: '#C0C0C0' },
+                { ruc: '20556789012', nombre: 'SISTEMAS ELECTRICOS NORTE', score: 38, tier: 'BRONZE', color: '#B87333' }
             ],
             links: [
-                { source: '20529400790', target: '20501234567', tipo: 'directo' },
-                { source: '20529400790', target: '20512345678', tipo: 'directo' },
-                { source: '20529400790', target: '20523456789', tipo: 'directo' },
-                { source: '20529400790', target: '20534567890', tipo: 'directo' },
-                { source: '20529400790', target: '20545678901', tipo: 'indirecto' },
-                { source: '20501234567', target: '20556789012', tipo: 'indirecto' },
-                { source: '20523456789', target: '20545678901', tipo: 'indirecto' }
-            ],
-            resumen: {
-                total_nodos: 6,
-                score_promedio: '59.3',
-                riesgo_red: 'MEDIO'
-            }
+                { source: '20529400790', target: '20501234567' },
+                { source: '20529400790', target: '20512345678' },
+                { source: '20529400790', target: '20523456789' },
+                { source: '20529400790', target: '20534567890' },
+                { source: '20529400790', target: '20545678901' },
+                { source: '20501234567', target: '20556789012' }
+            ]
         };
         
         const RUC = '20529400790';
         let simulation;
-        let animationRunning = true;
-        
-        function loadNetwork() {
-            // Usar datos demo para el demo
-            setTimeout(() => {
-                document.getElementById('loading').style.display = 'none';
-                renderGraph(demoData);
-                updateSidebar(demoData);
-            }, 1500);
-        }
-        
-        function renderGraph(data) {
-            const container = document.getElementById('graph');
-            const sidebarWidth = window.innerWidth <= 1024 ? 280 : 340;
-            const width = window.innerWidth - sidebarWidth;
-            const height = window.innerHeight - 76;
-            
-            container.setAttribute('width', width);
-            container.setAttribute('height', height);
-            
-            const nodes = [data.centro, ...data.nodos];
-            const links = data.links.map(l => ({
-                source: l.source,
-                target: l.target,
-                tipo: l.tipo
-            }));
-            
-            const svg = d3.select('#graph');
-            const g = svg.append('g');
-            
-            const zoom = d3.zoom()
-                .scaleExtent([0.3, 3])
-                .on('zoom', (event) => {
-                    g.attr('transform', event.transform);
-                });
-            
-            svg.call(zoom);
-            
-            simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.ruc).distance(d => {
-                    return d.tipo === 'directo' ? 120 : 180;
-                }))
-                .force('charge', d3.forceManyBody().strength(-600))
-                .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 15));
-            
-            // Definir gradientes para cada tier
-            const defs = svg.append('defs');
-            
-            // Gradientes metálicos
-            const gradients = {
-                GOLD: defs.append('radialGradient').attr('id', 'gradGold').attr('cx', '30%').attr('cy', '30%'),
-                SILVER: defs.append('radialGradient').attr('id', 'gradSilver').attr('cx', '30%').attr('cy', '30%'),
-                BRONZE: defs.append('radialGradient').attr('id', 'gradBronze').attr('cx', '30%').attr('cy', '30%'),
-                RECHAZADO: defs.append('radialGradient').attr('id', 'gradRechazado').attr('cx', '30%').attr('cy', '30%'),
-                CENTRO: defs.append('radialGradient').attr('id', 'gradCentro').attr('cx', '30%').attr('cy', '30%')
-            };
-            
-            // Gold gradient
-            gradients.GOLD.append('stop').attr('offset', '0%').attr('stop-color', '#F4E8C1');
-            gradients.GOLD.append('stop').attr('offset', '50%').attr('stop-color', '#D4AF37');
-            gradients.GOLD.append('stop').attr('offset', '100%').attr('stop-color', '#8B6914');
-            
-            // Silver gradient
-            gradients.SILVER.append('stop').attr('offset', '0%').attr('stop-color', '#FFFFFF');
-            gradients.SILVER.append('stop').attr('offset', '50%').attr('stop-color', '#C0C0C0');
-            gradients.SILVER.append('stop').attr('offset', '100%').attr('stop-color', '#707070');
-            
-            // Bronze gradient
-            gradients.BRONZE.append('stop').attr('offset', '0%').attr('stop-color', '#E8B896');
-            gradients.BRONZE.append('stop').attr('offset', '50%').attr('stop-color', '#B87333');
-            gradients.BRONZE.append('stop').attr('offset', '100%').attr('stop-color', '#6B4423');
-            
-            // Rechazado gradient
-            gradients.RECHAZADO.append('stop').attr('offset', '0%').attr('stop-color', '#CC4444');
-            gradients.RECHAZADO.append('stop').attr('offset', '50%').attr('stop-color', '#8B0000');
-            gradients.RECHAZADO.append('stop').attr('offset', '100%').attr('stop-color', '#4A0000');
-            
-            // Centro gradient (special gold)
-            gradients.CENTRO.append('stop').attr('offset', '0%').attr('stop-color', '#FFF8DC');
-            gradients.CENTRO.append('stop').attr('offset', '40%').attr('stop-color', '#D4AF37');
-            gradients.CENTRO.append('stop').attr('offset', '100%').attr('stop-color', '#8B6914');
-            
-            // Glow filter
-            const filter = defs.append('filter').attr('id', 'glow');
-            filter.append('feGaussianBlur').attr('stdDeviation', '4').attr('result', 'coloredBlur');
-            const feMerge = filter.append('feMerge');
-            feMerge.append('feMergeNode').attr('in', 'coloredBlur');
-            feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
-            
-            // Links con curvas suaves tipo "seda"
-            const link = g.append('g')
-                .attr('class', 'links')
-                .selectAll('path')
-                .data(links)
-                .enter().append('path')
-                .attr('class', 'link')
-                .attr('stroke', d => d.tipo === 'directo' ? 'url(#gradGold)' : '#C5A059')
-                .attr('stroke-width', d => d.tipo === 'directo' ? 2 : 1)
-                .attr('fill', 'none')
-                .attr('stroke-opacity', 0.25);
-            
-            // Nodos
-            const node = g.append('g')
-                .attr('class', 'nodes')
-                .selectAll('g')
-                .data(nodes)
-                .enter().append('g')
-                .attr('class', 'node')
-                .call(d3.drag()
-                    .on('start', dragstarted)
-                    .on('drag', dragged)
-                    .on('end', dragended));
-            
-            // Anillos de pulso para el nodo central
-            const centerNode = nodes.find(n => n.ruc === RUC);
-            if (centerNode) {
-                const pulseGroup = g.append('g').attr('class', 'pulse-group');
-                
-                for (let i = 0; i < 3; i++) {
-                    pulseGroup.append('circle')
-                        .attr('class', 'pulse-ring')
-                        .attr('r', 35 + (i * 15))
-                        .attr('cx', 0)
-                        .attr('cy', 0)
-                        .attr('fill', 'none')
-                        .attr('stroke', '#C5A059')
-                        .attr('stroke-width', 1)
-                        .attr('stroke-opacity', 0.3 - (i * 0.1))
-                        .style('animation-delay', `${i * 1}s`);
-                }
-            }
-            
-            // GRUPO: Primero los círculos, luego los textos encima
-            
-            // 1. Círculos principales con gradientes
-            node.append('circle')
-                .attr('class', 'node-circle')
-                .attr('r', d => getNodeRadius(d))
-                .attr('fill', d => {
-                    if (d.ruc === RUC) return 'url(#gradCentro)';
-                    return `url(#grad${d.tier})`;
-                })
-                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : 'rgba(197, 160, 89, 0.5)')
-                .attr('stroke-width', d => d.ruc === RUC ? 2 : 1)
-                .style('filter', d => d.ruc === RUC ? 'url(#glow)' : null)
-                .on('mouseover', function(event, d) {
-                    d3.select(this)
-                        .transition().duration(300)
-                        .attr('r', getNodeRadius(d) * 1.15)
-                        .style('filter', 'url(#glow)');
-                    showTooltip(event, d);
-                })
-                .on('mouseout', function(event, d) {
-                    d3.select(this)
-                        .transition().duration(300)
-                        .attr('r', getNodeRadius(d))
-                        .style('filter', d.ruc === RUC ? 'url(#glow)' : null);
-                    hideTooltip();
-                });
-            
-            // 2. Score en el centro (encima del círculo)
-            node.append('text')
-                .attr('class', 'node-score')
-                .attr('text-anchor', 'middle')
-                .attr('dominant-baseline', 'central')
-                .text(d => Math.round(d.score))
-                .style('font-family', 'Inter, sans-serif')
-                .style('font-size', d => d.ruc === RUC ? '16px' : '13px')
-                .style('font-weight', '600')
-                .style('fill', d => {
-                    if (d.tier === 'GOLD' || d.tier === 'SILVER') return '#0A0A0F';
-                    return '#F5F5F0';
-                })
-                .style('pointer-events', 'none');
-            
-            // 3. Nombre debajo
-            node.append('text')
-                .attr('class', 'node-label')
-                .attr('text-anchor', 'middle')
-                .attr('dy', d => getNodeRadius(d) + 18)
-                .text(d => {
-                    if (d.ruc === RUC) return 'ZAMORA JARA';
-                    const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
-                    return name.length > 20 ? name.substring(0, 20) + '...' : name;
-                })
-                .style('font-family', 'Inter, sans-serif')
-                .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
-                .style('letter-spacing', '0.05em')
-                .style('fill', '#F5F5F0')
-                .style('pointer-events', 'none');
-            
-            // 4. Tier badge
-            node.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('dy', d => getNodeRadius(d) + 32)
-                .text(d => d.tier)
-                .style('font-family', 'Inter, sans-serif')
-                .style('font-size', '8px')
-                .style('font-weight', '500')
-                .style('fill', d => d.color)
-                .style('letter-spacing', '0.1em')
-                .style('text-transform', 'uppercase')
-                .style('opacity', 0.8)
-                .style('pointer-events', 'none');
-            
-            simulation.on('tick', () => {
-                link.attr('d', d => {
-                    const dx = d.target.x - d.source.x;
-                    const dy = d.target.y - d.source.y;
-                    const dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
-                    return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
-                });
-                
-                node.attr('transform', d => `translate(${d.x},${d.y})`);
-                
-                // Actualizar posición de los anillos de pulso
-                if (centerNode) {
-                    g.select('.pulse-group')
-                        .attr('transform', `translate(${centerNode.x},${centerNode.y})`);
-                }
-            });
-            
-            function dragstarted(event, d) {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-            
-            function dragged(event, d) {
-                d.fx = event.x;
-                d.fy = event.y;
-            }
-            
-            function dragended(event, d) {
-                if (!event.active) simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
-            }
-        }
         
         function getNodeRadius(d) {
             if (d.ruc === RUC) return 35;
@@ -946,110 +319,145 @@
             return 20;
         }
         
+        function getTextColor(tier) {
+            if (tier === 'GOLD' || tier === 'SILVER') return '#0A0A0F';
+            return '#F5F5F0';
+        }
+        
+        function renderGraph() {
+            document.getElementById('loading').style.display = 'none';
+            
+            const data = demoData;
+            const container = document.getElementById('graph');
+            const width = window.innerWidth - 340;
+            const height = window.innerHeight - 76;
+            
+            container.setAttribute('width', width);
+            container.setAttribute('height', height);
+            
+            const nodes = [data.centro, ...data.nodos];
+            const links = data.links.map(l => ({ source: l.source, target: l.target }));
+            
+            const svg = d3.select('#graph');
+            const g = svg.append('g');
+            
+            // Zoom
+            svg.call(d3.zoom().scaleExtent([0.3, 3]).on('zoom', (e) => g.attr('transform', e.transform)));
+            
+            // Simulation
+            simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.ruc).distance(150))
+                .force('charge', d3.forceManyBody().strength(-500))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 10));
+            
+            // Gradient definitions
+            const defs = svg.append('defs');
+            
+            const grads = {
+                GOLD: ['#F4E8C1', '#D4AF37', '#8B6914'],
+                SILVER: ['#FFFFFF', '#C0C0C0', '#707070'],
+                BRONZE: ['#E8B896', '#B87333', '#6B4423'],
+                RECHAZADO: ['#CC4444', '#8B0000', '#4A0000']
+            };
+            
+            Object.entries(grads).forEach(([name, colors]) => {
+                const grad = defs.append('radialGradient').attr('id', 'grad' + name).attr('cx', '30%').attr('cy', '30%');
+                grad.append('stop').attr('offset', '0%').attr('stop-color', colors[0]);
+                grad.append('stop').attr('offset', '50%').attr('stop-color', colors[1]);
+                grad.append('stop').attr('offset', '100%').attr('stop-color', colors[2]);
+            });
+            
+            // Links
+            const link = g.append('g').selectAll('line').data(links).enter().append('line')
+                .attr('stroke', '#C5A059')
+                .attr('stroke-width', 1)
+                .attr('stroke-opacity', 0.3);
+            
+            // Nodes group
+            const node = g.append('g').selectAll('g').data(nodes).enter().append('g')
+                .call(d3.drag()
+                    .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+                    .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+            
+            // Circles
+            node.append('circle')
+                .attr('r', d => getNodeRadius(d))
+                .attr('fill', d => `url(#grad${d.tier})`)
+                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : 'rgba(197,160,89,0.5)')
+                .attr('stroke-width', d => d.ruc === RUC ? 2 : 1)
+                .attr('class', 'node-circle')
+                .on('mouseover', (e, d) => showTooltip(e, d))
+                .on('mouseout', hideTooltip);
+            
+            // Score text - CENTERED
+            node.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '0.35em')
+                .text(d => Math.round(d.score))
+                .style('font-size', d => d.ruc === RUC ? '16px' : '13px')
+                .style('font-weight', '600')
+                .style('fill', d => getTextColor(d.tier))
+                .style('pointer-events', 'none')
+                .attr('class', 'node-score');
+            
+            // Name label
+            node.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('dy', d => getNodeRadius(d) + 16)
+                .text(d => d.nombre.length > 22 ? d.nombre.substring(0, 22) + '...' : d.nombre)
+                .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
+                .style('fill', '#F5F5F0')
+                .style('pointer-events', 'none')
+                .attr('class', 'node-label');
+            
+            // Simulation tick
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+                
+                node.attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+        }
+        
         function showTooltip(event, d) {
-            const tooltip = document.getElementById('tooltip');
-            
-            let html = `
+            const t = document.getElementById('tooltip');
+            t.innerHTML = `
                 <div class="tooltip-title">${d.nombre}</div>
-                <div class="tooltip-row">
-                    <span class="tooltip-label">RUC</span>
-                    <span class="tooltip-value">${d.ruc}</span>
-                </div>
-                <div class="tooltip-row">
-                    <span class="tooltip-label">Score</span>
-                    <span class="tooltip-score">${Math.round(d.score)}</span>
-                </div>
-                <div class="tooltip-row">
-                    <span class="tooltip-label">Tier</span>
-                    <span class="tooltip-value" style="color: ${d.color}">${d.tier}</span>
-                </div>
+                <div class="tooltip-row"><span class="tooltip-label">RUC</span><span class="tooltip-value">${d.ruc}</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Score</span><span class="tooltip-score">${d.score}</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Tier</span><span class="tooltip-value" style="color:${d.color}">${d.tier}</span></div>
             `;
-            
-            if (d.ubicacion) {
-                html += `
-                    <div class="tooltip-row">
-                        <span class="tooltip-label">Ubicacion</span>
-                        <span class="tooltip-value">${d.ubicacion}</span>
-                    </div>
-                `;
-            }
-            
-            if (d.alerta) {
-                html += `
-                    <div class="tooltip-alert">
-                        <div class="tooltip-alert-title">Sancion Detectada</div>
-                        <div>${d.alerta}</div>
-                    </div>
-                `;
-            }
-            
-            tooltip.innerHTML = html;
-            
-            const tooltipRect = tooltip.getBoundingClientRect();
-            let left = event.pageX + 15;
-            let top = event.pageY - 10;
-            
-            if (left + tooltipRect.width > window.innerWidth) {
-                left = event.pageX - tooltipRect.width - 15;
-            }
-            
-            tooltip.style.left = left + 'px';
-            tooltip.style.top = top + 'px';
-            tooltip.style.opacity = 1;
+            t.style.left = (event.pageX + 15) + 'px';
+            t.style.top = (event.pageY - 10) + 'px';
+            t.style.opacity = 1;
         }
         
         function hideTooltip() {
             document.getElementById('tooltip').style.opacity = 0;
         }
         
-        function updateSidebar(data) {
-            document.getElementById('total-nodos').textContent = data.resumen.total_nodos;
-            document.getElementById('score-promedio').textContent = data.resumen.score_promedio;
-            document.getElementById('riesgo-red').textContent = data.resumen.riesgo_red;
-            
-            const rechazados = data.nodos.filter(n => n.tier === 'RECHAZADO');
-            if (rechazados.length > 0) {
-                const alertaBox = document.getElementById('alerta-box');
-                const alertasLista = document.getElementById('alertas-lista');
-                
-                alertasLista.innerHTML = rechazados.map(n => `
-                    <div class="alerta-item">
-                        <div class="alerta-empresa">${n.nombre}</div>
-                        <div class="alerta-detalle">${n.alerta}</div>
-                    </div>
-                `).join('');
-                
-                alertaBox.style.display = 'block';
-            }
-        }
-        
         function resetZoom() {
-            const svg = d3.select('#graph');
-            svg.transition().duration(500).call(
-                d3.zoom().transform,
-                d3.zoomIdentity
-            );
+            d3.select('#graph').transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity);
         }
         
         function toggleAnimation() {
-            animationRunning = !animationRunning;
-            const btn = document.getElementById('anim-btn');
             if (simulation) {
-                if (animationRunning) {
-                    simulation.restart();
-                    btn.textContent = 'Pausar';
-                } else {
-                    simulation.stop();
-                    btn.textContent = 'Reanudar';
-                }
+                if (simulation.alpha() > 0) simulation.stop();
+                else simulation.restart();
             }
         }
         
-        loadNetwork();
+        // Load
+        setTimeout(renderGraph, 500);
         
         window.addEventListener('resize', () => {
             d3.select('#graph').selectAll('*').remove();
-            loadNetwork();
+            renderGraph();
         });
     </script>
 </body>
