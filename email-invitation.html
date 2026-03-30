@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitacion al Comite de Admision - Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            background-color: #0A0A0F;
+            color: #F5F5F0;
+            line-height: 1.7;
+        }
+        
+        .email-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #12121A;
+            border: 1px solid #2A2A2E;
+        }
+        
+        .header {
+            background: #0A0A0F;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+        }
+        
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #C5A059;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #C5A059;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #C5A059;
+            margin-bottom: 8px;
+        }
+        
+        .header-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: #F5F5F0;
+        }
+        
+        .content {
+            padding: 48px 40px;
+        }
+        
+        .greeting {
+            font-size: 15px;
+            color: #A0A0A0;
+            margin-bottom: 24px;
+        }
+        
+        .greeting strong {
+            color: #F5F5F0;
+            font-weight: 500;
+        }
+        
+        .inviter-box {
+            background: #0A0A0F;
+            border: 1px solid #2A2A2E;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        .inviter-label {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #C5A059;
+            margin-bottom: 8px;
+        }
+        
+        .inviter-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: #F5F5F0;
+        }
+        
+        .inviter-ruc {
+            font-size: 13px;
+            color: #A0A0A0;
+            margin-top: 4px;
+        }
+        
+        .message {
+            font-size: 15px;
+            color: #F5F5F0;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+        
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #C5A059;
+            color: #0A0A0F;
+            padding: 18px 40px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: #D4AF37;
+        }
+        
+        .details-box {
+            background: #0A0A0F;
+            border: 1px solid #2A2A2E;
+            padding: 24px;
+            margin: 32px 0;
+        }
+        
+        .details-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #C5A059;
+            margin-bottom: 16px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2A2A2E;
+            font-size: 13px;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #A0A0A0;
+        }
+        
+        .detail-value {
+            color: #F5F5F0;
+            font-weight: 400;
+        }
+        
+        .token-box {
+            background: rgba(197, 160, 89, 0.1);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 16px;
+            text-align: center;
+            margin: 24px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            color: #C5A059;
+            word-break: break-all;
+        }
+        
+        .expiration {
+            font-size: 13px;
+            color: #8B0000;
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .expiration strong {
+            font-weight: 500;
+        }
+        
+        .footer {
+            background: #0A0A0F;
+            padding: 32px 40px;
+            text-align: center;
+            border-top: 1px solid #2A2A2E;
+        }
+        
+        .footer-logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #C5A059;
+            margin-bottom: 12px;
+        }
+        
+        .footer-tagline {
+            font-size: 13px;
+            color: #A0A0A0;
+            margin-bottom: 24px;
+        }
+        
+        .footer-copyright {
+            font-size: 12px;
+            color: #6B6B6E;
+        }
+        
+        .disclaimer {
+            font-size: 11px;
+            color: #6B6B6E;
+            margin-top: 24px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <div class="logo-text">Conflict Zero</div>
+            <div class="header-title">Invitacion al Comite de Admision</div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <div class="greeting">
+                Estimado <strong>Representante Legal</strong>,
+            </div>
+            
+            <div class="inviter-box">
+                <div class="inviter-label">Ha sido invitado por</div>
+                <div class="inviter-name">Constructora Zamora Jara SAC</div>
+                <div class="inviter-ruc">RUC: 20529400790</div>
+            </div>
+            
+            <div class="message">
+                Ha sido seleccionado para formar parte de la <strong>Red de Cumplimiento</strong> 
+                de esta empresa. Como subcontratista potencial, su empresa sera evaluada mediante 
+                nuestro sistema de verificacion institucional.
+            </div>
+            
+            <div class="cta-container">
+                <a href="https://czperu.com/registro?invitador=20529400790&token=ABC123XYZ" class="cta-button">
+                    Verificar mi Empresa
+                </a>
+            </div>
+            
+            <div class="details-box">
+                <div class="details-title">Detalles de la Invitacion</div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Empresa Invitadora</span>
+                    <span class="detail-value">Constructora Zamora Jara SAC</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Invitacion</span>
+                    <span class="detail-value">30 de Marzo, 2026</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Token de Acceso</span>
+                    <span class="detail-value" style="font-family: monospace; letter-spacing: 0.05em;">ABC123XYZ</span>
+                </div>
+            </div>
+            
+            <div class="expiration">
+                <strong>Esta invitacion expira en:</strong> 24 horas
+            </div>
+            
+            <div class="disclaimer">
+                Si no reconoce esta invitacion o considera que ha recibido este correo por error, 
+                puede ignorarlo de forma segura. Para consultas, contacte a 
+                <a href="mailto:comite@czperu.com" style="color: #C5A059; text-decoration: none;">comite@czperu.com</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-logo">Conflict Zero</div>
+            <div class="footer-tagline">El Estandar de Verificacion Institucional</div>
+            <div class="footer-copyright">© 2026 Conflict Zero. Todos los derechos reservados.</div>
+        </div>
+    </div>
+</body>
+</html>
