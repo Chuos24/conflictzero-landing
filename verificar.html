@@ -545,15 +545,14 @@
             
             // Consultar API real
             try {
-                const response = await fetch(`${API_BASE_URL}/api/v3/validate`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ruc: input })
+                const response = await fetch(`${API_BASE_URL}/api/v3/validate/${input}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
                 });
                 
                 const data = await response.json();
                 
-                if (data.success) {
+                if (response.ok) {
                     mostrarResultadoAPI(data);
                 } else {
                     mostrarNoEncontradoAPI(data);
