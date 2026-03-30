@@ -765,6 +765,131 @@
                 verificar();
             }
         });
+        
+        // Función para verificar certificado por slug
+        async function verificarCertificado(slug) {
+            const container = document.getElementById('resultContainer');
+            
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Verificando certificado...</p>
+                </div>
+            `;
+            container.classList.add('active');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/v3/certificates/${slug}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    mostrarResultadoCertificado(data.certificate, data.valid);
+                } else {
+                    mostrarCertificadoNoEncontrado();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorConexion();
+            }
+        }
+        
+        function mostrarResultadoCertificado(cert, isValid) {
+            const container = document.getElementById('resultContainer');
+            
+            const tierColors = {
+                'GOLD': '#C5A059',
+                'SILVER': '#8A9BA8',
+                'BRONZE': '#B87333',
+                'RECHAZADO': '#DC2626'
+            };
+            
+            const tierLetters = {
+                'GOLD': 'G',
+                'SILVER': 'S',
+                'BRONZE': 'B',
+                'RECHAZADO': '!'
+            };
+            
+            const color = tierColors[cert.tier] || '#C5A059';
+            const letra = tierLetters[cert.tier] || 'G';
+            const statusClass = isValid ? 'active' : 'expired';
+            const statusText = isValid ? 'CERTIFICADO VIGENTE' : 'CERTIFICADO VENCIDO';
+            
+            container.innerHTML = `
+                <div class="result-found">
+                    <div class="seal">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="${color}" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
+                            <circle cx="50" cy="50" r="32" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.5"/>
+                            <path id="textPath" d="M 50,15 A 35,35 0 1,1 49.99,15" fill="none"/>
+                            <text fill="${color}" font-size="5" font-family="Cormorant Garamond" font-weight="400" letter-spacing="0.3em">
+                                <textPath href="#textPath" startOffset="50%" text-anchor="middle">CONFLICT ZERO • CERTIFICADO •</textPath>
+                            </text>
+                            <text x="50" y="52" text-anchor="middle" fill="${color}" font-family="Cormorant Garamond" font-size="20" font-weight="300" dominant-baseline="middle">${letra}</text>
+                        </svg>
+                    </div>
+                    
+                    <span class="badge ${cert.tier.toLowerCase()}">Score: ${cert.score}</span>
+                    
+                    <h2 class="company-name">${cert.company_name}</h2>
+                    <p class="ruc">RUC: ${cert.ruc}</p>
+                    
+                    <div class="status-badge ${statusClass}">
+                        <span class="status-dot"></span>
+                        ${statusText}
+                    </div>
+                    
+                    <p class="verified-by">Plan Contratado</p>
+                    <p class="cz-name">${cert.plan || 'Standard'}</p>
+                    
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(10,10,15,0.5); border-radius: 6px; border: 1px solid #2A2A2E;">
+                        <p style="color: #8A8A85; font-size: 11px; margin-bottom: 4px;">CÓDIGO DE VERIFICACIÓN</p>
+                        <p style="color: #F5F5F0; font-size: 14px; font-family: monospace;">${cert.slug}</p>
+                    </div>
+                    
+                    <p style="color: #6B6B6E; font-size: 11px; margin-top: 16px;">
+                        Emitido: ${new Date(cert.issued_at).toLocaleDateString('es-PE')}<br>
+                        ${cert.expires_at ? 'Vence: ' + new Date(cert.expires_at).toLocaleDateString('es-PE') : ''}
+                    </p>
+                </div>
+            `;
+        }
+        
+        function mostrarCertificadoNoEncontrado() {
+            const container = document.getElementById('resultContainer');
+            
+            container.innerHTML = `
+                <div class="result-not-found">
+                    <div class="not-found-icon">⚠️</div>
+                    <h2 class="not-found-title">Certificado No Encontrado</h2>
+                    <p class="not-found-text">
+                        El código de certificado no existe en nuestros registros.<br>
+                        <span style="color: #8A8A85; font-size: 13px; margin-top: 8px; display: block;">
+                            Verifica que el código sea correcto o escanea el QR nuevamente.
+                        </span>
+                    </p>
+                    <a href="/founders.html" class="not-found-cta">Verificar mi empresa ahora</a>
+                </div>
+            `;
+        }
+        
+        // Verificar certificado al cargar la página si hay parámetro 'cert' en la URL
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const certSlug = urlParams.get('cert');
+            
+            if (certSlug) {
+                // Pre-llenar el input con el código del certificado
+                document.getElementById('searchInput').value = certSlug;
+                // Verificar automáticamente
+                verificarCertificado(certSlug);
+            }
+        });
     </script>
 </body>
 </html>
