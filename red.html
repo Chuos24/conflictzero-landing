@@ -830,8 +830,10 @@
                 }
             }
             
-            // Círculos principales con gradientes
-            const circles = node.append('circle')
+            // GRUPO: Primero los círculos, luego los textos encima
+            
+            // 1. Círculos principales con gradientes
+            node.append('circle')
                 .attr('class', 'node-circle')
                 .attr('r', d => getNodeRadius(d))
                 .attr('fill', d => {
@@ -856,43 +858,50 @@
                     hideTooltip();
                 });
             
-            // Score en el centro con font elegante
+            // 2. Score en el centro (encima del círculo)
             node.append('text')
                 .attr('class', 'node-score')
                 .attr('text-anchor', 'middle')
-                .attr('dy', '0.35em')
+                .attr('dominant-baseline', 'central')
                 .text(d => Math.round(d.score))
+                .style('font-family', 'Inter, sans-serif')
                 .style('font-size', d => d.ruc === RUC ? '16px' : '13px')
-                .style('font-weight', '500')
+                .style('font-weight', '600')
                 .style('fill', d => {
                     if (d.tier === 'GOLD' || d.tier === 'SILVER') return '#0A0A0F';
                     return '#F5F5F0';
-                });
+                })
+                .style('pointer-events', 'none');
             
-            // Nombre debajo con sombra de texto
+            // 3. Nombre debajo
             node.append('text')
                 .attr('class', 'node-label')
                 .attr('text-anchor', 'middle')
-                .attr('dy', d => getNodeRadius(d) + 20)
+                .attr('dy', d => getNodeRadius(d) + 18)
                 .text(d => {
                     if (d.ruc === RUC) return 'ZAMORA JARA';
                     const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
                     return name.length > 20 ? name.substring(0, 20) + '...' : name;
                 })
+                .style('font-family', 'Inter, sans-serif')
                 .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
                 .style('letter-spacing', '0.05em')
-                .style('fill', '#F5F5F0');
+                .style('fill', '#F5F5F0')
+                .style('pointer-events', 'none');
             
-            // Tier badge pequeño
+            // 4. Tier badge
             node.append('text')
                 .attr('text-anchor', 'middle')
-                .attr('dy', d => getNodeRadius(d) + 34)
+                .attr('dy', d => getNodeRadius(d) + 32)
                 .text(d => d.tier)
+                .style('font-family', 'Inter, sans-serif')
                 .style('font-size', '8px')
+                .style('font-weight', '500')
                 .style('fill', d => d.color)
                 .style('letter-spacing', '0.1em')
                 .style('text-transform', 'uppercase')
-                .style('opacity', 0.8);
+                .style('opacity', 0.8)
+                .style('pointer-events', 'none');
             
             simulation.on('tick', () => {
                 link.attr('d', d => {
