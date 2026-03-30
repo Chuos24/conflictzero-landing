@@ -428,27 +428,65 @@
             font-size: 14px;
         }
         
-        /* D3 Styles */
-        .node text {
+        /* D3 Styles - ELEGANTE */
+        .node {
+            cursor: pointer;
+        }
+        
+        .node-circle {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+        }
+        
+        .node-circle:hover {
+            filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.6)) 
+                    drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+            transform-origin: center;
+        }
+        
+        /* Glassmorphism effect for nodes */
+        .node-glass {
+            fill: url(#glassGradient);
+            stroke: rgba(197, 160, 89, 0.4);
+            stroke-width: 1;
+        }
+        
+        /* Pulse animation for center node */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        .pulse-ring {
+            animation: pulse 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+        
+        .link {
+            stroke-opacity: 0.2;
+            stroke-linecap: round;
+            transition: stroke-opacity 0.3s;
+        }
+        
+        .link:hover {
+            stroke-opacity: 0.5;
+        }
+        
+        .node-label {
             font-family: 'Inter', sans-serif;
             font-size: 10px;
             fill: var(--text);
             pointer-events: none;
             text-anchor: middle;
             font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
         
-        .link {
-            stroke-opacity: 0.3;
-        }
-        
-        .node-circle {
-            cursor: pointer;
-            transition: filter 0.2s;
-        }
-        
-        .node-circle:hover {
-            filter: brightness(1.3);
+        .node-score {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            pointer-events: none;
+            text-anchor: middle;
         }
         
         /* Responsive Tablet */
@@ -705,19 +743,65 @@
                 .force('center', d3.forceCenter(width / 2, height / 2))
                 .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 15));
             
-            // Links con curvas suaves
+            // Definir gradientes para cada tier
+            const defs = svg.append('defs');
+            
+            // Gradientes metálicos
+            const gradients = {
+                GOLD: defs.append('radialGradient').attr('id', 'gradGold').attr('cx', '30%').attr('cy', '30%'),
+                SILVER: defs.append('radialGradient').attr('id', 'gradSilver').attr('cx', '30%').attr('cy', '30%'),
+                BRONZE: defs.append('radialGradient').attr('id', 'gradBronze').attr('cx', '30%').attr('cy', '30%'),
+                RECHAZADO: defs.append('radialGradient').attr('id', 'gradRechazado').attr('cx', '30%').attr('cy', '30%'),
+                CENTRO: defs.append('radialGradient').attr('id', 'gradCentro').attr('cx', '30%').attr('cy', '30%')
+            };
+            
+            // Gold gradient
+            gradients.GOLD.append('stop').attr('offset', '0%').attr('stop-color', '#F4E8C1');
+            gradients.GOLD.append('stop').attr('offset', '50%').attr('stop-color', '#D4AF37');
+            gradients.GOLD.append('stop').attr('offset', '100%').attr('stop-color', '#8B6914');
+            
+            // Silver gradient
+            gradients.SILVER.append('stop').attr('offset', '0%').attr('stop-color', '#FFFFFF');
+            gradients.SILVER.append('stop').attr('offset', '50%').attr('stop-color', '#C0C0C0');
+            gradients.SILVER.append('stop').attr('offset', '100%').attr('stop-color', '#707070');
+            
+            // Bronze gradient
+            gradients.BRONZE.append('stop').attr('offset', '0%').attr('stop-color', '#E8B896');
+            gradients.BRONZE.append('stop').attr('offset', '50%').attr('stop-color', '#B87333');
+            gradients.BRONZE.append('stop').attr('offset', '100%').attr('stop-color', '#6B4423');
+            
+            // Rechazado gradient
+            gradients.RECHAZADO.append('stop').attr('offset', '0%').attr('stop-color', '#CC4444');
+            gradients.RECHAZADO.append('stop').attr('offset', '50%').attr('stop-color', '#8B0000');
+            gradients.RECHAZADO.append('stop').attr('offset', '100%').attr('stop-color', '#4A0000');
+            
+            // Centro gradient (special gold)
+            gradients.CENTRO.append('stop').attr('offset', '0%').attr('stop-color', '#FFF8DC');
+            gradients.CENTRO.append('stop').attr('offset', '40%').attr('stop-color', '#D4AF37');
+            gradients.CENTRO.append('stop').attr('offset', '100%').attr('stop-color', '#8B6914');
+            
+            // Glow filter
+            const filter = defs.append('filter').attr('id', 'glow');
+            filter.append('feGaussianBlur').attr('stdDeviation', '4').attr('result', 'coloredBlur');
+            const feMerge = filter.append('feMerge');
+            feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+            feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+            
+            // Links con curvas suaves tipo "seda"
             const link = g.append('g')
+                .attr('class', 'links')
                 .selectAll('path')
                 .data(links)
                 .enter().append('path')
                 .attr('class', 'link')
-                .attr('stroke', '#C5A059')
-                .attr('stroke-width', d => d.tipo === 'directo' ? 1.5 : 1)
+                .attr('stroke', d => d.tipo === 'directo' ? 'url(#gradGold)' : '#C5A059')
+                .attr('stroke-width', d => d.tipo === 'directo' ? 2 : 1)
                 .attr('fill', 'none')
-                .attr('stroke-opacity', 0.3);
+                .attr('stroke-opacity', 0.25);
             
             // Nodos
             const node = g.append('g')
+                .attr('class', 'nodes')
                 .selectAll('g')
                 .data(nodes)
                 .enter().append('g')
@@ -727,44 +811,99 @@
                     .on('drag', dragged)
                     .on('end', dragended));
             
-            // Círculos
-            node.append('circle')
+            // Anillos de pulso para el nodo central
+            const centerNode = nodes.find(n => n.ruc === RUC);
+            if (centerNode) {
+                const pulseGroup = g.append('g').attr('class', 'pulse-group');
+                
+                for (let i = 0; i < 3; i++) {
+                    pulseGroup.append('circle')
+                        .attr('class', 'pulse-ring')
+                        .attr('r', 35 + (i * 15))
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .attr('fill', 'none')
+                        .attr('stroke', '#C5A059')
+                        .attr('stroke-width', 1)
+                        .attr('stroke-opacity', 0.3 - (i * 0.1))
+                        .style('animation-delay', `${i * 1}s`);
+                }
+            }
+            
+            // Círculos principales con gradientes
+            const circles = node.append('circle')
                 .attr('class', 'node-circle')
                 .attr('r', d => getNodeRadius(d))
-                .attr('fill', d => d.color)
-                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : d.color)
-                .attr('stroke-width', d => d.ruc === RUC ? 3 : 0)
-                .on('mouseover', showTooltip)
-                .on('mouseout', hideTooltip);
+                .attr('fill', d => {
+                    if (d.ruc === RUC) return 'url(#gradCentro)';
+                    return `url(#grad${d.tier})`;
+                })
+                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : 'rgba(197, 160, 89, 0.5)')
+                .attr('stroke-width', d => d.ruc === RUC ? 2 : 1)
+                .style('filter', d => d.ruc === RUC ? 'url(#glow)' : null)
+                .on('mouseover', function(event, d) {
+                    d3.select(this)
+                        .transition().duration(300)
+                        .attr('r', getNodeRadius(d) * 1.15)
+                        .style('filter', 'url(#glow)');
+                    showTooltip(event, d);
+                })
+                .on('mouseout', function(event, d) {
+                    d3.select(this)
+                        .transition().duration(300)
+                        .attr('r', getNodeRadius(d))
+                        .style('filter', d.ruc === RUC ? 'url(#glow)' : null);
+                    hideTooltip();
+                });
             
-            // Score en el centro
+            // Score en el centro con font elegante
             node.append('text')
-                .attr('dy', 4)
+                .attr('class', 'node-score')
+                .attr('dy', 5)
                 .text(d => Math.round(d.score))
-                .style('font-size', d => d.ruc === RUC ? '13px' : '10px')
-                .style('font-weight', '400')
-                .style('fill', d => d.tier === 'GOLD' || d.tier === 'SILVER' ? '#0A0A0F' : '#F5F5F0');
+                .style('font-size', d => d.ruc === RUC ? '18px' : '14px')
+                .style('fill', d => {
+                    if (d.tier === 'GOLD' || d.tier === 'SILVER') return '#0A0A0F';
+                    return '#F5F5F0';
+                });
             
-            // Nombre debajo
+            // Nombre debajo con sombra de texto
             node.append('text')
-                .attr('dy', d => getNodeRadius(d) + 18)
+                .attr('class', 'node-label')
+                .attr('dy', d => getNodeRadius(d) + 22)
                 .text(d => {
                     if (d.ruc === RUC) return 'ZAMORA JARA';
                     const name = d.nombre.replace(/SAC|SRL|SA/g, '').trim();
-                    return name.length > 18 ? name.substring(0, 18) + '...' : name;
+                    return name.length > 20 ? name.substring(0, 20) + '...' : name;
                 })
-                .style('font-size', d => d.ruc === RUC ? '12px' : '9px')
-                .style('fill', '#F5F5F0');
+                .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
+                .style('letter-spacing', '0.05em');
+            
+            // Tier badge pequeño
+            node.append('text')
+                .attr('dy', d => getNodeRadius(d) + 36)
+                .text(d => d.tier)
+                .style('font-size', '8px')
+                .style('fill', d => d.color)
+                .style('letter-spacing', '0.1em')
+                .style('text-transform', 'uppercase')
+                .style('opacity', 0.8);
             
             simulation.on('tick', () => {
                 link.attr('d', d => {
                     const dx = d.target.x - d.source.x;
                     const dy = d.target.y - d.source.y;
-                    const dr = Math.sqrt(dx * dx + dy * dy);
+                    const dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
                     return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
                 });
                 
                 node.attr('transform', d => `translate(${d.x},${d.y})`);
+                
+                // Actualizar posición de los anillos de pulso
+                if (centerNode) {
+                    g.select('.pulse-group')
+                        .attr('transform', `translate(${centerNode.x},${centerNode.y})`);
+                }
             });
             
             function dragstarted(event, d) {
