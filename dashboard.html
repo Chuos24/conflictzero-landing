@@ -3,61 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <title>Conflict Zero - Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Panel de Control Institucional - Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --bg-hover: #1a1a1a;
-            --gold: #c9a961;
-            --gold-light: #e8d5a3;
-            --text: #f5f5f5;
-            --text-muted: #888;
-            --border: #2a2a2a;
-            --success: #28a745;
-            --danger: #dc3545;
+            --bg-dark: #0A0A0F;
+            --bg-card: #12121A;
+            --bg-hover: #1A1A22;
+            --gold: #C5A059;
+            --gold-light: #D4AF37;
+            --text: #F5F5F0;
+            --text-muted: #A0A0A0;
+            --border: #2A2A2E;
+            --border-gold: rgba(197, 160, 89, 0.3);
+            --success: #1B3A2F;
+            --danger: #8B0000;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
+            font-weight: 300;
+            background-color: var(--bg-dark);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
             color: var(--text);
             min-height: 100vh;
         }
         
+        /* Header UHNW */
         .header {
             padding: 20px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            background: var(--bg-card);
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             text-decoration: none;
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--gold);
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .logo-icon svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             stroke: var(--gold);
             stroke-width: 1.5;
             fill: none;
@@ -65,43 +68,40 @@
         
         .logo-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: 2px;
-        }
-        
-        .logo-text span {
-            color: var(--gold);
+            font-size: 11px;
             font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
         
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
         
         .plan-badge {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 6px 12px;
+            letter-spacing: 0.1em;
+            padding: 8px 16px;
             border: 1px solid var(--gold);
-            border-radius: 4px;
         }
         
         .btn-logout {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
         
         .btn-logout:hover {
@@ -115,38 +115,51 @@
             padding: 40px 48px;
         }
         
-        .section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 24px;
-        }
-        
-        .section-header {
-            margin-bottom: 24px;
-        }
-        
-        .section-header h2 {
+        .page-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
         }
         
+        .page-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--text);
+            margin-bottom: 40px;
+        }
+        
+        /* Stats */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
         
         .stat-box {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
+            padding: 32px;
             text-align: center;
+            transition: border-color 0.2s;
+        }
+        
+        .stat-box:hover {
+            border-color: var(--border-gold);
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
         
         .stat-value {
@@ -154,1051 +167,267 @@
             font-size: 36px;
             font-weight: 300;
             color: var(--gold);
-            margin-bottom: 8px;
         }
         
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .verify-form {
-            display: flex;
-            gap: 16px;
+        /* Sections */
+        .section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
             margin-bottom: 24px;
         }
         
-        .verify-form input {
-            flex: 1;
-            padding: 16px 20px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .verify-form input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-        
-        .verify-form input::placeholder {
-            color: #555;
-        }
-        
-        .btn-verify {
-            padding: 16px 32px;
-            background: var(--gold);
-            border: none;
-            border-radius: 8px;
-            color: var(--bg-dark);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-verify:hover:not(:disabled) {
-            background: var(--gold-light);
-        }
-        
-        .btn-verify:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .error-message {
-            background: rgba(220, 53, 69, 0.1);
-            border: 1px solid rgba(220, 53, 69, 0.3);
-            color: #ff6b6b;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .error-message.visible {
-            display: block;
-        }
-        
-        .results {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        
-        .results.visible {
-            display: grid;
-        }
-        
-        .result-card {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-        }
-        
-        .result-card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-        }
-        
-        .score-display {
-            text-align: center;
-        }
-        
-        .score-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 64px;
-            font-weight: 300;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-        
-        .score-bar {
-            width: 100%;
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .score-bar-fill {
-            height: 100%;
-            background: var(--gold);
-            transition: width 0.5s;
-        }
-        
-        .risk-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-        
-        .risk-badge.low {
-            background: rgba(40, 167, 69, 0.2);
-            color: #4ade80;
-        }
-        
-        .risk-badge.medium {
-            background: rgba(201, 169, 97, 0.2);
-            color: var(--gold);
-        }
-        
-        .risk-badge.high {
-            background: rgba(220, 53, 69, 0.2);
-            color: #ff6b6b;
-        }
-        
-        .data-row {
+        .section-header {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .data-row:last-child {
-            border-bottom: none;
-        }
-        
-        .data-label {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-        
-        .data-value {
-            color: var(--text);
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
-        .data-value.success {
-            color: var(--success);
-        }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.8);
-            display: none;
-            justify-content: center;
             align-items: center;
-            z-index: 1000;
-        }
-        
-        .loading-overlay.visible {
-            display: flex;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--border);
-            border-top-color: var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .history-table th,
-        .history-table td {
-            padding: 12px;
-            text-align: left;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
             border-bottom: 1px solid var(--border);
+        }
+        
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 14px;
-        }
-        
-        .history-table th {
-            color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 300;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-        
-        .history-table td {
-            color: var(--text);
-        }
-        
-        .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .badge.low { background: rgba(40, 167, 69, 0.2); color: #4ade80; }
-        .badge.medium { background: rgba(201, 169, 97, 0.2); color: var(--gold); }
-        .badge.high { background: rgba(220, 53, 69, 0.2); color: #ff6b6b; }
-        
-        .btn-export {
-            background: transparent;
-            border: 1px solid var(--gold);
             color: var(--gold);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+        }
+        
+        .btn-primary {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-dark);
+            padding: 12px 24px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s;
             font-family: 'Inter', sans-serif;
         }
         
-        .btn-export:hover {
-            background: rgba(201, 169, 97, 0.1);
+        .btn-primary:hover {
+            background: var(--gold-light);
         }
         
-        .empty-state {
-            text-align: center;
-            padding: 40px;
+        /* Validador */
+        .input-group {
+            display: flex;
+            gap: 0;
+        }
+        
+        .input-group input {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 16px 20px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .input-group input:focus {
+            border-color: var(--gold);
+        }
+        
+        .input-group input::placeholder {
             color: var(--text-muted);
         }
         
-        @media (max-width: 768px) {
-            .header { padding: 16px 24px; }
-            .main { padding: 24px; }
-            .stats-bar { grid-template-columns: 1fr; }
-            .results { grid-template-columns: 1fr; }
-            .verify-form { flex-direction: column; }
+        /* Tabla */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+        
+        tr:hover td {
+            background: var(--bg-hover);
+        }
+        
+        .tier-badge-table {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .tier-GOLD { background: rgba(212, 175, 55, 0.2); color: #D4AF37; }
+        .tier-SILVER { background: rgba(192, 192, 192, 0.2); color: #C0C0C0; }
+        .tier-BRONZE { background: rgba(184, 115, 51, 0.2); color: #B87333; }
+        .tier-RECHAZADO { background: rgba(139, 0, 0, 0.2); color: #8B0000; }
+        
+        /* Resultados */
+        .result-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin-top: 24px;
+            display: none;
+        }
+        
+        .result-box.visible {
+            display: block;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .score-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--gold);
+        }
+        
+        .score-label {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loading">
-        <div class="loading-spinner"></div>
-    </div>
-
     <header class="header">
         <a href="/" class="logo">
             <div class="logo-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div class="logo-text">Conflict <span>Zero</span></div>
+            <div class="logo-text">Conflict Zero</div>
         </a>
         
         <div class="user-menu">
-            <a href="/comparar.html" style="color: var(--gold); text-decoration: none; margin-right: 16px; font-size: 14px;">
-                Comparar RUCs
-            </a>
-            <span class="plan-badge">Plan Starter</span>
+            <span class="plan-badge">Plan Profesional</span>
             <button class="btn-logout" onclick="logout()">Cerrar Sesion</button>
         </div>
     </header>
-
+    
     <main class="main">
+        <div class="page-title">Panel de Control Institucional</div>
+        <div class="page-subtitle">Constructora Zamora Jara SAC</div>
+        
         <!-- Stats -->
         <div class="stats-bar">
             <div class="stat-box">
-                <div class="stat-value" id="statUsed">0</div>
-                <div class="stat-label">Consultas Realizadas</div>
+                <div class="stat-label">Verificaciones</div>
+                <div class="stat-value">1,247</div>
             </div>
             <div class="stat-box">
-                <div class="stat-value" id="statRemaining">1,000</div>
-                <div class="stat-label">Consultas Disponibles</div>
+                <div class="stat-label">Score Promedio</div>
+                <div class="stat-value">67.3</div>
             </div>
             <div class="stat-box">
-                <div class="stat-value" id="statTotal">1,000</div>
-                <div class="stat-label">Limite Mensual</div>
+                <div class="stat-label">Red de Cumplimiento</div>
+                <div class="stat-value">6</div>
             </div>
         </div>
-
-        <!-- Search Section -->
+        
+        <!-- Validador -->
         <div class="section">
             <div class="section-header">
-                <h2>Verificar RUC</h2>
+                <h2>Validar Empresa</h2>
             </div>
             
-            <div class="error-message" id="errorMsg"></div>
+            <div class="input-group">
+                <input type="text" id="rucInput" placeholder="Ingrese RUC (11 digitos)" maxlength="11">
+                <button class="btn-primary" onclick="validarRUC()">Verificar</button>
+            </div>
             
-            <form class="verify-form" id="verifyForm" onsubmit="verifyRUC(event)">
-                <input type="text" id="rucInput" placeholder="Ingrese RUC (11 digitos)" maxlength="11" required>
-                <button type="submit" class="btn-verify" id="verifyBtn">Verificar</button>
-            </form>
-            
-            <p style="color: var(--text-muted); font-size: 14px;">Ingrese un numero de RUC peruano (11 digitos) para verificar</p>
-            
-            <div class="results" id="results">
-                <div class="result-card">
-                    <h3>Nivel de Riesgo</h3>
-                    <div class="score-display">
-                        <div class="score-value" id="scoreValue">0</div>
-                        <div class="score-bar">
-                            <div class="score-bar-fill" id="scoreBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="risk-badge low" id="riskBadge">Bajo</div>
-                    <p style="color: var(--text-muted); font-size: 14px;" id="riskDesc">Sin inhabilitaciones registradas</p>
-                </div>
-                
-                <div class="result-card">
-                    <h3>Datos de la Empresa</h3>
-                    <div class="data-row">
-                        <span class="data-label">RUC</span>
-                        <span class="data-value" id="dataRuc">-</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Razon Social</span>
-                        <span class="data-value" id="dataName">-</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Estado SUNAT</span>
-                        <span class="data-value success" id="dataStatus">-</span>
-                    </div>
-                </div>
-                
-                <div class="result-card" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
-                    <h3>Certificacion</h3>
-                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">Descargue el certificado PDF de esta consulta</p>
-                    <button class="btn-verify" onclick="generateCertificate()" style="width: 100%; margin-bottom: 8px;">
-                        Descargar Certificado
-                    </button>
-                    <div style="display: flex; gap: 8px; margin-top: 8px;">
-                        <button class="btn-export" onclick="exportCurrentToCSV()" style="flex: 1; font-size: 11px; padding: 6px;">
-                            📄 CSV
-                        </button>
-                        <button class="btn-export" onclick="exportCurrentToExcel()" style="flex: 1; font-size: 11px; padding: 6px;">
-                            📊 Excel
-                        </button>
-                    </div>
+            <div class="result-box" id="resultBox">
+                <div class="score-display">
+                    <div class="score-number" id="scoreNum">--</div>
+                    <div class="score-label">SCORE CONFLICT ZERO</div>
                 </div>
             </div>
         </div>
         
-        <!-- History Section -->
+        <!-- Accesos -->
         <div class="section">
             <div class="section-header">
-                <h2>Historial de Consultas</h2>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-export" onclick="exportToCSV()" id="btnExportCSV" style="display: none;">
-                        📄 Exportar CSV
-                    </button>
-                    <button class="btn-export" onclick="exportToExcel()" id="btnExportExcel" style="display: none;">
-                        📊 Exportar Excel
-                    </button>
-                </div>
+                <h2>Accesos Directos</h2>
             </div>
             
-            <div id="historyContent">
-                <div class="empty-state">
-                    <p>Aun no ha realizado consultas</p>
-                </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                <a href="/red.html" class="btn-primary" style="text-align: center; text-decoration: none; display: block;">Ver Red de Cumplimiento</a>
+                <button class="btn-primary" onclick="invitarSubcontratista()">Invitar al Comite</button>
             </div>
         </div>
     </main>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
-        const API_BASE = 'https://conflict-zero-api.onrender.com/api/v1';
-        
-        let history = [];
-        let consultasUsadas = 0;
-        let lastResult = null;
-        const PLAN_LIMIT = 1000;
-        
-        function loadFromStorage() {
-            const saved = localStorage.getItem('cz_dashboard_data');
-            if (saved) {
-                const data = JSON.parse(saved);
-                consultasUsadas = data.consultasUsadas || 0;
-                history = data.history || [];
-                renderHistory();
-            }
-            updateStats();
-        }
-        
-        function saveToStorage() {
-            localStorage.setItem('cz_dashboard_data', JSON.stringify({
-                consultasUsadas: consultasUsadas,
-                history: history,
-                lastUpdated: new Date().toISOString()
-            }));
-        }
-        
-        function showLoading(show) {
-            document.getElementById('loading').classList.toggle('visible', show);
-        }
-        
-        function showError(msg) {
-            const el = document.getElementById('errorMsg');
-            el.textContent = msg;
-            el.classList.add('visible');
-            setTimeout(() => el.classList.remove('visible'), 5000);
-        }
-        
-        function updateStats() {
-            document.getElementById('statUsed').textContent = consultasUsadas.toLocaleString();
-            document.getElementById('statRemaining').textContent = (PLAN_LIMIT - consultasUsadas).toLocaleString();
-            document.getElementById('statTotal').textContent = PLAN_LIMIT.toLocaleString();
-        }
-        
-        async function verifyRUC(e) {
-            e.preventDefault();
-            
-            const ruc = document.getElementById('rucInput').value.trim();
-            const btn = document.getElementById('verifyBtn');
-            
-            if (ruc.length !== 11 || !/^\d+$/.test(ruc)) {
-                showError('El RUC debe tener 11 digitos numericos');
-                return;
-            }
-            
-            if (consultasUsadas >= PLAN_LIMIT) {
-                showError('Ha alcanzado el limite de consultas de su plan Starter');
-                return;
-            }
-            
-            btn.disabled = true;
-            btn.textContent = 'Conectando...';
-            showLoading(true);
-            
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 30000);
-                
-                const res = await fetch(API_BASE + '/consulta-completa/' + ruc, {
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (!res.ok) {
-                    throw new Error('Error en la consulta. Intente nuevamente.');
-                }
-                
-                const data = await res.json();
-                lastResult = data;
-                displayResults(data, ruc);
-                addToHistory(ruc, data);
-                
-                consultasUsadas++;
-                updateStats();
-                saveToStorage();
-                
-            } catch (err) {
-                showError('Error: ' + (err.message || 'No se pudo conectar con el servidor'));
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Verificar';
-                showLoading(false);
-            }
-        }
-        
-        function displayResults(data, ruc) {
-            document.getElementById('results').classList.add('visible');
-            
-            const score = data.score || 0;
-            document.getElementById('scoreValue').textContent = score;
-            document.getElementById('scoreBar').style.width = score + '%';
-            
-            const badge = document.getElementById('riskBadge');
-            const desc = document.getElementById('riskDesc');
-            
-            badge.className = 'risk-badge';
-            if (score >= 80) {
-                badge.classList.add('low');
-                badge.textContent = 'Bajo';
-                desc.textContent = 'Sin inhabilitaciones registradas';
-            } else if (score >= 50) {
-                badge.classList.add('medium');
-                badge.textContent = 'Medio';
-                desc.textContent = 'Algunas observaciones';
-            } else {
-                badge.classList.add('high');
-                badge.textContent = 'Alto';
-                desc.textContent = 'Inhabilitaciones activas detectadas';
-            }
-            
-            document.getElementById('dataRuc').textContent = ruc;
-            document.getElementById('dataName').textContent = data.razon_social || 'No disponible';
-            document.getElementById('dataStatus').textContent = data.estado || 'ACTIVO';
-        }
-        
-        function addToHistory(ruc, data) {
-            history.unshift({
-                date: new Date().toLocaleDateString('es-PE'),
-                ruc: ruc,
-                name: data.razon_social || 'Empresa',
-                score: data.score || 0
-            });
-            if (history.length > 50) history = history.slice(0, 50);
-            renderHistory();
-        }
-        
-        function renderHistory() {
-            const container = document.getElementById('historyContent');
-            
-            if (history.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>Aun no ha realizado consultas</p></div>';
-                return;
-            }
-            
-            const rows = history.map(h => {
-                const cls = h.score >= 80 ? 'low' : h.score >= 50 ? 'medium' : 'high';
-                return '<tr><td>' + h.date + '</td><td>' + h.ruc + '</td><td>' + h.name + '</td><td><span class="badge ' + cls + '">' + h.score + '/100</span></td></tr>';
-            }).join('');
-            
-            container.innerHTML = '<table class="history-table"><thead><tr><th>Fecha</th><th>RUC</th><th>Empresa</th><th>Score</th></tr></thead><tbody>' + rows + '</tbody></table>';
-            
-            // Mostrar botones de exportar si hay historial
-            document.getElementById('btnExportCSV').style.display = 'inline-block';
-            document.getElementById('btnExportExcel').style.display = 'inline-block';
-        }
-        
-        // ===== FUNCIONES DE EXPORTACIÓN =====
-        
-        function exportToCSV() {
-            if (history.length === 0) {
-                alert('No hay consultas para exportar');
-                return;
-            }
-            
-            // Encabezados CSV
-            let csv = 'Fecha,RUC,Razon Social,Score,Nivel de Riesgo\n';
-            
-            // Datos
-            history.forEach(h => {
-                const riskLevel = h.score >= 80 ? 'Bajo' : h.score >= 50 ? 'Medio' : 'Alto';
-                // Escapar comillas y comas en el nombre de la empresa
-                const name = '"' + (h.name || '').replace(/"/g, '""') + '"';
-                csv += `${h.date},${h.ruc},${name},${h.score},${riskLevel}\n`;
-            });
-            
-            // Crear blob y descargar
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            
-            link.setAttribute('href', url);
-            link.setAttribute('download', `conflictzero_historial_${new Date().toISOString().split('T')[0]}.csv`);
-            link.style.visibility = 'hidden';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            console.log('CSV exportado:', history.length, 'registros');
-        }
-        
-        function exportToExcel() {
-            if (history.length === 0) {
-                alert('No hay consultas para exportar');
-                return;
-            }
-            
-            // Preparar datos para Excel
-            const data = history.map(h => ({
-                'Fecha': h.date,
-                'RUC': h.ruc,
-                'Razon Social': h.name || 'No disponible',
-                'Score': h.score,
-                'Nivel de Riesgo': h.score >= 80 ? 'Bajo' : h.score >= 50 ? 'Medio' : 'Alto',
-                'Estado': h.score >= 80 ? 'Limpio' : h.score >= 50 ? 'Observado' : 'Rechazado'
-            }));
-            
-            // Crear worksheet
-            const ws = XLSX.utils.json_to_sheet(data);
-            
-            // Ajustar anchos de columna
-            ws['!cols'] = [
-                { wch: 12 },  // Fecha
-                { wch: 15 },  // RUC
-                { wch: 40 },  // Razon Social
-                { wch: 8 },   // Score
-                { wch: 15 },  // Nivel de Riesgo
-                { wch: 12 }   // Estado
-            ];
-            
-            // Crear workbook
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Historial de Consultas');
-            
-            // Descargar
-            const fileName = `conflictzero_historial_${new Date().toISOString().split('T')[0]}.xlsx`;
-            XLSX.writeFile(wb, fileName);
-            
-            console.log('Excel exportado:', history.length, 'registros');
-        }
-        
-        // Exportar consulta actual individual
-        function exportCurrentToCSV() {
-            if (!lastResult) {
-                alert('Primero debe realizar una consulta');
-                return;
-            }
-            
-            const ruc = lastResult.ruc || document.getElementById('dataRuc').textContent;
-            const name = lastResult.razon_social || document.getElementById('dataName').textContent;
-            const score = lastResult.score || 0;
-            const date = new Date().toLocaleDateString('es-PE');
-            
-            let csv = 'Fecha,RUC,Razon Social,Score,Nivel de Riesgo\n';
-            const riskLevel = score >= 80 ? 'Bajo' : score >= 50 ? 'Medio' : 'Alto';
-            const escapedName = '"' + name.replace(/"/g, '""') + '"';
-            csv += `${date},${ruc},${escapedName},${score},${riskLevel}\n`;
-            
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            
-            link.setAttribute('href', url);
-            link.setAttribute('download', `consulta_${ruc}_${date.replace(/\//g, '-')}.csv`);
-            link.style.visibility = 'hidden';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        
-        function exportCurrentToExcel() {
-            if (!lastResult) {
-                alert('Primero debe realizar una consulta');
-                return;
-            }
-            
-            const ruc = lastResult.ruc || document.getElementById('dataRuc').textContent;
-            const name = lastResult.razon_social || document.getElementById('dataName').textContent;
-            const score = lastResult.score || 0;
-            const date = new Date().toLocaleDateString('es-PE');
-            
-            const data = [{
-                'Fecha': date,
-                'RUC': ruc,
-                'Razon Social': name,
-                'Score': score,
-                'Nivel de Riesgo': score >= 80 ? 'Bajo' : score >= 50 ? 'Medio' : 'Alto',
-                'Estado': score >= 80 ? 'Limpio' : score >= 50 ? 'Observado' : 'Rechazado'
-            }];
-            
-            const ws = XLSX.utils.json_to_sheet(data);
-            ws['!cols'] = [
-                { wch: 12 }, { wch: 15 }, { wch: 40 }, { wch: 8 }, { wch: 15 }, { wch: 12 }
-            ];
-            
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Consulta RUC');
-            
-            const fileName = `consulta_${ruc}_${new Date().toISOString().split('T')[0]}.xlsx`;
-            XLSX.writeFile(wb, fileName);
-        }
-        
-        function logout() {
+        // Check auth
+        const token = localStorage.getItem('cz_token');
+        if (!token) {
             window.location.href = '/login.html';
         }
         
-        function generateCertificate() {
-            // Forzar recarga si hay caché vieja
-            console.log('=== GENERAR CERTIFICADO v2.1 ===');
-            console.log('lastResult:', lastResult);
+        function logout() {
+            localStorage.removeItem('cz_token');
+            localStorage.removeItem('cz_user');
+            window.location.href = '/';
+        }
+        
+        async function validarRUC() {
+            const ruc = document.getElementById('rucInput').value;
+            const resultBox = document.getElementById('resultBox');
+            const scoreNum = document.getElementById('scoreNum');
             
-            if (!lastResult) {
-                alert('ERROR: No hay datos de consulta. Por favor realice una consulta primero.');
+            if (ruc.length !== 11) {
+                alert('Ingrese un RUC valido de 11 digitos');
                 return;
             }
             
-            // Verificar datos específicos
-            console.log('RUC:', lastResult.ruc);
-            console.log('Score:', lastResult.score);
-            console.log('Razón Social:', lastResult.razon_social);
-            
-            if (!lastResult.ruc) {
-                alert('ERROR: El resultado no contiene RUC. Datos: ' + JSON.stringify(lastResult));
-                return;
-            }
-            
-            if (lastResult.score === undefined) {
-                alert('ERROR: El resultado no contiene Score. Datos: ' + JSON.stringify(lastResult));
-                return;
-            }
-            
-            const certId = 'CZ-' + Math.random().toString(36).substr(2, 8).toUpperCase();
-            
-            // Construir URL manualmente paso a paso para debug
-            const baseUrl = 'https://www.czperu.com/verificar.html';
-            const rucParam = 'ruc=' + encodeURIComponent(lastResult.ruc);
-            const scoreParam = 'score=' + encodeURIComponent(lastResult.score);
-            const certParam = 'cert=' + certId;
-            
-            const verifyUrl = baseUrl + '?' + certParam + '&' + rucParam + '&' + scoreParam;
-            
-            console.log('URL del QR:', verifyUrl);
-            
-            // Mostrar al usuario para confirmar
-            const confirmMsg = 'Se generará certificado para:\n\n' +
-                'RUC: ' + lastResult.ruc + '\n' +
-                'Score: ' + lastResult.score + '\n' +
-                'Empresa: ' + (lastResult.razon_social || 'N/A') + '\n\n' +
-                '¿Continuar?';
-            
-            if (!confirm(confirmMsg)) {
-                return;
-            }
-            
-            // Fechas para el certificado
-            const fecha = new Date();
-            const fechaStr = fecha.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
-            const fechaVenc = new Date(fecha);
-            fechaVenc.setMonth(fechaVenc.getMonth() + 3);
-            const fechaVencStr = fechaVenc.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
-            
-            const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(verifyUrl);
-            
-            console.log('QR API URL completa:', qrApiUrl);
-            console.log('Longitud URL:', verifyUrl.length);
-            
-            const doc = new window.jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
-            
-            // Fondo blanco premium
-            doc.setFillColor(252, 252, 252);
-            doc.rect(0, 0, 210, 297, 'F');
-            
-            // ===== BORDES DORADOS DOBLES (efecto diploma) =====
-            doc.setDrawColor(201, 169, 97);
-            doc.setLineWidth(2);
-            doc.rect(12, 12, 186, 273);
-            
-            doc.setLineWidth(0.5);
-            doc.rect(18, 18, 174, 261);
-            
-            // Esquinas decorativas
-            const cornerSize = 8;
-            doc.setLineWidth(1.5);
-            doc.line(12, 25, 25, 12);
-            doc.line(185, 12, 198, 25);
-            doc.line(12, 272, 25, 285);
-            doc.line(185, 285, 198, 272);
-            
-            // ===== HEADER CON LOGO =====
-            doc.setFillColor(201, 169, 97);
-            doc.circle(105, 38, 18, 'F');
-            doc.setFillColor(255, 255, 255);
-            doc.circle(105, 38, 14, 'F');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(20);
-            doc.setTextColor(201, 169, 97);
-            doc.text('CZ', 105, 43, { align: 'center' });
-            
-            // ===== TITULOS PRINCIPALES =====
-            doc.setFontSize(28);
-            doc.setTextColor(60, 50, 40);
-            doc.text('CONFLICTZERO', 105, 75, { align: 'center' });
-            
-            doc.setFontSize(11);
-            doc.setTextColor(150, 140, 120);
-            doc.setFont('helvetica', 'italic');
-            doc.text('CERTIFICACION DE VERIFICACION EMPRESARIAL', 105, 83, { align: 'center' });
-            
-            // ===== LINEA DECORATIVA CON DIAMANTE =====
-            doc.setDrawColor(201, 169, 97);
-            doc.setLineWidth(0.8);
-            doc.line(50, 92, 95, 92);
-            doc.line(115, 92, 160, 92);
-            
-            doc.setFillColor(201, 169, 97);
-            const dX = 105, dY = 92, dS = 3;
-            doc.triangle(dX, dY - dS, dX - dS, dY, dX, dY + dS, 'F');
-            doc.triangle(dX, dY - dS, dX + dS, dY, dX, dY + dS, 'F');
-            
-            // ===== NUMERO DE CERTIFICADO =====
-            doc.setFontSize(10);
-            doc.setTextColor(150, 140, 120);
-            doc.setFont('helvetica', 'normal');
-            doc.text('CERTIFICADO Nro.', 175, 28, { align: 'right' });
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(60, 50, 40);
-            doc.text(certId, 175, 35, { align: 'right' });
-            
-            // ===== TEXTO DE PRESENTACION =====
-            doc.setFontSize(11);
-            doc.setTextColor(100, 100, 100);
-            doc.setFont('helvetica', 'italic');
-            doc.text('Por medio del presente, ConflictZero S.A.C. certifica que:', 105, 108, { align: 'center' });
-            
-            // ===== NOMBRE DE LA EMPRESA (con wrap automatico) =====
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(18);
-            doc.setTextColor(40, 40, 40);
-            
-            const razon = lastResult.razon_social || 'Empresa';
-            const splitRazon = doc.splitTextToSize(razon, 150);
-            let startY = 130;
-            
-            // Centrar verticalmente segun cantidad de lineas
-            if (splitRazon.length === 1) startY = 136;
-            else if (splitRazon.length === 2) startY = 130;
-            else startY = 125;
-            
-            splitRazon.forEach((line, index) => {
-                doc.text(line, 105, startY + (index * 10), { align: 'center' });
-            });
-            
-            // RUC debajo del nombre
-            const rucY = startY + (splitRazon.length * 10) + 5;
-            doc.setFontSize(12);
-            doc.setTextColor(120, 120, 120);
-            doc.setFont('helvetica', 'normal');
-            doc.text('RUC: ' + (lastResult.ruc || '-'), 105, rucY, { align: 'center' });
-            
-            // ===== CAJA DE ESTADO =====
-            const score = lastResult.score || 0;
-            const tieneProblemas = score < 60;
-            
-            // Calcular posicion Y de la caja
-            const cajaY = rucY + 15;
-            
-            if (tieneProblemas) {
-                doc.setFillColor(255, 245, 238);
-                doc.setDrawColor(230, 126, 34);
-            } else {
-                doc.setFillColor(240, 248, 240);
-                doc.setDrawColor(40, 167, 69);
-            }
-            doc.roundedRect(35, cajaY, 140, 35, 3, 3, 'FD');
-            
-            doc.setFontSize(14);
-            if (tieneProblemas) {
-                doc.setTextColor(200, 100, 50);
-            } else {
-                doc.setTextColor(40, 120, 60);
-            }
-            doc.setFont('helvetica', 'bold');
-            doc.text(tieneProblemas ? 'PROBLEMAS DETECTADOS' : 'SIN PROBLEMAS DETECTADOS', 105, cajaY + 18, { align: 'center' });
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100, 100, 100);
-            doc.setFont('helvetica', 'normal');
-            const estadoSub = tieneProblemas ? 'Se recomienda revision adicional' : 'Empresa habilitada para contratacion publica';
-            doc.text(estadoSub, 105, cajaY + 28, { align: 'center' });
-            
-            // ===== SECCION INFERIOR: DATOS Y QR =====
-            const bottomY = cajaY + 50;
-            
-            // Fuentes consultadas (izquierda)
-            doc.setFontSize(10);
-            doc.setTextColor(80, 80, 80);
-            doc.setFont('helvetica', 'bold');
-            doc.text('FUENTES CONSULTADAS:', 30, bottomY);
-            
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(201, 169, 97);
-            doc.text('SUNAT - SBS - OSCE - RENIEC', 30, bottomY + 8);
-            
-            doc.setTextColor(100, 100, 100);
-            doc.setFontSize(9);
-            const descText = 'La empresa ha sido verificada en las principales bases de datos del Estado peruano y se encuentra APTA para participar en procesos de licitacion.';
-            const splitDesc = doc.splitTextToSize(descText, 110);
-            splitDesc.forEach((line, index) => {
-                doc.text(line, 30, bottomY + 18 + (index * 5));
-            });
-            
-            // ===== QR CODE (generado localmente) =====
             try {
-                // Crear div temporal para el QR
-                const qrDiv = document.createElement('div');
-                qrDiv.style.position = 'absolute';
-                qrDiv.style.left = '-9999px';
-                document.body.appendChild(qrDiv);
-                
-                // Generar QR localmente
-                const qr = new QRCode(qrDiv, {
-                    text: verifyUrl,
-                    width: 150,
-                    height: 150,
-                    colorDark: '#000000',
-                    colorLight: '#ffffff',
-                    correctLevel: QRCode.CorrectLevel.M
+                const response = await fetch(`https://conflict-zero-api.onrender.com/api/v3/validate/${ruc}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
-                // Esperar a que se genere y extraer la imagen
-                setTimeout(() => {
-                    const qrCanvas = qrDiv.querySelector('canvas');
-                    if (qrCanvas) {
-                        const qrDataUrl = qrCanvas.toDataURL('image/png');
-                        doc.addImage(qrDataUrl, 'PNG', 155, bottomY - 5, 30, 30);
-                        
-                        // Texto debajo del QR
-                        doc.setFontSize(7);
-                        doc.setTextColor(150, 150, 150);
-                        doc.text('ESCANEAR PARA', 170, bottomY + 30, { align: 'center' });
-                        doc.text('VERIFICAR', 170, bottomY + 35, { align: 'center' });
-                    }
-                    
-                    // Limpiar
-                    document.body.removeChild(qrDiv);
-                    
-                    // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
-                    const footerY = bottomY + 50;
-                    
-                    doc.setDrawColor(200, 190, 170);
-                    doc.setLineWidth(0.3);
-                    doc.line(30, footerY, 180, footerY);
-                    
-                    // Fechas (izquierda)
-                    doc.setFontSize(9);
-                    doc.setTextColor(100, 100, 100);
-                    doc.text('Fecha de emision:', 30, footerY + 8);
-                    doc.setTextColor(40, 40, 40);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(fechaStr, 65, footerY + 8);
-                    
-                    doc.setFont('helvetica', 'normal');
-                    doc.setTextColor(100, 100, 100);
-                    doc.text('Valido hasta:', 30, footerY + 15);
-                    doc.setTextColor(40, 40, 40);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(fechaVencStr, 65, footerY + 15);
-                    
-                    // Sello CZ OFICIAL (derecha)
-                    doc.setFillColor(201, 169, 97);
-                    doc.circle(165, footerY + 8, 10, 'F');
-                    doc.setFontSize(7);
-                    doc.setTextColor(255, 255, 255);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text('CZ', 165, footerY + 6, { align: 'center' });
-                    doc.setFontSize(5);
-                    doc.text('OFICIAL', 165, footerY + 12, { align: 'center' });
-                    
-                    // ===== FOOTER =====
-                    doc.setFontSize(7);
-                    doc.setTextColor(150, 150, 150);
-                    doc.setFont('helvetica', 'normal');
-                    doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima', 105, 290, { align: 'center' });
-                    doc.text('contacto@czperu.com | www.czperu.com | Certificado valido por 3 meses', 105, 294, { align: 'center' });
-                    
-                    // Guardar PDF
-                    doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
-                }, 100);
+                const data = await response.json();
                 
-            } catch (e) {
-                console.error('Error generando QR:', e);
-                // Fallback: dibujar un rectángulo
-                doc.setDrawColor(200, 200, 200);
-                doc.setLineWidth(0.5);
-                doc.rect(155, bottomY - 5, 30, 30);
-                doc.setFontSize(8);
-                doc.setTextColor(150, 150, 150);
-                doc.text('QR', 170, bottomY + 15, { align: 'center' });
-                
-                // ===== SECCION INFERIOR: FIRMAS Y FECHAS =====
-                const footerY = bottomY + 50;
-                
-                doc.setDrawColor(200, 190, 170);
-                doc.setLineWidth(0.3);
-                doc.line(30, footerY, 180, footerY);
-                
-                // Fechas (izquierda)
-                doc.setFontSize(9);
-                doc.setTextColor(100, 100, 100);
-                doc.text('Fecha de emision:', 30, footerY + 8);
-                doc.setTextColor(40, 40, 40);
-                doc.setFont('helvetica', 'bold');
-                doc.text(fechaStr, 65, footerY + 8);
-                
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(100, 100, 100);
-                doc.text('Valido hasta:', 30, footerY + 15);
-                doc.setTextColor(40, 40, 40);
-                doc.setFont('helvetica', 'bold');
-                doc.text(fechaVencStr, 65, footerY + 15);
-                
-                // Sello CZ OFICIAL (derecha)
-                doc.setFillColor(201, 169, 97);
-                doc.circle(165, footerY + 8, 10, 'F');
-                doc.setFontSize(7);
-                doc.setTextColor(255, 255, 255);
-                doc.setFont('helvetica', 'bold');
-                doc.text('CZ', 165, footerY + 6, { align: 'center' });
-                doc.setFontSize(5);
-                doc.text('OFICIAL', 165, footerY + 12, { align: 'center' });
-                
-                // ===== FOOTER =====
-                doc.setFontSize(7);
-                doc.setTextColor(150, 150, 150);
-                doc.setFont('helvetica', 'normal');
-                doc.text('ConflictZero S.A.C. - Av. Jose Larco 1234, Of. 501, Miraflores, Lima', 105, 290, { align: 'center' });
-                doc.text('contacto@czperu.com | www.czperu.com | Certificado valido por 3 meses', 105, 294, { align: 'center' });
-                
-                // Guardar PDF
-                doc.save('Certificado_' + lastResult.ruc + '_' + certId + '.pdf');
+                if (response.ok) {
+                    scoreNum.textContent = Math.round(data.score || 0);
+                    resultBox.classList.add('visible');
+                } else {
+                    alert(data.detail || 'Error al validar');
+                }
+            } catch (err) {
+                alert('Error de conexion');
             }
         }
         
-        loadFromStorage();
-        
-        document.getElementById('rucInput').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/\D/g, '');
-        });
+        function invitarSubcontratista() {
+            alert('Funcion de invitacion - en desarrollo');
+        }
     </script>
 </body>
 </html>
