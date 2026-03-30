@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccione su Plan - Conflict Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0F;
+            color: #F5F5F0;
+            min-height: 100vh;
+        }
+        
+        header {
+            width: 100%;
+            padding: 24px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #2A2A2E;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #C5A059;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: #C5A059;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #F5F5F0;
+        }
+        
+        .back-link {
+            color: #8A8A85;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #C5A059;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        /* SECCIÓN SUPERIOR: SELLO AUTOMÁTICO */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            color: #F5F5F0;
+        }
+        
+        .hero .subtitle {
+            font-size: 18px;
+            color: #8A8A85;
+            margin-bottom: 32px;
+        }
+        
+        /* SELLO ASIGNADO (READ-ONLY) */
+        .seal-section {
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(197, 160, 89, 0.05));
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 8px;
+            padding: 32px 40px;
+            margin: 0 auto 48px;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .seal-section .company-name {
+            font-size: 14px;
+            color: #C5A059;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .seal-section .ruc {
+            font-size: 16px;
+            color: #8A8A85;
+            margin-bottom: 24px;
+        }
+        
+        .seal-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .score-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: #C5A059;
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 14px;
+            color: #8A8A85;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .seal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 16px;
+        }
+        
+        .seal-badge.bronze {
+            background: rgba(184, 115, 51, 0.2);
+            border: 2px solid #B87333;
+            color: #B87333;
+        }
+        
+        .seal-badge.silver {
+            background: rgba(192, 192, 192, 0.2);
+            border: 2px solid #C0C0C0;
+            color: #C0C0C0;
+        }
+        
+        .seal-badge.gold {
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
+        }
+        
+        .seal-badge.ineligible {
+            background: rgba(100, 100, 100, 0.2);
+            border: 2px solid #6B6B6E;
+            color: #6B6B6E;
+        }
+        
+        .seal-note {
+            font-size: 13px;
+            color: #8A8A85;
+            margin-top: 16px;
+            font-style: italic;
+        }
+        
+        /* SEPARADOR */
+        .divider {
+            text-align: center;
+            margin: 48px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2A2A2E, transparent);
+        }
+        
+        .divider-text {
+            display: inline-block;
+            background: #0A0A0F;
+            padding: 0 24px;
+            font-size: 14px;
+            color: #C5A059;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        /* SECCIÓN INFERIOR: PLANES A ELEGIR */
+        .plans-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .plans-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+        
+        .plans-header p {
+            font-size: 15px;
+            color: #8A8A85;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        
+        .plan-card {
+            border: 1px solid #2A2A2E;
+            padding: 40px 32px;
+            background: #12121A;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(197, 160, 89, 0.15);
+        }
+        
+        .plan-card.featured {
+            border-color: #C5A059;
+            box-shadow: 0 0 0 1px #C5A059;
+        }
+        
+        .plan-card.featured::before {
+            content: 'MÁS POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #C5A059;
+            color: #0A0A0F;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            padding: 6px 16px;
+        }
+        
+        .plan-badge-type {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            background: rgba(197, 160, 89, 0.1);
+            color: #C5A059;
+            border: 1px solid #C5A059;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+        
+        .plan-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #F5F5F0;
+        }
+        
+        .plan-desc {
+            font-size: 14px;
+            color: #8A8A85;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        
+        .plan-price {
+            font-size: 48px;
+            font-family: 'Cormorant Garamond', serif;
+            color: #C5A059;
+            margin-bottom: 4px;
+        }
+        
+        .plan-price-period {
+            font-size: 14px;
+            color: #6B6B6E;
+            margin-bottom: 8px;
+        }
+        
+        .plan-seal-included {
+            font-size: 13px;
+            color: #8A8A85;
+            margin-bottom: 32px;
+            padding: 8px 12px;
+            background: rgba(197, 160, 89, 0.05);
+            border-left: 2px solid #C5A059;
+        }
+        
+        .plan-seal-included strong {
+            color: #C5A059;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .plan-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #2A2A2E;
+            font-size: 14px;
+            color: #A0A0A0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .plan-features li:before {
+            content: "✓";
+            color: #C5A059;
+            font-weight: bold;
+        }
+        
+        .btn-select {
+            width: 100%;
+            padding: 16px;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid #C5A059;
+            background: transparent;
+            color: #C5A059;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-select:hover {
+            background: #C5A059;
+            color: #0A0A0F;
+        }
+        
+        .plan-card.featured .btn-select {
+            background: #C5A059;
+            color: #0A0A0F;
+        }
+        
+        .plan-card.featured .btn-select:hover {
+            background: #D4AF37;
+        }
+        
+        /* INFO BOX */
+        .info-box {
+            background: rgba(197, 160, 89, 0.05);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 8px;
+            padding: 24px 32px;
+            margin-top: 48px;
+            text-align: center;
+        }
+        
+        .info-box p {
+            font-size: 14px;
+            color: #8A8A85;
+            line-height: 1.6;
+        }
+        
+        .info-box strong {
+            color: #C5A059;
+        }
+        
+        footer {
+            background: #0D0D12;
+            border-top: 1px solid #2A2A2E;
+            padding: 32px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+            color: #6B6B6E;
+            letter-spacing: 0.1em;
+        }
+        
+        @media (max-width: 768px) {
+            header { padding: 20px 24px; }
+            .hero h1 { font-size: 28px; }
+            .plans-container { grid-template-columns: 1fr; }
+            .seal-section { padding: 24px; }
+            .score-value { font-size: 48px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="logo-text">Conflict Zero</span>
+        </a>
+        <a href="/verificar.html" class="back-link">← Volver a Verificación</a>
+    </header>
+    
+    <main>
+        <!-- SECCIÓN SUPERIOR: SELLO AUTOMÁTICO -->
+        <div class="hero">
+            <h1>Evaluación Legal Completada</h1>
+            <p class="subtitle">Su empresa ha sido analizada y recibe el siguiente sello</p>
+        </div>
+        
+        <div class="seal-section">
+            <div class="company-name" id="companyName">Empresa</div>
+            <div class="ruc" id="companyRuc">RUC: --</div>
+            
+            <div class="seal-display">
+                <div class="score-value" id="scoreValue">--</div>
+                <div class="score-label">Score Legal / 100</div>
+                
+                <div class="seal-badge" id="sealBadge">
+                    <span id="sealIcon">●</span>
+                    <span id="sealName">--</span>
+                </div>
+            </div>
+            
+            <p class="seal-note">
+                Su Sello es determinado únicamente por su Score Legal. No se paga por el Sello, se gana con su historial.
+            </p>
+        </div>
+        
+        <!-- SEPARADOR -->
+        <div class="divider">
+            <span class="divider-text">Seleccione sus Herramientas</span>
+        </div>
+        
+        <!-- SECCIÓN INFERIOR: PLANES A ELEGIR -->
+        <div class="plans-header">
+            <h2>Planes de Servicio</h2>
+            <p>Los Planes determinan las herramientas disponibles. Todos incluyen su Sello asignado arriba. Paga por funcionalidad, no por color.</p>
+        </div>
+        
+        <div class="plans-container">
+            <!-- PLAN STARTER -->
+            <div class="plan-card">
+                <span class="plan-badge-type">Plan</span>
+                <h2 class="plan-title">STARTER</h2>
+                <p class="plan-desc">Certificación oficial para subcontratistas y proveedores.</p>
+                
+                <div class="plan-price">$400</div>
+                <div class="plan-price-period">por año</div>
+                
+                <div class="plan-seal-included">
+                    Incluye: Certificado con su Sello <strong id="starterSeal">Bronze</strong>
+                </div>
+                
+                <ul class="plan-features">
+                    <li>Certificado digital oficial CZ</li>
+                    <li>Verificación pública OSCE/SUNAT</li>
+                    <li>Dashboard básico de cumplimiento</li>
+                    <li>Sello físico para documentos</li>
+                    <li>Soporte por email</li>
+                </ul>
+                
+                <button class="btn-select" onclick="selectPlan('starter')">Seleccionar Starter</button>
+            </div>
+            
+            <!-- PLAN PROFESSIONAL -->
+            <div class="plan-card featured">
+                <span class="plan-badge-type">Plan</span>
+                <h2 class="plan-title">PROFESSIONAL</h2>
+                <p class="plan-desc">Para constructoras que gestionan múltiples proveedores.</p>
+                
+                <div class="plan-price">$800</div>
+                <div class="plan-price-period">por año</div>
+                
+                <div class="plan-seal-included">
+                    Incluye: Certificado con su Sello <strong id="proSeal">Bronze</strong>
+                </div>
+                
+                <ul class="plan-features">
+                    <li>Todo lo incluido en Starter</li>
+                    <li>Dashboard "Mi Red" (25 proveedores)</li>
+                    <li>Alertas de cambios regulatorios</li>
+                    <li>Reportes trimestrales</li>
+                    <li>Soporte prioritario</li>
+                </ul>
+                
+                <button class="btn-select" onclick="selectPlan('professional')">Seleccionar Professional</button>
+            </div>
+            
+            <!-- PLAN ENTERPRISE -->
+            <div class="plan-card">
+                <span class="plan-badge-type">Plan</span>
+                <h2 class="plan-title">ENTERPRISE</h2>
+                <p class="plan-desc">Para consorcios líderes con necesidades avanzadas.</p>
+                
+                <div class="plan-price">$2,500</div>
+                <div class="plan-price-period">por año</div>
+                
+                <div class="plan-seal-included">
+                    Incluye: Certificado con su Sello <strong id="enterpriseSeal">Bronze</strong>
+                </div>
+                
+                <ul class="plan-features">
+                    <li>Todo lo incluido en Professional</li>
+                    <li>Dashboard "Mi Red" ilimitado</li>
+                    <li>API de verificación propia</li>
+                    <li>Reportes mensuales ejecutivos</li>
+                    <li>Asesoría legal preventiva</li>
+                </ul>
+                
+                <button class="btn-select" onclick="selectPlan('enterprise')">Seleccionar Enterprise</button>
+            </div>
+        </div>
+        
+        <!-- INFO BOX -->
+        <div class="info-box">
+            <p>
+                <strong>Sello ≠ Plan</strong><br>
+                Su <strong>Sello</strong> es su reputación (determinada por Score).<br>
+                Su <strong>Plan</strong> son sus herramientas (elegidas por usted).<br><br>
+                Ejemplo: Una empresa con Score 99 puede elegir Plan Starter ($400) y recibirá 
+                certificado con <strong>Sello Gold</strong> + herramientas básicas.
+            </p>
+        </div>
+    </main>
+    
+    <footer>
+        <p class="footer-text">Conflict Zero © 2026 — Certificación Empresarial de Excelencia</p>
+    </footer>
+    
+    <script>
+        // Obtener parámetros de URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const ruc = urlParams.get('ruc');
+        const score = parseInt(urlParams.get('score'));
+        const tier = urlParams.get('tier');
+        const companyName = urlParams.get('company') || 'Su Empresa';
+        
+        // Configurar Sello según Score
+        let sealName, sealClass, sealIcon;
+        
+        if (score >= 90) {
+            sealName = 'Gold';
+            sealClass = 'gold';
+            sealIcon = '★';
+        } else if (score >= 70) {
+            sealName = 'Silver';
+            sealClass = 'silver';
+            sealIcon = '◆';
+        } else if (score >= 30) {
+            sealName = 'Bronze';
+            sealClass = 'bronze';
+            sealIcon = '●';
+        } else {
+            sealName = 'No Califica';
+            sealClass = 'ineligible';
+            sealIcon = '○';
+        }
+        
+        // Actualizar UI del Sello
+        if (ruc) {
+            document.getElementById('companyName').textContent = companyName;
+            document.getElementById('companyRuc').textContent = `RUC: ${ruc}`;
+        }
+        
+        if (score) {
+            document.getElementById('scoreValue').textContent = score;
+            
+            const badge = document.getElementById('sealBadge');
+            badge.className = `seal-badge ${sealClass}`;
+            document.getElementById('sealIcon').textContent = sealIcon;
+            document.getElementById('sealName').textContent = sealName;
+            
+            // Actualizar los sellos en cada plan
+            document.getElementById('starterSeal').textContent = sealName;
+            document.getElementById('starterSeal').className = sealClass.toLowerCase();
+            document.getElementById('proSeal').textContent = sealName;
+            document.getElementById('proSeal').className = sealClass.toLowerCase();
+            document.getElementById('enterpriseSeal').textContent = sealName;
+            document.getElementById('enterpriseSeal').className = sealClass.toLowerCase();
+        }
+        
+        // Si no califica (score < 30), deshabilitar todo
+        if (score < 30) {
+            document.querySelectorAll('.btn-select').forEach(btn => {
+                btn.disabled = true;
+                btn.textContent = 'Score Insuficiente';
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+        }
+        
+        function selectPlan(plan) {
+            if (score < 30) {
+                alert('Su Score no alcanza el mínimo para certificación (30 puntos).');
+                return;
+            }
+            
+            // Guardar selección
+            sessionStorage.setItem('selected_plan', plan);
+            sessionStorage.setItem('ruc_to_certify', ruc);
+            sessionStorage.setItem('certification_score', score);
+            sessionStorage.setItem('assigned_seal', sealName.toLowerCase());
+            sessionStorage.setItem('company_name', companyName);
+            
+            // Mostrar mensaje de confirmación antes de redirigir
+            const planNames = {
+                'starter': 'Starter ($400/año)',
+                'professional': 'Professional ($800/año)',
+                'enterprise': 'Enterprise ($2,500/año)'
+            };
+            
+            alert(`Ha seleccionado:\n• Plan: ${planNames[plan]}\n• Sello asignado: ${sealName} (Score ${score})\n\nSerá redirigido al registro.`);
+            
+            // Redirigir a registro con parámetros
+            window.location.href = `/register.html?ruc=${ruc}&plan=${plan}&score=${score}&seal=${sealName.toLowerCase()}&company=${encodeURIComponent(companyName)}`;
+        }
+    </script>
+</body>
+</html>
