@@ -531,29 +531,40 @@
             container.innerHTML = `
                 <div class="loading">
                     <div class="spinner"></div>
-                    <p>Consultando registros OSCE/SUNAT...</p>
+                    <p>Consultando registros...</p>
                 </div>
             `;
             container.classList.add('active');
             
-            // Si es código de certificado demo
-            const empresaDemo = empresasDemo[input.toLowerCase()];
-            if (empresaDemo && input.length < 11) {
-                setTimeout(() => mostrarResultadoDemo(empresaDemo), 500);
-                return;
-            }
+            // Detectar si es RUC (11 dígitos) o código de certificado
+            const isRuc = /^\d{11}$/.test(input);
             
             // Consultar API real
             try {
-                const response = await fetch(`${API_BASE_URL}/api/v3/validate/${input}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                });
+                let response;
+                
+                if (isRuc) {
+                    // Es un RUC - usar endpoint de validación
+                    response = await fetch(`${API_BASE_URL}/api/v3/validate/${input}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                } else {
+                    // Es código de certificado - usar endpoint de certificados
+                    response = await fetch(`${API_BASE_URL}/api/v3/certificates/${input}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                }
                 
                 const data = await response.json();
                 
                 if (response.ok) {
-                    mostrarResultadoAPI(data);
+                    if (isRuc) {
+                        mostrarResultadoAPI(data);
+                    } else {
+                        mostrarResultadoCertificado(data.certificate, data.valid);
+                    }
                 } else {
                     mostrarNoEncontradoAPI(data);
                 }
