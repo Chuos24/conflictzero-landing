@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mnmb1kcm",
+      "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
+      "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
+      "excerpt": "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
+      "content": "El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.\n\n¿QUÉ ES EL CERTIFICADO?\n\nEste documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.\n\nSECCIÓN 1: DATOS DE IDENTIFICACIÓN\n\nVerifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.\n\nSECCIÓN 2: INDICADORES FINANCIEROS CLAVE\n\nLIQUIDEZ (Capacidad de pago a corto plazo)\n• Razón corriente: Debe ser mayor a 1.0\n• Prueba ácida: Idealmente mayor a 0.8\n• Valores menores indican riesgo de impago\n\nSOLVENCIA (Relación entre activos y pasivos)\n• Endeudamiento total: Menor a 60% es saludable\n• Mayor endeudamiento = mayor riesgo de insolvencia\n\nRENTABILIDAD (Capacidad de generar utilidades)\n• ROE mayor a 10% es considerado bueno\n• ROA mayor a 5% indica eficiencia\n\nSECCIÓN 3: SEÑALES DE ALERTA\n\n🔴 ROJO (Alto riesgo):\n• Déficits operativos prolongados\n• Razón corriente menor a 0.5\n• Endeudamiento superior al 80%\n• Patrimonio negativo\n\n🟡 AMARILLO (Precaución):\n• Liquidez decreciente año tras año\n• Aumento significativo del endeudamiento\n\nSECCIÓN 4: VERIFICACIÓN CRUZADA\n\nCompare la información con:\n• Estados financieros en SUNAT\n• Registro Nacional de Proveedores\n• Datos de registros públicos\n\nRED FLAGS DE FRAUDE:\n• Fechas inconsistentes\n• Montos que no coinciden\n• Falta de sello digital\n• Representante legal diferente\n\nUn análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.",
+      "category": "Guías",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-05",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "RUC",
+        "Verificación",
+        "Tutorial"
+      ]
+    },
+    {
       "id": "post-mnkvlsmi",
       "title": "SUNAT Detecta 28 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
       "slug": "sunat-detecta-28-empresas-con-deuda-tributaria-superior-a-s-",
@@ -11,7 +39,7 @@
       "date": "2026-04-04",
       "readTime": "6 min",
       "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "TCE",
@@ -202,8 +230,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-04T22:00:12.331Z",
-    "totalPosts": 7,
+    "lastUpdated": "2026-04-05T22:00:08.518Z",
+    "totalPosts": 8,
     "categories": [
       "Noticias",
       "Guías",
@@ -212,6 +240,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-04T22:00:12.331Z"
+    "lastGeneration": "2026-04-05T22:00:08.518Z"
   }
 }
