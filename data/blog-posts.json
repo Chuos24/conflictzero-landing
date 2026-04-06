@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mnnqhfwt",
+      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
+      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
+      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
+      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
+      "category": "Análisis",
+      "author": "María Elena Vargas",
+      "date": "2026-04-06",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
       "id": "post-mnmb1kcm",
       "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
       "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
@@ -11,7 +39,7 @@
       "date": "2026-04-05",
       "readTime": "7 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -230,8 +258,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-05T22:00:08.518Z",
-    "totalPosts": 8,
+    "lastUpdated": "2026-04-06T22:00:09.677Z",
+    "totalPosts": 9,
     "categories": [
       "Noticias",
       "Guías",
@@ -240,6 +268,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-05T22:00:08.518Z"
+    "lastGeneration": "2026-04-06T22:00:09.677Z"
   }
 }
