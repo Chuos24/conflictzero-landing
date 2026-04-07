@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mnp5xk78",
+      "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
+      "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
+      "excerpt": "El OSCE actualizó sus reglamentos de contrataciones públicas. Conozca los cambios clave que afectan a proveedores y contratistas del Estado.",
+      "content": "El Organismo Supervisor de las Contrataciones del Estado ha implementado modificaciones significativas a su normativa durante 2026. Estos cambios impactan directamente a empresas que participan o desean participar en procesos de selección del Estado.\n\nPRINCIPALES CAMBIOS NORMATIVOS:\n\n1. PLAZOS DE INHABILITACIÓN EXTENDIDOS\nAnterior: 6 meses a 3 años\nNuevo: 8 meses a 5 años para infracciones graves\nImpacto: Sanciones más severas por documentación falsa\n\n2. OBLIGATORIEDAD DE DECLARACIÓN DE SUBCONTRATISTAS\nAhora debe declarar TODOS los subcontratistas antes del inicio de obra\nVerificación de inhabilitaciones aplica también a subcontratistas\nResponsabilidad solidaria del contratista principal\n\n3. NUEVOS REQUISITOS DE EXPERIENCIA\nExperiencia mínima aumentada para contratos mayores a 500 UIT\nMayor rigor en verificación de certificados de experiencia\nObligatoriedad de referencias verificables\n\n4. SISTEMA DE ALERTAS TEMPRANAS\nNuevo módulo de alertas por incumplimiento de plazos\nNotificaciones automáticas a entidades supervisores\nMayor transparencia en el seguimiento de contratos\n\nOBLIGACIONES ADICIONALES PARA EMPRESAS:\n\n✓ Capacitación anual obligatoria en contrataciones públicas\n✓ Designación de un responsable de compliance contractual\n✓ Implementación de sistema de gestión documental\n✓ Auditorías internas semestrales obligatorias\n\nSANCIONES AUMENTADAS:\n\nMultas por omisión de información: Hasta 100 UIT\nInhabilitación por falsa declaración: Mínimo 2 años\nSanciones a administradores solidarios: Posible responsabilidad penal\n\nRECOMENDACIONES DE IMPLEMENTACIÓN:\n\n1. Capacite a todo el equipo involucrado en contrataciones\n2. Actualice sus sistemas de gestión documental\n3. Implemente verificación sistemática de contrapartes\n4. Establezca proceso de revisión legal antes de presentar ofertas\n5. Considere contratar asesoría especializada en compliance\n\nEl incumplimiento de estas nuevas normativas puede resultar en sanciones severas que afecten la viabilidad de su empresa como proveedor del Estado.",
+      "category": "Compliance",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-07",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Compliance",
+        "Normativa",
+        "Legal"
+      ]
+    },
+    {
       "id": "post-mnnqhfwt",
       "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
       "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
@@ -11,7 +39,7 @@
       "date": "2026-04-06",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -258,8 +286,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-06T22:00:09.677Z",
-    "totalPosts": 9,
+    "lastUpdated": "2026-04-07T22:00:22.149Z",
+    "totalPosts": 10,
     "categories": [
       "Noticias",
       "Guías",
@@ -268,6 +296,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-06T22:00:09.677Z"
+    "lastGeneration": "2026-04-07T22:00:22.149Z"
   }
 }
