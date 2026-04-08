@@ -381,11 +381,11 @@
                 }
                 
                 // Guardar token
-                localStorage.setItem('cz_token', data.access_token);
+                localStorage.setItem('cz_token', data.token);
                 localStorage.setItem('cz_user', JSON.stringify({
                     email: email,
                     loginTime: new Date().toISOString(),
-                    token: data.access_token
+                    token: data.token
                 }));
                 
                 // Redirigir
