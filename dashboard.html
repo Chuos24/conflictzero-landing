@@ -558,14 +558,32 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.success) {
-                        // Usar company_name si existe, sino email
-                        const displayName = data.user.company_name || data.user.company || data.user.email;
-                        document.getElementById('companyName').textContent = displayName;
+                    if (data.success && data.user) {
+                        const userRuc = data.user.ruc;
+                        
+                        // Intentar obtener nombre de la empresa desde consulta-completa
+                        try {
+                            const scoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${userRuc}`);
+                            if (scoreResponse.ok) {
+                                const scoreData = await scoreResponse.json();
+                                if (scoreData.razon_social) {
+                                    document.getElementById('companyName').textContent = scoreData.razon_social;
+                                    return;
+                                }
+                            }
+                        } catch (e) {
+                            console.log('No se pudo obtener razón social:', e);
+                        }
+                        
+                        // Fallback a email
+                        document.getElementById('companyName').textContent = data.user.email;
                     }
+                } else if (response.status === 401) {
+                    window.location.href = '/login.html';
                 }
             } catch (err) {
                 console.error('Error loading user:', err);
+                document.getElementById('companyName').textContent = 'Empresa';
             }
         }
         
