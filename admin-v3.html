@@ -1308,12 +1308,13 @@
                     
                     alert('✅ Usuario creado exitosamente en la base de datos');
                 } else {
-                    alert(`❌ Error: ${data.message || 'No se pudo crear el usuario'}`);
+                    console.error('Error del servidor:', data);
+                    alert(`❌ Error del servidor: ${data.message || 'No se pudo crear el usuario'}\n\nError: ${data.error || 'UNKNOWN'}`);
                 }
                 
             } catch (error) {
-                console.error('Error creando usuario:', error);
-                alert('❌ Error de conexión. Intente nuevamente.');
+                console.error('Error completo:', error);
+                alert(`❌ Error de conexión: ${error.message}\n\nVerifica que el backend esté funcionando.`);
             } finally {
                 btn.textContent = originalText;
                 btn.disabled = false;
