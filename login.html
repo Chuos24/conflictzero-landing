@@ -380,12 +380,14 @@
                     throw new Error(data.detail || 'Credenciales incorrectas');
                 }
                 
-                // Guardar token
+                // Guardar token y datos de usuario
                 localStorage.setItem('cz_token', data.token);
                 localStorage.setItem('cz_user', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString(),
-                    token: data.token
+                    email: data.user.email,
+                    company_name: data.user.company_name,
+                    ruc: data.user.ruc,
+                    plan: data.user.plan,
+                    loginTime: new Date().toISOString()
                 }));
                 
                 // Redirigir
