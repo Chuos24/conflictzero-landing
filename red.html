@@ -347,6 +347,7 @@
         
         async function loadNetworkData() {
             try {
+                console.log('Token:', token ? 'Existe' : 'No existe');
                 document.getElementById('loadingText').textContent = 'Obteniendo información del usuario...';
                 
                 // 1. Obtener datos del usuario actual
@@ -354,11 +355,15 @@
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
+                console.log('Auth/me status:', meResponse.status);
+                
                 if (!meResponse.ok) {
-                    throw new Error('Sesión expirada');
+                    throw new Error(`Error ${meResponse.status}: ${meResponse.statusText}`);
                 }
                 
                 const meData = await meResponse.json();
+                console.log('Auth/me data:', meData);
+                
                 if (!meData.success) {
                     throw new Error('No se pudo obtener datos del usuario');
                 }
@@ -453,12 +458,12 @@
                 renderGraph();
                 
             } catch (error) {
-                console.error('Error cargando red:', error);
+                console.error('Error completo:', error);
                 document.getElementById('loadingText').textContent = 'Error al cargar';
-                document.getElementById('errorMsg').textContent = error.message + '. Redirigiendo al login...';
-                setTimeout(() => {
-                    window.location.href = '/login.html';
-                }, 3000);
+                document.getElementById('errorMsg').innerHTML = `
+                    <strong>Error:</strong> ${error.message}<br><br>
+                    <button onclick="window.location.href='/login.html'" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 20px;cursor:pointer;">Ir al Login</button>
+                `;
             }
         }
         
