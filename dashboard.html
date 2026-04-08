@@ -542,12 +542,31 @@
         const token = localStorage.getItem('cz_token');
         if (!token) {
             window.location.href = '/login.html';
+            return;
         }
+        
+        // Variable para evitar redirecciones múltiples
+        let redirecting = false;
         
         // Load user info and stats on page load
         document.addEventListener('DOMContentLoaded', async () => {
-            await loadUserInfo();
-            await loadDashboardStats();
+            try {
+                await loadUserInfo();
+                await loadDashboardStats();
+            } catch (err) {
+                console.error('Error cargando dashboard:', err);
+                if (!redirecting) {
+                    redirecting = true;
+                    // Mostrar error antes de redirigir
+                    document.body.innerHTML = `
+                        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0A0A0F;color:#F5F5F0;font-family:Inter,sans-serif;flex-direction:column;">
+                            <div style="font-size:24px;margin-bottom:20px;">⚠️ Error de sesión</div>
+                            <div style="color:#888;margin-bottom:30px;">${err.message}</div>
+                            <a href="/login.html" style="background:transparent;border:1px solid #C5A059;color:#C5A059;padding:12px 24px;text-decoration:none;">Volver al Login</a>
+                        </div>
+                    `;
+                }
+            }
         });
         
         async function loadUserInfo() {
