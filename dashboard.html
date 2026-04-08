@@ -559,7 +559,9 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data.success) {
-                        document.getElementById('companyName').textContent = data.user.company || data.user.email;
+                        // Usar company_name si existe, sino email
+                        const displayName = data.user.company_name || data.user.company || data.user.email;
+                        document.getElementById('companyName').textContent = displayName;
                     }
                 }
             } catch (err) {
