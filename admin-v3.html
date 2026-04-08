@@ -1226,7 +1226,7 @@
                                     </button>
                                 `}
                                 <button style="background: transparent; border: 1px solid var(--border); color: var(--text-muted);"
-                                        onclick="window.open('/certificado-${cert.code || cert.ruc}.html', '_blank')">
+                                        onclick="window.open('${cert.url || '/certificado-' + (cert.code || cert.ruc) + '.html'}', '_blank')">
                                     📄 Ver Cert
                                 </button>
                             </div>
@@ -1262,7 +1262,7 @@
             
             try {
                 // Llamar al endpoint REAL de la API
-                const response = await fetch(`${API_BASE_URL}/api/v3/admin/create-user`, {
+                const response = await fetch(`${API_URL}/api/v3/admin/create-user`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1387,7 +1387,7 @@
             
             try {
                 // Llamar al endpoint para actualizar (mismo endpoint hace upsert)
-                const response = await fetch(`${API_BASE_URL}/api/v3/admin/create-user`, {
+                const response = await fetch(`${API_URL}/api/v3/admin/create-user`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
