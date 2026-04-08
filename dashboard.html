@@ -693,9 +693,15 @@
         }
         
         function logout() {
-            localStorage.removeItem('cz_token');
-            localStorage.removeItem('cz_user');
-            window.location.href = '/';
+            console.log('Cerrando sesion...');
+            try {
+                localStorage.clear();
+                console.log('localStorage limpiado');
+                window.location.replace('/login.html');
+            } catch (e) {
+                console.error('Error en logout:', e);
+                alert('Error al cerrar sesion. Por favor cierra el navegador.');
+            }
         }
         
         async function validarRUC() {
