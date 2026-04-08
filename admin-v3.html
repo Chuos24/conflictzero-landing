@@ -1262,7 +1262,7 @@
             
             try {
                 // Llamar al endpoint REAL de la API
-                const response = await fetch(`${API_URL}/api/v3/admin/create-user`, {
+                const response = await fetch(`${API_URL}/admin/create-user`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1388,7 +1388,7 @@
             
             try {
                 // Llamar al endpoint para actualizar (mismo endpoint hace upsert)
-                const response = await fetch(`${API_URL}/api/v3/admin/create-user`, {
+                const response = await fetch(`${API_URL}/admin/create-user`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
