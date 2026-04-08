@@ -540,9 +540,18 @@
     <script>
         // Check auth and load dashboard
         const token = localStorage.getItem('cz_token');
+        const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
+        
         if (!token) {
             window.location.href = '/login.html';
             return;
+        }
+        
+        // Mostrar nombre inmediatamente desde localStorage
+        if (userData.company_name) {
+            document.getElementById('companyName').textContent = userData.company_name;
+        } else if (userData.email) {
+            document.getElementById('companyName').textContent = userData.email;
         }
         
         // Variable para evitar redirecciones múltiples
@@ -555,17 +564,7 @@
                 await loadDashboardStats();
             } catch (err) {
                 console.error('Error cargando dashboard:', err);
-                if (!redirecting) {
-                    redirecting = true;
-                    // Mostrar error antes de redirigir
-                    document.body.innerHTML = `
-                        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0A0A0F;color:#F5F5F0;font-family:Inter,sans-serif;flex-direction:column;">
-                            <div style="font-size:24px;margin-bottom:20px;">⚠️ Error de sesión</div>
-                            <div style="color:#888;margin-bottom:30px;">${err.message}</div>
-                            <a href="/login.html" style="background:transparent;border:1px solid #C5A059;color:#C5A059;padding:12px 24px;text-decoration:none;">Volver al Login</a>
-                        </div>
-                    `;
-                }
+                // No redirigir, solo mostrar error en consola
             }
         });
         
@@ -578,31 +577,14 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data.success && data.user) {
-                        const userRuc = data.user.ruc;
-                        
-                        // Intentar obtener nombre de la empresa desde consulta-completa
-                        try {
-                            const scoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${userRuc}`);
-                            if (scoreResponse.ok) {
-                                const scoreData = await scoreResponse.json();
-                                if (scoreData.razon_social) {
-                                    document.getElementById('companyName').textContent = scoreData.razon_social;
-                                    return;
-                                }
-                            }
-                        } catch (e) {
-                            console.log('No se pudo obtener razón social:', e);
+                        // Actualizar con datos frescos
+                        if (data.user.company_name) {
+                            document.getElementById('companyName').textContent = data.user.company_name;
                         }
-                        
-                        // Fallback a email
-                        document.getElementById('companyName').textContent = data.user.email;
                     }
-                } else if (response.status === 401) {
-                    window.location.href = '/login.html';
                 }
             } catch (err) {
                 console.error('Error loading user:', err);
-                document.getElementById('companyName').textContent = 'Empresa';
             }
         }
         
