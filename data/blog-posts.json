@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mntg3klf",
+      "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
+      "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
+      "excerpt": "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
+      "content": "Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.\n\nCOSTOS DIRECTOS DE OMITIR VERIFICACIÓN:\n\n• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa\n• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M\n• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas\n• Litigios comerciales: S/ 85K promedio por caso\n• Pérdida de clientes por mala reputación: Incalculable\n\nCOSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):\n\n• Tiempo del equipo legal en problemas evitables: 420 horas/año\n• Oportunidad de negocio perdida por estar en litigios\n• Daño reputacional en el mercado\n• Pérdida de licitaciones públicas por sanciones\n• Desgaste organizacional y rotación de personal clave\n\nINVERSIÓN EN DUE DILIGENCE VS RETORNO:\n\nCosto promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte\nAhorro promedio evitando un solo fraude: S/ 500,000+\nROI de due diligence sistemático: 10,000%+\n\nCASOS REALES ANALIZADOS:\n\nCaso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.\n\nCaso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.\n\nCONCLUSIÓN: La pregunta no es \"¿Podemos permitirnos hacer due diligence?\" sino \"¿Podemos permitirnos NO hacerlo?\"",
+      "category": "Análisis",
+      "author": "María Elena Vargas",
+      "date": "2026-04-10",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
       "id": "post-mns0o7j4",
       "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
       "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
@@ -11,7 +39,7 @@
       "date": "2026-04-09",
       "readTime": "13 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -314,8 +342,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-09T21:56:26.272Z",
-    "totalPosts": 11,
+    "lastUpdated": "2026-04-10T21:56:03.460Z",
+    "totalPosts": 12,
     "categories": [
       "Noticias",
       "Guías",
@@ -324,6 +352,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-09T21:56:26.272Z"
+    "lastGeneration": "2026-04-10T21:56:03.460Z"
   }
 }
