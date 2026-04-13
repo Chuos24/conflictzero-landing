@@ -585,7 +585,7 @@
                 'CRITICAL': { name: 'RECHAZADO', description: 'No Certificable', color: '#DC2626', letter: '!' }
             };
             
-            const tier = riskToTier[data.risk_level] || riskToTier['LOW'];
+            const tier = riskToTier[(data.risk_level || 'low').toUpperCase()] || riskToTier['LOW'];
             const color = tier.color;
             const letra = tier.letter;
             const tierName = tier.name;
@@ -652,7 +652,11 @@
                     <p class="verified-by" style="margin-top: 24px;">Verificado por</p>
                     <p class="cz-name">CONFLICT ZERO</p>
                     
+                    ${localStorage.getItem('cz_token') ? `
+                    <a href="/dashboard.html" class="view-full-btn">Ver Dashboard</a>
+                    ` : `
                     <a href="/select-plan.html?ruc=${data.ruc}&score=${data.score}&tier=${tierName}&company=${encodeURIComponent(data.razon_social || 'Su Empresa')}" class="view-full-btn">Ver Planes y Membresías</a>
+                    `}
                 </div>
             `;
         }

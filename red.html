@@ -228,6 +228,11 @@
             margin-bottom: 16px;
         }
         
+        .loading-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
         .spinner {
             width: 40px; height: 40px;
             border: 1px solid var(--border);
@@ -236,12 +241,29 @@
             animation: spin 1s linear infinite;
         }
         
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 20px;
+            max-width: 300px;
+        }
+        
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Node styles */
         .node-circle { cursor: pointer; }
         .node-score { font-family: 'Inter', sans-serif; font-weight: 600; }
         .node-label { font-family: 'Inter', sans-serif; font-weight: 300; }
+        
+        .back-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-left: 20px;
+        }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -252,7 +274,10 @@
             </div>
             <div class="logo-text">Conflict Zero</div>
         </div>
-        <div class="header-title">Red de Cumplimiento</div>
+        <div style="display: flex; align-items: center;">
+            <div class="header-title">Red de Cumplimiento</div>
+            <a href="/dashboard.html" class="back-link">← Volver al Dashboard</a>
+        </div>
     </header>
     
     <div class="container"><svg id="graph"></svg></div>
@@ -260,9 +285,9 @@
     <div class="sidebar">
         <h2>Resumen de Red</h2>
         <div class="resumen-card">
-            <div class="resumen-item"><span class="resumen-label">Subcontratistas</span><span class="resumen-value" id="total-nodos">6</span></div>
-            <div class="resumen-item"><span class="resumen-label">Score Promedio</span><span class="resumen-value" id="score-promedio">59.3</span></div>
-            <div class="resumen-item"><span class="resumen-label">Riesgo</span><span class="resumen-value" id="riesgo-red">MEDIO</span></div>
+            <div class="resumen-item"><span class="resumen-label">Subcontratistas</span><span class="resumen-value" id="total-nodos">-</span></div>
+            <div class="resumen-item"><span class="resumen-label">Score Promedio</span><span class="resumen-value" id="score-promedio">-</span></div>
+            <div class="resumen-item"><span class="resumen-label">Riesgo</span><span class="resumen-value" id="riesgo-red">-</span></div>
         </div>
         
         <div class="tier-legend">
@@ -284,35 +309,24 @@
     <div class="loading" id="loading">
         <div class="loading-logo">Conflict Zero</div>
         <div class="loading-text">Red de Cumplimiento</div>
+        <div class="loading-subtext" id="loadingText">Cargando datos...</div>
         <div class="spinner"></div>
+        <div class="error-msg" id="errorMsg"></div>
     </div>
 
     <script>
-        const demoData = {
-            centro: { ruc: '20529400790', nombre: 'ZAMORA JARA', score: 88, tier: 'SILVER', color: '#C0C0C0' },
-            nodos: [
-                { ruc: '20501234567', nombre: 'ELECTRICISTAS DEL NORTE', score: 85, tier: 'SILVER', color: '#C0C0C0' },
-                { ruc: '20512345678', nombre: 'INGENIERIA ELECTRICA PERU', score: 45, tier: 'BRONZE', color: '#B87333' },
-                { ruc: '20523456789', nombre: 'CABLEADO INDUSTRIAL SUR', score: 95, tier: 'GOLD', color: '#D4AF37' },
-                { ruc: '20534567890', nombre: 'LUZ Y FUERZA CAJAMARCA', score: 22, tier: 'RECHAZADO', color: '#8B0000' },
-                { ruc: '20545678901', nombre: 'INSTALACIONES FERRENAFE', score: 72, tier: 'SILVER', color: '#C0C0C0' },
-                { ruc: '20556789012', nombre: 'SISTEMAS ELECTRICOS NORTE', score: 38, tier: 'BRONZE', color: '#B87333' }
-            ],
-            links: [
-                { source: '20529400790', target: '20501234567' },
-                { source: '20529400790', target: '20512345678' },
-                { source: '20529400790', target: '20523456789' },
-                { source: '20529400790', target: '20534567890' },
-                { source: '20529400790', target: '20545678901' },
-                { source: '20501234567', target: '20556789012' }
-            ]
-        };
+        const API_BASE = 'https://conflict-zero-api.onrender.com/api/v3';
+        const token = localStorage.getItem('cz_token');
         
-        const RUC = '20529400790';
+        if (!token) {
+            window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+        }
+        
         let simulation;
+        let networkData = { centro: null, nodos: [], links: [] };
         
         function getNodeRadius(d) {
-            if (d.ruc === RUC) return 35;
+            if (d.isCenter) return 35;
             if (d.tier === 'GOLD') return 28;
             if (d.tier === 'SILVER') return 24;
             if (d.tier === 'BRONZE') return 22;
@@ -324,10 +338,155 @@
             return '#F5F5F0';
         }
         
+        function scoreToTier(score) {
+            if (score >= 90) return { tier: 'GOLD', color: '#D4AF37' };
+            if (score >= 70) return { tier: 'SILVER', color: '#C0C0C0' };
+            if (score >= 30) return { tier: 'BRONZE', color: '#B87333' };
+            return { tier: 'RECHAZADO', color: '#8B0000' };
+        }
+        
+        async function loadNetworkData() {
+            try {
+                console.log('Token:', token ? 'Existe' : 'No existe');
+                document.getElementById('loadingText').textContent = 'Obteniendo información del usuario...';
+                
+                // 1. Obtener datos del usuario actual
+                const meResponse = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                console.log('Auth/me status:', meResponse.status);
+                
+                if (!meResponse.ok) {
+                    throw new Error(`Error ${meResponse.status}: ${meResponse.statusText}`);
+                }
+                
+                const meData = await meResponse.json();
+                console.log('Auth/me data:', meData);
+                
+                if (!meData.success) {
+                    throw new Error('No se pudo obtener datos del usuario');
+                }
+                
+                const userRuc = meData.user.ruc;
+                
+                // 2. Consultar score del usuario
+                document.getElementById('loadingText').textContent = 'Consultando score...';
+                const scoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${userRuc}`);
+                let userScore = 50;
+                let userName = meData.user.email;
+                
+                if (scoreResponse.ok) {
+                    const scoreData = await scoreResponse.json();
+                    if (scoreData.score !== null && scoreData.score !== undefined) {
+                        userScore = scoreData.score;
+                        userName = scoreData.razon_social || meData.user.email;
+                    }
+                }
+                
+                const userTier = scoreToTier(userScore);
+                
+                networkData.centro = {
+                    ruc: userRuc,
+                    nombre: userName,
+                    score: userScore,
+                    tier: userTier.tier,
+                    color: userTier.color,
+                    isCenter: true
+                };
+                
+                // 3. Obtener invitados (mi red)
+                document.getElementById('loadingText').textContent = 'Cargando subcontratistas...';
+                const invResponse = await fetch(`${API_BASE}/invitations/mis-invitados`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                let invitados = [];
+                if (invResponse.ok) {
+                    const invData = await invResponse.json();
+                    if (invData.success && invData.invitados) {
+                        invitados = invData.invitados;
+                    }
+                }
+                
+                // 4. Para cada invitado, consultar su score
+                document.getElementById('loadingText').textContent = `Consultando scores de ${invitados.length} subcontratistas...`;
+                
+                networkData.nodos = [];
+                networkData.links = [];
+                
+                for (const inv of invitados) {
+                    try {
+                        const ruc = inv.ruc || inv.ruc_invitado;
+                        if (!ruc) continue;
+                        
+                        const invScoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${ruc}`);
+                        let invScore = 50;
+                        let invNombre = inv.nombre || inv.email || `RUC ${ruc}`;
+                        
+                        if (invScoreResponse.ok) {
+                            const invScoreData = await invScoreResponse.json();
+                            if (invScoreData.score !== null && invScoreData.score !== undefined) {
+                                invScore = invScoreData.score;
+                                invNombre = invScoreData.razon_social || invNombre;
+                            }
+                        }
+                        
+                        const invTier = scoreToTier(invScore);
+                        
+                        networkData.nodos.push({
+                            ruc: ruc,
+                            nombre: invNombre,
+                            score: invScore,
+                            tier: invTier.tier,
+                            color: invTier.color
+                        });
+                        
+                        networkData.links.push({
+                            source: userRuc,
+                            target: ruc
+                        });
+                    } catch (e) {
+                        console.error('Error cargando invitado:', e);
+                    }
+                }
+                
+                // 5. Actualizar resumen
+                updateResumen();
+                
+                // 6. Renderizar grafo
+                renderGraph();
+                
+            } catch (error) {
+                console.error('Error completo:', error);
+                document.getElementById('loadingText').textContent = 'Error al cargar';
+                document.getElementById('errorMsg').innerHTML = `
+                    <strong>Error:</strong> ${error.message}<br><br>
+                    <button onclick="window.location.href='/login.html'" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 20px;cursor:pointer;">Ir al Login</button>
+                `;
+            }
+        }
+        
+        function updateResumen() {
+            const totalNodos = networkData.nodos.length;
+            const scorePromedio = totalNodos > 0 
+                ? (networkData.nodos.reduce((a, b) => a + b.score, 0) / totalNodos).toFixed(1)
+                : networkData.centro.score;
+            
+            let riesgo = 'BAJO';
+            if (scorePromedio < 30) riesgo = 'CRÍTICO';
+            else if (scorePromedio < 50) riesgo = 'ALTO';
+            else if (scorePromedio < 70) riesgo = 'MEDIO';
+            
+            document.getElementById('total-nodos').textContent = totalNodos;
+            document.getElementById('score-promedio').textContent = scorePromedio;
+            document.getElementById('riesgo-red').textContent = riesgo;
+        }
+        
         function renderGraph() {
             document.getElementById('loading').style.display = 'none';
             
-            const data = demoData;
+            const data = networkData;
             const container = document.getElementById('graph');
             const width = window.innerWidth - 340;
             const height = window.innerHeight - 76;
@@ -385,8 +544,8 @@
             node.append('circle')
                 .attr('r', d => getNodeRadius(d))
                 .attr('fill', d => `url(#grad${d.tier})`)
-                .attr('stroke', d => d.ruc === RUC ? '#F5F5F0' : 'rgba(197,160,89,0.5)')
-                .attr('stroke-width', d => d.ruc === RUC ? 2 : 1)
+                .attr('stroke', d => d.isCenter ? '#F5F5F0' : 'rgba(197,160,89,0.5)')
+                .attr('stroke-width', d => d.isCenter ? 2 : 1)
                 .attr('class', 'node-circle')
                 .on('mouseover', (e, d) => showTooltip(e, d))
                 .on('mouseout', hideTooltip);
@@ -396,7 +555,7 @@
                 .attr('text-anchor', 'middle')
                 .attr('dy', '0.35em')
                 .text(d => Math.round(d.score))
-                .style('font-size', d => d.ruc === RUC ? '16px' : '13px')
+                .style('font-size', d => d.isCenter ? '16px' : '13px')
                 .style('font-weight', '600')
                 .style('fill', d => getTextColor(d.tier))
                 .style('pointer-events', 'none')
@@ -407,7 +566,7 @@
                 .attr('text-anchor', 'middle')
                 .attr('dy', d => getNodeRadius(d) + 16)
                 .text(d => d.nombre.length > 22 ? d.nombre.substring(0, 22) + '...' : d.nombre)
-                .style('font-size', d => d.ruc === RUC ? '11px' : '9px')
+                .style('font-size', d => d.isCenter ? '11px' : '9px')
                 .style('fill', '#F5F5F0')
                 .style('pointer-events', 'none')
                 .attr('class', 'node-label');
@@ -429,7 +588,7 @@
             t.innerHTML = `
                 <div class="tooltip-title">${d.nombre}</div>
                 <div class="tooltip-row"><span class="tooltip-label">RUC</span><span class="tooltip-value">${d.ruc}</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Score</span><span class="tooltip-score">${d.score}</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Score</span><span class="tooltip-score">${Math.round(d.score)}</span></div>
                 <div class="tooltip-row"><span class="tooltip-label">Tier</span><span class="tooltip-value" style="color:${d.color}">${d.tier}</span></div>
             `;
             t.style.left = (event.pageX + 15) + 'px';
@@ -453,11 +612,11 @@
         }
         
         // Load
-        setTimeout(renderGraph, 500);
+        loadNetworkData();
         
         window.addEventListener('resize', () => {
             d3.select('#graph').selectAll('*').remove();
-            renderGraph();
+            if (networkData.centro) renderGraph();
         });
     </script>
 </body>

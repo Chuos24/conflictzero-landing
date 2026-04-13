@@ -333,16 +333,26 @@
     </footer>
     
     <script>
-        const API_BASE = 'https://conflict-zero-api.onrender.com/api/v1';
+        const API_BASE = 'https://conflict-zero-api.onrender.com/api/v3';
         
-        // Check if already logged in
+        // Check if already logged in - validate token first
         const token = localStorage.getItem('cz_token');
         if (token) {
+            document.body.style.opacity = '0.5';
             fetch(`${API_BASE}/auth/me`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             }).then(r => {
-                if (r.ok) window.location.href = '/dashboard.html';
-            }).catch(() => {});
+                if (r.ok) {
+                    window.location.href = '/dashboard.html';
+                } else {
+                    // Token inválido, limpiar
+                    localStorage.removeItem('cz_token');
+                    localStorage.removeItem('cz_user');
+                    document.body.style.opacity = '1';
+                }
+            }).catch(() => {
+                document.body.style.opacity = '1';
+            });
         }
         
         async function handleLogin(e) {
@@ -370,12 +380,14 @@
                     throw new Error(data.detail || 'Credenciales incorrectas');
                 }
                 
-                // Guardar token
-                localStorage.setItem('cz_token', data.access_token);
+                // Guardar token y datos de usuario
+                localStorage.setItem('cz_token', data.token);
                 localStorage.setItem('cz_user', JSON.stringify({
-                    email: email,
-                    loginTime: new Date().toISOString(),
-                    token: data.access_token
+                    email: data.user.email,
+                    company_name: data.user.company_name,
+                    ruc: data.user.ruc,
+                    plan: data.user.plan,
+                    loginTime: new Date().toISOString()
                 }));
                 
                 // Redirigir
