@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mnz5kq9m",
+      "title": "Programa de Compliance Contractual: Guía de Implementación",
+      "slug": "programa-de-compliance-contractual-gua-de-implementacin",
+      "excerpt": "Cómo establecer un sistema de compliance efectivo que prevenga sanciones y proteja la reputación de su empresa ante el Estado.",
+      "content": "Un programa de compliance contractual bien implementado no solo previene sanciones, sino que se convierte en una ventaja competitiva al demostrar seriedad y profesionalismo ante entidades públicas.\n\nFASE 1: DIAGNÓSTICO INICIAL (Semanas 1-2)\n\nEvalúe su situación actual:\n□ Historial de sanciones o amonestaciones previas\n□ Procesos documentales existentes\n□ Capacitación actual del personal\n□ Sistemas de control y verificación en uso\n□ Brechas identificadas vs. normativa vigente\n\nFASE 2: DISEÑO DEL PROGRAMA (Semanas 3-4)\n\nEstructura básica requerida:\n\n1. POLÍTICA DE COMPLIANCE DOCUMENTADA\n• Compromiso de la alta dirección\n• Objetivos claros y medibles\n• Alcance y aplicabilidad\n• Consecuencias de incumplimiento\n\n2. MANUAL DE PROCEDIMIENTOS\n• Flujo de aprobación de contratos\n• Verificación de contrapartes (checklist)\n• Gestión documental requerida\n• Manejo de conflictos de interés\n• Procedimiento de denuncias\n\n3. MAPA DE RIESGOS\nIdentifique riesgos específicos por tipo de contrato:\n- Riesgo de contraparte inhabilitada\n- Riesgo de documentación falsa\n- Riesgo de incumplimiento técnico\n- Riesgo de sanciones colaterales\n\nFASE 3: IMPLEMENTACIÓN (Meses 2-3)\n\nAcciones concretas:\n• Capacitación obligatoria para todo el equipo\n• Designación de Oficial de Compliance\n• Implementación de sistema de control\n• Contratación de herramientas de verificación\n• Establecimiento de auditorías internas\n\nFASE 4: MONITOREO Y MEJORA CONTINUA (Permanente)\n\nIndicadores clave de desempeño (KPIs):\n• % de contrapartes verificadas antes de contrato\n• Tiempo promedio de verificación\n• Incidentes de compliance detectados\n• Capacitación realizada (horas/persona)\n• Resultados de auditorías internas\n\nCOSTO ESTIMADO DE IMPLEMENTACIÓN:\n\nEmpresa pequeña (hasta 50 empleados): S/ 15,000 - S/ 30,000\nEmpresa mediana (50-200 empleados): S/ 30,000 - S/ 80,000  \nEmpresa grande (200+ empleados): S/ 80,000 - S/ 200,000\n\nEste costo se amortiza rápidamente al evitar una sola sanción o fraude.",
+      "category": "Compliance",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-14",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Regulación",
+        "Prevención"
+      ]
+    },
+    {
       "id": "post-mnxq4yqj",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +39,7 @@
       "date": "2026-04-13",
       "readTime": "5 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -430,8 +458,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-13T21:48:09.307Z",
-    "totalPosts": 15,
+    "lastUpdated": "2026-04-14T21:48:05.242Z",
+    "totalPosts": 16,
     "categories": [
       "Noticias",
       "Guías",
@@ -440,6 +468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-13T21:48:09.307Z"
+    "lastGeneration": "2026-04-14T21:48:05.242Z"
   }
 }
