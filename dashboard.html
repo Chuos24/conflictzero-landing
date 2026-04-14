@@ -538,11 +538,17 @@
     </main>
     
     <script>
+        console.log('[DEBUG] Dashboard loading...');
+        
         // Check auth and load dashboard
         const token = localStorage.getItem('cz_token');
         const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
         
+        console.log('[DEBUG] Token:', token ? 'Presente' : 'No hay token');
+        console.log('[DEBUG] UserData:', userData);
+        
         if (!token) {
+            console.log('[DEBUG] Redirigiendo a login - no hay token');
             window.location.href = '/login.html';
             return;
         }
@@ -759,6 +765,7 @@
         }
         
         function invitarSubcontratista() {
+            console.log('[DEBUG] invitarSubcontratista() llamado');
             const ruc = prompt('Ingrese el RUC del subcontratista a invitar (11 digitos):');
             if (!ruc || ruc.length !== 11) {
                 alert('RUC invalido');
@@ -771,6 +778,8 @@
                 return;
             }
             
+            console.log('[DEBUG] Creando invitacion para:', {ruc, email});
+            
             // Crear invitacion via API
             fetch('https://conflict-zero-api.onrender.com/api/v3/invitations', {
                 method: 'POST',
@@ -780,8 +789,12 @@
                 },
                 body: JSON.stringify({ email, ruc_invitado: ruc })
             })
-            .then(r => r.json())
+            .then(r => {
+                console.log('[DEBUG] Response status:', r.status);
+                return r.json();
+            })
             .then(data => {
+                console.log('[DEBUG] Response data:', data);
                 if (data.success) {
                     alert(`✅ Invitacion creada!\n\nEmail: ${email}\nToken: ${data.invitation.token}\n\nEl subcontratista debe registrarse en:\nhttps://czperu.com/registro.html?token=${data.invitation.token}`);
                 } else {
@@ -789,8 +802,8 @@
                 }
             })
             .catch(err => {
-                console.error(err);
-                alert('❌ Error de conexion');
+                console.error('[DEBUG] Error:', err);
+                alert('❌ Error de conexion: ' + err.message);
             });
         }
         
