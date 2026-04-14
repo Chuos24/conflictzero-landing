@@ -777,6 +777,24 @@
         async function loadPendingUsers() {
             const container = document.getElementById('pendingList');
             
+            // Mostrar mensaje temporal mientras se activa el backend
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <div style="font-size: 48px; margin-bottom: 16px;">⚙️</div>
+                    <p><strong>Sistema de aprobación en mantenimiento</strong></p>
+                    <p style="margin-top: 16px; font-size: 13px;">
+                        Para aprobar usuarios manualmente, usa la consola de Render<br>
+                        o contacta al equipo técnico.
+                    </p>
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(201, 160, 89, 0.1); border-radius: 8px; text-align: left;">
+                        <p style="color: var(--gold); margin-bottom: 8px;">📧 Notificaciones activas:</p>
+                        <p style="font-size: 12px;">Cuando alguien se registra, llega un email a tiagomunoz10@icloud.com</p>
+                    </div>
+                </div>
+            `;
+            return;
+            
+            /*
             try {
                 const response = await fetch(`${API_URL}/admin/pending-users`, {
                     headers: {
@@ -861,6 +879,7 @@
                     </div>
                 `;
             }
+            */
         }
         
         // ========== APROBAR USUARIO ==========

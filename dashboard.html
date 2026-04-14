@@ -535,6 +535,11 @@
                 </button>
             </div>
         </div>
+        
+        <!-- Debug Info -->
+        <div id="debugInfo" style="margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 11px; color: var(--text-muted);">
+            Cargando...
+        </div>
     </main>
     
     <script>
@@ -560,8 +565,15 @@
             document.getElementById('companyName').textContent = userData.email;
         }
         
-        // Variable para evitar redirecciones múltiples
-        let redirecting = false;
+        // Mostrar debug info
+        document.getElementById('debugInfo').innerHTML = `
+            <strong>Debug Info:</strong><br>
+            Token: ${token ? 'Presente (' + token.substring(0, 20) + '...)' : 'No hay token'}<br>
+            Email: ${userData.email || 'N/A'}<br>
+            Company: ${userData.company_name || 'N/A'}<br>
+            Plan: ${userData.plan_type || 'N/A'}<br>
+            <button onclick="localStorage.clear(); alert('localStorage limpiado'); location.reload();" style="margin-top: 8px; padding: 4px 8px; font-size: 10px; background: #444; border: none; color: #fff; cursor: pointer;">Limpiar Sesión</button>
+        `;
         
         // Load user info and stats on page load
         document.addEventListener('DOMContentLoaded', async () => {
