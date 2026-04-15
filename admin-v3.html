@@ -614,6 +614,7 @@
         function showApp() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
+            loadPendingUsers();
         }
         
         // Auto-login
@@ -629,7 +630,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginBtn = document.querySelector('#loginScreen button');
             if (loginBtn) {
-                loginBtn.addEventListener('click', doLogin);
+                loginBtn.onclick = function(e) {
+                    e.preventDefault();
+                    doLogin();
+                };
                 console.log('[DEBUG] Botón de login configurado');
             }
         });
