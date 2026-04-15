@@ -593,13 +593,19 @@
         
         // ========== LOGIN ==========
         function doLogin() {
+            console.log('[DEBUG] doLogin() llamado');
             const input = document.getElementById('passwordInput').value;
             const errorEl = document.getElementById('loginError');
             
+            console.log('[DEBUG] Password ingresado:', input);
+            console.log('[DEBUG] ADMIN_PASSWORD:', ADMIN_PASSWORD);
+            
             if (input === ADMIN_PASSWORD) {
+                console.log('[DEBUG] Login exitoso');
                 localStorage.setItem('cz_admin_v3_logged', 'true');
                 showApp();
             } else {
+                console.log('[DEBUG] Password incorrecto');
                 errorEl.textContent = 'Contraseña incorrecta';
                 errorEl.classList.add('show');
             }
@@ -617,6 +623,15 @@
         
         document.getElementById('passwordInput')?.addEventListener('keypress', e => {
             if (e.key === 'Enter') doLogin();
+        });
+        
+        // Asegurar que el botón de login funcione
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.querySelector('#loginScreen button');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', doLogin);
+                console.log('[DEBUG] Botón de login configurado');
+            }
         });
         
         // ========== VALIDACIÓN ==========
