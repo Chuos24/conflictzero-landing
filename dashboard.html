@@ -544,6 +544,22 @@
     
         console.log('[DEBUG] Dashboard loading...');
         
+        // Check for demo mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isDemo = urlParams.get('demo') === 'true';
+        
+        if (isDemo) {
+            console.log('[DEBUG] MODO DEMO activado');
+            // Datos de demo
+            const demoUser = {
+                company_name: 'CONSTRUCTORA DEMO S.A.C.',
+                email: 'demo.cliente@example.com',
+                plan_type: 'Professional'
+            };
+            localStorage.setItem('cz_user', JSON.stringify(demoUser));
+            localStorage.setItem('cz_token', 'demo-token-for-testing');
+        }
+        
         // Check auth and load dashboard
         const token = localStorage.getItem('cz_token');
         const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
@@ -562,6 +578,15 @@
             document.getElementById('companyName').textContent = userData.company_name;
         } else if (userData.email) {
             document.getElementById('companyName').textContent = userData.email;
+        }
+        
+        // Si es demo, mostrar badge
+        if (isDemo) {
+            const planBadge = document.querySelector('.plan-badge');
+            if (planBadge) {
+                planBadge.textContent = 'MODO DEMO';
+                planBadge.style.background = 'rgba(197, 160, 89, 0.2)';
+            }
         }
         
         // Mostrar debug info
@@ -607,6 +632,33 @@
         
         async function loadDashboardStats() {
             try {
+                // Si es demo, mostrar datos de ejemplo
+                if (isDemo) {
+                    const demoData = {
+                        monthly_validations: [
+                            { mes: '2026-01', total: 12 },
+                            { mes: '2026-02', total: 18 },
+                            { mes: '2026-03', total: 25 },
+                            { mes: '2026-04', total: 8 }
+                        ],
+                        total_last_30d: 8,
+                        unique_rucs_30d: 6,
+                        tier_distribution: { GOLD: 3, SILVER: 2, BRONZE: 2, RECHAZADO: 1 },
+                        recent_validations: [
+                            { ruc: '20100123091', razon_social: 'Constructora Alpha SAC', score: 95, tier: 'GOLD', fecha: '2026-04-15T10:30:00Z' },
+                            { ruc: '20534049286', razon_social: 'Inversiones Beta EIRL', score: 78, tier: 'SILVER', fecha: '2026-04-14T16:45:00Z' },
+                            { ruc: '20345067890', razon_social: 'Servicios Gamma SAC', score: 45, tier: 'BRONZE', fecha: '2026-04-12T09:15:00Z' }
+                        ]
+                    };
+                    
+                    renderMonthlyChart(demoData.monthly_validations);
+                    document.getElementById('totalValidations').textContent = demoData.total_last_30d;
+                    document.getElementById('uniqueRUCs').textContent = demoData.unique_rucs_30d;
+                    renderTierDistribution(demoData.tier_distribution);
+                    renderRecentValidations(demoData.recent_validations);
+                    return;
+                }
+                
                 const response = await fetch('https://conflict-zero-api.onrender.com/api/v3/dashboard/stats', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
