@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mo3fw9u1",
+      "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
+      "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
+      "excerpt": "Nuestro análisis de datos revela que el sector construcción concentra el 40% de las sanciones OSCE, seguido por servicios y tecnología.",
+      "content": "Un análisis exhaustivo de las sanciones emitidas por el OSCE durante el primer trimestre del año revela patrones preocupantes en sectores específicos de la economía peruana.\n\n## Distribución por Sector\n• Construcción: 42% de sanciones totales\n• Servicios generales: 23%\n• Tecnología y software: 15%\n• Consultorías: 12%\n• Otros sectores: 8%\n\n## Causales Principales\n1. Documentación técnica deficiente (35%)\n2. Incumplimiento de especificaciones técnicas (28%)\n3. Retrasos en ejecución de obra (20%)\n4. Problemas de calidad (17%)\n\n## Implicaciones\nLas empresas contratistas en el sector construcción enfrentan mayor escrutinio por la naturaleza crítica de las obras públicas. Sin embargo, esto también representa oportunidades para empresas con prácticas合规 sólidas de destacar en un mercado competitivo.\n\nEl análisis sugiere que un programa robusto de gestión de calidad y documentación puede reducir significativamente el riesgo de sanciones.",
+      "category": "Análisis",
+      "author": "Equipo de Data Intelligence",
+      "date": "2026-04-17",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Sector",
+        "Construcción",
+        "Estadísticas"
+      ]
+    },
+    {
       "id": "post-mo0l0ky8",
       "title": "OSCE Publica Nueva Lista de Inhabilitados: 37 Empresas Sancionadas",
       "slug": "osce-publica-nueva-lista-de-inhabilitados-37-empresas-sancio",
@@ -11,7 +39,7 @@
       "date": "2026-04-15",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -490,8 +518,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-15T21:48:05.264Z",
-    "totalPosts": 17,
+    "lastUpdated": "2026-04-17T21:48:04.682Z",
+    "totalPosts": 18,
     "categories": [
       "Noticias",
       "Guías",
@@ -500,6 +528,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-15T21:48:05.264Z"
+    "lastGeneration": "2026-04-17T21:48:04.682Z"
   }
 }
