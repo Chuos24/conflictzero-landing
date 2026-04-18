@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mo4vcaeh",
+      "title": "SUNAT Detecta 10 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
+      "slug": "sunat-detecta-10-empresas-con-deuda-tributaria-superior-a-s-",
+      "excerpt": "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos. El monto total supera los 500 millones de soles.",
+      "content": "SUNAT ha actualizado su lista de deudores de grandes montos, incorporando 10 nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes que pueden representar riesgo para sus contrapartes comerciales.\n\nANÁLISIS DE LA DEUDA TRIBUTARIA:\n\nLa deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan directamente la recaudación fiscal del país. Los principales tributos pendientes incluyen:\n\n• Impuesto a la Renta (IR) de períodos anteriores\n• IGV no declarado o retenido\n• Remuneraciones y contribuciones de trabajadores\n• Multas y recargos por infracciones tributarias\n\nMECANISMOS DE COBRANZA DE SUNAT:\n\nLa SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos, incluyendo:\n\n1. Embargos sobre cuentas bancarias y bienes muebles\n2. Retenciones de terceros (suspensión de pagos de contratistas del Estado)\n3. Inscripción de deudas en registros públicos\n4. Denuncias penales por delitos tributarios en casos graves\n\nRIESGOS PARA CONTRAPARTES COMERCIALES:\n\nPara las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de:\n\n• Problemas de liquidez severos\n• Mala gestión administrativa\n• Posible disolución o quiebra inminente\n• Riesgo de embargos que afecten activos transaccionales\n\nSe recomienda exigir certificados de no adeudo tributario antes de transacciones comerciales significativas.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-04-18",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-mo3fw9u1",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +43,7 @@
       "date": "2026-04-17",
       "readTime": "8 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -518,8 +550,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-17T21:48:04.682Z",
-    "totalPosts": 18,
+    "lastUpdated": "2026-04-18T21:48:12.329Z",
+    "totalPosts": 19,
     "categories": [
       "Noticias",
       "Guías",
@@ -528,6 +560,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-17T21:48:04.682Z"
+    "lastGeneration": "2026-04-18T21:48:12.329Z"
   }
 }
