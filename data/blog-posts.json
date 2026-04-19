@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mo6as41a",
+      "title": "Cómo Verificar si una Empresa Está Inhabilitada por el OSCE",
+      "slug": "cmo-verificar-si-una-empresa-est-inhabilitada-por-el-osce",
+      "excerpt": "Guía paso a paso para consultar el Registro de Inhabilitados del OSCE y evitar contratar empresas sancionadas por el Estado.",
+      "content": "Contratar una empresa inhabilitada por el OSCE puede resultar en sanciones severas para su empresa, incluyendo multas e inhabilitación para futuras contrataciones. Esta guía le muestra cómo verificar el estado de cualquier empresa en minutos.\n\nMÉTODO 1: CONSULTA DIRECTA EN PORTAL OSCE\n\nPaso 1: Acceda al portal\n• Vaya a www.osce.gob.pe\n• Seleccione \"Consultas Públicas\"\n• Elija \"Registro de Inhabilitados\"\n\nPaso 2: Ingrese los datos de búsqueda\n• Puede buscar por RUC (11 dígitos) o nombre de empresa\n• El sistema acepta búsquedas parciales\n• Use comillas para búsquedas exactas\n\nPaso 3: Interprete los resultados\n• Si NO aparece: La empresa no está inhabilitada actualmente\n• Si APARECE: Verifique los detalles de la sanción\n  - Fecha de inicio y fin de inhabilitación\n  - Causal de sanción\n  - Entidad que impuso la sanción\n  - Alcance (nacional o por entidad)\n\nMÉTODO 2: CONSULTA MEDIANTE RNP (REGISTRO NACIONAL DE PROVEEDORES)\n\nPaso 1: Acceda al RNP\n• Vaya al portal de consulta del RNP\n• Seleccione \"Consulta de Proveedores\"\n\nPaso 2: Ingrese RUC\n• El sistema mostrará estado de habilitación\n• Si está inhabilitada, aparecerá alerta roja\n• Puede descargar constancia de estado\n\n¿QUÉ SIGNIFICAN LOS TIPOS DE SANCIÓN?\n\n🔴 INHABILITACIÓN DEFINITIVA\n• No puede participar en contrataciones públicas\n• Plazo: Generalmente 2-5 años\n• Aplica a nivel nacional\n\n🟡 AMONESTACIÓN ESCRITA\n• Advertencia formal\n• Queda registrada en su historial\n• Puede afectar puntuación en futuras licitaciones\n\n🟠 MULTA\n• Sanción económica\n• Debe pagarse antes de participar nuevamente\n• Monto variable según gravedad\n\nCASOS ESPECIALES A CONSIDERAR:\n\n✓ SUBCONTRATISTAS INHABILITADOS\nAunque usted contrate a una empresa habilitada, si sus subcontratistas están inhabilitados, también puede ser sancionado. Exija declaración jurada de subcontratistas.\n\n✓ INHABILITACIÓN POR ENTIDAD\nAlgunas sanciones solo aplican para contratar con ciertas entidades públicas específicas. Verifique el alcance de la sanción.\n\n✓ SUSPENSIÓN TEMPORAL\nEn proceso de investigación, una empresa puede estar suspendida provisionalmente. Esto no aparece en inhabilitados pero sí en consultas de RNP.\n\nDOCUMENTACIÓN DE RESPALDO:\n\nGuarde SIEMPRE:\n• Captura de pantalla de la consulta (con fecha visible)\n• Constancia de no inhabilitación (PDF si está disponible)\n• Fecha y hora de la verificación\n• Quién realizó la consulta\n\nFRECUENCIA RECOMENDADA DE VERIFICACIÓN:\n\n• Antes de firmar cualquier contrato: OBLIGATORIO\n• Durante vigencia de contrato: Mensual\n• Para socios estratégicos: Trimestral\n• Para subcontratistas: Semanal (pueden inhabilitarse rápido)\n\nCONSECUENCIAS DE CONTRATAR INHABILITADOS:\n\nPara su empresa:\n• Sanción económica (hasta 150 UIT)\n• Inhabilitación temporal como contratista\n• Pérdida de contratos vigentes\n• Daño reputacional\n\nPara el funcionario responsable:\n• Sanciones administrativas\n• Responsabilidad penal en casos graves\n• Destitución del cargo\n\nSIGA ESTA REGLA DE ORO: Si tiene dudas, NO CONTRATE. Una verificación de 5 minutos puede ahorrarle años de problemas legales.",
+      "category": "Guías",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-19",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Checklist",
+        "Contratos",
+        "Prevención"
+      ]
+    },
+    {
       "id": "post-mo4vcaeh",
       "title": "SUNAT Detecta 10 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
       "slug": "sunat-detecta-10-empresas-con-deuda-tributaria-superior-a-s-",
@@ -11,7 +39,7 @@
       "date": "2026-04-18",
       "readTime": "5 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "SUNAT",
@@ -550,8 +578,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-18T21:48:12.329Z",
-    "totalPosts": 19,
+    "lastUpdated": "2026-04-19T21:48:10.991Z",
+    "totalPosts": 20,
     "categories": [
       "Noticias",
       "Guías",
@@ -560,6 +588,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-18T21:48:12.329Z"
+    "lastGeneration": "2026-04-19T21:48:10.991Z"
   }
 }
