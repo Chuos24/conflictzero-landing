@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Control Institucional - Conflict Zero</title>
+    <script src="https://browser.sentry-cdn.net/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+    if (typeof Sentry !== 'undefined' && window.location.hostname !== 'localhost') {
+        Sentry.init({
+            dsn: "https://9b8e0de098e39cc1d43e7b77b2b5821d@o4511252074594304.ingest.de.sentry.io/4511252170408016",
+            environment: "production",
+            release: "cz-dashboard-2026-04-20",
+            tracesSampleRate: 0.1,
+            beforeSend(event) {
+                const user = JSON.parse(localStorage.getItem('cz_user') || '{}');
+                if (user.email) event.user = { email: user.email, id: user.ruc };
+                return event;
+            }
+        });
+    }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -630,6 +646,9 @@
                 }
             } catch (err) {
                 console.error('Error loading user:', err);
+                if (typeof Sentry !== 'undefined') {
+                    Sentry.captureException(err);
+                }
             }
         }
         
@@ -703,6 +722,10 @@
                 }
             } catch (err) {
                 console.error('Error loading stats:', err);
+                if (typeof Sentry !== 'undefined') {
+                    Sentry.captureException(err);
+                }
+                document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos. Intente recargar la página.</td></tr>';
             }
         }
         
