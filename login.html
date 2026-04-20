@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso al Comite - Conflict Zero</title>
-    <script src="https://js.sentry-cdn.com/PLACEHOLDER_DSN.min.js" crossorigin="anonymous"></script>
+    <script src="https://browser.sentry-cdn.net/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
     <script>
-    // Sentry initialization - Replace PLACEHOLDER_DSN with real DSN from sentry.io
+    // Sentry error monitoring - Conflict Zero
     if (typeof Sentry !== 'undefined' && window.location.hostname !== 'localhost') {
         Sentry.init({
-            dsn: "https://PLACEHOLDER_DSN@sentry.io/PROJECT_ID", // Replace with real DSN
+            dsn: "https://9b8e0de098e39cc1d43e7b77b2b5821d@o4511252074594304.ingest.de.sentry.io/4511252170408016",
             environment: "production",
             release: "cz-frontend-2026-04-20",
             integrations: [Sentry.browserTracingIntegration()],
@@ -23,6 +23,7 @@
                 return event;
             }
         });
+        console.log("✅ Sentry initialized");
     }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
