@@ -573,11 +573,13 @@
             return;
         }
         
-        // Mostrar nombre inmediatamente desde localStorage
+        // Mostrar nombre inmediatamente desde localStorage (no esperar a cargar)
         if (userData.company_name) {
             document.getElementById('companyName').textContent = userData.company_name;
         } else if (userData.email) {
             document.getElementById('companyName').textContent = userData.email;
+        } else {
+            document.getElementById('companyName').textContent = 'Usuario';
         }
         
         // Si es demo, mostrar badge
@@ -618,11 +620,11 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.success && data.user) {
-                        // Actualizar con datos frescos
-                        if (data.user.company_name) {
-                            document.getElementById('companyName').textContent = data.user.company_name;
-                        }
+                    // Backend devuelve datos planos, no envueltos en {success, user}
+                    if (data.company_name) {
+                        document.getElementById('companyName').textContent = data.company_name;
+                    } else if (data.email) {
+                        document.getElementById('companyName').textContent = data.email;
                     }
                 }
             } catch (err) {
@@ -666,20 +668,37 @@
                 if (response.ok) {
                     const data = await response.json();
                     
-                    if (data.success) {
-                        // Monthly chart
-                        renderMonthlyChart(data.monthly_validations);
-                        
-                        // Summary stats
-                        document.getElementById('totalValidations').textContent = data.total_last_30d;
-                        document.getElementById('uniqueRUCs').textContent = data.unique_rucs_30d;
-                        
-                        // Tier distribution
-                        renderTierDistribution(data.tier_distribution);
-                        
-                        // Recent validations table
-                        renderRecentValidations(data.recent_validations);
+                    // Backend devuelve datos planos: total_verifications, verifications_this_month, etc.
+                    // Mapear a lo que espera el frontend
+                    const monthlyData = data.monthly_validations || [];
+                    const total30d = data.verifications_this_month || data.total_last_30d || 0;
+                    const uniqueRucs = data.unique_rucs_30d || 0;
+                    const tierDist = data.risk_distribution || data.tier_distribution || {};
+                    const recent = data.recent_verifications || [];
+                    
+                    // Monthly chart
+                    if (monthlyData.length > 0) {
+                        renderMonthlyChart(monthlyData);
+                    } else {
+                        document.getElementById('monthlyChart').innerHTML = '<div style="color: var(--text-muted); font-size: 12px;">Sin datos de historial</div>';
                     }
+                    
+                    // Summary stats
+                    document.getElementById('totalValidations').textContent = total30d;
+                    document.getElementById('uniqueRUCs').textContent = uniqueRucs;
+                    
+                    // Tier distribution
+                    renderTierDistribution(tierDist);
+                    
+                    // Recent validations table
+                    if (recent.length > 0) {
+                        renderRecentValidations(recent);
+                    } else {
+                        document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin validaciones recientes. <a href="/verificar.html" style="color: var(--gold);">Realizar primera verificación →</a></td></tr>';
+                    }
+                } else {
+                    console.error('Dashboard stats error:', response.status);
+                    document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos</td></tr>';
                 }
             } catch (err) {
                 console.error('Error loading stats:', err);
