@@ -381,12 +381,12 @@
                 }
                 
                 // Guardar token y datos de usuario
-                localStorage.setItem('cz_token', data.token);
+                localStorage.setItem('cz_token', data.access_token);
                 localStorage.setItem('cz_user', JSON.stringify({
                     email: data.user.email,
                     company_name: data.user.company_name,
                     ruc: data.user.ruc,
-                    plan: data.user.plan,
+                    plan: data.user.plan_type,
                     loginTime: new Date().toISOString()
                 }));
                 
