@@ -409,7 +409,7 @@
                 password: tempPassword,
                 full_name: fullName,
                 company_name: company,
-                ruc: rucParam || ''
+                ruc: document.getElementById('ruc').value.trim() || rucParam || ''
             };
             
             btn.disabled = true;
