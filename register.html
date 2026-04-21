@@ -305,6 +305,11 @@
                 
                 <div class="form-row">
                     <div class="form-group">
+                        <label>RUC</label>
+                        <input type="text" id="ruc" placeholder="20100123091" maxlength="11" pattern="\d{11}" required>
+                    </div>
+                    
+                    <div class="form-group">
                         <label>Plan</label>
                         <select id="plan" required>
                             <option value="">Seleccionar...</option>
@@ -312,12 +317,6 @@
                             <option value="professional">Professional - $800/mes</option>
                             <option value="enterprise">Enterprise - $2,500/mes</option>
                         </select>
-                    </div>
-                    
-                    
-                    <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="tel" id="phone" placeholder="+51 999 999 999">
                     </div>
                 </div>
                 
@@ -374,18 +373,16 @@
             
             const displayPlan = planDisplayNames[plan] || plan;
             
-            // Generar contraseña temporal
+            // Datos para API - Formato RegisterWebRequest (backend)
+            const fullName = firstName + ' ' + lastName;
             const tempPassword = 'Temp' + Math.random().toString(36).substring(2, 10) + '!';
             
-            // Datos para API - Formato FrontendRegisterRequest
             const data = {
-                firstName: firstName,
-                lastName: lastName,
                 email: email,
-                company: company,
-                plan: plan,
-                phone: phone,
-                date: new Date().toISOString()
+                password: tempPassword,
+                full_name: fullName,
+                company_name: company,
+                ruc: rucParam || ''
             };
             
             btn.disabled = true;
