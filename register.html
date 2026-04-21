@@ -341,9 +341,36 @@
         const planParam = urlParams.get('plan');
         const rucParam = urlParams.get('ruc');
         const scoreParam = urlParams.get('score');
+        const sealParam = urlParams.get('seal');
+        const companyParam = urlParams.get('company');
         
         if (planParam) {
             document.getElementById('plan').value = planParam;
+        }
+        
+        if (companyParam) {
+            document.getElementById('company').value = decodeURIComponent(companyParam);
+        }
+        
+        // Mostrar info del RUC si existe
+        if (rucParam) {
+            const card = document.querySelector('.register-card');
+            const infoDiv = document.createElement('div');
+            infoDiv.style.cssText = 'background: rgba(201, 169, 97, 0.1); border: 1px solid var(--gold); border-radius: 8px; padding: 16px; margin-bottom: 24px;';
+            infoDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">RUC Verificado</div>
+                        <div style="font-size: 18px; font-weight: 500; color: var(--gold);">${rucParam}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Score</div>
+                        <div style="font-size: 24px; font-weight: 600; color: var(--gold);">${scoreParam || '--'}</div>
+                    </div>
+                </div>
+                ${sealParam ? `<div style="margin-top: 12px; text-align: center;"><span style="background: var(--gold); color: var(--bg-dark); padding: 4px 16px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase;">${sealParam}</span></div>` : ''}
+            `;
+            card.insertBefore(infoDiv, card.querySelector('.register-header').nextSibling);
         }
         
         async function handleRegister(e) {

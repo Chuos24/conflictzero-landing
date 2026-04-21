@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso al Comite - Conflict Zero</title>
+    <script src="https://browser.sentry-cdn.net/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+    // Sentry error monitoring - Conflict Zero
+    if (typeof Sentry !== 'undefined' && window.location.hostname !== 'localhost') {
+        Sentry.init({
+            dsn: "https://9b8e0de098e39cc1d43e7b77b2b5821d@o4511252074594304.ingest.de.sentry.io/4511252170408016",
+            environment: "production",
+            release: "cz-frontend-2026-04-20",
+            integrations: [Sentry.browserTracingIntegration()],
+            tracesSampleRate: 0.1,
+            beforeSend(event) {
+                // Add user context if available
+                const user = JSON.parse(localStorage.getItem('cz_user') || '{}');
+                if (user.email) {
+                    event.user = { email: user.email, id: user.ruc };
+                }
+                return event;
+            }
+        });
+        console.log("✅ Sentry initialized");
+    }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -380,13 +402,26 @@
                     throw new Error(data.detail || 'Credenciales incorrectas');
                 }
                 
-                // Guardar token y datos de usuario
-                localStorage.setItem('cz_token', data.token);
+                // El backend no devuelve user en login, obtenerlo de /auth/me
+                const token = data.access_token || data.token;
+                localStorage.setItem('cz_token', token);
+                
+                // Obtener datos de usuario desde /auth/me
+                const meResponse = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!meResponse.ok) {
+                    throw new Error('Error obteniendo datos de usuario');
+                }
+                
+                const userData = await meResponse.json();
+                
                 localStorage.setItem('cz_user', JSON.stringify({
-                    email: data.user.email,
-                    company_name: data.user.company_name,
-                    ruc: data.user.ruc,
-                    plan: data.user.plan,
+                    email: userData.email,
+                    company_name: userData.company_name,
+                    ruc: userData.ruc,
+                    plan: userData.plan_type,
                     loginTime: new Date().toISOString()
                 }));
                 

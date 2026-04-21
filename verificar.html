@@ -518,6 +518,9 @@
         // API Configuration
         const API_BASE_URL = 'https://conflict-zero-api.onrender.com';
         
+        // Usar API v1 (no v3 porque el backend no tiene esos endpoints)
+        const API_VERSION = '/api/v1';
+        
         async function verificar() {
             const input = document.getElementById('searchInput').value.trim();
             const container = document.getElementById('resultContainer');
@@ -551,7 +554,7 @@
                     });
                 } else {
                     // Es código de certificado - usar endpoint de certificados
-                    response = await fetch(`${API_BASE_URL}/api/v3/certificates/${input}`, {
+                    response = await fetch(`${API_BASE_URL}/api/v1/certificates/${input}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
@@ -767,7 +770,7 @@
             container.classList.add('active');
             
             try {
-                const response = await fetch(`${API_BASE_URL}/api/v3/certificates/${slug}`, {
+                const response = await fetch(`${API_BASE_URL}/api/v1/certificates/${slug}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });

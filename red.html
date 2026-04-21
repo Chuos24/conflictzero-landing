@@ -314,12 +314,19 @@
         <div class="error-msg" id="errorMsg"></div>
     </div>
 
-    <script>
         const API_BASE = 'https://conflict-zero-api.onrender.com/api/v3';
         const token = localStorage.getItem('cz_token');
+        const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
+        
+        // Debug info
+        console.log('[Red] Token:', token ? 'Presente' : 'No hay');
+        console.log('[Red] User:', userData);
         
         if (!token) {
-            window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+            console.log('[Red] Redirigiendo a login...');
+            window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname));
+        } else {
+            console.log('[Red] Token presente, cargando red...');
         }
         
         let simulation;

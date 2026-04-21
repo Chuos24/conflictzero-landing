@@ -1,6 +1,210 @@
 {
   "posts": [
     {
+      "id": "post-mo95no8u",
+      "title": "Programa de Compliance Contractual: Guía de Implementación",
+      "slug": "programa-de-compliance-contractual-gua-de-implementacin",
+      "excerpt": "Cómo establecer un sistema de compliance efectivo que prevenga sanciones y proteja la reputación de su empresa ante el Estado.",
+      "content": "Un programa de compliance contractual bien implementado no solo previene sanciones, sino que se convierte en una ventaja competitiva al demostrar seriedad y profesionalismo ante entidades públicas.\n\nFASE 1: DIAGNÓSTICO INICIAL (Semanas 1-2)\n\nEvalúe su situación actual:\n□ Historial de sanciones o amonestaciones previas\n□ Procesos documentales existentes\n□ Capacitación actual del personal\n□ Sistemas de control y verificación en uso\n□ Brechas identificadas vs. normativa vigente\n\nFASE 2: DISEÑO DEL PROGRAMA (Semanas 3-4)\n\nEstructura básica requerida:\n\n1. POLÍTICA DE COMPLIANCE DOCUMENTADA\n• Compromiso de la alta dirección\n• Objetivos claros y medibles\n• Alcance y aplicabilidad\n• Consecuencias de incumplimiento\n\n2. MANUAL DE PROCEDIMIENTOS\n• Flujo de aprobación de contratos\n• Verificación de contrapartes (checklist)\n• Gestión documental requerida\n• Manejo de conflictos de interés\n• Procedimiento de denuncias\n\n3. MAPA DE RIESGOS\nIdentifique riesgos específicos por tipo de contrato:\n- Riesgo de contraparte inhabilitada\n- Riesgo de documentación falsa\n- Riesgo de incumplimiento técnico\n- Riesgo de sanciones colaterales\n\nFASE 3: IMPLEMENTACIÓN (Meses 2-3)\n\nAcciones concretas:\n• Capacitación obligatoria para todo el equipo\n• Designación de Oficial de Compliance\n• Implementación de sistema de control\n• Contratación de herramientas de verificación\n• Establecimiento de auditorías internas\n\nFASE 4: MONITOREO Y MEJORA CONTINUA (Permanente)\n\nIndicadores clave de desempeño (KPIs):\n• % de contrapartes verificadas antes de contrato\n• Tiempo promedio de verificación\n• Incidentes de compliance detectados\n• Capacitación realizada (horas/persona)\n• Resultados de auditorías internas\n\nCOSTO ESTIMADO DE IMPLEMENTACIÓN:\n\nEmpresa pequeña (hasta 50 empleados): S/ 15,000 - S/ 30,000\nEmpresa mediana (50-200 empleados): S/ 30,000 - S/ 80,000  \nEmpresa grande (200+ empleados): S/ 80,000 - S/ 200,000\n\nEste costo se amortiza rápidamente al evitar una sola sanción o fraude.",
+      "category": "Compliance",
+      "author": "Equipo Legal CZ",
+      "date": "2026-04-21",
+      "readTime": "14 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Regulación",
+        "Prevención"
+      ]
+    },
+    {
+      "id": "post-mo7q7t05",
+      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
+      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
+      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
+      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
+      "category": "Análisis",
+      "author": "Dr. Carlos Mendoza",
+      "date": "2026-04-20",
+      "readTime": "11 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
+      "id": "post-mo6as41a",
+      "title": "Cómo Verificar si una Empresa Está Inhabilitada por el OSCE",
+      "slug": "cmo-verificar-si-una-empresa-est-inhabilitada-por-el-osce",
+      "excerpt": "Guía paso a paso para consultar el Registro de Inhabilitados del OSCE y evitar contratar empresas sancionadas por el Estado.",
+      "content": "Contratar una empresa inhabilitada por el OSCE puede resultar en sanciones severas para su empresa, incluyendo multas e inhabilitación para futuras contrataciones. Esta guía le muestra cómo verificar el estado de cualquier empresa en minutos.\n\nMÉTODO 1: CONSULTA DIRECTA EN PORTAL OSCE\n\nPaso 1: Acceda al portal\n• Vaya a www.osce.gob.pe\n• Seleccione \"Consultas Públicas\"\n• Elija \"Registro de Inhabilitados\"\n\nPaso 2: Ingrese los datos de búsqueda\n• Puede buscar por RUC (11 dígitos) o nombre de empresa\n• El sistema acepta búsquedas parciales\n• Use comillas para búsquedas exactas\n\nPaso 3: Interprete los resultados\n• Si NO aparece: La empresa no está inhabilitada actualmente\n• Si APARECE: Verifique los detalles de la sanción\n  - Fecha de inicio y fin de inhabilitación\n  - Causal de sanción\n  - Entidad que impuso la sanción\n  - Alcance (nacional o por entidad)\n\nMÉTODO 2: CONSULTA MEDIANTE RNP (REGISTRO NACIONAL DE PROVEEDORES)\n\nPaso 1: Acceda al RNP\n• Vaya al portal de consulta del RNP\n• Seleccione \"Consulta de Proveedores\"\n\nPaso 2: Ingrese RUC\n• El sistema mostrará estado de habilitación\n• Si está inhabilitada, aparecerá alerta roja\n• Puede descargar constancia de estado\n\n¿QUÉ SIGNIFICAN LOS TIPOS DE SANCIÓN?\n\n🔴 INHABILITACIÓN DEFINITIVA\n• No puede participar en contrataciones públicas\n• Plazo: Generalmente 2-5 años\n• Aplica a nivel nacional\n\n🟡 AMONESTACIÓN ESCRITA\n• Advertencia formal\n• Queda registrada en su historial\n• Puede afectar puntuación en futuras licitaciones\n\n🟠 MULTA\n• Sanción económica\n• Debe pagarse antes de participar nuevamente\n• Monto variable según gravedad\n\nCASOS ESPECIALES A CONSIDERAR:\n\n✓ SUBCONTRATISTAS INHABILITADOS\nAunque usted contrate a una empresa habilitada, si sus subcontratistas están inhabilitados, también puede ser sancionado. Exija declaración jurada de subcontratistas.\n\n✓ INHABILITACIÓN POR ENTIDAD\nAlgunas sanciones solo aplican para contratar con ciertas entidades públicas específicas. Verifique el alcance de la sanción.\n\n✓ SUSPENSIÓN TEMPORAL\nEn proceso de investigación, una empresa puede estar suspendida provisionalmente. Esto no aparece en inhabilitados pero sí en consultas de RNP.\n\nDOCUMENTACIÓN DE RESPALDO:\n\nGuarde SIEMPRE:\n• Captura de pantalla de la consulta (con fecha visible)\n• Constancia de no inhabilitación (PDF si está disponible)\n• Fecha y hora de la verificación\n• Quién realizó la consulta\n\nFRECUENCIA RECOMENDADA DE VERIFICACIÓN:\n\n• Antes de firmar cualquier contrato: OBLIGATORIO\n• Durante vigencia de contrato: Mensual\n• Para socios estratégicos: Trimestral\n• Para subcontratistas: Semanal (pueden inhabilitarse rápido)\n\nCONSECUENCIAS DE CONTRATAR INHABILITADOS:\n\nPara su empresa:\n• Sanción económica (hasta 150 UIT)\n• Inhabilitación temporal como contratista\n• Pérdida de contratos vigentes\n• Daño reputacional\n\nPara el funcionario responsable:\n• Sanciones administrativas\n• Responsabilidad penal en casos graves\n• Destitución del cargo\n\nSIGA ESTA REGLA DE ORO: Si tiene dudas, NO CONTRATE. Una verificación de 5 minutos puede ahorrarle años de problemas legales.",
+      "category": "Guías",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-19",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Checklist",
+        "Contratos",
+        "Prevención"
+      ]
+    },
+    {
+      "id": "post-mo4vcaeh",
+      "title": "SUNAT Detecta 10 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
+      "slug": "sunat-detecta-10-empresas-con-deuda-tributaria-superior-a-s-",
+      "excerpt": "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos. El monto total supera los 500 millones de soles.",
+      "content": "SUNAT ha actualizado su lista de deudores de grandes montos, incorporando 10 nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes que pueden representar riesgo para sus contrapartes comerciales.\n\nANÁLISIS DE LA DEUDA TRIBUTARIA:\n\nLa deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan directamente la recaudación fiscal del país. Los principales tributos pendientes incluyen:\n\n• Impuesto a la Renta (IR) de períodos anteriores\n• IGV no declarado o retenido\n• Remuneraciones y contribuciones de trabajadores\n• Multas y recargos por infracciones tributarias\n\nMECANISMOS DE COBRANZA DE SUNAT:\n\nLa SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos, incluyendo:\n\n1. Embargos sobre cuentas bancarias y bienes muebles\n2. Retenciones de terceros (suspensión de pagos de contratistas del Estado)\n3. Inscripción de deudas en registros públicos\n4. Denuncias penales por delitos tributarios en casos graves\n\nRIESGOS PARA CONTRAPARTES COMERCIALES:\n\nPara las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de:\n\n• Problemas de liquidez severos\n• Mala gestión administrativa\n• Posible disolución o quiebra inminente\n• Riesgo de embargos que afecten activos transaccionales\n\nSe recomienda exigir certificados de no adeudo tributario antes de transacciones comerciales significativas.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-04-18",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
+      "id": "post-mo3fw9u1",
+      "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
+      "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
+      "excerpt": "Nuestro análisis de datos revela que el sector construcción concentra el 40% de las sanciones OSCE, seguido por servicios y tecnología.",
+      "content": "Un análisis exhaustivo de las sanciones emitidas por el OSCE durante el primer trimestre del año revela patrones preocupantes en sectores específicos de la economía peruana.\n\n## Distribución por Sector\n• Construcción: 42% de sanciones totales\n• Servicios generales: 23%\n• Tecnología y software: 15%\n• Consultorías: 12%\n• Otros sectores: 8%\n\n## Causales Principales\n1. Documentación técnica deficiente (35%)\n2. Incumplimiento de especificaciones técnicas (28%)\n3. Retrasos en ejecución de obra (20%)\n4. Problemas de calidad (17%)\n\n## Implicaciones\nLas empresas contratistas en el sector construcción enfrentan mayor escrutinio por la naturaleza crítica de las obras públicas. Sin embargo, esto también representa oportunidades para empresas con prácticas合规 sólidas de destacar en un mercado competitivo.\n\nEl análisis sugiere que un programa robusto de gestión de calidad y documentación puede reducir significativamente el riesgo de sanciones.",
+      "category": "Análisis",
+      "author": "Equipo de Data Intelligence",
+      "date": "2026-04-17",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Sector",
+        "Construcción",
+        "Estadísticas"
+      ]
+    },
+    {
+      "id": "post-mo0l0ky8",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 37 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-37-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 37 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-04-15",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
+      "id": "post-mnz5kq9m",
+      "title": "Programa de Compliance Contractual: Guía de Implementación",
+      "slug": "programa-de-compliance-contractual-gua-de-implementacin",
+      "excerpt": "Cómo establecer un sistema de compliance efectivo que prevenga sanciones y proteja la reputación de su empresa ante el Estado.",
+      "content": "Un programa de compliance contractual bien implementado no solo previene sanciones, sino que se convierte en una ventaja competitiva al demostrar seriedad y profesionalismo ante entidades públicas.\n\nFASE 1: DIAGNÓSTICO INICIAL (Semanas 1-2)\n\nEvalúe su situación actual:\n□ Historial de sanciones o amonestaciones previas\n□ Procesos documentales existentes\n□ Capacitación actual del personal\n□ Sistemas de control y verificación en uso\n□ Brechas identificadas vs. normativa vigente\n\nFASE 2: DISEÑO DEL PROGRAMA (Semanas 3-4)\n\nEstructura básica requerida:\n\n1. POLÍTICA DE COMPLIANCE DOCUMENTADA\n• Compromiso de la alta dirección\n• Objetivos claros y medibles\n• Alcance y aplicabilidad\n• Consecuencias de incumplimiento\n\n2. MANUAL DE PROCEDIMIENTOS\n• Flujo de aprobación de contratos\n• Verificación de contrapartes (checklist)\n• Gestión documental requerida\n• Manejo de conflictos de interés\n• Procedimiento de denuncias\n\n3. MAPA DE RIESGOS\nIdentifique riesgos específicos por tipo de contrato:\n- Riesgo de contraparte inhabilitada\n- Riesgo de documentación falsa\n- Riesgo de incumplimiento técnico\n- Riesgo de sanciones colaterales\n\nFASE 3: IMPLEMENTACIÓN (Meses 2-3)\n\nAcciones concretas:\n• Capacitación obligatoria para todo el equipo\n• Designación de Oficial de Compliance\n• Implementación de sistema de control\n• Contratación de herramientas de verificación\n• Establecimiento de auditorías internas\n\nFASE 4: MONITOREO Y MEJORA CONTINUA (Permanente)\n\nIndicadores clave de desempeño (KPIs):\n• % de contrapartes verificadas antes de contrato\n• Tiempo promedio de verificación\n• Incidentes de compliance detectados\n• Capacitación realizada (horas/persona)\n• Resultados de auditorías internas\n\nCOSTO ESTIMADO DE IMPLEMENTACIÓN:\n\nEmpresa pequeña (hasta 50 empleados): S/ 15,000 - S/ 30,000\nEmpresa mediana (50-200 empleados): S/ 30,000 - S/ 80,000  \nEmpresa grande (200+ empleados): S/ 80,000 - S/ 200,000\n\nEste costo se amortiza rápidamente al evitar una sola sanción o fraude.",
+      "category": "Compliance",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-14",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Regulación",
+        "Prevención"
+      ]
+    },
+    {
       "id": "post-mnxq4yqj",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +215,7 @@
       "date": "2026-04-13",
       "readTime": "5 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -430,8 +634,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-13T21:48:09.307Z",
-    "totalPosts": 15,
+    "lastUpdated": "2026-04-21T21:48:04.350Z",
+    "totalPosts": 22,
     "categories": [
       "Noticias",
       "Guías",
@@ -440,6 +644,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-13T21:48:09.307Z"
+    "lastGeneration": "2026-04-21T21:48:04.350Z"
   }
 }

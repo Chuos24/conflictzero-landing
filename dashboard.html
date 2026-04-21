@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Control Institucional - Conflict Zero</title>
+    <script src="https://browser.sentry-cdn.net/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+    if (typeof Sentry !== 'undefined' && window.location.hostname !== 'localhost') {
+        Sentry.init({
+            dsn: "https://9b8e0de098e39cc1d43e7b77b2b5821d@o4511252074594304.ingest.de.sentry.io/4511252170408016",
+            environment: "production",
+            release: "cz-dashboard-2026-04-20",
+            tracesSampleRate: 0.1,
+            beforeSend(event) {
+                const user = JSON.parse(localStorage.getItem('cz_user') || '{}');
+                if (user.email) event.user = { email: user.email, id: user.ruc };
+                return event;
+            }
+        });
+    }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -535,27 +551,72 @@
                 </button>
             </div>
         </div>
+        
+        <!-- Debug Info -->
+        <div id="debugInfo" style="margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 11px; color: var(--text-muted);">
+            Cargando...
+        </div>
     </main>
     
     <script>
+        console.log('[DEBUG] Dashboard loading...');
+        
+        // Check for demo mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isDemo = urlParams.get('demo') === 'true';
+        
+        if (isDemo) {
+            console.log('[DEBUG] MODO DEMO activado');
+            // Datos de demo
+            const demoUser = {
+                company_name: 'CONSTRUCTORA DEMO S.A.C.',
+                email: 'demo.cliente@example.com',
+                plan_type: 'Professional'
+            };
+            localStorage.setItem('cz_user', JSON.stringify(demoUser));
+            localStorage.setItem('cz_token', 'demo-token-for-testing');
+        }
+        
         // Check auth and load dashboard
         const token = localStorage.getItem('cz_token');
         const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
         
+        console.log('[DEBUG] Token:', token ? 'Presente' : 'No hay token');
+        console.log('[DEBUG] UserData:', userData);
+        
         if (!token) {
+            console.log('[DEBUG] Redirigiendo a login - no hay token');
             window.location.href = '/login.html';
             return;
         }
         
-        // Mostrar nombre inmediatamente desde localStorage
+        // Mostrar nombre inmediatamente desde localStorage (no esperar a cargar)
         if (userData.company_name) {
             document.getElementById('companyName').textContent = userData.company_name;
         } else if (userData.email) {
             document.getElementById('companyName').textContent = userData.email;
+        } else {
+            document.getElementById('companyName').textContent = 'Usuario';
         }
         
-        // Variable para evitar redirecciones múltiples
-        let redirecting = false;
+        // Si es demo, mostrar badge
+        if (isDemo) {
+            const planBadge = document.querySelector('.plan-badge');
+            if (planBadge) {
+                planBadge.textContent = 'MODO DEMO';
+                planBadge.style.background = 'rgba(197, 160, 89, 0.2)';
+            }
+        }
+        
+        // Mostrar debug info
+        document.getElementById('debugInfo').innerHTML = `
+            <strong>Debug Info:</strong><br>
+            Token: ${token ? 'Presente (' + token.substring(0, 20) + '...)' : 'No hay token'}<br>
+            Email: ${userData.email || 'N/A'}<br>
+            Company: ${userData.company_name || 'N/A'}<br>
+            Plan: ${userData.plan_type || 'N/A'}<br>
+            <button onclick="localStorage.clear(); alert('localStorage limpiado'); location.reload();" style="margin-top: 8px; padding: 4px 8px; font-size: 10px; background: #444; border: none; color: #fff; cursor: pointer;">Limpiar Sesión</button>
+        `;
         
         // Load user info and stats on page load
         document.addEventListener('DOMContentLoaded', async () => {
@@ -576,20 +637,50 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.success && data.user) {
-                        // Actualizar con datos frescos
-                        if (data.user.company_name) {
-                            document.getElementById('companyName').textContent = data.user.company_name;
-                        }
+                    // Backend devuelve datos planos, no envueltos en {success, user}
+                    if (data.company_name) {
+                        document.getElementById('companyName').textContent = data.company_name;
+                    } else if (data.email) {
+                        document.getElementById('companyName').textContent = data.email;
                     }
                 }
             } catch (err) {
                 console.error('Error loading user:', err);
+                if (typeof Sentry !== 'undefined') {
+                    Sentry.captureException(err);
+                }
             }
         }
         
         async function loadDashboardStats() {
             try {
+                // Si es demo, mostrar datos de ejemplo
+                if (isDemo) {
+                    const demoData = {
+                        monthly_validations: [
+                            { mes: '2026-01', total: 12 },
+                            { mes: '2026-02', total: 18 },
+                            { mes: '2026-03', total: 25 },
+                            { mes: '2026-04', total: 8 }
+                        ],
+                        total_last_30d: 8,
+                        unique_rucs_30d: 6,
+                        tier_distribution: { GOLD: 3, SILVER: 2, BRONZE: 2, RECHAZADO: 1 },
+                        recent_validations: [
+                            { ruc: '20100123091', razon_social: 'Constructora Alpha SAC', score: 95, tier: 'GOLD', fecha: '2026-04-15T10:30:00Z' },
+                            { ruc: '20534049286', razon_social: 'Inversiones Beta EIRL', score: 78, tier: 'SILVER', fecha: '2026-04-14T16:45:00Z' },
+                            { ruc: '20345067890', razon_social: 'Servicios Gamma SAC', score: 45, tier: 'BRONZE', fecha: '2026-04-12T09:15:00Z' }
+                        ]
+                    };
+                    
+                    renderMonthlyChart(demoData.monthly_validations);
+                    document.getElementById('totalValidations').textContent = demoData.total_last_30d;
+                    document.getElementById('uniqueRUCs').textContent = demoData.unique_rucs_30d;
+                    renderTierDistribution(demoData.tier_distribution);
+                    renderRecentValidations(demoData.recent_validations);
+                    return;
+                }
+                
                 const response = await fetch('https://conflict-zero-api.onrender.com/api/v3/dashboard/stats', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -597,23 +688,44 @@
                 if (response.ok) {
                     const data = await response.json();
                     
-                    if (data.success) {
-                        // Monthly chart
-                        renderMonthlyChart(data.monthly_validations);
-                        
-                        // Summary stats
-                        document.getElementById('totalValidations').textContent = data.total_last_30d;
-                        document.getElementById('uniqueRUCs').textContent = data.unique_rucs_30d;
-                        
-                        // Tier distribution
-                        renderTierDistribution(data.tier_distribution);
-                        
-                        // Recent validations table
-                        renderRecentValidations(data.recent_validations);
+                    // Backend devuelve datos planos: total_verifications, verifications_this_month, etc.
+                    // Mapear a lo que espera el frontend
+                    const monthlyData = data.monthly_validations || [];
+                    const total30d = data.verifications_this_month || data.total_last_30d || 0;
+                    const uniqueRucs = data.unique_rucs_30d || 0;
+                    const tierDist = data.risk_distribution || data.tier_distribution || {};
+                    const recent = data.recent_verifications || [];
+                    
+                    // Monthly chart
+                    if (monthlyData.length > 0) {
+                        renderMonthlyChart(monthlyData);
+                    } else {
+                        document.getElementById('monthlyChart').innerHTML = '<div style="color: var(--text-muted); font-size: 12px;">Sin datos de historial</div>';
                     }
+                    
+                    // Summary stats
+                    document.getElementById('totalValidations').textContent = total30d;
+                    document.getElementById('uniqueRUCs').textContent = uniqueRucs;
+                    
+                    // Tier distribution
+                    renderTierDistribution(tierDist);
+                    
+                    // Recent validations table
+                    if (recent.length > 0) {
+                        renderRecentValidations(recent);
+                    } else {
+                        document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin validaciones recientes. <a href="/verificar.html" style="color: var(--gold);">Realizar primera verificación →</a></td></tr>';
+                    }
+                } else {
+                    console.error('Dashboard stats error:', response.status);
+                    document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos</td></tr>';
                 }
             } catch (err) {
                 console.error('Error loading stats:', err);
+                if (typeof Sentry !== 'undefined') {
+                    Sentry.captureException(err);
+                }
+                document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos. Intente recargar la página.</td></tr>';
             }
         }
         
@@ -759,6 +871,7 @@
         }
         
         function invitarSubcontratista() {
+            console.log('[DEBUG] invitarSubcontratista() llamado');
             const ruc = prompt('Ingrese el RUC del subcontratista a invitar (11 digitos):');
             if (!ruc || ruc.length !== 11) {
                 alert('RUC invalido');
@@ -771,6 +884,8 @@
                 return;
             }
             
+            console.log('[DEBUG] Creando invitacion para:', {ruc, email});
+            
             // Crear invitacion via API
             fetch('https://conflict-zero-api.onrender.com/api/v3/invitations', {
                 method: 'POST',
@@ -780,8 +895,12 @@
                 },
                 body: JSON.stringify({ email, ruc_invitado: ruc })
             })
-            .then(r => r.json())
+            .then(r => {
+                console.log('[DEBUG] Response status:', r.status);
+                return r.json();
+            })
             .then(data => {
+                console.log('[DEBUG] Response data:', data);
                 if (data.success) {
                     alert(`✅ Invitacion creada!\n\nEmail: ${email}\nToken: ${data.invitation.token}\n\nEl subcontratista debe registrarse en:\nhttps://czperu.com/registro.html?token=${data.invitation.token}`);
                 } else {
@@ -789,8 +908,8 @@
                 }
             })
             .catch(err => {
-                console.error(err);
-                alert('❌ Error de conexion');
+                console.error('[DEBUG] Error:', err);
+                alert('❌ Error de conexion: ' + err.message);
             });
         }
         

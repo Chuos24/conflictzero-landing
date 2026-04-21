@@ -7,12 +7,25 @@
     { "src": "*.ico", "use": "@vercel/static" },
     { "src": "*.png", "use": "@vercel/static" }
   ],
-  "routes": [
-    { "src": "/favicon\\.svg", "dest": "/favicon.svg" },
-    { "src": "/apple-touch-icon\\.svg", "dest": "/apple-touch-icon.svg" },
-    { "src": "/(.*\\.(svg|ico|png|jpg|jpeg|gif|css|js))", "dest": "/$1" },
-    { "src": "/certificado-([^/]+)\\.html", "dest": "/certificado-$1.html" },
-    { "src": "/verificar/([^/]+)", "dest": "/verificar/$1.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "redirects": [
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/register", "destination": "/register.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/contacto", "destination": "/contacto.html" },
+    { "source": "/pricing", "destination": "/pricing.html" },
+    { "source": "/red", "destination": "/red.html" },
+    { "source": "/founders", "destination": "/founders.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
   ]
 }
