@@ -587,7 +587,8 @@
         if (!token) {
             console.log('[DEBUG] Redirigiendo a login - no hay token');
             window.location.href = '/login.html';
-            return;
+            // NOTA: No usar 'return' aqui — es scope global y causa SyntaxError
+            // El browser navegara a login.html antes de que el resto se ejecute
         }
         
         // Mostrar nombre inmediatamente desde localStorage (no esperar a cargar)
