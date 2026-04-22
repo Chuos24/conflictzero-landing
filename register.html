@@ -400,16 +400,15 @@
             
             const displayPlan = planDisplayNames[plan] || plan;
             
-            // Datos para API - Formato RegisterWebRequest (backend)
-            const fullName = firstName + ' ' + lastName;
-            const tempPassword = 'Temp' + Math.random().toString(36).substring(2, 10) + '!';
-            
+            // Datos para API - Formato FrontendRegisterRequest (backend)
             const data = {
+                firstName: firstName,
+                lastName: lastName,
                 email: email,
-                password: tempPassword,
-                full_name: fullName,
-                company_name: company,
-                ruc: document.getElementById('ruc').value.trim() || rucParam || ''
+                company: company,
+                plan: plan,
+                phone: phone,
+                date: new Date().toISOString()
             };
             
             btn.disabled = true;
