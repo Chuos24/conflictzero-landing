@@ -1,636 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control Institucional - Conflict Zero</title>
-    <script src="https://browser.sentry-cdn.net/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
     <script>
-    if (typeof Sentry !== 'undefined' && window.location.hostname !== 'localhost') {
-        Sentry.init({
-            dsn: "https://9b8e0de098e39cc1d43e7b77b2b5821d@o4511252074594304.ingest.de.sentry.io/4511252170408016",
-            environment: "production",
-            release: "cz-dashboard-2026-04-20",
-            tracesSampleRate: 0.1,
-            beforeSend(event) {
-                const user = JSON.parse(localStorage.getItem('cz_user') || '{}');
-                if (user.email) event.user = { email: user.email, id: user.ruc };
-                return event;
-            }
-        });
-    }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg-dark: #0A0A0F;
-            --bg-card: #12121A;
-            --bg-hover: #1A1A22;
-            --gold: #C5A059;
-            --gold-light: #D4AF37;
-            --text: #F5F5F0;
-            --text-muted: #A0A0A0;
-            --border: #2A2A2E;
-            --border-gold: rgba(197, 160, 89, 0.3);
-            --success: #1B3A2F;
-            --danger: #8B0000;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            background-color: var(--bg-dark);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-            color: var(--text);
-            min-height: 100vh;
-        }
-        
-        /* Header UHNW */
-        .header {
-            padding: 20px 48px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            text-decoration: none;
-        }
-        
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .logo-icon svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--gold);
-            stroke-width: 1.5;
-            fill: none;
-        }
-        
-        .logo-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-        
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        
-        .plan-badge {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 11px;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 8px 16px;
-            border: 1px solid var(--gold);
-        }
-        
-        .btn-logout {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 10px 20px;
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-logout:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        
-        .main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 48px;
-        }
-        
-        .page-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-        
-        .page-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 28px;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            color: var(--text);
-            margin-bottom: 40px;
-        }
-        
-        /* Stats */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        
-        .stat-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 32px;
-            text-align: center;
-            transition: border-color 0.2s;
-        }
-        
-        .stat-box:hover {
-            border-color: var(--border-gold);
-        }
-        
-        .stat-label {
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        
-        .stat-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 36px;
-            font-weight: 300;
-            color: var(--gold);
-        }
-        
-        /* Sections */
-        .section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 32px;
-            margin-bottom: 24px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .section-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-        
-        .btn-primary {
-            background: var(--gold);
-            border: none;
-            color: var(--bg-dark);
-            padding: 12px 24px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-primary:hover {
-            background: var(--gold-light);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 12px 24px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        
-        /* Stats Section */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 24px;
-        }
-        
-        .stat-card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-        
-        .monthly-chart {
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-            height: 120px;
-            padding-top: 20px;
-        }
-        
-        .chart-bar {
-            flex: 1;
-            background: var(--gold);
-            min-height: 4px;
-            position: relative;
-            transition: all 0.3s;
-        }
-        
-        .chart-bar:hover {
-            background: var(--gold-light);
-        }
-        
-        .chart-bar .bar-label {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 10px;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-        
-        .chart-bar .bar-value {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: var(--gold);
-            font-weight: 500;
-        }
-        
-        /* Recent validations table */
-        .recent-table {
-            width: 100%;
-            font-size: 12px;
-        }
-        
-        .recent-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .recent-table tr:hover td {
-            background: var(--bg-hover);
-        }
-        
-        .tier-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-        
-        .tier-dot.GOLD { background: #D4AF37; }
-        .tier-dot.SILVER { background: #C0C0C0; }
-        .tier-dot.BRONZE { background: #B87333; }
-        .tier-dot.RECHAZADO { background: #8B0000; }
-        
-        /* Validador */
-        .input-group {
-            display: flex;
-            gap: 0;
-        }
-        
-        .input-group input {
-            flex: 1;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 16px 20px;
-            font-size: 15px;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        
-        .input-group input:focus {
-            border-color: var(--gold);
-        }
-        
-        .input-group input::placeholder {
-            color: var(--text-muted);
-        }
-        
-        /* Tabla */
-        .table-container {
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        td {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-        }
-        
-        tr:hover td {
-            background: var(--bg-hover);
-        }
-        
-        .tier-badge-table {
-            display: inline-block;
-            padding: 4px 12px;
-            font-size: 10px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-        
-        .tier-GOLD { background: rgba(212, 175, 55, 0.2); color: #D4AF37; }
-        .tier-SILVER { background: rgba(192, 192, 192, 0.2); color: #C0C0C0; }
-        .tier-BRONZE { background: rgba(184, 115, 51, 0.2); color: #B87333; }
-        .tier-RECHAZADO { background: rgba(139, 0, 0, 0.2); color: #8B0000; }
-        
-        /* Resultados */
-        .result-box {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            padding: 32px;
-            margin-top: 24px;
-            display: none;
-        }
-        
-        .result-box.visible {
-            display: block;
-        }
-        
-        .score-display {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        
-        .score-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 64px;
-            font-weight: 300;
-            color: var(--gold);
-        }
-        
-        .score-label {
-            font-size: 12px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <a href="/" class="logo">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="logo-text">Conflict Zero</div>
-        </a>
-        
-        <div class="user-menu">
-            <span class="plan-badge">Plan Profesional</span>
-            <button class="btn-logout" onclick="logout()">Cerrar Sesion</button>
-        </div>
-    </header>
-    
-    <main class="main">
-        <div class="page-title">Panel de Control Institucional</div>
-        <div class="page-subtitle" id="companyName">Cargando...</div>
-        
-        <!-- Stats Section -->
-        <div class="stats-section" id="statsSection">
-            <div class="stat-card">
-                <h3>📊 Validaciones por Mes</h3>
-                <div class="monthly-chart" id="monthlyChart">
-                    <div style="color: var(--text-muted); font-size: 12px;">Cargando...</div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <h3>📈 Resumen (Últimos 30 días)</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;">
-                    <div>
-                        <div style="font-size: 32px; color: var(--gold); font-weight: 300;" id="totalValidations">-</div>
-                        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Total Validaciones</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 32px; color: var(--gold); font-weight: 300;" id="uniqueRUCs">-</div>
-                        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">RUCs Únicos</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <h3>🎯 Distribución por Tier</h3>
-                <div id="tierDistribution" style="margin-top: 12px;">
-                    <div style="color: var(--text-muted); font-size: 12px;">Cargando...</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Recent Validations -->
-        <div class="section">
-            <div class="section-header">
-                <h2>🕐 Validaciones Recientes</h2>
-            </div>
-            <div class="table-container">
-                <table class="recent-table" id="recentTable">
-                    <thead>
-                        <tr>
-                            <td style="color: var(--text-muted);">RUC</td>
-                            <td style="color: var(--text-muted);">Empresa</td>
-                            <td style="color: var(--text-muted);">Score</td>
-                            <td style="color: var(--text-muted);">Fecha</td>
-                        </tr>
-                    </thead>
-                    <tbody id="recentTableBody">
-                        <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Cargando...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Validador -->
-        <div class="section">
-            <div class="section-header">
-                <h2>Validar Empresa</h2>
-            </div>
-            
-            <div class="input-group">
-                <input type="text" id="rucInput" placeholder="Ingrese RUC (11 digitos)" maxlength="11">
-                <button class="btn-primary" onclick="validarRUC()">Verificar</button>
-            </div>
-            
-            <div class="result-box" id="resultBox">
-                <div class="score-display">
-                    <div class="score-number" id="scoreNum">--</div>
-                    <div class="score-label">SCORE CONFLICT ZERO</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Accesos -->
-        <div class="section">
-            <div class="section-header">
-                <h2>Accesos Directos</h2>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-                <a href="/red.html" class="btn-primary" style="text-align: center; text-decoration: none; display: block;">Ver Red de Cumplimiento</a>
-                <button class="btn-primary" onclick="invitarSubcontratista()">Invitar al Comite</button>
-            </div>
-            <div style="margin-top: 16px;">
-                <button class="btn-secondary" onclick="exportarHistorial()" style="width: 100%;">
-                    📥 Exportar Historial (CSV)
-                </button>
-            </div>
-        </div>
-        
-        <!-- Debug Info -->
-        <div id="debugInfo" style="margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 11px; color: var(--text-muted);">
-            Cargando...
-        </div>
-    </main>
-    
-    <script>
-        console.log('[DEBUG] Dashboard loading...');
-        
-        // Check for demo mode
-        const urlParams = new URLSearchParams(window.location.search);
-        const isDemo = urlParams.get('demo') === 'true';
-        
-        if (isDemo) {
-            console.log('[DEBUG] MODO DEMO activado');
-            // Datos de demo
-            const demoUser = {
-                company_name: 'CONSTRUCTORA DEMO S.A.C.',
-                email: 'demo.cliente@example.com',
-                plan_type: 'Professional'
-            };
-            localStorage.setItem('cz_user', JSON.stringify(demoUser));
-            localStorage.setItem('cz_token', 'demo-token-for-testing');
-        }
-        
-        // Check auth and load dashboard
-        const token = localStorage.getItem('cz_token');
-        const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
-        
-        console.log('[DEBUG] Token:', token ? 'Presente' : 'No hay token');
-        console.log('[DEBUG] UserData:', userData);
-        
-        if (!token) {
-            console.log('[DEBUG] Redirigiendo a login - no hay token');
-            window.location.href = '/login.html';
-            // NOTA: No usar 'return' aqui — es scope global y causa SyntaxError
-            // El browser navegara a login.html antes de que el resto se ejecute
-        }
-        
-        // Mostrar nombre inmediatamente desde localStorage (no esperar a cargar)
-        if (userData.company_name) {
-            document.getElementById('companyName').textContent = userData.company_name;
-        } else if (userData.email) {
-            document.getElementById('companyName').textContent = userData.email;
-        } else {
-            document.getElementById('companyName').textContent = 'Usuario';
-        }
-        
-        // Si es demo, mostrar badge
-        if (isDemo) {
-            const planBadge = document.querySelector('.plan-badge');
-            if (planBadge) {
-                planBadge.textContent = 'MODO DEMO';
-                planBadge.style.background = 'rgba(197, 160, 89, 0.2)';
-            }
-        }
-        
-        // Mostrar debug info
-        document.getElementById('debugInfo').innerHTML = `
-            <strong>Debug Info:</strong><br>
-            Token: ${token ? 'Presente (' + token.substring(0, 20) + '...)' : 'No hay token'}<br>
-            Email: ${userData.email || 'N/A'}<br>
-            Company: ${userData.company_name || 'N/A'}<br>
-            Plan: ${userData.plan_type || 'N/A'}<br>
-            <button onclick="localStorage.clear(); alert('localStorage limpiado'); location.reload();" style="margin-top: 8px; padding: 4px 8px; font-size: 10px; background: #444; border: none; color: #fff; cursor: pointer;">Limpiar Sesión</button>
-        `;
-        
-        // Load user info and stats on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                await loadUserInfo();
-                await loadDashboardStats();
-            } catch (err) {
-                console.error('Error cargando dashboard:', err);
-                // No redirigir, solo mostrar error en consola
-            }
-        });
-        
-        async function loadUserInfo() {
+        // ============================================================
+        // DEFINICIONES DE FUNCIONES (ninguna se ejecuta todavia)
+        // ============================================================
+        
+        async function loadUserInfo(token) {
             try {
                 const response = await fetch('https://conflict-zero-api.onrender.com/api/v3/auth/me', {
                     headers: { 'Authorization': `Bearer ${token}` }
@@ -638,7 +11,6 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    // Backend devuelve datos planos, no envueltos en {success, user}
                     if (data.company_name) {
                         document.getElementById('companyName').textContent = data.company_name;
                     } else if (data.email) {
@@ -653,9 +25,8 @@
             }
         }
         
-        async function loadDashboardStats() {
+        async function loadDashboardStats(token, isDemo) {
             try {
-                // Si es demo, mostrar datos de ejemplo
                 if (isDemo) {
                     const demoData = {
                         monthly_validations: [
@@ -689,33 +60,27 @@
                 if (response.ok) {
                     const data = await response.json();
                     
-                    // Backend devuelve datos planos: total_verifications, verifications_this_month, etc.
-                    // Mapear a lo que espera el frontend
                     const monthlyData = data.monthly_validations || [];
                     const total30d = data.verifications_this_month || data.total_last_30d || 0;
                     const uniqueRucs = data.unique_rucs_30d || 0;
                     const tierDist = data.risk_distribution || data.tier_distribution || {};
                     const recent = data.recent_verifications || [];
                     
-                    // Monthly chart
                     if (monthlyData.length > 0) {
                         renderMonthlyChart(monthlyData);
                     } else {
                         document.getElementById('monthlyChart').innerHTML = '<div style="color: var(--text-muted); font-size: 12px;">Sin datos de historial</div>';
                     }
                     
-                    // Summary stats
                     document.getElementById('totalValidations').textContent = total30d;
                     document.getElementById('uniqueRUCs').textContent = uniqueRucs;
                     
-                    // Tier distribution
                     renderTierDistribution(tierDist);
                     
-                    // Recent validations table
                     if (recent.length > 0) {
                         renderRecentValidations(recent);
                     } else {
-                        document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin validaciones recientes. <a href="/verificar.html" style="color: var(--gold);">Realizar primera verificación →</a></td></tr>';
+                        document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin validaciones recientes. <a href="/verificar.html" style="color: var(--gold);">Realizar primera verificacion</a></td></tr>';
                     }
                 } else {
                     console.error('Dashboard stats error:', response.status);
@@ -726,7 +91,7 @@
                 if (typeof Sentry !== 'undefined') {
                     Sentry.captureException(err);
                 }
-                document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos. Intente recargar la página.</td></tr>';
+                document.getElementById('recentTableBody').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--danger); padding: 20px;">Error cargando datos. Intente recargar la pagina.</td></tr>';
             }
         }
         
@@ -738,13 +103,12 @@
                 return;
             }
             
-            // Reverse to show oldest first
             const data = [...monthlyData].reverse();
             const maxValue = Math.max(...data.map(d => d.total), 1);
             
             chartContainer.innerHTML = data.map(item => {
                 const height = Math.max((item.total / maxValue) * 100, 4);
-                const monthLabel = item.mes.split('-')[1]; // Get month number
+                const monthLabel = item.mes.split('-')[1];
                 return `
                     <div class="chart-bar" style="height: ${height}%;">
                         <div class="bar-value">${item.total}</div>
@@ -821,6 +185,7 @@
             const ruc = document.getElementById('rucInput').value;
             const resultBox = document.getElementById('resultBox');
             const scoreNum = document.getElementById('scoreNum');
+            const token = localStorage.getItem('cz_token');
             
             if (ruc.length !== 11 || !/^\d{11}$/.test(ruc)) {
                 alert('Ingrese un RUC valido de 11 digitos numericos');
@@ -833,7 +198,6 @@
             btn.disabled = true;
             
             try {
-                // Usar el endpoint correcto
                 const response = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${ruc}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -843,7 +207,6 @@
                 if (response.ok && data.ruc) {
                     scoreNum.textContent = Math.round(data.score || 0);
                     resultBox.classList.add('visible');
-                    // Guardar en historial local
                     saveToHistory(data);
                 } else {
                     alert(data.message || 'RUC no encontrado');
@@ -866,13 +229,13 @@
                 tier: data.tier,
                 fecha: new Date().toISOString()
             });
-            // Mantener solo ultimas 20
             if (history.length > 20) history.pop();
             localStorage.setItem('cz_validations', JSON.stringify(history));
         }
         
         function invitarSubcontratista() {
             console.log('[DEBUG] invitarSubcontratista() llamado');
+            const token = localStorage.getItem('cz_token');
             const ruc = prompt('Ingrese el RUC del subcontratista a invitar (11 digitos):');
             if (!ruc || ruc.length !== 11) {
                 alert('RUC invalido');
@@ -887,7 +250,6 @@
             
             console.log('[DEBUG] Creando invitacion para:', {ruc, email});
             
-            // Crear invitacion via API
             fetch('https://conflict-zero-api.onrender.com/api/v3/invitations', {
                 method: 'POST',
                 headers: { 
@@ -903,25 +265,25 @@
             .then(data => {
                 console.log('[DEBUG] Response data:', data);
                 if (data.success) {
-                    alert(`✅ Invitacion creada!\n\nEmail: ${email}\nToken: ${data.invitation.token}\n\nEl subcontratista debe registrarse en:\nhttps://czperu.com/registro.html?token=${data.invitation.token}`);
+                    alert(`Invitacion creada!\n\nEmail: ${email}\nToken: ${data.invitation.token}\n\nEl subcontratista debe registrarse en:\nhttps://czperu.com/registro.html?token=${data.invitation.token}`);
                 } else {
-                    alert('❌ Error: ' + (data.message || 'No se pudo crear invitacion'));
+                    alert('Error: ' + (data.message || 'No se pudo crear invitacion'));
                 }
             })
             .catch(err => {
                 console.error('[DEBUG] Error:', err);
-                alert('❌ Error de conexion: ' + err.message);
+                alert('Error de conexion: ' + err.message);
             });
         }
         
         async function exportarHistorial() {
+            const token = localStorage.getItem('cz_token');
             const btn = document.querySelector('.btn-secondary');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '⏳ Descargando...';
+            btn.innerHTML = 'Descargando...';
             btn.disabled = true;
             
             try {
-                // Intentar obtener del API primero
                 const response = await fetch('https://conflict-zero-api.onrender.com/api/v3/export/validations', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -935,7 +297,6 @@
                 console.log('API export no disponible, usando localStorage');
             }
             
-            // Fallback: exportar desde localStorage
             const history = JSON.parse(localStorage.getItem('cz_validations') || '[]');
             if (history.length === 0) {
                 alert('No hay validaciones en el historial');
@@ -944,7 +305,6 @@
                 return;
             }
             
-            // Crear CSV
             let csv = 'Fecha,RUC,Razon Social,Score,Tier\n';
             history.forEach(h => {
                 csv += `${h.fecha},${h.ruc},${h.razon_social || ''},${h.score || 0},${h.tier || ''}\n`;
@@ -967,6 +327,78 @@
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
         }
+        
+        // ============================================================
+        // INICIALIZACION (corre cuando el DOM esta listo)
+        // ============================================================
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('[DEBUG] Dashboard loading...');
+            
+            // Check for demo mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const isDemo = urlParams.get('demo') === 'true';
+            
+            if (isDemo) {
+                console.log('[DEBUG] MODO DEMO activado');
+                const demoUser = {
+                    company_name: 'CONSTRUCTORA DEMO S.A.C.',
+                    email: 'demo.cliente@example.com',
+                    plan_type: 'Professional'
+                };
+                localStorage.setItem('cz_user', JSON.stringify(demoUser));
+                localStorage.setItem('cz_token', 'demo-token-for-testing');
+            }
+            
+            // Check auth and load dashboard
+            const token = localStorage.getItem('cz_token');
+            const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
+            
+            console.log('[DEBUG] Token:', token ? 'Presente' : 'No hay token');
+            console.log('[DEBUG] UserData:', userData);
+            
+            if (!token) {
+                console.log('[DEBUG] Redirigiendo a login - no hay token');
+                window.location.href = '/login.html';
+                return; // Este return esta DENTRO de una funcion — es legal
+            }
+            
+            // Mostrar nombre inmediatamente desde localStorage
+            if (userData.company_name) {
+                document.getElementById('companyName').textContent = userData.company_name;
+            } else if (userData.email) {
+                document.getElementById('companyName').textContent = userData.email;
+            } else {
+                document.getElementById('companyName').textContent = 'Usuario';
+            }
+            
+            // Si es demo, mostrar badge
+            if (isDemo) {
+                const planBadge = document.querySelector('.plan-badge');
+                if (planBadge) {
+                    planBadge.textContent = 'MODO DEMO';
+                    planBadge.style.background = 'rgba(197, 160, 89, 0.2)';
+                }
+            }
+            
+            // Mostrar debug info
+            document.getElementById('debugInfo').innerHTML = `
+                <strong>Debug Info:</strong><br>
+                Token: ${token ? 'Presente (' + token.substring(0, 20) + '...)' : 'No hay token'}<br>
+                Email: ${userData.email || 'N/A'}<br>
+                Company: ${userData.company_name || 'N/A'}<br>
+                Plan: ${userData.plan_type || 'N/A'}<br>
+                <button onclick="localStorage.clear(); alert('localStorage limpiado'); location.reload();" style="margin-top: 8px; padding: 4px 8px; font-size: 10px; background: #444; border: none; color: #fff; cursor: pointer;">Limpiar Sesion</button>
+            `;
+            
+            // Load user info and stats
+            try {
+                await loadUserInfo(token);
+                await loadDashboardStats(token, isDemo);
+            } catch (err) {
+                console.error('Error cargando dashboard:', err);
+            }
+        });
     </script>
 </body>
 </html>
