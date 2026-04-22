@@ -260,20 +260,35 @@
 // Añadir al <head> de register.html
 function submitRegister(e) {
   e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Enviando...';
   const firstName = document.getElementById('firstName').value;
   const lastName = document.getElementById('lastName').value;
+  const plan = document.getElementById('plan').value;
   const data = {
+    firstName: firstName,
+    lastName: lastName,
     email: document.getElementById('email').value,
     password: document.getElementById('password').value,
-    full_name: firstName + ' ' + lastName,
-    company_name: document.getElementById('company').value,
-    ruc: document.getElementById('ruc').value
+    company: document.getElementById('company').value,
+    plan: plan,
+    ruc: document.getElementById('ruc').value,
+    phone: document.getElementById('phone') ? document.getElementById('phone').value : ''
   };
-  fetch('/api/v3/auth/register-web', {
+  fetch('https://conflict-zero-api.onrender.com/api/v3/auth/register-web', {
     method: 'POST', headers: {'Content-Type':'application/json'},
     body: JSON.stringify(data)
   }).then(r => r.json()).then(j => {
-    alert(j.success ? 'Registro exitoso' : 'Error: ' + JSON.stringify(j));
+    if (j.success) {
+      alert('Registro exitoso. Verifique su email.');
+      window.location.href = '/login.html';
+    } else {
+      alert('Error: ' + (j.detail || JSON.stringify(j)));
+      btn.disabled = false; btn.textContent = 'Enviar Solicitud';
+    }
+  }).catch(err => {
+    alert('Error de red: ' + err);
+    btn.disabled = false; btn.textContent = 'Enviar Solicitud';
   });
 }
 
@@ -302,7 +317,7 @@ function submitRegister(e) {
             
             <div class="message" id="message"></div>
             
-            <form id="registerForm" onsubmit="submitRegister(event);" "handleRegister(event)">
+            <form id="registerForm" onsubmit="submitRegister(event);">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre</label>
@@ -321,6 +336,11 @@ function submitRegister(e) {
                 </div>
                 
                 <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" placeholder="Mínimo 8 caracteres" minlength="8" required>
+                </div>
+                
+                <div class="form-group">
                     <label>Empresa</label>
                     <input type="text" id="company" placeholder="Nombre de su empresa" required>
                 </div>
@@ -332,14 +352,19 @@ function submitRegister(e) {
                     </div>
                     
                     <div class="form-group">
-                        <label>Plan</label>
-                        <select id="plan" required>
-                            <option value="">Seleccionar...</option>
-                            <option value="starter">Starter - $400/mes</option>
-                            <option value="professional">Professional - $800/mes</option>
-                            <option value="enterprise">Enterprise - $2,500/mes</option>
-                        </select>
+                        <label>Teléfono</label>
+                        <input type="tel" id="phone" placeholder="+51 999 999 999">
                     </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Plan</label>
+                    <select id="plan" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="starter">Starter - $400/mes</option>
+                        <option value="professional">Professional - $800/mes</option>
+                        <option value="enterprise">Enterprise - $2,500/mes</option>
+                    </select>
                 </div>
                 
                 <button type="submit" class="btn-submit" id="submitBtn">
