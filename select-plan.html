@@ -566,10 +566,10 @@
     <script>
         // Obtener parámetros de URL
         const urlParams = new URLSearchParams(window.location.search);
-        const ruc = urlParams.get('ruc');
+        const ruc = urlParams.get('ruc') || 'Ingrese un RUC';
         const score = parseInt(urlParams.get('score'));
         const tier = urlParams.get('tier');
-        const companyName = urlParams.get('company') || 'Su Empresa';
+        const companyName = urlParams.get('company') || 'Empresa no verificada' || 'Su Empresa';
         
         // Configurar Sello según Score
         let sealName, sealClass, sealIcon;
