@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mokl6iw3",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-04-29",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
       "id": "post-moj5qrnp",
       "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
       "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
@@ -11,7 +43,7 @@
       "date": "2026-04-28",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -778,8 +810,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-28T21:48:10.501Z",
-    "totalPosts": 27,
+    "lastUpdated": "2026-04-29T21:48:06.052Z",
+    "totalPosts": 28,
     "categories": [
       "Noticias",
       "Guías",
@@ -788,6 +820,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-28T21:48:10.501Z"
+    "lastGeneration": "2026-04-29T21:48:06.052Z"
   }
 }
