@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-moovi3w1",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-05-02",
+      "readTime": "10 min",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
       "id": "post-mong27ty",
       "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
       "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
@@ -11,7 +43,7 @@
       "date": "2026-05-01",
       "readTime": "6 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -866,8 +898,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-01T21:48:05.543Z",
-    "totalPosts": 30,
+    "lastUpdated": "2026-05-02T21:48:07.346Z",
+    "totalPosts": 31,
     "categories": [
       "Noticias",
       "Guías",
@@ -876,6 +908,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-01T21:48:05.543Z"
+    "lastGeneration": "2026-05-02T21:48:07.346Z"
   }
 }
