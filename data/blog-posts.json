@@ -1,6 +1,238 @@
 {
   "posts": [
     {
+      "id": "post-mong27ty",
+      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
+      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
+      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
+      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
+      "category": "Análisis",
+      "author": "María Elena Vargas",
+      "date": "2026-05-01",
+      "readTime": "6 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Tecnología",
+        "Innovación",
+        "Due Diligence"
+      ]
+    },
+    {
+      "id": "post-mom0mcrs",
+      "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
+      "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
+      "excerpt": "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
+      "content": "Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:\n\n## VERIFICACIÓN LEGAL\n1. ✓ RUC activo y vigente en SUNAT - Verifique condición \"ACTIVO\" en portal SUNAT\n2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)\n3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados\n4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal\n\n## VERIFICACIÓN FINANCIERA  \n5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados\n6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo\n7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes\n\n## VERIFICACIÓN CONTRACTUAL\n8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE\n9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono\n10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación\n\n## DOCUMENTACIÓN DE RESPALDO\nMantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.\n\n⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.",
+      "category": "Guías",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-30",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "RUC",
+        "Verificación",
+        "Tutorial"
+      ]
+    },
+    {
+      "id": "post-mokl6iw3",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-04-29",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
+      "id": "post-moj5qrnp",
+      "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
+      "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
+      "excerpt": "El OSCE actualizó sus reglamentos de contrataciones públicas. Conozca los cambios clave que afectan a proveedores y contratistas del Estado.",
+      "content": "El Organismo Supervisor de las Contrataciones del Estado ha implementado modificaciones significativas a su normativa durante 2026. Estos cambios impactan directamente a empresas que participan o desean participar en procesos de selección del Estado.\n\nPRINCIPALES CAMBIOS NORMATIVOS:\n\n1. PLAZOS DE INHABILITACIÓN EXTENDIDOS\nAnterior: 6 meses a 3 años\nNuevo: 8 meses a 5 años para infracciones graves\nImpacto: Sanciones más severas por documentación falsa\n\n2. OBLIGATORIEDAD DE DECLARACIÓN DE SUBCONTRATISTAS\nAhora debe declarar TODOS los subcontratistas antes del inicio de obra\nVerificación de inhabilitaciones aplica también a subcontratistas\nResponsabilidad solidaria del contratista principal\n\n3. NUEVOS REQUISITOS DE EXPERIENCIA\nExperiencia mínima aumentada para contratos mayores a 500 UIT\nMayor rigor en verificación de certificados de experiencia\nObligatoriedad de referencias verificables\n\n4. SISTEMA DE ALERTAS TEMPRANAS\nNuevo módulo de alertas por incumplimiento de plazos\nNotificaciones automáticas a entidades supervisores\nMayor transparencia en el seguimiento de contratos\n\nOBLIGACIONES ADICIONALES PARA EMPRESAS:\n\n✓ Capacitación anual obligatoria en contrataciones públicas\n✓ Designación de un responsable de compliance contractual\n✓ Implementación de sistema de gestión documental\n✓ Auditorías internas semestrales obligatorias\n\nSANCIONES AUMENTADAS:\n\nMultas por omisión de información: Hasta 100 UIT\nInhabilitación por falsa declaración: Mínimo 2 años\nSanciones a administradores solidarios: Posible responsabilidad penal\n\nRECOMENDACIONES DE IMPLEMENTACIÓN:\n\n1. Capacite a todo el equipo involucrado en contrataciones\n2. Actualice sus sistemas de gestión documental\n3. Implemente verificación sistemática de contrapartes\n4. Establezca proceso de revisión legal antes de presentar ofertas\n5. Considere contratar asesoría especializada en compliance\n\nEl incumplimiento de estas nuevas normativas puede resultar en sanciones severas que afecten la viabilidad de su empresa como proveedor del Estado.",
+      "category": "Compliance",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-04-28",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Compliance",
+        "Normativa",
+        "Legal"
+      ]
+    },
+    {
+      "id": "post-mohqaswf",
+      "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
+      "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
+      "excerpt": "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
+      "content": "Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.\n\nCOSTOS DIRECTOS DE OMITIR VERIFICACIÓN:\n\n• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa\n• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M\n• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas\n• Litigios comerciales: S/ 85K promedio por caso\n• Pérdida de clientes por mala reputación: Incalculable\n\nCOSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):\n\n• Tiempo del equipo legal en problemas evitables: 420 horas/año\n• Oportunidad de negocio perdida por estar en litigios\n• Daño reputacional en el mercado\n• Pérdida de licitaciones públicas por sanciones\n• Desgaste organizacional y rotación de personal clave\n\nINVERSIÓN EN DUE DILIGENCE VS RETORNO:\n\nCosto promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte\nAhorro promedio evitando un solo fraude: S/ 500,000+\nROI de due diligence sistemático: 10,000%+\n\nCASOS REALES ANALIZADOS:\n\nCaso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.\n\nCaso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.\n\nCONCLUSIÓN: La pregunta no es \"¿Podemos permitirnos hacer due diligence?\" sino \"¿Podemos permitirnos NO hacerlo?\"",
+      "category": "Análisis",
+      "author": "Equipo de Data Intelligence",
+      "date": "2026-04-27",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
+      "id": "post-modfzaxa",
+      "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
+      "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
+      "excerpt": "Nuestro análisis de datos revela que el sector construcción concentra el 40% de las sanciones OSCE, seguido por servicios y tecnología.",
+      "content": "Un análisis exhaustivo de las sanciones emitidas por el OSCE durante el primer trimestre del año revela patrones preocupantes en sectores específicos de la economía peruana.\n\n## Distribución por Sector\n• Construcción: 42% de sanciones totales\n• Servicios generales: 23%\n• Tecnología y software: 15%\n• Consultorías: 12%\n• Otros sectores: 8%\n\n## Causales Principales\n1. Documentación técnica deficiente (35%)\n2. Incumplimiento de especificaciones técnicas (28%)\n3. Retrasos en ejecución de obra (20%)\n4. Problemas de calidad (17%)\n\n## Implicaciones\nLas empresas contratistas en el sector construcción enfrentan mayor escrutinio por la naturaleza crítica de las obras públicas. Sin embargo, esto también representa oportunidades para empresas con prácticas合规 sólidas de destacar en un mercado competitivo.\n\nEl análisis sugiere que un programa robusto de gestión de calidad y documentación puede reducir significativamente el riesgo de sanciones.",
+      "category": "Análisis",
+      "author": "Equipo de Data Intelligence",
+      "date": "2026-04-24",
+      "readTime": "5 min",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Tecnología",
+        "Innovación",
+        "Due Diligence"
+      ]
+    },
+    {
+      "id": "post-moc0jdx6",
+      "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
+      "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
+      "excerpt": "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
+      "content": "El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.\n\n¿QUÉ ES EL CERTIFICADO?\n\nEste documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.\n\nSECCIÓN 1: DATOS DE IDENTIFICACIÓN\n\nVerifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.\n\nSECCIÓN 2: INDICADORES FINANCIEROS CLAVE\n\nLIQUIDEZ (Capacidad de pago a corto plazo)\n• Razón corriente: Debe ser mayor a 1.0\n• Prueba ácida: Idealmente mayor a 0.8\n• Valores menores indican riesgo de impago\n\nSOLVENCIA (Relación entre activos y pasivos)\n• Endeudamiento total: Menor a 60% es saludable\n• Mayor endeudamiento = mayor riesgo de insolvencia\n\nRENTABILIDAD (Capacidad de generar utilidades)\n• ROE mayor a 10% es considerado bueno\n• ROA mayor a 5% indica eficiencia\n\nSECCIÓN 3: SEÑALES DE ALERTA\n\n🔴 ROJO (Alto riesgo):\n• Déficits operativos prolongados\n• Razón corriente menor a 0.5\n• Endeudamiento superior al 80%\n• Patrimonio negativo\n\n🟡 AMARILLO (Precaución):\n• Liquidez decreciente año tras año\n• Aumento significativo del endeudamiento\n\nSECCIÓN 4: VERIFICACIÓN CRUZADA\n\nCompare la información con:\n• Estados financieros en SUNAT\n• Registro Nacional de Proveedores\n• Datos de registros públicos\n\nRED FLAGS DE FRAUDE:\n• Fechas inconsistentes\n• Montos que no coinciden\n• Falta de sello digital\n• Representante legal diferente\n\nUn análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.",
+      "category": "Guías",
+      "author": "Carlos Mendoza",
+      "date": "2026-04-23",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1523240795612-5a781f03b96c?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Guía",
+        "Tutorial",
+        "Compliance"
+      ]
+    },
+    {
+      "id": "post-moal3k50",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 29 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-29-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 29 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-04-22",
+      "readTime": "14 min",
+      "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
+      "featured": false,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "TCE",
+        "Resoluciones",
+        "Legal"
+      ]
+    },
+    {
       "id": "post-mo95no8u",
       "title": "Programa de Compliance Contractual: Guía de Implementación",
       "slug": "programa-de-compliance-contractual-gua-de-implementacin",
@@ -11,7 +243,7 @@
       "date": "2026-04-21",
       "readTime": "14 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -634,8 +866,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-04-21T21:48:04.350Z",
-    "totalPosts": 22,
+    "lastUpdated": "2026-05-01T21:48:05.543Z",
+    "totalPosts": 30,
     "categories": [
       "Noticias",
       "Guías",
@@ -644,6 +876,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-04-21T21:48:04.350Z"
+    "lastGeneration": "2026-05-01T21:48:05.543Z"
   }
 }
