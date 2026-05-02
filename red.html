@@ -314,6 +314,7 @@
         <div class="error-msg" id="errorMsg"></div>
     </div>
 
+    <script>
         const API_BASE = 'https://conflict-zero-api.onrender.com/api/v3';
         const token = localStorage.getItem('cz_token');
         const userData = JSON.parse(localStorage.getItem('cz_user') || '{}');
@@ -427,7 +428,7 @@
                         const ruc = inv.ruc || inv.ruc_invitado;
                         if (!ruc) continue;
                         
-                        const invScoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v1/consulta-completa/${ruc}`);
+                        const invScoreResponse = await fetch(`https://conflict-zero-api.onrender.com/api/v3/consulta-completa/${ruc}`);
                         let invScore = 50;
                         let invNombre = inv.nombre || inv.email || `RUC ${ruc}`;
                         

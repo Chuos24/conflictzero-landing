@@ -256,43 +256,7 @@
             }
         }
     </style>
-<script>
-// Añadir al <head> de register.html
-function submitRegister(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = 'Enviando...';
-  const firstName = document.getElementById('firstName').value;
-  const lastName = document.getElementById('lastName').value;
-  const plan = document.getElementById('plan').value;
-  const data = {
-    firstName: firstName,
-    lastName: lastName,
-    email: document.getElementById('email').value,
-    password: document.getElementById('password').value,
-    company: document.getElementById('company').value,
-    plan: plan,
-    ruc: document.getElementById('ruc').value,
-    phone: document.getElementById('phone') ? document.getElementById('phone').value : ''
-  };
-  fetch('https://conflict-zero-api.onrender.com/api/v3/auth/register-web', {
-    method: 'POST', headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(data)
-  }).then(r => r.json()).then(j => {
-    if (j.success) {
-      alert('Registro exitoso. Verifique su email.');
-      window.location.href = '/login.html';
-    } else {
-      alert('Error: ' + (j.detail || JSON.stringify(j)));
-      btn.disabled = false; btn.textContent = 'Enviar Solicitud';
-    }
-  }).catch(err => {
-    alert('Error de red: ' + err);
-    btn.disabled = false; btn.textContent = 'Enviar Solicitud';
-  });
-}
 
-</script>
 </head>
 <body>
     <header class="header">
@@ -317,7 +281,7 @@ function submitRegister(e) {
             
             <div class="message" id="message"></div>
             
-            <form id="registerForm" onsubmit="submitRegister(event);">
+            <form id="registerForm" onsubmit="handleRegister(event);">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre</label>
@@ -361,9 +325,9 @@ function submitRegister(e) {
                     <label>Plan</label>
                     <select id="plan" required>
                         <option value="">Seleccionar...</option>
-                        <option value="essential">Starter - $400/mes</option>
-                        <option value="professional">Professional - $800/mes</option>
-                        <option value="enterprise">Enterprise - $2,500/mes</option>
+                        <option value="starter">Starter - S/ 400/año</option>
+                        <option value="professional">Professional - S/ 800/año</option>
+                        <option value="enterprise">Enterprise - S/ 2,500/año</option>
                     </select>
                 </div>
                 
@@ -430,10 +394,21 @@ function submitRegister(e) {
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const company = document.getElementById('company').value;
-            const plan = document.getElementById('plan').value;
+            const ruc = document.getElementById('ruc').value;
+            const planRaw = document.getElementById('plan').value;
             const phone = document.getElementById('phone').value;
-            
+
+            // Mapear plan para backend (starter -> essential)
+            const planBackendMap = {
+                'starter': 'essential',
+                'essential': 'essential',
+                'professional': 'professional',
+                'enterprise': 'enterprise'
+            };
+            const plan = planBackendMap[planRaw] || planRaw;
+
             // Mapear plan para display
             const planDisplayNames = {
                 'starter': 'Bronze',
@@ -444,16 +419,18 @@ function submitRegister(e) {
                 'enterprise': 'Gold',
                 'gold': 'Gold'
             };
-            
-            const displayPlan = planDisplayNames[plan] || plan;
-            
+
+            const displayPlan = planDisplayNames[planRaw] || planRaw;
+
             // Datos para API - Formato FrontendRegisterRequest (backend)
             const data = {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
+                password: password,
                 company: company,
                 plan: plan,
+                ruc: ruc,
                 phone: phone,
                 date: new Date().toISOString()
             };
