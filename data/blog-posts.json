@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-moyvl0ur",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-05-09",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "TCE",
+          "url": "https://www.tce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-moxg57vb",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +43,7 @@
       "date": "2026-05-08",
       "readTime": "14 min",
       "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1070,8 +1102,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-08T21:48:07.319Z",
-    "totalPosts": 37,
+    "lastUpdated": "2026-05-09T21:48:05.139Z",
+    "totalPosts": 38,
     "categories": [
       "Noticias",
       "Guías",
@@ -1080,6 +1112,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-08T21:48:07.319Z"
+    "lastGeneration": "2026-05-09T21:48:05.139Z"
   }
 }
