@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mpivr99y",
+      "title": "Alerta: Detectan 23 Empresas Fantasma Operando en Licitaciones Públicas",
+      "slug": "alerta-detectan-23-empresas-fantasma-operando-en-licitacione",
+      "excerpt": "La SUNAT y OSCE advierten sobre empresas inexistentes que han intentado participar en procesos de contratación estatal con documentación fraudulenta.",
+      "content": "Las entidades de control han identificado 23 empresas que operan como \"empresas fantasma\" intentando participar en licitaciones públicas con documentación fraudulenta y domicilios falsos.\n\n¿QUÉ ES UNA EMPRESA FANTASMA?\n\nEs una empresa que existe legalmente en registros SUNAT pero que en la práctica:\n• No tiene operaciones reales\n• Usa domicilio fiscal falso o inexistente\n• No tiene trabajadores ni infraestructura\n• Se crea únicamente para participar en licitaciones y desaparecer\n\nMODUS OPERANDI DETECTADO:\n\n1. REGISTRO SUNAT LEGAL PERO FRAUDULENTO\nUtilizan información de personas reales (a veces sin su conocimiento) como representantes legales. El RUC es válido pero la empresa no existe físicamente.\n\n2. DOCUMENTACIÓN DE EXPERIENCIA FALSA\nPresentan certificados de obras que nunca ejecutaron, firmados por funcionarios públicos corruptos o completamente falsificados.\n\n3. OFERTAS POR DEBAJO DEL COSTO\nPara ganar licitaciones, ofrecen precios irreales (50-70% bajo mercado) sabiendo que nunca cumplirán el contrato.\n\n4. DESAPARICIÓN POST-CONTRATO\nUna vez recibido el primer pago, desaparecen dejando obras inconclusas o bienes no entregados.\n\nSEÑALES DE ALERTA PARA DETECTARLAS:\n\n⚠️ Domicilio fiscal es un departamento residencial o centro comercial\n⚠️ No tienen página web ni presencia digital profesional\n⚠️ El representante legal aparece en múltiples empresas similares\n⚠️ No tienen referencias comerciales verificables\n⚠️ Ofrecen precios sospechosamente bajos\n⚠️ Presionan para firmar rápidamente sin dar garantías\n\nCÓMO PROTEGERSE:\n\n✓ Visite físicamente las oficinas de la empresa antes de contratar\n✓ Verifique que tengan personal e infraestructura real\n✓ Busque referencias de al menos 3 clientes anteriores\n✓ Confirme la identidad del representante legal con DNI vigente\n✓ Verifique que las obras de su portafolio existen realmente\n\nSi detecta una empresa sospechosa, denuncie inmediatamente al OSCE y SUNAT para proteger a otros contratistas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-05-23",
+      "readTime": "14 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "TCE",
+        "Resoluciones",
+        "Legal"
+      ]
+    },
+    {
       "id": "post-mphgb96x",
       "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
       "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
@@ -11,7 +43,7 @@
       "date": "2026-05-22",
       "readTime": "6 min",
       "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1390,8 +1422,8 @@
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-22T21:48:12.490Z",
-    "totalPosts": 48,
+    "lastUpdated": "2026-05-23T21:48:19.512Z",
+    "totalPosts": 49,
     "categories": [
       "Noticias",
       "Guías",
@@ -1400,6 +1432,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-22T21:48:12.490Z"
+    "lastGeneration": "2026-05-23T21:48:19.512Z"
   }
 }
