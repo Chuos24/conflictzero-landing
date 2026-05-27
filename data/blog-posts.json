@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mpoljtpu",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 14 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-14-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 14 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-05-27",
+      "readTime": "11 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-mpn62pb2",
       "title": "Programa de Compliance Contractual: Guía de Implementación",
       "slug": "programa-de-compliance-contractual-gua-de-implementacin",
@@ -11,7 +43,7 @@
       "date": "2026-05-26",
       "readTime": "8 min",
       "image": "https://images.unsplash.com/photo-1591110363188-24db63f5a0c7?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Datos",
         "Tendencias"
       ]
-    },
-    {
-      "id": "post-001",
-      "title": "OSCE Sanciona a 15 Empresas por Falta de Documentación",
-      "slug": "osce-sanciona-15-empresas-documentacion",
-      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado impuso sanciones graves a 15 proveedores por presentar documentación falsa en procesos de selección.",
-      "content": "El OSCE ha publicado la última lista de sancionados correspondiente a la primera quincena de marzo 2026. Entre los casos destacados se encuentran empresas del sector construcción que presentaron certificados de experiencia falsificados...",
-      "category": "Noticias",
-      "author": "Equipo Editorial CZ",
-      "date": "2026-03-22",
-      "readTime": "5 min",
-      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        }
-      ],
-      "tags": [
-        "OSCE",
-        "Sanciones",
-        "Compliance"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-26T21:48:14.367Z",
+    "lastUpdated": "2026-05-27T21:49:13.651Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-26T21:48:14.367Z"
+    "lastGeneration": "2026-05-27T21:49:13.652Z"
   }
 }
