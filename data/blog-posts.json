@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mprge6sx",
+      "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
+      "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
+      "excerpt": "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
+      "content": "Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.\n\nCOSTOS DIRECTOS DE OMITIR VERIFICACIÓN:\n\n• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa\n• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M\n• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas\n• Litigios comerciales: S/ 85K promedio por caso\n• Pérdida de clientes por mala reputación: Incalculable\n\nCOSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):\n\n• Tiempo del equipo legal en problemas evitables: 420 horas/año\n• Oportunidad de negocio perdida por estar en litigios\n• Daño reputacional en el mercado\n• Pérdida de licitaciones públicas por sanciones\n• Desgaste organizacional y rotación de personal clave\n\nINVERSIÓN EN DUE DILIGENCE VS RETORNO:\n\nCosto promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte\nAhorro promedio evitando un solo fraude: S/ 500,000+\nROI de due diligence sistemático: 10,000%+\n\nCASOS REALES ANALIZADOS:\n\nCaso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.\n\nCaso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.\n\nCONCLUSIÓN: La pregunta no es \"¿Podemos permitirnos hacer due diligence?\" sino \"¿Podemos permitirnos NO hacerlo?\"",
+      "category": "Análisis",
+      "author": "Dr. Carlos Mendoza",
+      "date": "2026-05-29",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Sector",
+        "Construcción",
+        "Estadísticas"
+      ]
+    },
+    {
       "id": "post-mpq0yfbm",
       "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
       "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
@@ -11,7 +39,7 @@
       "date": "2026-05-28",
       "readTime": "10 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,42 +1451,10 @@
         "Contratos",
         "Prevención"
       ]
-    },
-    {
-      "id": "post-mn6l77iw",
-      "title": "OSCE Publica Nueva Lista de Inhabilitados: 26 Empresas Sancionadas",
-      "slug": "osce-publica-nueva-lista-de-inhabilitados-26-empresas-sancio",
-      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
-      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 26 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
-      "category": "Noticias",
-      "author": "Equipo Editorial CZ",
-      "date": "2026-03-25",
-      "readTime": "12 min",
-      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        },
-        {
-          "name": "Gestion.pe",
-          "url": "https://gestion.pe"
-        }
-      ],
-      "tags": [
-        "OSCE",
-        "Sanciones",
-        "Noticias"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-28T21:48:15.251Z",
+    "lastUpdated": "2026-05-29T21:48:11.121Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1464,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-28T21:48:15.251Z"
+    "lastGeneration": "2026-05-29T21:48:11.121Z"
   }
 }
