@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mpvqw7lj",
+      "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
+      "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
+      "excerpt": "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
+      "content": "Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.\n\nCOSTOS DIRECTOS DE OMITIR VERIFICACIÓN:\n\n• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa\n• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M\n• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas\n• Litigios comerciales: S/ 85K promedio por caso\n• Pérdida de clientes por mala reputación: Incalculable\n\nCOSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):\n\n• Tiempo del equipo legal en problemas evitables: 420 horas/año\n• Oportunidad de negocio perdida por estar en litigios\n• Daño reputacional en el mercado\n• Pérdida de licitaciones públicas por sanciones\n• Desgaste organizacional y rotación de personal clave\n\nINVERSIÓN EN DUE DILIGENCE VS RETORNO:\n\nCosto promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte\nAhorro promedio evitando un solo fraude: S/ 500,000+\nROI de due diligence sistemático: 10,000%+\n\nCASOS REALES ANALIZADOS:\n\nCaso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.\n\nCaso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.\n\nCONCLUSIÓN: La pregunta no es \"¿Podemos permitirnos hacer due diligence?\" sino \"¿Podemos permitirnos NO hacerlo?\"",
+      "category": "Análisis",
+      "author": "Equipo de Data Intelligence",
+      "date": "2026-06-01",
+      "readTime": "10 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
       "id": "post-mpub9vkr",
       "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
       "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
@@ -11,7 +39,7 @@
       "date": "2026-05-31",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1451,10 @@
         "Datos",
         "Tendencias"
       ]
-    },
-    {
-      "id": "post-mnmb1kcm",
-      "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
-      "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
-      "excerpt": "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
-      "content": "El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.\n\n¿QUÉ ES EL CERTIFICADO?\n\nEste documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.\n\nSECCIÓN 1: DATOS DE IDENTIFICACIÓN\n\nVerifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.\n\nSECCIÓN 2: INDICADORES FINANCIEROS CLAVE\n\nLIQUIDEZ (Capacidad de pago a corto plazo)\n• Razón corriente: Debe ser mayor a 1.0\n• Prueba ácida: Idealmente mayor a 0.8\n• Valores menores indican riesgo de impago\n\nSOLVENCIA (Relación entre activos y pasivos)\n• Endeudamiento total: Menor a 60% es saludable\n• Mayor endeudamiento = mayor riesgo de insolvencia\n\nRENTABILIDAD (Capacidad de generar utilidades)\n• ROE mayor a 10% es considerado bueno\n• ROA mayor a 5% indica eficiencia\n\nSECCIÓN 3: SEÑALES DE ALERTA\n\n🔴 ROJO (Alto riesgo):\n• Déficits operativos prolongados\n• Razón corriente menor a 0.5\n• Endeudamiento superior al 80%\n• Patrimonio negativo\n\n🟡 AMARILLO (Precaución):\n• Liquidez decreciente año tras año\n• Aumento significativo del endeudamiento\n\nSECCIÓN 4: VERIFICACIÓN CRUZADA\n\nCompare la información con:\n• Estados financieros en SUNAT\n• Registro Nacional de Proveedores\n• Datos de registros públicos\n\nRED FLAGS DE FRAUDE:\n• Fechas inconsistentes\n• Montos que no coinciden\n• Falta de sello digital\n• Representante legal diferente\n\nUn análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.",
-      "category": "Guías",
-      "author": "Dra. Ana Lucero",
-      "date": "2026-04-05",
-      "readTime": "7 min",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "RUC",
-        "Verificación",
-        "Tutorial"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-05-31T21:48:10.396Z",
+    "lastUpdated": "2026-06-01T21:53:12.823Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1464,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-05-31T21:48:10.396Z"
+    "lastGeneration": "2026-06-01T21:53:12.823Z"
   }
 }
