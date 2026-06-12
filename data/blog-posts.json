@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mqbgko2p",
+      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
+      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
+      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
+      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
+      "category": "Análisis",
+      "author": "María Elena Vargas",
+      "date": "2026-06-12",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Tecnología",
+        "Innovación",
+        "Due Diligence"
+      ]
+    },
+    {
       "id": "post-mqa14q3x",
       "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
       "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
@@ -11,7 +39,7 @@
       "date": "2026-06-11",
       "readTime": "11 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,42 +1451,10 @@
         "Contratos",
         "Prevención"
       ]
-    },
-    {
-      "id": "post-mo4vcaeh",
-      "title": "SUNAT Detecta 10 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
-      "slug": "sunat-detecta-10-empresas-con-deuda-tributaria-superior-a-s-",
-      "excerpt": "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos. El monto total supera los 500 millones de soles.",
-      "content": "SUNAT ha actualizado su lista de deudores de grandes montos, incorporando 10 nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes que pueden representar riesgo para sus contrapartes comerciales.\n\nANÁLISIS DE LA DEUDA TRIBUTARIA:\n\nLa deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan directamente la recaudación fiscal del país. Los principales tributos pendientes incluyen:\n\n• Impuesto a la Renta (IR) de períodos anteriores\n• IGV no declarado o retenido\n• Remuneraciones y contribuciones de trabajadores\n• Multas y recargos por infracciones tributarias\n\nMECANISMOS DE COBRANZA DE SUNAT:\n\nLa SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos, incluyendo:\n\n1. Embargos sobre cuentas bancarias y bienes muebles\n2. Retenciones de terceros (suspensión de pagos de contratistas del Estado)\n3. Inscripción de deudas en registros públicos\n4. Denuncias penales por delitos tributarios en casos graves\n\nRIESGOS PARA CONTRAPARTES COMERCIALES:\n\nPara las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de:\n\n• Problemas de liquidez severos\n• Mala gestión administrativa\n• Posible disolución o quiebra inminente\n• Riesgo de embargos que afecten activos transaccionales\n\nSe recomienda exigir certificados de no adeudo tributario antes de transacciones comerciales significativas.",
-      "category": "Noticias",
-      "author": "Redacción Conflict Zero",
-      "date": "2026-04-18",
-      "readTime": "5 min",
-      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        },
-        {
-          "name": "Gestion.pe",
-          "url": "https://gestion.pe"
-        }
-      ],
-      "tags": [
-        "SUNAT",
-        "Deudas",
-        "Fiscal"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-11T21:48:32.686Z",
+    "lastUpdated": "2026-06-12T21:48:36.961Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1464,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-11T21:48:32.686Z"
+    "lastGeneration": "2026-06-12T21:48:36.961Z"
   }
 }
