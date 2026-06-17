@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mqilrcxq",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-06-17",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "TCE",
+          "url": "https://www.tce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-mqh6bjvf",
       "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
       "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
@@ -11,7 +43,7 @@
       "date": "2026-06-16",
       "readTime": "13 min",
       "image": "https://images.unsplash.com/photo-1591110363188-24db63f5a0c7?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Innovación",
         "Due Diligence"
       ]
-    },
-    {
-      "id": "post-moc0jdx6",
-      "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
-      "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
-      "excerpt": "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
-      "content": "El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.\n\n¿QUÉ ES EL CERTIFICADO?\n\nEste documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.\n\nSECCIÓN 1: DATOS DE IDENTIFICACIÓN\n\nVerifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.\n\nSECCIÓN 2: INDICADORES FINANCIEROS CLAVE\n\nLIQUIDEZ (Capacidad de pago a corto plazo)\n• Razón corriente: Debe ser mayor a 1.0\n• Prueba ácida: Idealmente mayor a 0.8\n• Valores menores indican riesgo de impago\n\nSOLVENCIA (Relación entre activos y pasivos)\n• Endeudamiento total: Menor a 60% es saludable\n• Mayor endeudamiento = mayor riesgo de insolvencia\n\nRENTABILIDAD (Capacidad de generar utilidades)\n• ROE mayor a 10% es considerado bueno\n• ROA mayor a 5% indica eficiencia\n\nSECCIÓN 3: SEÑALES DE ALERTA\n\n🔴 ROJO (Alto riesgo):\n• Déficits operativos prolongados\n• Razón corriente menor a 0.5\n• Endeudamiento superior al 80%\n• Patrimonio negativo\n\n🟡 AMARILLO (Precaución):\n• Liquidez decreciente año tras año\n• Aumento significativo del endeudamiento\n\nSECCIÓN 4: VERIFICACIÓN CRUZADA\n\nCompare la información con:\n• Estados financieros en SUNAT\n• Registro Nacional de Proveedores\n• Datos de registros públicos\n\nRED FLAGS DE FRAUDE:\n• Fechas inconsistentes\n• Montos que no coinciden\n• Falta de sello digital\n• Representante legal diferente\n\nUn análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.",
-      "category": "Guías",
-      "author": "Carlos Mendoza",
-      "date": "2026-04-23",
-      "readTime": "9 min",
-      "image": "https://images.unsplash.com/photo-1523240795612-5a781f03b96c?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Guía",
-        "Tutorial",
-        "Compliance"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-16T21:48:12.507Z",
+    "lastUpdated": "2026-06-17T21:48:10.430Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-16T21:48:12.507Z"
+    "lastGeneration": "2026-06-17T21:48:10.430Z"
   }
 }
