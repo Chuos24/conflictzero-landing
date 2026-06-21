@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mqobit2u",
+      "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
+      "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
+      "excerpt": "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
+      "content": "Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:\n\n## VERIFICACIÓN LEGAL\n1. ✓ RUC activo y vigente en SUNAT - Verifique condición \"ACTIVO\" en portal SUNAT\n2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)\n3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados\n4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal\n\n## VERIFICACIÓN FINANCIERA  \n5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados\n6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo\n7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes\n\n## VERIFICACIÓN CONTRACTUAL\n8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE\n9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono\n10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación\n\n## DOCUMENTACIÓN DE RESPALDO\nMantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.\n\n⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.",
+      "category": "Guías",
+      "author": "Dra. Ana Lucero",
+      "date": "2026-06-21",
+      "readTime": "12 min",
+      "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "RUC",
+        "Verificación",
+        "Tutorial"
+      ]
+    },
+    {
       "id": "post-mqloc5tr",
       "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
       "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
@@ -11,7 +39,7 @@
       "date": "2026-06-20",
       "readTime": "10 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1427,38 +1455,10 @@
         "Normativa",
         "Legal"
       ]
-    },
-    {
-      "id": "post-mohqaswf",
-      "title": "Análisis Comparativo: Costos de No Hacer Due Diligence en 2026",
-      "slug": "anlisis-comparativo-costos-de-no-hacer-due-diligence-en-2026",
-      "excerpt": "Empresas que omiten verificación de contrapartes pierden en promedio S/ 2.3 millones anuales por fraudes, sanciones y contratos incumplidos.",
-      "content": "Un estudio comparativo realizado entre empresas que realizan due diligence sistemática versus las que no, revela diferencias abismales en resultados financieros y operativos durante 2026.\n\nCOSTOS DIRECTOS DE OMITIR VERIFICACIÓN:\n\n• Fraudes de contrapartes: S/ 2.3 millones promedio por empresa\n• Sanciones OSCE/TCE por contratar inhabilitados: S/ 150K - S/ 2M\n• Contratos incumplidos: 35% de operaciones con contrapartes no verificadas\n• Litigios comerciales: S/ 85K promedio por caso\n• Pérdida de clientes por mala reputación: Incalculable\n\nCOSTOS INDIRECTOS (FRECUENTEMENTE IGNORADOS):\n\n• Tiempo del equipo legal en problemas evitables: 420 horas/año\n• Oportunidad de negocio perdida por estar en litigios\n• Daño reputacional en el mercado\n• Pérdida de licitaciones públicas por sanciones\n• Desgaste organizacional y rotación de personal clave\n\nINVERSIÓN EN DUE DILIGENCE VS RETORNO:\n\nCosto promedio de verificación profesional: S/ 500 - S/ 3,000 por contraparte\nAhorro promedio evitando un solo fraude: S/ 500,000+\nROI de due diligence sistemático: 10,000%+\n\nCASOS REALES ANALIZADOS:\n\nCaso A: Empresa constructora omitió verificar subcontratista. Resultado: Subcontratista era una empresa fantasma. Pérdida: S/ 4.2 millones en adelantos no recuperables.\n\nCaso B: Consultora verificó a todos sus socios estratégicos. Detectó 2 empresas con deudas ocultas antes de firmar. Ahorro estimado: S/ 1.8 millones en riesgos evitados.\n\nCONCLUSIÓN: La pregunta no es \"¿Podemos permitirnos hacer due diligence?\" sino \"¿Podemos permitirnos NO hacerlo?\"",
-      "category": "Análisis",
-      "author": "Equipo de Data Intelligence",
-      "date": "2026-04-27",
-      "readTime": "7 min",
-      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Análisis",
-        "Datos",
-        "Tendencias"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-20T01:23:38.752Z",
+    "lastUpdated": "2026-06-21T21:48:12.343Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-20T01:23:38.752Z"
+    "lastGeneration": "2026-06-21T21:48:12.343Z"
   }
 }
