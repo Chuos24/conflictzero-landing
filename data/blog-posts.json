@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mqpqynjq",
+      "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
+      "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
+      "excerpt": "Nuestro análisis de datos revela que el sector construcción concentra el 40% de las sanciones OSCE, seguido por servicios y tecnología.",
+      "content": "Un análisis exhaustivo de las sanciones emitidas por el OSCE durante el primer trimestre del año revela patrones preocupantes en sectores específicos de la economía peruana.\n\n## Distribución por Sector\n• Construcción: 42% de sanciones totales\n• Servicios generales: 23%\n• Tecnología y software: 15%\n• Consultorías: 12%\n• Otros sectores: 8%\n\n## Causales Principales\n1. Documentación técnica deficiente (35%)\n2. Incumplimiento de especificaciones técnicas (28%)\n3. Retrasos en ejecución de obra (20%)\n4. Problemas de calidad (17%)\n\n## Implicaciones\nLas empresas contratistas en el sector construcción enfrentan mayor escrutinio por la naturaleza crítica de las obras públicas. Sin embargo, esto también representa oportunidades para empresas con prácticas合规 sólidas de destacar en un mercado competitivo.\n\nEl análisis sugiere que un programa robusto de gestión de calidad y documentación puede reducir significativamente el riesgo de sanciones.",
+      "category": "Análisis",
+      "author": "María Elena Vargas",
+      "date": "2026-06-22",
+      "readTime": "10 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Sector",
+        "Construcción",
+        "Estadísticas"
+      ]
+    },
+    {
       "id": "post-mqobit2u",
       "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
       "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
@@ -11,7 +39,7 @@
       "date": "2026-06-21",
       "readTime": "12 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1427,38 +1455,10 @@
         "Sanciones",
         "Noticias"
       ]
-    },
-    {
-      "id": "post-moj5qrnp",
-      "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
-      "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
-      "excerpt": "El OSCE actualizó sus reglamentos de contrataciones públicas. Conozca los cambios clave que afectan a proveedores y contratistas del Estado.",
-      "content": "El Organismo Supervisor de las Contrataciones del Estado ha implementado modificaciones significativas a su normativa durante 2026. Estos cambios impactan directamente a empresas que participan o desean participar en procesos de selección del Estado.\n\nPRINCIPALES CAMBIOS NORMATIVOS:\n\n1. PLAZOS DE INHABILITACIÓN EXTENDIDOS\nAnterior: 6 meses a 3 años\nNuevo: 8 meses a 5 años para infracciones graves\nImpacto: Sanciones más severas por documentación falsa\n\n2. OBLIGATORIEDAD DE DECLARACIÓN DE SUBCONTRATISTAS\nAhora debe declarar TODOS los subcontratistas antes del inicio de obra\nVerificación de inhabilitaciones aplica también a subcontratistas\nResponsabilidad solidaria del contratista principal\n\n3. NUEVOS REQUISITOS DE EXPERIENCIA\nExperiencia mínima aumentada para contratos mayores a 500 UIT\nMayor rigor en verificación de certificados de experiencia\nObligatoriedad de referencias verificables\n\n4. SISTEMA DE ALERTAS TEMPRANAS\nNuevo módulo de alertas por incumplimiento de plazos\nNotificaciones automáticas a entidades supervisores\nMayor transparencia en el seguimiento de contratos\n\nOBLIGACIONES ADICIONALES PARA EMPRESAS:\n\n✓ Capacitación anual obligatoria en contrataciones públicas\n✓ Designación de un responsable de compliance contractual\n✓ Implementación de sistema de gestión documental\n✓ Auditorías internas semestrales obligatorias\n\nSANCIONES AUMENTADAS:\n\nMultas por omisión de información: Hasta 100 UIT\nInhabilitación por falsa declaración: Mínimo 2 años\nSanciones a administradores solidarios: Posible responsabilidad penal\n\nRECOMENDACIONES DE IMPLEMENTACIÓN:\n\n1. Capacite a todo el equipo involucrado en contrataciones\n2. Actualice sus sistemas de gestión documental\n3. Implemente verificación sistemática de contrapartes\n4. Establezca proceso de revisión legal antes de presentar ofertas\n5. Considere contratar asesoría especializada en compliance\n\nEl incumplimiento de estas nuevas normativas puede resultar en sanciones severas que afecten la viabilidad de su empresa como proveedor del Estado.",
-      "category": "Compliance",
-      "author": "Dra. Ana Lucero",
-      "date": "2026-04-28",
-      "readTime": "9 min",
-      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Compliance",
-        "Normativa",
-        "Legal"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-21T21:48:12.343Z",
+    "lastUpdated": "2026-06-22T21:48:12.088Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-21T21:48:12.343Z"
+    "lastGeneration": "2026-06-22T21:48:12.088Z"
   }
 }
