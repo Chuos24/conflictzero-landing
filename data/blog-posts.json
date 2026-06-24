@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mqsludwv",
+      "title": "SUNAT Detecta 31 Empresas con Deuda Tributaria Superior a S/ 1 Millón",
+      "slug": "sunat-detecta-31-empresas-con-deuda-tributaria-superior-a-s-",
+      "excerpt": "La Superintendencia Nacional de Aduanas y de Administración Tributaria reporta nuevas empresas incluidas en la lista de deudores de grandes montos. El monto total supera los 500 millones de soles.",
+      "content": "SUNAT ha actualizado su lista de deudores de grandes montos, incorporando 31 nuevas empresas con deudas tributarias que superan el millón de soles. Esta lista es de consulta pública y permite identificar contribuyentes con obligaciones pendientes que pueden representar riesgo para sus contrapartes comerciales.\n\nANÁLISIS DE LA DEUDA TRIBUTARIA:\n\nLa deuda tributaria acumulada por estas empresas asciende a montos significativos que impactan directamente la recaudación fiscal del país. Los principales tributos pendientes incluyen:\n\n• Impuesto a la Renta (IR) de períodos anteriores\n• IGV no declarado o retenido\n• Remuneraciones y contribuciones de trabajadores\n• Multas y recargos por infracciones tributarias\n\nMECANISMOS DE COBRANZA DE SUNAT:\n\nLa SUNAT mantiene activos diversos mecanismos de cobranza coactiva para recuperar estos montos, incluyendo:\n\n1. Embargos sobre cuentas bancarias y bienes muebles\n2. Retenciones de terceros (suspensión de pagos de contratistas del Estado)\n3. Inscripción de deudas en registros públicos\n4. Denuncias penales por delitos tributarios en casos graves\n\nRIESGOS PARA CONTRAPARTES COMERCIALES:\n\nPara las empresas que realizan due diligence, es fundamental verificar el estado tributario de sus contrapartes, ya que una deuda significativa puede ser indicador de:\n\n• Problemas de liquidez severos\n• Mala gestión administrativa\n• Posible disolución o quiebra inminente\n• Riesgo de embargos que afecten activos transaccionales\n\nSe recomienda exigir certificados de no adeudo tributario antes de transacciones comerciales significativas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-06-24",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "TCE",
+          "url": "https://www.tce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "TCE",
+        "Resoluciones",
+        "Legal"
+      ]
+    },
+    {
       "id": "post-mqr6egme",
       "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
       "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
@@ -11,7 +43,7 @@
       "date": "2026-06-23",
       "readTime": "13 min",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Innovación",
         "Due Diligence"
       ]
-    },
-    {
-      "id": "post-mom0mcrs",
-      "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
-      "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
-      "excerpt": "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
-      "content": "Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:\n\n## VERIFICACIÓN LEGAL\n1. ✓ RUC activo y vigente en SUNAT - Verifique condición \"ACTIVO\" en portal SUNAT\n2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)\n3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados\n4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal\n\n## VERIFICACIÓN FINANCIERA  \n5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados\n6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo\n7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes\n\n## VERIFICACIÓN CONTRACTUAL\n8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE\n9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono\n10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación\n\n## DOCUMENTACIÓN DE RESPALDO\nMantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.\n\n⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.",
-      "category": "Guías",
-      "author": "Dra. Ana Lucero",
-      "date": "2026-04-30",
-      "readTime": "7 min",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "RUC",
-        "Verificación",
-        "Tutorial"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-23T21:48:10.022Z",
+    "lastUpdated": "2026-06-24T21:48:13.423Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-23T21:48:10.022Z"
+    "lastGeneration": "2026-06-24T21:48:13.423Z"
   }
 }
