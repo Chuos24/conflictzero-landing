@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mqww5yrg",
+      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
+      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
+      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
+      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
+      "category": "Noticias",
+      "author": "Redacción Conflict Zero",
+      "date": "2026-06-27",
+      "readTime": "7 min",
+      "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
       "id": "post-mqvgq1iu",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +43,7 @@
       "date": "2026-06-26",
       "readTime": "11 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Construcción",
         "Estadísticas"
       ]
-    },
-    {
-      "id": "post-moqaxx2a",
-      "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
-      "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
-      "excerpt": "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
-      "content": "Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:\n\n## VERIFICACIÓN LEGAL\n1. ✓ RUC activo y vigente en SUNAT - Verifique condición \"ACTIVO\" en portal SUNAT\n2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)\n3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados\n4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal\n\n## VERIFICACIÓN FINANCIERA  \n5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados\n6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo\n7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes\n\n## VERIFICACIÓN CONTRACTUAL\n8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE\n9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono\n10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación\n\n## DOCUMENTACIÓN DE RESPALDO\nMantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.\n\n⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.",
-      "category": "Guías",
-      "author": "María Elena Vargas",
-      "date": "2026-05-03",
-      "readTime": "5 min",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Checklist",
-        "Contratos",
-        "Prevención"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-26T21:48:11.191Z",
+    "lastUpdated": "2026-06-27T21:48:14.525Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-26T21:48:11.191Z"
+    "lastGeneration": "2026-06-27T21:48:14.525Z"
   }
 }
