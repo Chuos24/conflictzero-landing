@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mqybls4h",
+      "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
+      "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
+      "excerpt": "Aprenda a leer y comprender los certificados que acreditan la situación financiera de una empresa ante el Estado peruano.",
+      "content": "El certificado de buena salud financiera es un documento esencial para empresas que participan en contrataciones públicas. En esta guía completa explicamos cada sección del documento y qué revela sobre la salud financiera de una empresa.\n\n¿QUÉ ES EL CERTIFICADO?\n\nEste documento, emitido por entidades supervisadas por la SBS, acredita que una empresa mantiene una situación financiera saludable según parámetros establecidos. Es requisito obligatorio para participar en licitaciones públicas.\n\nSECCIÓN 1: DATOS DE IDENTIFICACIÓN\n\nVerifique que los datos de RUC y razón social coincidan exactamente con los de su contraparte. Cualquier discrepancia, aunque sea mínima, debe ser investigada inmediatamente.\n\nSECCIÓN 2: INDICADORES FINANCIEROS CLAVE\n\nLIQUIDEZ (Capacidad de pago a corto plazo)\n• Razón corriente: Debe ser mayor a 1.0\n• Prueba ácida: Idealmente mayor a 0.8\n• Valores menores indican riesgo de impago\n\nSOLVENCIA (Relación entre activos y pasivos)\n• Endeudamiento total: Menor a 60% es saludable\n• Mayor endeudamiento = mayor riesgo de insolvencia\n\nRENTABILIDAD (Capacidad de generar utilidades)\n• ROE mayor a 10% es considerado bueno\n• ROA mayor a 5% indica eficiencia\n\nSECCIÓN 3: SEÑALES DE ALERTA\n\n🔴 ROJO (Alto riesgo):\n• Déficits operativos prolongados\n• Razón corriente menor a 0.5\n• Endeudamiento superior al 80%\n• Patrimonio negativo\n\n🟡 AMARILLO (Precaución):\n• Liquidez decreciente año tras año\n• Aumento significativo del endeudamiento\n\nSECCIÓN 4: VERIFICACIÓN CRUZADA\n\nCompare la información con:\n• Estados financieros en SUNAT\n• Registro Nacional de Proveedores\n• Datos de registros públicos\n\nRED FLAGS DE FRAUDE:\n• Fechas inconsistentes\n• Montos que no coinciden\n• Falta de sello digital\n• Representante legal diferente\n\nUn análisis integral requiere combinar esta información con otras fuentes de riesgo contractual.",
+      "category": "Guías",
+      "author": "Carlos Mendoza",
+      "date": "2026-06-28",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Checklist",
+        "Contratos",
+        "Prevención"
+      ]
+    },
+    {
       "id": "post-mqww5yrg",
       "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
       "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
@@ -11,7 +39,7 @@
       "date": "2026-06-27",
       "readTime": "7 min",
       "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1427,38 +1455,10 @@
         "Regulación",
         "Prevención"
       ]
-    },
-    {
-      "id": "post-morqdrmo",
-      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
-      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
-      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
-      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
-      "category": "Análisis",
-      "author": "Dr. Carlos Mendoza",
-      "date": "2026-05-04",
-      "readTime": "8 min",
-      "image": "https://images.unsplash.com/photo-1543286386-713df548e9cc?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Sector",
-        "Construcción",
-        "Estadísticas"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-06-27T21:48:14.525Z",
+    "lastUpdated": "2026-06-28T21:48:12.834Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-06-27T21:48:14.525Z"
+    "lastGeneration": "2026-06-28T21:48:12.834Z"
   }
 }
