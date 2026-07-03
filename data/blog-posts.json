@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "id": "post-mr5gt1i7",
+      "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
+      "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
+      "excerpt": "Las empresas peruanas están adoptando tecnología para verificación de contrapartes 3x más rápido que el promedio latinoamericano.",
+      "content": "El mercado peruano de soluciones de due diligence está experimentando un crecimiento acelerado impulsado por regulaciones más estrictas y mayor conciencia de riesgo.\n\n## Indicadores Clave\n• 150% aumento en búsquedas de verificación RUC\n• 85% de empresas grandes ahora verifican sistemáticamente\n• 60% reducción promedio en tiempo de verificación con herramientas digitales\n\n## Factores Impulsores\n1. Regulación de compliance más estricta\n2. Casos mediáticos de fraude empresarial\n3. Digitalización de registros públicos\n4. Globalización de cadenas de suministro\n\n## El Futuro\nSe espera que para 2027 el 90% de las empresas medianas y grandes cuenten con procesos formales de due diligence. Las soluciones basadas en IA para scoring de riesgo están ganando rápida adopción.\n\nLas empresas que adopten temprano estas prácticas obtendrán ventajas competitivas significativas en un mercado cada vez más exigente.",
+      "category": "Análisis",
+      "author": "Dr. Carlos Mendoza",
+      "date": "2026-07-03",
+      "readTime": "9 min",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        }
+      ],
+      "tags": [
+        "Análisis",
+        "Datos",
+        "Tendencias"
+      ]
+    },
+    {
       "id": "post-mr41db4g",
       "title": "Guía Definitiva: Cómo Interpretar un Certificado de Buena Salud Financiera",
       "slug": "gua-definitiva-cmo-interpretar-un-certificado-de-buena-salud",
@@ -11,7 +39,7 @@
       "date": "2026-07-02",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a9b?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,42 +1451,10 @@
         "Verificación",
         "Tutorial"
       ]
-    },
-    {
-      "id": "post-moyvl0ur",
-      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
-      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
-      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
-      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
-      "category": "Noticias",
-      "author": "Redacción Conflict Zero",
-      "date": "2026-05-09",
-      "readTime": "9 min",
-      "image": "https://images.unsplash.com/photo-1504711434969-7a6f8d07f29d?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "TCE",
-          "url": "https://www.tce.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        },
-        {
-          "name": "Gestion.pe",
-          "url": "https://gestion.pe"
-        }
-      ],
-      "tags": [
-        "SUNAT",
-        "Deudas",
-        "Fiscal"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-07-02T21:48:18.449Z",
+    "lastUpdated": "2026-07-03T21:48:12.895Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1464,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-07-02T21:48:18.449Z"
+    "lastGeneration": "2026-07-03T21:48:12.895Z"
   }
 }
