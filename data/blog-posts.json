@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mrcm0hdm",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 26 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-26-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 26 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-07-08",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "OSCE",
+        "Sanciones",
+        "Noticias"
+      ]
+    },
+    {
       "id": "post-mrb6kfj2",
       "title": "Nueva Normativa OSCE 2026: Lo Que Debe Saber su Empresa",
       "slug": "nueva-normativa-osce-2026-lo-que-debe-saber-su-empresa",
@@ -11,7 +43,7 @@
       "date": "2026-07-07",
       "readTime": "10 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Tutorial",
         "Compliance"
       ]
-    },
-    {
-      "id": "post-mp60sg9r",
-      "title": "Cómo Verificar si una Empresa Está Inhabilitada por el OSCE",
-      "slug": "cmo-verificar-si-una-empresa-est-inhabilitada-por-el-osce",
-      "excerpt": "Guía paso a paso para consultar el Registro de Inhabilitados del OSCE y evitar contratar empresas sancionadas por el Estado.",
-      "content": "Contratar una empresa inhabilitada por el OSCE puede resultar en sanciones severas para su empresa, incluyendo multas e inhabilitación para futuras contrataciones. Esta guía le muestra cómo verificar el estado de cualquier empresa en minutos.\n\nMÉTODO 1: CONSULTA DIRECTA EN PORTAL OSCE\n\nPaso 1: Acceda al portal\n• Vaya a www.osce.gob.pe\n• Seleccione \"Consultas Públicas\"\n• Elija \"Registro de Inhabilitados\"\n\nPaso 2: Ingrese los datos de búsqueda\n• Puede buscar por RUC (11 dígitos) o nombre de empresa\n• El sistema acepta búsquedas parciales\n• Use comillas para búsquedas exactas\n\nPaso 3: Interprete los resultados\n• Si NO aparece: La empresa no está inhabilitada actualmente\n• Si APARECE: Verifique los detalles de la sanción\n  - Fecha de inicio y fin de inhabilitación\n  - Causal de sanción\n  - Entidad que impuso la sanción\n  - Alcance (nacional o por entidad)\n\nMÉTODO 2: CONSULTA MEDIANTE RNP (REGISTRO NACIONAL DE PROVEEDORES)\n\nPaso 1: Acceda al RNP\n• Vaya al portal de consulta del RNP\n• Seleccione \"Consulta de Proveedores\"\n\nPaso 2: Ingrese RUC\n• El sistema mostrará estado de habilitación\n• Si está inhabilitada, aparecerá alerta roja\n• Puede descargar constancia de estado\n\n¿QUÉ SIGNIFICAN LOS TIPOS DE SANCIÓN?\n\n🔴 INHABILITACIÓN DEFINITIVA\n• No puede participar en contrataciones públicas\n• Plazo: Generalmente 2-5 años\n• Aplica a nivel nacional\n\n🟡 AMONESTACIÓN ESCRITA\n• Advertencia formal\n• Queda registrada en su historial\n• Puede afectar puntuación en futuras licitaciones\n\n🟠 MULTA\n• Sanción económica\n• Debe pagarse antes de participar nuevamente\n• Monto variable según gravedad\n\nCASOS ESPECIALES A CONSIDERAR:\n\n✓ SUBCONTRATISTAS INHABILITADOS\nAunque usted contrate a una empresa habilitada, si sus subcontratistas están inhabilitados, también puede ser sancionado. Exija declaración jurada de subcontratistas.\n\n✓ INHABILITACIÓN POR ENTIDAD\nAlgunas sanciones solo aplican para contratar con ciertas entidades públicas específicas. Verifique el alcance de la sanción.\n\n✓ SUSPENSIÓN TEMPORAL\nEn proceso de investigación, una empresa puede estar suspendida provisionalmente. Esto no aparece en inhabilitados pero sí en consultas de RNP.\n\nDOCUMENTACIÓN DE RESPALDO:\n\nGuarde SIEMPRE:\n• Captura de pantalla de la consulta (con fecha visible)\n• Constancia de no inhabilitación (PDF si está disponible)\n• Fecha y hora de la verificación\n• Quién realizó la consulta\n\nFRECUENCIA RECOMENDADA DE VERIFICACIÓN:\n\n• Antes de firmar cualquier contrato: OBLIGATORIO\n• Durante vigencia de contrato: Mensual\n• Para socios estratégicos: Trimestral\n• Para subcontratistas: Semanal (pueden inhabilitarse rápido)\n\nCONSECUENCIAS DE CONTRATAR INHABILITADOS:\n\nPara su empresa:\n• Sanción económica (hasta 150 UIT)\n• Inhabilitación temporal como contratista\n• Pérdida de contratos vigentes\n• Daño reputacional\n\nPara el funcionario responsable:\n• Sanciones administrativas\n• Responsabilidad penal en casos graves\n• Destitución del cargo\n\nSIGA ESTA REGLA DE ORO: Si tiene dudas, NO CONTRATE. Una verificación de 5 minutos puede ahorrarle años de problemas legales.",
-      "category": "Guías",
-      "author": "Dra. Ana Lucero",
-      "date": "2026-05-14",
-      "readTime": "6 min",
-      "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Checklist",
-        "Contratos",
-        "Prevención"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-07-07T21:48:12.063Z",
+    "lastUpdated": "2026-07-08T21:48:21.370Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-07-07T21:48:12.063Z"
+    "lastGeneration": "2026-07-08T21:48:21.370Z"
   }
 }
