@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mrgwbvwp",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 13 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-13-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 13 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-07-11",
+      "readTime": "13 min",
+      "image": "https://images.unsplash.com/photo-1555848962-6def393fe644?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "SUNAT",
+          "url": "https://www.sunat.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "TCE",
+        "Resoluciones",
+        "Legal"
+      ]
+    },
+    {
       "id": "post-mrfgvxjp",
       "title": "Análisis del Sector: Construcción Lidera Ranking de Sanciones en 2026",
       "slug": "anlisis-del-sector-construccin-lidera-ranking-de-sanciones-e",
@@ -11,7 +43,7 @@
       "date": "2026-07-10",
       "readTime": "11 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,42 +1455,10 @@
         "Tutorial",
         "Compliance"
       ]
-    },
-    {
-      "id": "post-mpelfnl6",
-      "title": "TCE Emite Nuevas Resoluciones de Sanción en Procesos de Selección",
-      "slug": "tce-emite-nuevas-resoluciones-de-sancin-en-procesos-de-selec",
-      "excerpt": "El Tribunal de Contrataciones del Estado publicó resoluciones sancionatorias contra empresas que incumplieron normas en licitaciones públicas recientes.",
-      "content": "El Tribunal de Contrataciones del Estado (TCE) ha emitido nuevas resoluciones sancionatorias correspondientes a procesos de selección realizados en el último trimestre. Estas sanciones resultan de la revisión de reclamos y observaciones presentados por participantes.\n\nLas sanciones impuestas incluyen:\n• Amonestaciones escritas\n• Multas pecuniarias\n• Inhabilitaciones temporales\n• Suspensión de participación\n\nEl TCE continúa fortaleciendo su labor de fiscalización para garantizar la transparencia y legalidad en los procesos de contratación pública a nivel nacional.",
-      "category": "Noticias",
-      "author": "Equipo Editorial CZ",
-      "date": "2026-05-20",
-      "readTime": "11 min",
-      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        },
-        {
-          "name": "Gestion.pe",
-          "url": "https://gestion.pe"
-        }
-      ],
-      "tags": [
-        "SUNAT",
-        "Deudas",
-        "Fiscal"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-07-10T21:48:09.494Z",
+    "lastUpdated": "2026-07-11T21:48:14.281Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-07-10T21:48:09.494Z"
+    "lastGeneration": "2026-07-11T21:48:14.281Z"
   }
 }
