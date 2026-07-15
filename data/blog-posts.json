@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mrmm3b0x",
+      "title": "OSCE Publica Nueva Lista de Inhabilitados: 39 Empresas Sancionadas",
+      "slug": "osce-publica-nueva-lista-de-inhabilitados-39-empresas-sancio",
+      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
+      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 39 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-07-15",
+      "readTime": "8 min",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-mrl6ne5x",
       "title": "Programa de Compliance Contractual: Guía de Implementación",
       "slug": "programa-de-compliance-contractual-gua-de-implementacin",
@@ -11,7 +43,7 @@
       "date": "2026-07-14",
       "readTime": "9 min",
       "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,38 +1455,10 @@
         "Construcción",
         "Estadísticas"
       ]
-    },
-    {
-      "id": "post-mpkb71dc",
-      "title": "Checklist: 10 Verificaciones Obligatorias Antes de Firmar un Contrato",
-      "slug": "checklist-10-verificaciones-obligatorias-antes-de-firmar-un-",
-      "excerpt": "No firme ningún contrato sin completar esta lista de verificación esencial que puede salvar su empresa de fraudes millonarios.",
-      "content": "Antes de comprometerse contractualmente con cualquier empresa, complete rigurosamente estas 10 verificaciones esenciales que pueden salvar su empresa de fraudes millonarios:\n\n## VERIFICACIÓN LEGAL\n1. ✓ RUC activo y vigente en SUNAT - Verifique condición \"ACTIVO\" en portal SUNAT\n2. ✓ Representante legal con poder vigente - Solicite copia actualizada (menor a 3 meses)\n3. ✓ No encontrarse en lista de inhabilitados OSCE - Consulte registro público de inhabilitados\n4. ✓ Licencias y permisos al día según rubro - Valide licencia de funcionamiento municipal\n\n## VERIFICACIÓN FINANCIERA  \n5. ✓ Estados financieros de los últimos 2 años - Solicite documentos auditados\n6. ✓ Ausencia de deudas significativas con SUNAT - Exija certificado de no adeudo\n7. ✓ No reportes negativos en SBS - Consulte buró de crédito para empresas grandes\n\n## VERIFICACIÓN CONTRACTUAL\n8. ✓ Historial de contratos públicos sin sanciones - Busque en OSCE y TCE\n9. ✓ Referencias comerciales verificables - Pida 3 referencias y verifique por teléfono\n10. ✓ Patrimonio acorde al volumen de operaciones - Compare patrimonio vs facturación\n\n## DOCUMENTACIÓN DE RESPALDO\nMantenga registro de TODAS las verificaciones: capturas de pantalla con fecha, PDFs de certificados, emails de confirmación. Esta documentación puede ser vital en caso de contingencias legales, reclamaciones de seguros o auditorías internas.\n\n⚠️ El 73% de fraudes empresariales podrían haberse evitado con estas verificaciones básicas.",
-      "category": "Guías",
-      "author": "Carlos Mendoza",
-      "date": "2026-05-24",
-      "readTime": "14 min",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "OSCE",
-          "url": "https://www.osce.gob.pe"
-        },
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        }
-      ],
-      "tags": [
-        "Guía",
-        "Tutorial",
-        "Compliance"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-07-14T21:48:12.021Z",
+    "lastUpdated": "2026-07-15T21:48:14.865Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1464,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-07-14T21:48:12.021Z"
+    "lastGeneration": "2026-07-15T21:48:14.865Z"
   }
 }
