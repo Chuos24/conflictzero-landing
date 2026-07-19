@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "post-mrraz6kv",
+      "title": "Alerta: Detectan 17 Empresas Fantasma Operando en Licitaciones Públicas",
+      "slug": "alerta-detectan-17-empresas-fantasma-operando-en-licitacione",
+      "excerpt": "La SUNAT y OSCE advierten sobre empresas inexistentes que han intentado participar en procesos de contratación estatal con documentación fraudulenta.",
+      "content": "Las entidades de control han identificado 17 empresas que operan como \"empresas fantasma\" intentando participar en licitaciones públicas con documentación fraudulenta y domicilios falsos.\n\n¿QUÉ ES UNA EMPRESA FANTASMA?\n\nEs una empresa que existe legalmente en registros SUNAT pero que en la práctica:\n• No tiene operaciones reales\n• Usa domicilio fiscal falso o inexistente\n• No tiene trabajadores ni infraestructura\n• Se crea únicamente para participar en licitaciones y desaparecer\n\nMODUS OPERANDI DETECTADO:\n\n1. REGISTRO SUNAT LEGAL PERO FRAUDULENTO\nUtilizan información de personas reales (a veces sin su conocimiento) como representantes legales. El RUC es válido pero la empresa no existe físicamente.\n\n2. DOCUMENTACIÓN DE EXPERIENCIA FALSA\nPresentan certificados de obras que nunca ejecutaron, firmados por funcionarios públicos corruptos o completamente falsificados.\n\n3. OFERTAS POR DEBAJO DEL COSTO\nPara ganar licitaciones, ofrecen precios irreales (50-70% bajo mercado) sabiendo que nunca cumplirán el contrato.\n\n4. DESAPARICIÓN POST-CONTRATO\nUna vez recibido el primer pago, desaparecen dejando obras inconclusas o bienes no entregados.\n\nSEÑALES DE ALERTA PARA DETECTARLAS:\n\n⚠️ Domicilio fiscal es un departamento residencial o centro comercial\n⚠️ No tienen página web ni presencia digital profesional\n⚠️ El representante legal aparece en múltiples empresas similares\n⚠️ No tienen referencias comerciales verificables\n⚠️ Ofrecen precios sospechosamente bajos\n⚠️ Presionan para firmar rápidamente sin dar garantías\n\nCÓMO PROTEGERSE:\n\n✓ Visite físicamente las oficinas de la empresa antes de contratar\n✓ Verifique que tengan personal e infraestructura real\n✓ Busque referencias de al menos 3 clientes anteriores\n✓ Confirme la identidad del representante legal con DNI vigente\n✓ Verifique que las obras de su portafolio existen realmente\n\nSi detecta una empresa sospechosa, denuncie inmediatamente al OSCE y SUNAT para proteger a otros contratistas.",
+      "category": "Noticias",
+      "author": "Equipo Editorial CZ",
+      "date": "2026-07-19",
+      "readTime": "11 min",
+      "image": "https://images.unsplash.com/photo-1589216539232-7fe2e5856326?w=800&q=80",
+      "featured": true,
+      "sources": [
+        {
+          "name": "OSCE",
+          "url": "https://www.osce.gob.pe"
+        },
+        {
+          "name": "El Comercio",
+          "url": "https://elcomercio.pe"
+        },
+        {
+          "name": "Gestion.pe",
+          "url": "https://gestion.pe"
+        }
+      ],
+      "tags": [
+        "SUNAT",
+        "Deudas",
+        "Fiscal"
+      ]
+    },
+    {
       "id": "post-mrpgyvz3",
       "title": "Tendencias 2026: El Auge de la Due Diligence Digital en el Perú",
       "slug": "tendencias-2026-el-auge-de-la-due-diligence-digital-en-el-pe",
@@ -11,7 +43,7 @@
       "date": "2026-07-17",
       "readTime": "10 min",
       "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      "featured": true,
+      "featured": false,
       "sources": [
         {
           "name": "OSCE",
@@ -1423,42 +1455,10 @@
         "Tutorial",
         "Compliance"
       ]
-    },
-    {
-      "id": "post-mpoljtpu",
-      "title": "OSCE Publica Nueva Lista de Inhabilitados: 14 Empresas Sancionadas",
-      "slug": "osce-publica-nueva-lista-de-inhabilitados-14-empresas-sancio",
-      "excerpt": "El Organismo Supervisor de las Contrataciones del Estado actualizó su registro de sancionados. Entre las empresas inhabilitadas se encuentran contratistas de obras públicas, proveedores de bienes y servicios de consultoría.",
-      "content": "El OSCE ha publicado la actualización correspondiente al período actual del Registro de Inhabilitados. La lista incluye 14 empresas que han sido sancionadas por diversas infracciones al Decreto Legislativo N° 1252 y su reglamento.\n\nLAS SANCIONES MÁS COMUNES DETECTADAS:\n\n• Presentación de documentación falsa o adulterada (certificados de experiencia, declaraciones juradas)\n• Incumplimiento de obligaciones laborales (no pago de remuneraciones, falta de afiliación al SNP)\n• Inhabilitaciones vigentes por sanciones previas no declaradas\n• Omisión de información requerida en el proceso de selección\n• Conflictos de interés no declarados entre funcionarios y contratistas\n\nIMPACTO DE LAS SANCIONES:\n\nLas empresas sancionadas no podrán participar en procesos de selección del Estado por el plazo establecido en cada resolución. Las inhabilitaciones varían entre 6 meses y 5 años, dependiendo de la gravedad de la infracción cometida y la reincidencia del infractor.\n\nDurante el período de inhabilitación, estas empresas tampoco pueden ser subcontratistas de contratistas principales en obras públicas. Esta restricción afecta significativamente sus posibilidades de generar ingresos en el sector público.\n\nRECOMENDACIONES PARA EMPRESAS CONTRATISTAS:\n\n1. Verifique periódicamente si sus contrapartes aparecen en el registro de inhabilitados antes de firmar contratos\n2. Mantenga documentación actualizada y verificable en todos los procesos de selección\n3. Capacite a su personal en normativas de contrataciones públicas\n4. Establezca un sistema de control interno para prevenir infracciones\n\nEsta actualización refuerza la importancia de realizar una debida diligencia exhaustiva antes de establecer relaciones comerciales con contrapartes que participan o desean participar en contrataciones públicas.",
-      "category": "Noticias",
-      "author": "Redacción Conflict Zero",
-      "date": "2026-05-27",
-      "readTime": "11 min",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-      "featured": false,
-      "sources": [
-        {
-          "name": "SUNAT",
-          "url": "https://www.sunat.gob.pe"
-        },
-        {
-          "name": "El Comercio",
-          "url": "https://elcomercio.pe"
-        },
-        {
-          "name": "Gestion.pe",
-          "url": "https://gestion.pe"
-        }
-      ],
-      "tags": [
-        "SUNAT",
-        "Deudas",
-        "Fiscal"
-      ]
     }
   ],
   "config": {
-    "lastUpdated": "2026-07-17T21:48:09.183Z",
+    "lastUpdated": "2026-07-19T04:35:57.583Z",
     "totalPosts": 50,
     "categories": [
       "Noticias",
@@ -1468,6 +1468,6 @@
       "Tecnología"
     ],
     "autoGenerate": true,
-    "lastGeneration": "2026-07-17T21:48:09.183Z"
+    "lastGeneration": "2026-07-19T04:35:57.583Z"
   }
 }
